@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import * as authService from '../database/FirebaseConfiguration';
 
 export default function Login() {
 
@@ -7,13 +8,21 @@ export default function Login() {
   const [email, setEmail] = useState("");
 
   const login = () => {
-    console.log({ email, password })
-
     if(!email || !password) {
       return Alert.alert('Usuário ou senha inválida!')
     }
 
-    Alert.alert('Login efetuado com sucesso')
+    authService.register(email, password)
+      .then(response => {
+        console.log({response});
+        Alert.alert('Login efetuado com sucesso!')
+      })
+      .catch(erro => {
+        console.log({erro});
+        setPassword("")
+        Alert.alert('Erro no login do usuário!');
+      })
+    
   }
 
   return (

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import * as authService from '../../service/AuthService';
 
 export default function RegisterUser() {
 
@@ -10,8 +11,6 @@ export default function RegisterUser() {
   const [error, setError] = useState("");
 
   const createUser = () => {
-    console.log({ email, password, confirmPassword })
-
     if(!email || !password || !confirmPassword) {
       return Alert.alert('Dados inválidos, verifique-os e tente novamente!')
     }
@@ -20,7 +19,14 @@ export default function RegisterUser() {
       return Alert.alert('As senhas não conferem!')
     }
 
-    Alert.alert('Usuário Cadastrado com Sucesso')
+    authService.register(email, password)
+      .then(response => {
+        Alert.alert('Usuário Cadastrado com Sucesso');
+      })
+      .catch(error => {
+        setError(error)
+        Alert.alert('Erro ao cadastrar usuário');
+      })
   }
 
   return (
