@@ -30,12 +30,14 @@ export default function Login() {
 
       <Text
         style={styles.centerTitle}
-        >LOGIN
+        >Bem-vindo de volta!
       </Text>
+
+      <Text>Faça seu login para começar</Text>
       
       <TextInput
           style={styles.inputButton}
-          placeholder="Digite seu e-mail"
+          placeholder="Email"
           value={email}
           textContentType='emailAddress'
           onChangeText={email => setEmail(email)}
@@ -43,7 +45,7 @@ export default function Login() {
 
       <TextInput
           style={styles.inputButton}
-          placeholder="Digite sua senha"
+          placeholder="Senha"
           value={password}
           secureTextEntry={true}
           onChangeText={password => setPassword(password)}
@@ -51,8 +53,10 @@ export default function Login() {
 
       <Button
           onPress={login}
-          title="Login"
+          title="Entrar"
         />
+
+    <Text>Esqueceu sua senha?</Text>
       
     </View>
   );

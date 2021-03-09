@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
 import * as authService from '../../service/AuthService';
 
-export default function RegisterUser() {
+export default function RegisterCompany() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

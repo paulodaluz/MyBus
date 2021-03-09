@@ -1,9 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, Text } from 'react-native';
 
-export default function RegisterUser({ navigation, route }) {
+export default function InitialPage({ navigation, route }) {
   return (
     <View>
+        <Text>MyBus</Text>
+
+        <Text>Para continuar faça seu Login ou Cadastre-se</Text>
 
       <View>
         <Button
@@ -15,7 +18,14 @@ export default function RegisterUser({ navigation, route }) {
       <View>
         <Button
           onPress={() => navigation.navigate('RegisterUser')}
-          title="Cadastrar"
+          title="Cadastrar Usuário"
+        />
+      </View>
+
+      <View>
+        <Button
+          onPress={() => navigation.navigate('RegisterCompany')}
+          title="Cadastrar Empresa"
         />
       </View>
       
