@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
 import * as authService from '../database/FirebaseConfiguration';
 
-export default function Login() {
+export default function Login({ navigation, route }) {
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -14,11 +14,9 @@ export default function Login() {
 
     authService.register(email, password)
       .then(response => {
-        console.log({response});
         Alert.alert('Login efetuado com sucesso!')
       })
       .catch(erro => {
-        console.log({erro});
         setPassword("")
         Alert.alert('Erro no login do usuário!');
       })
@@ -40,7 +38,7 @@ export default function Login() {
           placeholder="Email"
           value={email}
           textContentType='emailAddress'
-          onChangeText={email => setEmail(email)}
+          onChangeText={text => setEmail(text)}
         />
 
       <TextInput
@@ -48,7 +46,7 @@ export default function Login() {
           placeholder="Senha"
           value={password}
           secureTextEntry={true}
-          onChangeText={password => setPassword(password)}
+          onChangeText={text => setPassword(text)}
         />
 
       <Button

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 
 export default function Map({ navigation, route }) {
@@ -11,8 +11,6 @@ export default function Map({ navigation, route }) {
         </View>
     );
 }
-
-
 
 const styles = StyleSheet.create({
 });

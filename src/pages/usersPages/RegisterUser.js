@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
-import * as authService from '../../service/AuthService';
+import { createUserBackend } from '../../backend/Users/User'
 
-export default function RegisterUser() {
+export default function RegisterUser({ navigation, route }) {
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("Paulo Ricardo da Luz Júnior");
+  const [email, setEmail] = useState("paulera.daluz@gmail.com");
+  const [password, setPassword] = useState("123456");
+  const [confirmPassword, setConfirmPassword] = useState("123456");
   
   const [error, setError] = useState("");
 
-  const createUser = () => {
+  const createUser = async () => {
     if(!email || !password || !confirmPassword) {
       return Alert.alert('Dados inválidos, verifique-os e tente novamente!')
     }
@@ -20,14 +20,9 @@ export default function RegisterUser() {
       return Alert.alert('As senhas não conferem!')
     }
 
-    authService.register(email, password)
-      .then(response => {
-        Alert.alert('Usuário Cadastrado com Sucesso');
-      })
-      .catch(error => {
-        setError(error)
-        Alert.alert('Erro ao cadastrar usuário');
-      })
+    const userCreated = await createUserBackend(email, password, name);
+
+    return Alert.alert(userCreated.response);
   }
 
   return (
@@ -47,7 +42,7 @@ export default function RegisterUser() {
           placeholder="Nome completo"
           textContentType='name'
           value={name}
-          onChangeText={name => setName(name)}
+          onChangeText={text => setName(text)}
         />
 
       <TextInput
@@ -55,7 +50,7 @@ export default function RegisterUser() {
           placeholder="Email"
           textContentType='emailAddress'
           value={email}
-          onChangeText={email => setEmail(email)}
+          onChangeText={text => setEmail(text)}
         />
 
       <TextInput
@@ -63,7 +58,7 @@ export default function RegisterUser() {
           placeholder="Senha"
           secureTextEntry={true}
           value={password}
-          onChangeText={password => setPassword(password)}
+          onChangeText={text => setPassword(text)}
         />
 
       <TextInput
@@ -71,7 +66,7 @@ export default function RegisterUser() {
           placeholder="Confirme sua senha"
           secureTextEntry={true}
           value={confirmPassword}
-          onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
+          onChangeText={text => setConfirmPassword(text)}
         />
 
       <Button

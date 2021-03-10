@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
 import * as authService from '../../service/AuthService';
 
-export default function RegisterCompany() {
+export default function RegisterCompany({ navigation, route }) {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -47,7 +47,7 @@ export default function RegisterCompany() {
           placeholder="Nome completo"
           textContentType='name'
           value={name}
-          onChangeText={name => setName(name)}
+          onChangeText={text => setName(text)}
         />
 
       <TextInput
@@ -55,7 +55,7 @@ export default function RegisterCompany() {
           placeholder="Email"
           textContentType='emailAddress'
           value={email}
-          onChangeText={email => setEmail(email)}
+          onChangeText={text => setEmail(text)}
         />
 
       <TextInput
@@ -63,7 +63,7 @@ export default function RegisterCompany() {
           placeholder="Senha"
           secureTextEntry={true}
           value={password}
-          onChangeText={password => setPassword(password)}
+          onChangeText={text => setPassword(text)}
         />
 
       <TextInput
@@ -71,7 +71,7 @@ export default function RegisterCompany() {
           placeholder="Confirme sua senha"
           secureTextEntry={true}
           value={confirmPassword}
-          onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
+          onChangeText={text => setConfirmPassword(text)}
         />
 
       <Button

@@ -9,12 +9,13 @@ export default function RegisterUser({ navigation, route }) {
 
         <Button onPress={() => navigation.navigate('Login')} title="Login" />
 
-        <Button onPress={() => navigation.navigate('RegisterUser')} title="RegisterCompany"/>
+        <Button onPress={() => navigation.navigate('RegisterUser')} title="RegisterUser"/>
 
         <Button onPress={() => navigation.navigate('RegisterCompany')} title="RegisterCompany"/>
         
         <Button onPress={() => navigation.navigate('Map')} title="Map"/>
       
+        <Button onPress={() => navigation.navigate('ChooseTypeOfVehicle')} title="ChooseTypeOfVehicle"/>
     </View>
   );
 }

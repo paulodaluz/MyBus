@@ -7,7 +7,7 @@ export const register = (email, password) => {
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .then(retorno => resolve(retorno))
-            .catch(erro => reject(console.log(erro)))
+            .catch(error => reject(error))
     })
 };
 
@@ -18,6 +18,6 @@ export const login = (email, password) => {
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then(retorno => resolve(retorno))
-            .catch(erro => reject(erro))
+            .catch(error => reject(error))
     })
 };
