@@ -47,7 +47,7 @@ export default function RegisterCompany({ navigation, route }) {
           placeholder="Nome completo"
           textContentType='name'
           value={name}
-          onChangeText={text => setName(text)}
+          onChangeText={name => setName(name)}
         />
 
       <TextInput
@@ -55,7 +55,7 @@ export default function RegisterCompany({ navigation, route }) {
           placeholder="Email"
           textContentType='emailAddress'
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={email => setEmail(email)}
         />
 
       <TextInput
@@ -63,7 +63,7 @@ export default function RegisterCompany({ navigation, route }) {
           placeholder="Senha"
           secureTextEntry={true}
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={password => setPassword(password)}
         />
 
       <TextInput
@@ -71,7 +71,7 @@ export default function RegisterCompany({ navigation, route }) {
           placeholder="Confirme sua senha"
           secureTextEntry={true}
           value={confirmPassword}
-          onChangeText={text => setConfirmPassword(text)}
+          onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
         />
 
       <Button

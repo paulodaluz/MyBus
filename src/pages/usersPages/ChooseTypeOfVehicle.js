@@ -1,8 +1,22 @@
 import React, { useState } from 'react';
-import { Text, View, Button, TextInput } from 'react-native';
+import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
+import { changeTypeOfVehicleToList } from '../../backend/Users/User';
 
 export default function ChooseTypeOfVehicle({ navigation, route }) {
     const [vehicleCode, setVehicleCode] = useState("");
+    const [typeOfVehicleToList, setTypeOfVehicleToList] = useState("");
+
+    const changeTypeOfVehicle = async() => {
+        const { user } = route.params;
+
+        if(typeOfVehicleToList === 'public')
+            await changeTypeOfVehicleToList(user, typeOfVehicleToList);
+            
+        if(typeOfVehicleToList === 'private')
+            await changeTypeOfVehicleToList(user, typeOfVehicleToList, vehicleCode);
+        
+        return navigation.navigate('ChooseTypeOfVehicle')
+    }
 
     return (
         <View>
@@ -10,29 +24,27 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
             <Text>Escolha o tipo de veículo que você deseja visualizar!</Text>
 
             <Button
-                onPress={console.log('Publico')}
+                onPress={() => setTypeOfVehicleToList('public')}
                 title="Publico"
             />
 
             <Button
-                onPress={console.log('Privado')}
+                onPress={() => setTypeOfVehicleToList('private')}
                 title="Privado"
             />
           
-            {/* Public Screem */}
             <View>
                 <Text>Veículos Públicos que estão a disposição a todos os cidadãos</Text>
             
             </View>
 
-            {/* Private Screem */}
             <View>
                 <Text>Veículos Privados, necessitam de um código de acesso</Text>
             
                 <TextInput
                     placeholder="Código de seu Veículo"
                     value={vehicleCode}
-                    onChangeText={text => setVehicleCode(text)}
+                    onChangeText={vehicleCode => setVehicleCode(vehicleCode)}
                 />
 
                 <Text>Escanear QR-CODE</Text>
@@ -40,12 +52,14 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
             
 
             <Button
-                onPress={console.log('Privado')}
+                onPress={changeTypeOfVehicle}
                 title="Continuar"
             />
 
             <Text>Esta opção pode ser alterada mais tarde nas <Text>Configurações</Text></Text>
         
         </View>
-      );
-    }
+    );
+}
+
+const styles = StyleSheet.create({})

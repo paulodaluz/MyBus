@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
-import * as authService from '../database/FirebaseConfiguration';
+import * as authService from '../service/AuthService';
+import { findUser } from '../service/UserService';
 
 export default function Login({ navigation, route }) {
 
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("paulera.daluz@gmail.com");
+  const [password, setPassword] = useState("123456");
 
-  const login = () => {
+  const login = async () => {
     if(!email || !password) {
       return Alert.alert('Usuário ou senha inválida!')
     }
 
-    authService.register(email, password)
+    authService.login(email, password)
       .then(response => {
         Alert.alert('Login efetuado com sucesso!')
       })
@@ -20,7 +21,7 @@ export default function Login({ navigation, route }) {
         setPassword("")
         Alert.alert('Erro no login do usuário!');
       })
-    
+
   }
 
   return (
@@ -38,7 +39,7 @@ export default function Login({ navigation, route }) {
           placeholder="Email"
           value={email}
           textContentType='emailAddress'
-          onChangeText={text => setEmail(text)}
+          onChangeText={email => setEmail(email)}
         />
 
       <TextInput
@@ -46,7 +47,7 @@ export default function Login({ navigation, route }) {
           placeholder="Senha"
           value={password}
           secureTextEntry={true}
-          onChangeText={text => setPassword(text)}
+          onChangeText={password => setPassword(password)}
         />
 
       <Button

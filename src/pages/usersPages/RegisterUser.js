@@ -21,8 +21,8 @@ export default function RegisterUser({ navigation, route }) {
     }
 
     const userCreated = await createUserBackend(email, password, name);
-
-    return Alert.alert(userCreated.response);
+    console.log({userCreated})
+    return navigation.navigate('ChooseTypeOfVehicle', { user: userCreated.response })
   }
 
   return (
@@ -42,7 +42,7 @@ export default function RegisterUser({ navigation, route }) {
           placeholder="Nome completo"
           textContentType='name'
           value={name}
-          onChangeText={text => setName(text)}
+          onChangeText={name => setName(name)}
         />
 
       <TextInput
@@ -50,7 +50,7 @@ export default function RegisterUser({ navigation, route }) {
           placeholder="Email"
           textContentType='emailAddress'
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={email => setEmail(email)}
         />
 
       <TextInput
@@ -58,7 +58,7 @@ export default function RegisterUser({ navigation, route }) {
           placeholder="Senha"
           secureTextEntry={true}
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={password => setPassword(password)}
         />
 
       <TextInput
@@ -66,7 +66,7 @@ export default function RegisterUser({ navigation, route }) {
           placeholder="Confirme sua senha"
           secureTextEntry={true}
           value={confirmPassword}
-          onChangeText={text => setConfirmPassword(text)}
+          onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
         />
 
       <Button
