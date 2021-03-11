@@ -21,21 +21,23 @@ export default function RegisterUser({ navigation, route }) {
     }
 
     const userCreated = await createUserBackend(email, password, name);
-    console.log({userCreated})
+
     return navigation.navigate('ChooseTypeOfVehicle', { user: userCreated.response })
   }
 
   return (
     <View style={styles.container}>
 
-      <Text
-        style={styles.centerTitle}
-        >Cadastre-se
-      </Text>
+      <View style={styles.registerBox}>
+        <Text
+          style={styles.centerTitle}
+          >Cadastre-se
+        </Text>
 
-      <Text
-        >Para criar sua conta preencha os campos abaixo
-      </Text>
+        <Text style={styles.subTitle}
+          >Para criar sua conta preencha os campos abaixo
+        </Text>
+      </View>
       
       <TextInput
           style={styles.inputButton}
@@ -69,19 +71,24 @@ export default function RegisterUser({ navigation, route }) {
           onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
         />
 
-      <Button
-        onPress={createUser}
-        title="Pronto"
-        />
+      <View style={styles.registerButton}>
+        <Button
+          onPress={createUser}
+          color="#FFFFFF"
+          title="Pronto"
+          />
+      </View>
 
-      <Text>
-        Criando sua conto você concorda com nossos <Text>Termos de Uso</Text>
-      </Text>
+      <View style={styles.messagesToUser}>
+        <Text style={styles.messageCreatingYourAccount}>
+          Criando sua conta você concorda com nossos <Text style={styles.termsOfUse}>Termos de Uso</Text>
+        </Text>
 
-      <Text>
-        Você já tem uma conta? <Text>Entrar</Text>
-      </Text>
-
+        <Text style={styles.doYouHaveAccount}>
+          Você já tem uma conta?
+          <Text style={styles.getIn}> Entrar</Text>
+        </Text>
+      </View>
     </View>
   );
 }
@@ -91,25 +98,66 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  registerButton: {
+  registerBox: {
+    height: "28%",
+    width: "100%",
     backgroundColor: "#8257E6",
-    borderRadius: 100,  
-  },
-  inputButton: {
-    height: '5%',
-    width: '50%',
-    borderColor: '#8492A6',
-    textAlign: 'center',
-    borderWidth: 2,
-    backgroundColor: '#FFFFFF',
-  },
-  inputButtonContainer: {
-    
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    marginBottom: 40
   },
   centerTitle: {
-    color: '#8E00FF',
-    fontSize: 40
+    color: '#FFFFFF',
+    fontSize: 50,
+    paddingTop: 50,
+    paddingLeft: 30,
+    paddingRight: 90,
+  },
+  subTitle: {
+    fontSize: 20,
+    color: '#FFFFFF',
+    paddingTop: 15,
+    paddingLeft: 30,
+    paddingRight: 100,
+  },
+  inputButton: {
+    height: "8%",
+    width: '85%',
+    marginTop: 15,
+    borderWidth: 1,
+    borderColor: '#8492A6',
+    backgroundColor: 'transparent',
+    paddingHorizontal: 40,
+    paddingLeft: "5%",
+  },
+  registerButton: {
+    marginTop: 20,
+    backgroundColor: "#47525E",
+    borderRadius: 14,
+    height: "8%",
+    width: '85%',
+    paddingTop: 12,
+    marginBottom: "3%"
+  },
+  messagesToUser: {
+    paddingLeft: "15%",
+    paddingRight: "15%",
+    marginTop: "3%"
+  },
+  messageCreatingYourAccount: {
+    color: "#969FAA",
+    textAlign: "center"
+  },
+  doYouHaveAccount: {
+    color: "#969FAA",
+    textAlign: "center",
+    marginTop: "5%"
+  },
+  termsOfUse: {
+    textDecorationLine: "underline",
+  },
+  getIn: {
+    textDecorationLine: "underline",
   }
 });

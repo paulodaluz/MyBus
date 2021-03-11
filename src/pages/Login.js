@@ -52,7 +52,7 @@ export default function Login({ navigation, route }) {
           onChangeText={password => setPassword(password)}
         />
 
-      <View style={styles.registerButton}>
+      <View style={styles.loginButton}>
         <Button
             onPress={login}
             color="#FFFFFF"
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingTop: 20,
   },
-  registerButton: {
+  loginButton: {
     marginTop: 20,
     backgroundColor: "#47525E",
     borderRadius: 14,
