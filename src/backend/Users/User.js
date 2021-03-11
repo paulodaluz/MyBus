@@ -9,7 +9,7 @@ export async function createUserBackend(email, password, name) {
     });
     
     if(registeredAuthenticationUser.error)
-        return registeredAuthenticationUser.error;
+        return registeredAuthenticationUser;
     
     const registeredOnFirestoreUser = await saveUser({ email, name, uid: registeredAuthenticationUser.user.uid }).catch(error => {
         return ({error});
@@ -18,14 +18,13 @@ export async function createUserBackend(email, password, name) {
     user.uid = registeredAuthenticationUser.user.uid;
 
     if(registeredOnFirestoreUser.error)
-        return registeredOnFirestoreUser.error;
+        return registeredOnFirestoreUser;
     
     return ({ response: user });
 };
 
 export async function changeTypeOfVehicleToList(user, newStatus) {
-    
-    const addAtrybuteOnFirestoreUser = await updateUser({ uid: user.uuid, newStatus }).catch(error => {
+    const addAtrybuteOnFirestoreUser = await updateUser({ uid: user.uid, newStatus }).catch(error => {
         return ({error});
     });
 

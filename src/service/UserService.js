@@ -7,7 +7,7 @@ export const saveUser = async (user, chave = "") => {
         .catch((error) => {return(error)});
 };
 
-export const updateUser = async (uid, newStatus) => {
+export const updateUser = async (uid, newStatus, vehicleCode = "") => {
     return await db.collection("users")
         .doc(uid)
         .update(newStatus)

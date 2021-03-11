@@ -22,6 +22,9 @@ export default function RegisterUser({ navigation, route }) {
 
     const userCreated = await createUserBackend(email, password, name);
 
+    if(userCreated.error)
+      return Alert.alert('Erro ao criar o usuário');
+
     return navigation.navigate('ChooseTypeOfVehicle', { user: userCreated.response })
   }
 
