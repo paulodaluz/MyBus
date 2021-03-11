@@ -5,8 +5,8 @@ import { findUser } from '../service/UserService';
 
 export default function Login({ navigation, route }) {
 
-  const [email, setEmail] = useState("paulera.daluz@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const login = async () => {
     if(!email || !password) {
@@ -27,13 +27,15 @@ export default function Login({ navigation, route }) {
   return (
     <View style={styles.container}>
 
-      <Text
-        style={styles.centerTitle}
-        >Bem-vindo de volta!
-      </Text>
+      <View style={styles.welcomeBox}>
+        <Text
+          style={styles.centerTitle}
+          >Bem-vindo de volta!
+        </Text>
 
-      <Text>Faça seu login para começar</Text>
-      
+        <Text style={styles.subTitle}>Faça seu login para começar</Text>
+      </View>
+
       <TextInput
           style={styles.inputButton}
           placeholder="Email"
@@ -50,12 +52,15 @@ export default function Login({ navigation, route }) {
           onChangeText={password => setPassword(password)}
         />
 
-      <Button
-          onPress={login}
-          title="Entrar"
-        />
+      <View style={styles.registerButton}>
+        <Button
+            onPress={login}
+            color="#FFFFFF"
+            title="Entrar"
+          />
+      </View>
 
-    <Text>Esqueceu sua senha?</Text>
+    <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
       
     </View>
   );
@@ -65,24 +70,49 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f1f1f1',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center'
   },
-  registerButton: {
+  welcomeBox: {
+    height: "40%",
+    width: "100%",
     backgroundColor: "#8257E6",
-    borderRadius: 100,  
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    marginBottom: 40
   },
   inputButton: {
-    height: '5%',
-    width: '50%',
-    borderColor: '#FFFFFF',
-    textAlign: 'center',
-    borderWidth: 2,
-    borderRadius: 20,
-    backgroundColor: '#FFFFFF',
+    height: "8%",
+    width: '85%',
+    marginTop: 15,
+    borderWidth: 1,
+    borderColor: '#8492A6',
+    backgroundColor: 'transparent',
+    paddingHorizontal: 40,
+    paddingLeft: "5%",
   },
   centerTitle: {
-    color: '#8E00FF',
-    fontSize: 40
+    color: '#FFFFFF',
+    fontSize: 50,
+    paddingTop: 50,
+    paddingLeft: 30,
+    paddingRight: 90,
+  },
+  subTitle: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    paddingHorizontal: 30,
+    paddingTop: 20,
+  },
+  registerButton: {
+    marginTop: 20,
+    backgroundColor: "#47525E",
+    borderRadius: 14,
+    height: "8%",
+    width: '85%',
+    paddingTop: 12,
+    marginBottom: "3%"
+  },
+  forgotPasswordText: {
+    color: "#8492A6"
   }
 });
