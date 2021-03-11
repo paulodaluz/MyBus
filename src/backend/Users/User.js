@@ -1,5 +1,5 @@
 import * as authService from '../../service/AuthService';
-import { saveUser, updateUser } from '../../service/UserService';
+import { saveUser, updateUser, getAllUsers } from '../../service/UserService';
 
 export async function createUserBackend(email, password, name) {
     let user = {email, name};
@@ -33,4 +33,18 @@ export async function changeTypeOfVehicleToList(user, newStatus) {
         return addAtrybuteOnFirestoreUser.error;
     
     return ({ response: "Usuário Atualizado com Sucesso." })
+};
+
+export async function getUser(uid) {
+    
+    const allUsers = await getAllUsers().catch(error => {
+        return ({error});
+    });
+
+    if(allUsers.error)
+        return allUsers.error;
+    
+    const user = allUsers.find((user) => user.uid === uid);
+
+    return user;
 };

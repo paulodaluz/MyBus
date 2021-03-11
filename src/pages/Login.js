@@ -1,27 +1,23 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import { getUser } from '../backend/Users/User';
 import * as authService from '../service/AuthService';
-import { findUser } from '../service/UserService';
 
 export default function Login({ navigation, route }) {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("paulera.daluz@gmail.com");
+  const [password, setPassword] = useState("123456");
 
   const login = async () => {
     if(!email || !password) {
       return Alert.alert('Usuário ou senha inválida!')
     }
 
-    authService.login(email, password)
-      .then(response => {
-        Alert.alert('Login efetuado com sucesso!')
-      })
-      .catch(erro => {
-        setPassword("")
-        Alert.alert('Erro no login do usuário!');
-      })
-
+    const loggedUser = await authService.login(email, password);
+    
+    const user = await getUser(loggedUser.user.uid)
+    
+    return navigation.navigate('Map', {user})
   }
 
   return (
