@@ -15,7 +15,7 @@ export default function App({navigation}) {
   const Stack = createStackNavigator();
 
   return (
-    <NavigationContainer initialRouteName="AllPages">
+    <NavigationContainer initialRouteName="RegisterCompany">
       <StatusBar style="auto" />
 
       <Stack.Navigator>

@@ -88,8 +88,7 @@ export default function RegisterUser({ navigation, route }) {
         </Text>
 
         <Text style={styles.doYouHaveAccount}>
-          Você já tem uma conta?
-          <Text style={styles.getIn}> Entrar</Text>
+          Você já tem uma conta? <Text style={styles.getIn}>Entrar</Text>
         </Text>
       </View>
     </View>
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   registerBox: {
-    height: "36%",
+    height: "33%",
     width: "100%",
     backgroundColor: "#8257E6",
     borderBottomLeftRadius: 30,
@@ -159,8 +158,10 @@ const styles = StyleSheet.create({
   },
   termsOfUse: {
     textDecorationLine: "underline",
+    fontWeight: "bold",
   },
   getIn: {
     textDecorationLine: "underline",
+    fontWeight: "bold"
   }
 });
