@@ -39,24 +39,20 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
                 <TouchableOpacity 
                     onPress={() => setTypeOfVehicleToList('public')}
                     style={ typeOfVehicleToList === 'public' ? {...styles.publicButton, backgroundColor:'#E7E9ED'} : {...styles.publicButton, backgroundColor: "#FFFFFF"} }>
-                    <View style={styles.publicButton}>
                         <Button
                             onPress={() => setTypeOfVehicleToList('public')}
                             color="#8190A5"
                             title="Públicos"
                         />
-                    </View>
                 </TouchableOpacity>
                 <TouchableOpacity 
                     onPress={() => setTypeOfVehicleToList('private')}
-                    style={ typeOfVehicleToList === 'private' ? {...styles.publicButton, backgroundColor:'#E7E9ED'} : {...styles.publicButton, backgroundColor: "#FFFFFF"}}>
-                    <View style={styles.privateButton}>
+                    style={ typeOfVehicleToList === 'private' ? {...styles.privateButton, backgroundColor:'#E7E9ED'} : {...styles.privateButton, backgroundColor: "#FFFFFF"}}>
                         <Button
                             onPress={() => setTypeOfVehicleToList('private')}
                             color="#8190A5"
                             title="Privado"
                         />
-                    </View>
                 </TouchableOpacity>
             </View>
             <Text style={styles.subtitle}>{subtitleMessage}</Text>
@@ -68,7 +64,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
                     <View style={styles.containerVehicleCode}>
                         <TextInput
                             placeholder="Código de seu Veículo"
-                            style={styles.inputVehicleCode}
+                            style={vehicleCode.length > 0 ? {...styles.inputVehicleCode, fontSize: 40, textAlign: "center"} : {...styles.inputVehicleCode, fontSize: 18} }
                             value={vehicleCode}
                             onChangeText={vehicleCode => setVehicleCode(vehicleCode)}
                         />
@@ -129,12 +125,12 @@ const styles = StyleSheet.create({
     publicButton: {
         width: "50%",
         alignItems: "center",
-        paddingTop: "1%"
+        paddingTop: "2%"
     },
     privateButton: {
         width: "50%",
         alignItems: "center",
-        paddingTop: "1%"
+        paddingTop: "2%"
     },
     subtitle: {
         fontSize: 18,

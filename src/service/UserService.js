@@ -7,17 +7,31 @@ export const saveUser = async (user, chave = "") => {
         .catch((error) => {return(error)});
 };
 
-export const updateUser = async (id, typeOfVehicleListed, codesOfPrivateVehicles = "") => {
-    return new Promise((resolve, reject) => {
-        db.collection("users")
-            .doc(id)
-            .update({type_of_Vehicle_listed: typeOfVehicleListed})
-            .then(() => resolve())
-            .catch((error) => {
-                console.log(`updateUser ERROR = ${error}`);
-                reject(erro);
-            });
-    });
+export const updateUser = async (id, typeOfVehicleListed, codesOfPrivateVehicles) => {
+    if(typeOfVehicleListed === 'public') {
+        return new Promise((resolve, reject) => {
+            db.collection("users")
+                .doc(id)
+                .update({type_of_vehicle_listed: typeOfVehicleListed})
+                .then(() => resolve())
+                .catch((error) => {
+                    console.log(`updateUser ERROR = ${error}`);
+                    reject(erro);
+                });
+        });
+    }
+    if(typeOfVehicleListed === 'private') {
+        return new Promise((resolve, reject) => {
+            db.collection("users")
+                .doc(id)
+                .update({type_of_vehicle_listed: typeOfVehicleListed, codes_private_vehicles: codesOfPrivateVehicles})
+                .then(() => resolve())
+                .catch((error) => {
+                    console.log(`updateUser ERROR = ${error}`);
+                    reject(erro);
+                });
+        });
+    }
 };
 
 export const getAllUsers = async () => {

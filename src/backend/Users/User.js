@@ -23,18 +23,17 @@ export async function createUserBackend(email, password, name) {
     return ({ response: user });
 };
 
-export async function changeTypeOfVehicleToList(user, typeOfVehicleListed) {
+export async function changeTypeOfVehicleToList(user, typeOfVehicleListed, vehicleCode='') {
     const completeUser = await getUser(user.uid);
-    console.log({completeUser})
-    const addAtrybuteOnFirestoreUser = await updateUser({ uid: completeUser.id, typeOfVehicleListed }).catch(error => {
-        console.log({error})
+
+    const addAtrybuteOnFirestoreUser = await updateUser(completeUser.id, typeOfVehicleListed, vehicleCode).catch(error => {
+        console.log(`changeTypeOfVehicleToList - addAtrybuteOnFirestoreUser - ERROR = ${error}`)
         return ({error});
     });
 
-    console.log(addAtrybuteOnFirestoreUser)
-    if(addAtrybuteOnFirestoreUser.error)
+    if(addAtrybuteOnFirestoreUser && addAtrybuteOnFirestoreUser.error)
         return addAtrybuteOnFirestoreUser.error;
-    
+
     return ({ response: "Usuário Atualizado com Sucesso." })
 };
 
