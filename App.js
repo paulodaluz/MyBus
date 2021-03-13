@@ -21,9 +21,9 @@ export default function App({navigation}) {
       <Stack.Navigator>
         <Stack.Screen name="AllPages" component={AllPages} initialParams={{ navigation }} />
         <Stack.Screen name="InitialPage" component={InitialPage} initialParams={{ navigation }} options={{headerShown: false}}/>
-        <Stack.Screen name="Login" component={Login} initialParams={{ navigation }} />
-        <Stack.Screen name="RegisterUser" component={RegisterUser} initialParams={{ navigation }} />
-        <Stack.Screen name="RegisterCompany" component={RegisterCompany} initialParams={{ navigation }} />
+        <Stack.Screen name="Login" component={Login} initialParams={{ navigation }} options={{headerShown: false}}/>
+        <Stack.Screen name="RegisterUser" component={RegisterUser} initialParams={{ navigation }} options={{headerShown: false}}/>
+        <Stack.Screen name="RegisterCompany" component={RegisterCompany} initialParams={{ navigation }} options={{headerShown: false}} />
         <Stack.Screen name="Map" component={Map} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="ChooseTypeOfVehicle" component={ChooseTypeOfVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
       </Stack.Navigator>

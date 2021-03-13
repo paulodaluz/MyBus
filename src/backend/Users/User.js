@@ -23,11 +23,15 @@ export async function createUserBackend(email, password, name) {
     return ({ response: user });
 };
 
-export async function changeTypeOfVehicleToList(user, newStatus) {
-    const addAtrybuteOnFirestoreUser = await updateUser({ uid: user.uid, newStatus }).catch(error => {
+export async function changeTypeOfVehicleToList(user, typeOfVehicleListed) {
+    const completeUser = await getUser(user.uid);
+    console.log({completeUser})
+    const addAtrybuteOnFirestoreUser = await updateUser({ uid: completeUser.id, typeOfVehicleListed }).catch(error => {
+        console.log({error})
         return ({error});
     });
 
+    console.log(addAtrybuteOnFirestoreUser)
     if(addAtrybuteOnFirestoreUser.error)
         return addAtrybuteOnFirestoreUser.error;
     

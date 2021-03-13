@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   registerBox: {
-    height: "28%",
+    height: "36%",
     width: "100%",
     backgroundColor: "#8257E6",
     borderBottomLeftRadius: 30,
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   centerTitle: {
     color: '#FFFFFF',
     fontSize: 50,
-    paddingTop: 50,
+    paddingTop: "24%",
     paddingLeft: 30,
     paddingRight: 90,
   },

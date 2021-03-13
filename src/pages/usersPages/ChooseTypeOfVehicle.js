@@ -1,6 +1,8 @@
 import React, { useState, useLayoutEffect } from 'react';
-import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
+import { Text, View, Button, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
+
 import { changeTypeOfVehicleToList } from '../../backend/Users/User';
+import qrCodePng from '../../assets/images/png/qr-code.png';
 
 export default function ChooseTypeOfVehicle({ navigation, route }) {
     const [vehicleCode, setVehicleCode] = useState("");
@@ -10,7 +12,6 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 
     const changeTypeOfVehicle = async() => {
         const { user } = route.params;
-        console.log("Pualera", {user})
         if(typeOfVehicleToList === 'public')
             await changeTypeOfVehicleToList(user, typeOfVehicleToList);
 
@@ -35,21 +36,28 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
             </View>
 
             <View style={styles.typeOfVehicle}>
-                <View style={styles.publicButton}>
-                    <Button
-                        onPress={() => setTypeOfVehicleToList('public')}
-                        color="#8190A5"
-                        title="Públicos"
-                    />
-                </View>
-
-                <View style={styles.privateButton}>
-                    <Button
-                        onPress={() => setTypeOfVehicleToList('private')}
-                        color="#8190A5"
-                        title="Privado"
-                    />
-                </View>
+                <TouchableOpacity 
+                    onPress={() => setTypeOfVehicleToList('public')}
+                    style={ typeOfVehicleToList === 'public' ? {...styles.publicButton, backgroundColor:'#E7E9ED'} : {...styles.publicButton, backgroundColor: "#FFFFFF"} }>
+                    <View style={styles.publicButton}>
+                        <Button
+                            onPress={() => setTypeOfVehicleToList('public')}
+                            color="#8190A5"
+                            title="Públicos"
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    onPress={() => setTypeOfVehicleToList('private')}
+                    style={ typeOfVehicleToList === 'private' ? {...styles.publicButton, backgroundColor:'#E7E9ED'} : {...styles.publicButton, backgroundColor: "#FFFFFF"}}>
+                    <View style={styles.privateButton}>
+                        <Button
+                            onPress={() => setTypeOfVehicleToList('private')}
+                            color="#8190A5"
+                            title="Privado"
+                        />
+                    </View>
+                </TouchableOpacity>
             </View>
             <Text style={styles.subtitle}>{subtitleMessage}</Text>
             {
@@ -57,24 +65,31 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
             
                 <View style={styles.privateContainer}>
 
-                    <View style={styles.vehicleCode}>
+                    <View style={styles.containerVehicleCode}>
                         <TextInput
                             placeholder="Código de seu Veículo"
+                            style={styles.inputVehicleCode}
                             value={vehicleCode}
                             onChangeText={vehicleCode => setVehicleCode(vehicleCode)}
                         />
                     </View>
-
-                    <Text style={styles.scanQrCode}>Escanear QR-CODE</Text>
+                    <View style={styles.arroundScanQrCode}>
+                        <Image
+                            style={styles.qrCodePng}
+                            source={qrCodePng}
+                        />
+                        <Text style={styles.scanQrCode}>Escanear QR-CODE</Text>
+                    </View>
                 </View>
             }
-            
-            <View style={styles.continueButton}>
-                <Button
-                    onPress={changeTypeOfVehicle}
-                    color="#FFFFFF"
-                    title="Continuar"
-                />
+            <View style={{paddingTop: "20%"}}></View>
+                <View style={styles.continueButton}>
+                    <Button
+                        onPress={changeTypeOfVehicle}
+                        color="#FFFFFF"
+                        title="Continuar"
+                    />
+                
             </View>
 
             <Text style={styles.observation}>Esta opção pode ser alterada mais tarde nas <Text style={styles.emphasisWord}>Configurações</Text></Text>
@@ -108,13 +123,18 @@ const styles = StyleSheet.create({
     typeOfVehicle: {
         display: "flex",
         flexDirection: "row",
+        width: "100%",
+        height: "6%",
     },
     publicButton: {
-        paddingRight: "25%",
-        
+        width: "50%",
+        alignItems: "center",
+        paddingTop: "1%"
     },
     privateButton: {
-        
+        width: "50%",
+        alignItems: "center",
+        paddingTop: "1%"
     },
     subtitle: {
         fontSize: 18,
@@ -127,15 +147,30 @@ const styles = StyleSheet.create({
     },
     privateContainer: {
         width: "100%",
-        alignItems: "center",
-        paddingBottom: "1%"
+        alignItems: "center"
     },
-    vehicleCode: {
+    containerVehicleCode: {
         borderWidth: 1,
         borderColor: '#8492A6',
         backgroundColor: "transparent",
         width: "80%",
-        height: "20%",
+        height: 60,
+    },
+    inputVehicleCode: {
+        height: "100%",
+        paddingLeft: "2%"
+    },
+    arroundScanQrCode: {
+        marginTop: "2%",
+        flexDirection: "row",
+        width: "80%",
+    },
+    qrCodePng: {
+        display: "flex",
+        width: 15,
+        height: 15,
+        maxWidth: 15,
+        marginRight: "1%"
     },
     scanQrCode: {
         textDecorationLine: "underline",

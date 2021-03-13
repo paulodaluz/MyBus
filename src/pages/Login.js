@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   welcomeBox: {
-    height: "40%",
+    height: "38%  %",
     width: "100%",
     backgroundColor: "#8257E6",
     borderBottomLeftRadius: 30,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   centerTitle: {
     color: '#FFFFFF',
     fontSize: 50,
-    paddingTop: 50,
+    paddingTop: "30%",
     paddingLeft: 30,
     paddingRight: 90,
   },
