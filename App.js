@@ -10,12 +10,13 @@ import RegisterUser from './src/pages/usersPages/RegisterUser';
 import RegisterCompany from './src/pages/companyPages/RegisterCompany';
 import Map from './src/pages/Map';
 import ChooseTypeOfVehicle from './src/pages/usersPages/ChooseTypeOfVehicle';
+import Settings from './src/pages/usersPages/Settings';
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();
 
   return (
-    <NavigationContainer initialRouteName="RegisterCompany">
+    <NavigationContainer initialRouteName="AllPages">
       <StatusBar style="auto" />
 
       <Stack.Navigator>
@@ -26,6 +27,7 @@ export default function App({navigation}) {
         <Stack.Screen name="RegisterCompany" component={RegisterCompany} initialParams={{ navigation }} options={{headerShown: false}} />
         <Stack.Screen name="Map" component={Map} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="ChooseTypeOfVehicle" component={ChooseTypeOfVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
+        <Stack.Screen name="Settings" component={Settings} initialParams={{ navigation }} options={{headerShown: false}} />
       </Stack.Navigator>
       
     </NavigationContainer>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
-import { getUser } from '../backend/Users/User';
+import { loginOnFirebase } from '../backend/Login';
 import * as authService from '../service/AuthService';
 
 export default function Login({ navigation, route }) {
 
-  const [email, setEmail] = useState("paulera.daluz@gmail.com");
+  // const [email, setEmail] = useState("paulera.daluz@gmail.com");
+  const [email, setEmail] = useState("presidencia@zaffari.com.br");
   const [password, setPassword] = useState("123456");
 
   const login = async () => {
@@ -15,9 +16,12 @@ export default function Login({ navigation, route }) {
 
     const loggedUser = await authService.login(email, password);
     
-    const user = await getUser(loggedUser.user.uid)
-    
-    return navigation.navigate('Map', {user})
+    const user = await loginOnFirebase(loggedUser.user.uid);
+    console.log(user)
+    if(user)
+      return navigation.navigate('Map', {user});
+
+    return Alert.alert('Usuário ou senha inválida!');
   }
 
   return (

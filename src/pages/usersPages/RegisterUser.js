@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
-import { createUserBackend } from '../../backend/Users/User'
+import { createPassagerBackend } from '../../backend/Users/Passager';
 
 export default function RegisterUser({ navigation, route }) {
 
@@ -20,7 +20,7 @@ export default function RegisterUser({ navigation, route }) {
       return Alert.alert('As senhas não conferem!')
     }
 
-    const userCreated = await createUserBackend(email, password, name);
+    const userCreated = await createPassagerBackend(email, password, name);
 
     if(userCreated.error)
       return Alert.alert('Erro ao criar o usuário');
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     paddingHorizontal: 40,
     paddingLeft: "5%",
+    fontSize: 16
   },
   registerButton: {
     marginTop: 20,

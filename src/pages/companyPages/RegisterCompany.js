@@ -1,34 +1,32 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput, TouchableOpacity } from 'react-native';
-import * as authService from '../../service/AuthService';
+import { createCompanyBackend } from '../../backend/Users/Company';
 
 export default function RegisterCompany({ navigation, route }) {
 
-  const [name, setName] = useState("");
-  const [cnpj, setCnpj] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("Comercial Zaffari");
+  const [cnpj, setCnpj] = useState("92016757000191");
+  const [email, setEmail] = useState("presidencia@zaffari.com.br");
+  const [password, setPassword] = useState("123456");
+  const [confirmPassword, setConfirmPassword] = useState("123456");
   
   const [error, setError] = useState("");
 
-  const createUser = () => {
-    if(!email || !password || !confirmPassword) {
-      return Alert.alert('Dados inválidos, verifique-os e tente novamente!')
+  const createUser = async () => {
+    if(!email || !password || !confirmPassword || !name || !cnpj) {
+      return Alert.alert('Dados inválidos, verifique-os e tente novamente!');
     }
 
     if(password !== confirmPassword) {
-      return Alert.alert('As senhas não conferem!')
+      return Alert.alert('As senhas não conferem!');
     }
 
-    authService.register(email, password)
-      .then(response => {
-        Alert.alert('Usuário Cadastrado com Sucesso');
-      })
-      .catch(error => {
-        setError(error)
-        Alert.alert('Erro ao cadastrar usuário');
-      })
+    const companyCreated = await createCompanyBackend(email, password, name, cnpj);
+
+    if(companyCreated && companyCreated.error)
+      return Alert.alert('Erro ao criar o usuário');
+    
+    return navigation.navigate('Map', { company: companyCreated.response })
   }
 
   return (
@@ -141,6 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     paddingHorizontal: 40,
     paddingLeft: "5%",
+    fontSize: 16
   },
   registerButton: {
     marginTop: 20,

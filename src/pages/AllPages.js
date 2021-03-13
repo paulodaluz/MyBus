@@ -16,6 +16,8 @@ export default function RegisterUser({ navigation, route }) {
         <Button onPress={() => navigation.navigate('Map')} title="Map"/>
       
         <Button onPress={() => navigation.navigate('ChooseTypeOfVehicle')} title="ChooseTypeOfVehicle"/>
+
+        <Button onPress={() => navigation.navigate('Settings')} title="ChooseTypeOfVehicle"/>
     </View>
   );
 }
