@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
-import { loginOnFirebase } from '../backend/Login';
+import { createSession, loginOnFirebase } from '../backend/Login';
 import * as authService from '../service/AuthService';
 
 export default function Login({ navigation, route }) {
@@ -11,15 +11,17 @@ export default function Login({ navigation, route }) {
 
   const login = async () => {
     if(!email || !password) {
-      return Alert.alert('Usuário ou senha inválida!')
+      return Alert.alert('Usuário ou senha inválida!');
     }
 
     const loggedUser = await authService.login(email, password);
     
     const user = await loginOnFirebase(loggedUser.user.uid);
-    console.log(user)
-    if(user)
+
+    if(user) {
+      await createSession(user.uid);
       return navigation.navigate('Map', {user});
+    }
 
     return Alert.alert('Usuário ou senha inválida!');
   }

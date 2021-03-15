@@ -16,17 +16,17 @@ export default function App({navigation}) {
   const Stack = createStackNavigator();
 
   return (
-    <NavigationContainer initialRouteName="AllPages">
+    <NavigationContainer initialRouteName="Login">
       <StatusBar style="auto" />
 
       <Stack.Navigator>
-        <Stack.Screen name="Settings" component={Settings} initialParams={{ navigation }} options={{headerShown: false}} />
         <Stack.Screen name="AllPages" component={AllPages} initialParams={{ navigation }} />
         <Stack.Screen name="InitialPage" component={InitialPage} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={Login} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="RegisterUser" component={RegisterUser} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="RegisterCompany" component={RegisterCompany} initialParams={{ navigation }} options={{headerShown: false}} />
         <Stack.Screen name="Map" component={Map} initialParams={{ navigation }} options={{headerShown: false}}/>
+        <Stack.Screen name="Settings" component={Settings} initialParams={{ navigation }} options={{headerShown: false}} />
         <Stack.Screen name="ChooseTypeOfVehicle" component={ChooseTypeOfVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
       </Stack.Navigator>
       

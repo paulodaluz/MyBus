@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Switch } from "react-native";
+import { removeSession } from '../../backend/Login';
 
-export default function RegisterUser({ navigation, route }) {
+export default function Settings({ navigation, route }) {
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -14,7 +15,7 @@ export default function RegisterUser({ navigation, route }) {
 
             <View style={styles.allConfigOptions}>
 
-                <View style={styles.vehicleConfig}>
+                <View style={styles.groupOfCategories}>
                     <View style={styles.configOption}>
                             <Text style={styles.nameOfConfig}>Veículos listados</Text>
                             <Switch
@@ -39,30 +40,30 @@ export default function RegisterUser({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.perfilConfig}>
+                <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption} 
                         onPress={() => navigation.navigate('Map')}>
                             <Text style={styles.nameOfConfig}>Editar Perfil</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.opinionConfig}>
+                <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption} 
                         onPress={() => navigation.navigate('Map')}>
                             <Text style={styles.nameOfConfig}>Deixe sua opinião</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.contactUsConfig}>
+                <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption} 
                         onPress={() => navigation.navigate('Map')}>
                             <Text style={styles.nameOfConfig}>Entre em contato conosco</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.sessionConfig}>
+                <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption} 
-                        onPress={() => navigation.navigate('Map')}>
+                        onPress={() => {removeSession(), navigation.navigate('InitialPage')}}>
                             <Text style={styles.nameOfConfig}>Sair da conta</Text>
                     </TouchableOpacity>
                 </View>
@@ -81,7 +82,8 @@ const styles = StyleSheet.create({
         height: "18%",
         width: "100%",
         backgroundColor: "#8257E6",
-        borderRadius: 30,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
         paddingTop: "18%",
         paddingLeft: "6%",
     },
@@ -109,19 +111,7 @@ const styles = StyleSheet.create({
         marginTop: "3%",
         marginLeft: "30%"
     },
-    vehicleConfig: {
+    groupOfCategories: {
         marginBottom: "12%",
-    },
-    perfilConfig: {
-        marginBottom: "12%"
-    },
-    opinionConfig: {
-        marginBottom: "12%",
-    },
-    contactUsConfig: {
-        marginBottom: "12%"
-    },
-    sessionConfig: {
-        marginBottom: "12%"
     }
 });
