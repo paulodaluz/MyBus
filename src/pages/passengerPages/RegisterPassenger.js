@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
-import { createPassagerBackend } from '../../backend/Users/Passager';
+import { createSession } from '../../backend/Login';
+import { createPassengerBackend } from '../../backend/users/Passenger';
 
-export default function RegisterUser({ navigation, route }) {
+export default function RegisterPassenger({ navigation, route }) {
 
   const [name, setName] = useState("Paulo Ricardo da Luz Júnior");
   const [email, setEmail] = useState("paulera.daluz@gmail.com");
@@ -20,11 +21,12 @@ export default function RegisterUser({ navigation, route }) {
       return Alert.alert('As senhas não conferem!')
     }
 
-    const userCreated = await createPassagerBackend(email, password, name);
+    const userCreated = await createPassengerBackend(email, password, name);
 
     if(userCreated.error)
       return Alert.alert('Erro ao criar o usuário');
 
+    await createSession(userCreated.response.uid);
     return navigation.navigate('ChooseTypeOfVehicle', { user: userCreated.response })
   }
 

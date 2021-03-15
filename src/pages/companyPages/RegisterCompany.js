@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput, TouchableOpacity } from 'react-native';
-import { createCompanyBackend } from '../../backend/Users/Company';
+import { createCompanyBackend } from '../../backend/users/Company';
 
 export default function RegisterCompany({ navigation, route }) {
 
@@ -26,6 +26,7 @@ export default function RegisterCompany({ navigation, route }) {
     if(companyCreated && companyCreated.error)
       return Alert.alert('Erro ao criar o usuário');
     
+    await createSession(companyCreated.response.uid);
     return navigation.navigate('Map', { company: companyCreated.response })
   }
 

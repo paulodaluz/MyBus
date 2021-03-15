@@ -4,12 +4,11 @@ import { StyleSheet, View, Button } from 'react-native';
 export default function RegisterUser({ navigation, route }) {
   return (
     <View>
-
         <Button onPress={() => navigation.navigate('InitialPage')} title="InitialPage" />
 
         <Button onPress={() => navigation.navigate('Login')} title="Login" />
 
-        <Button onPress={() => navigation.navigate('RegisterUser')} title="RegisterUser"/>
+        <Button onPress={() => navigation.navigate('RegisterPassenger')} title="RegisterPassenger"/>
 
         <Button onPress={() => navigation.navigate('RegisterCompany')} title="RegisterCompany"/>
         
@@ -17,7 +16,7 @@ export default function RegisterUser({ navigation, route }) {
       
         <Button onPress={() => navigation.navigate('ChooseTypeOfVehicle')} title="ChooseTypeOfVehicle"/>
 
-        <Button onPress={() => navigation.navigate('Settings')} title="ChooseTypeOfVehicle"/>
+        <Button onPress={() => navigation.navigate('Settings')} title="Settings"/>
     </View>
   );
 }

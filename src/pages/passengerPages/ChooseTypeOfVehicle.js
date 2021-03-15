@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { Text, View, Button, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-import { changeTypeOfVehicleToList } from '../../backend/Users/Passager';
+import { changeTypeOfVehicleToList } from '../../backend/users/Passenger';
 import qrCodePng from '../../assets/images/png/qr-code.png';
 
 export default function ChooseTypeOfVehicle({ navigation, route }) {

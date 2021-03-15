@@ -1,7 +1,7 @@
 import * as authService from '../../service/AuthService';
 import { saveUser, updateUser, getAllUsers } from '../../service/UserService';
 
-export async function createPassagerBackend(email, password, name) {
+export async function createPassengerBackend(email, password, name) {
     let user = {email, name};
 
     const registeredAuthenticationUser = await authService.register(email, password).catch(error => {
@@ -37,7 +37,7 @@ export async function changeTypeOfVehicleToList(user, typeOfVehicleListed, vehic
     return ({ response: "Usuário Atualizado com Sucesso." })
 };
 
-export async function getPassager(uid) {
+export async function getPassenger(uid) {
     
     const allUsers = await getAllUsers().catch(error => {
         return ({error});
