@@ -1,7 +1,7 @@
 import { db } from "../database/FirebaseConfiguration";
 
 export const saveUser = async (user, chave = "") => {
-    return db.collection("users")
+    return await db.collection("users")
         .add(user)
         .then((result) => {return(result)})
         .catch((error) => {return(error)});

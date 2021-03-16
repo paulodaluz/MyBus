@@ -1,7 +1,7 @@
 import { db } from "../database/FirebaseConfiguration";
 
 export const saveCompany = async (company, chave = "") => {
-    return db.collection("company")
+    return await db.collection("company")
         .add(company)
         .then((result) => {return(result)})
         .catch((error) => {return(error)});

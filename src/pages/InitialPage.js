@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Button, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Button, Text, Image } from 'react-native';
 import BusinessImage from '../assets/images/png/business-deal-cuate.png';
 import BusStopImage from '../assets/images/png/bustop-cuate.png';
 import GestureRecognizer from 'react-native-swipe-gestures';
