@@ -49,7 +49,7 @@ export default function InitialPage({ navigation, route }) {
 
         <View style={styles.registerButton}>
           <Button
-            onPress={() => typeUserPage === 'passanger' ? navigation.navigate('RegisterPassenger') : navigation.navigate('RegisterCompany')}
+            onPress={() => typeUserPage === 'passenger' ? navigation.navigate('RegisterPassenger') : navigation.navigate('RegisterCompany')}
             title="Cadastre-se"
             color="#FFFFFF"
           />
