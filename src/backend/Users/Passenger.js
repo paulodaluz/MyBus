@@ -7,19 +7,19 @@ export async function createPassengerBackend(email, password, name) {
     const registeredAuthenticationUser = await authService.register(email, password).catch(error => {
         return ({error});
     });
-    
+
     if(registeredAuthenticationUser.error)
         return registeredAuthenticationUser;
-        
+
         const registeredOnFirestoreUser = await saveUser({ email, name, uid: registeredAuthenticationUser.user.uid }).catch(error => {
             return ({error});
         });
-        
+
     user.uid = registeredAuthenticationUser.user.uid;
 
     if(registeredOnFirestoreUser.error)
         return registeredOnFirestoreUser;
-    
+
     return ({ response: user });
 };
 
@@ -38,11 +38,11 @@ export async function changeTypeOfVehicleToList(user, typeOfVehicleListed, vehic
 };
 
 export async function getPassenger(uid) {
-    
+
     const allUsers = await getAllUsers().catch(error => {
         return ({error});
     });
-    
+
     if(allUsers.error)
     return allUsers.error;
 

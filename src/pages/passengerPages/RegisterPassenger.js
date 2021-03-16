@@ -9,7 +9,7 @@ export default function RegisterPassenger({ navigation, route }) {
   const [email, setEmail] = useState("paulera.daluz@gmail.com");
   const [password, setPassword] = useState("123456");
   const [confirmPassword, setConfirmPassword] = useState("123456");
-  
+
   const [error, setError] = useState("");
 
   const createUser = async () => {
@@ -43,7 +43,7 @@ export default function RegisterPassenger({ navigation, route }) {
           >Para criar sua conta preencha os campos abaixo
         </Text>
       </View>
-      
+
       <TextInput
           style={styles.inputButton}
           placeholder="Nome completo"

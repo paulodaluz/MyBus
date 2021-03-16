@@ -6,14 +6,8 @@ export default function RegisterUser({ navigation, route }) {
     <View>
         <Button onPress={() => navigation.navigate('InitialPage')} title="InitialPage" />
 
-        <Button onPress={() => navigation.navigate('Login')} title="Login" />
-
-        <Button onPress={() => navigation.navigate('RegisterPassenger')} title="RegisterPassenger"/>
-
-        <Button onPress={() => navigation.navigate('RegisterCompany')} title="RegisterCompany"/>
-        
         <Button onPress={() => navigation.navigate('Map')} title="Map"/>
-      
+
         <Button onPress={() => navigation.navigate('ChooseTypeOfVehicle')} title="ChooseTypeOfVehicle"/>
 
         <Button onPress={() => navigation.navigate('Settings')} title="Settings"/>

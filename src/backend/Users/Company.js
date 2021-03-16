@@ -7,10 +7,10 @@ export async function createCompanyBackend(email, password, name, cnpj) {
     const registeredAuthenticationUser = await authService.register(email, password).catch(error => {
         return ({error});
     });
-    
+
     if(registeredAuthenticationUser && registeredAuthenticationUser.error)
         return registeredAuthenticationUser;
-    
+
     company.uid = registeredAuthenticationUser.user.uid;
 
     const registeredOnFirestoreUser = await saveCompany(company).catch(error => {
@@ -19,16 +19,16 @@ export async function createCompanyBackend(email, password, name, cnpj) {
 
     if(registeredOnFirestoreUser.error)
         return registeredOnFirestoreUser;
-    
+
     return ({ response: company });
 };
 
 export async function getCompany(uid) {
-    
+
     const allCompanies = await getAllCompanies().catch(error => {
         return ({error});
     });
-    
+
     if(allCompanies && allCompanies.error)
         return allCompanies.error;
 

@@ -20,7 +20,7 @@ export default function App({navigation}) {
       <StatusBar style="auto" />
 
       <Stack.Navigator>
-        <Stack.Screen name="AllPages" component={AllPages} initialParams={{ navigation }} />
+				<Stack.Screen name="AllPages" component={AllPages} initialParams={{ navigation }} />
         <Stack.Screen name="InitialPage" component={InitialPage} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={Login} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="RegisterPassenger" component={RegisterPassenger} initialParams={{ navigation }} options={{headerShown: false}}/>
@@ -29,7 +29,7 @@ export default function App({navigation}) {
         <Stack.Screen name="Settings" component={Settings} initialParams={{ navigation }} options={{headerShown: false}} />
         <Stack.Screen name="ChooseTypeOfVehicle" component={ChooseTypeOfVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
       </Stack.Navigator>
-      
+
     </NavigationContainer>
   );
 }

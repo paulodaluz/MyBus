@@ -15,11 +15,11 @@ export default function Login({ navigation, route }) {
     }
 
     const loggedUser = await authService.login(email, password);
-    
+
     const user = await loginOnFirebase(loggedUser.user.uid);
 
     if(user) {
-      await createSession(user.uid);
+      createSession(user.uid);
       return navigation.navigate('Map', {user});
     }
 
@@ -63,7 +63,7 @@ export default function Login({ navigation, route }) {
       </View>
 
     <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
-      
+
     </View>
   );
 }
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
   centerTitle: {
     color: '#FFFFFF',
     fontSize: 50,
+    fontWeight: 'bold',
     paddingTop: "30%",
     paddingLeft: 30,
     paddingRight: 90,
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     height: "8%",
     width: '85%',
-    paddingTop: 12,
+    paddingTop: "4%",
     marginBottom: "3%"
   },
   forgotPasswordText: {

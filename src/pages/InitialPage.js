@@ -1,12 +1,27 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Button, Text, TouchableOpacity, Image } from 'react-native';
 import BusinessImage from '../assets/images/png/business-deal-cuate.png';
 import BusStopImage from '../assets/images/png/bustop-cuate.png';
+import GestureRecognizer from 'react-native-swipe-gestures';
+import { getSession, loginOnFirebase } from '../backend/Login';
 
 export default function InitialPage({ navigation, route }) {
   const [typeUserPage, setTypeUserPage] = useState("passenger");
-  const [typeOfUser, setTypeOfUser] = useState("Passageiro");
+
+  useEffect(() => {
+
+		async function checkIfHasSession() {
+			const uidUser = await getSession();
+
+			if(uidUser) {
+				const user = await loginOnFirebase(uidUser);
+				return navigation.navigate('Map', {user});
+			}
+		}
+
+		checkIfHasSession();
+
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -14,48 +29,71 @@ export default function InitialPage({ navigation, route }) {
         {
           typeUserPage === 'passenger' ?
           <Image
-            style={{height: "100%", width: "100%"}}
+            style={{ ...styles.imageHeader, width: '94%' }}
             source={BusStopImage}
           />
           :
           <Image
-            style={{height: "110%", width: "80%", margin: "10%"}}
+            style={{ ...styles.imageHeader, width: '94%', padding: 10 }}
             source={BusinessImage}
           />
         }
       </View>
-        
-        <View style={styles.titles}>
-          <Text style={styles.mainTitle}>MyBus</Text>
-          
-          <Text style={styles.subTitle}>{typeUserPage === 'passenger' ? 'Passageiro' : "Empresas"}</Text>
 
-          <TouchableOpacity 
-                onPress={() => {typeUserPage === 'passenger' ? setTypeUserPage('company') : setTypeUserPage('passenger')}}>
-              <Text style={styles.arrowNextPage}>{typeUserPage === 'passenger' ? '>' : "<"}</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.titles}>
+        <Text style={styles.mainTitle}>MyBus</Text>
+        <Text
+          onPress={() => {
+            typeUserPage === 'passenger'
+            ? setTypeUserPage('company')
+            : setTypeUserPage('passenger')
+          }}
+          style={styles.subTitle}
+        >
+          {typeUserPage === 'passenger' ? 'Passageiro' : "Empresas"}
+        </Text>
+      </View>
 
-      <Text style={styles.message}>Para continuar faça seu Login ou Cadastre-se</Text>
-    
-      <View style={styles.bodyPage}>
-        <View style={styles.loginButton}>
-          <Button
-            onPress={() => navigation.navigate('Login')}
-            title="Login"
-            color="#FFFFFF"
-          />
-        </View>
-
-        <View style={styles.registerButton}>
-          <Button
-            onPress={() => typeUserPage === 'passenger' ? navigation.navigate('RegisterPassenger') : navigation.navigate('RegisterCompany')}
-            title="Cadastre-se"
-            color="#FFFFFF"
+      <View style={styles.containerDivider}>
+        <View style={styles.divider}>
+          <View
+            style={
+              typeUserPage === 'passenger'
+              ? { ...styles.activeDivider, right: '50%' }
+              : { ...styles.activeDivider, left: '50%' }
+            }
           />
         </View>
       </View>
-      
+
+      <View style={styles.bodyPage}>
+        <GestureRecognizer
+          style={styles.gestureContainer}
+          onSwipeLeft={(state) => setTypeUserPage('company')}
+          onSwipeRight={(state) => setTypeUserPage('passenger')}
+        >
+          <Text style={styles.message}>
+            Para continuar faça seu Login ou Cadastre-se
+          </Text>
+
+          <View style={styles.loginButton}>
+            <Button
+              onPress={() => navigation.navigate('Login')}
+              title="Login"
+              color="#FFFFFF"
+            />
+          </View>
+
+          <View style={styles.registerButton}>
+            <Button
+              onPress={() => typeUserPage === 'passenger' ? navigation.navigate('RegisterPassenger') : navigation.navigate('RegisterCompany')}
+              title="Cadastre-se"
+              color="#FFFFFF"
+            />
+          </View>
+        </GestureRecognizer>
+      </View>
+
     </View>
   );
 }
@@ -68,6 +106,8 @@ const styles = StyleSheet.create({
     paddingTop: "10%",
     width: "100%",
     height: "32%",
+    display: 'flex',
+    alignItems: 'center',
     justifyContent: "center"
   },
   titles: {
@@ -115,11 +155,36 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: "8%",
     paddingBottom: "5%",
-    paddingLeft: "10%",
+    paddingLeft: "15%",
     paddingRight: "10%",
   },
   bodyPage: {
-    height: "60%",
+    height: "70%",
     alignItems: "center"
+  },
+  containerDivider: {
+    paddingVertical: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  divider: {
+    width: "100%",
+    height: 5,
+    backgroundColor: '#dfdfdf'
+  },
+  activeDivider: {
+    height: '100%',
+    backgroundColor: '#8190A5',
+    borderRadius: 5
+  },
+  imageHeader: {
+    resizeMode: 'contain'
+  },
+  gestureContainer: {
+    width: "100%",
+    height: "90%",
+    display: 'flex',
+    alignItems: 'center'
   }
 });

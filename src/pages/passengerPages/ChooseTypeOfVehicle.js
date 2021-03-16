@@ -9,7 +9,6 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
     const [typeOfVehicleToList, setTypeOfVehicleToList] = useState("public");
     const [subtitleMessage, setSubtitleMessage] = useState("");
 
-
     const changeTypeOfVehicle = async() => {
         const { user } = route.params;
         if(typeOfVehicleToList === 'public')
@@ -24,7 +23,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
     useLayoutEffect(() => {
         if(typeOfVehicleToList === 'public')
             return setSubtitleMessage("Veículos Públicos que estão a disposição a todos os cidadãos");
-        
+
         if(typeOfVehicleToList === 'private')
             return setSubtitleMessage("Veículos Privados, necessitam de um código de acesso");
     })
@@ -36,7 +35,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
             </View>
 
             <View style={styles.typeOfVehicle}>
-                <TouchableOpacity 
+                <TouchableOpacity
                     onPress={() => setTypeOfVehicleToList('public')}
                     style={ typeOfVehicleToList === 'public' ? {...styles.publicButton, backgroundColor:'#E7E9ED'} : {...styles.publicButton, backgroundColor: "#FFFFFF"} }>
                         <Button
@@ -45,7 +44,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
                             title="Públicos"
                         />
                 </TouchableOpacity>
-                <TouchableOpacity 
+                <TouchableOpacity
                     onPress={() => setTypeOfVehicleToList('private')}
                     style={ typeOfVehicleToList === 'private' ? {...styles.privateButton, backgroundColor:'#E7E9ED'} : {...styles.privateButton, backgroundColor: "#FFFFFF"}}>
                         <Button
@@ -58,7 +57,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
             <Text style={styles.subtitle}>{subtitleMessage}</Text>
             {
                 typeOfVehicleToList === "private" &&
-            
+
                 <View style={styles.privateContainer}>
 
                     <View style={styles.containerVehicleCode}>
@@ -85,11 +84,11 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
                         color="#FFFFFF"
                         title="Continuar"
                     />
-                
+
             </View>
 
             <Text style={styles.observation}>Esta opção pode ser alterada mais tarde nas <Text style={styles.emphasisWord}>Configurações</Text></Text>
-        
+
         </View>
     );
 }

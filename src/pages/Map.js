@@ -7,7 +7,7 @@ export default function Map({ navigation, route }) {
         <View style={styles.container}>
 
             <Text>MAPA AQUI</Text>
-            
+
         </View>
     );
 }
