@@ -1,7 +1,8 @@
+import { Text, View, Button, TextInput, StyleSheet, Image, Alert } from 'react-native';
 import React, { useState } from 'react';
-import { Text, View, Button, TextInput, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
-import QRCodePng from '../../assets/images/png/qr-code.png';
+
 import { addNewPrivateVehicle } from '../../backend/users/Passenger';
+import QRCodePng from '../../assets/images/png/qr-code.png';
 import { grey, purple, white } from '../../styles/colors';
 
 export default function AddNewPrivateVehicle({ navigation, route }) {

@@ -15,7 +15,7 @@ export const updateUser = async (id, infosToUpdate) => {
 						.then(() => resolve())
 						.catch((error) => {
 								console.log(`updateUser ERROR = ${error}`);
-								reject(erro);
+								reject(error);
 						});
 		});
 }

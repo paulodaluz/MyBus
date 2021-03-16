@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { Text, View, Button, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-import { changeTypeOfVehicleToList } from '../../backend/users/Passenger';
+import { updateUserAllInfos, addNewPrivateVehicle } from '../../backend/users/Passenger';
 import QRCodePng from '../../assets/images/png/qr-code.png';
 
 export default function ChooseTypeOfVehicle({ navigation, route }) {
@@ -11,13 +11,17 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 
     const changeTypeOfVehicle = async () => {
         const { user } = route.params;
-        if(typeOfVehicleToList === 'public')
-            await changeTypeOfVehicleToList(user, typeOfVehicleToList);
 
-        if(typeOfVehicleToList === 'private')
-            await changeTypeOfVehicleToList(user, typeOfVehicleToList, vehicleCode);
+        if(typeOfVehicleToList === 'public') {
+					await updateUserAllInfos(user.uid, null, null, null, typeOfVehicleToList);
+				}
 
-        return navigation.navigate('Map')
+        if(typeOfVehicleToList === 'private') {
+					await updateUserAllInfos(user.uid, null, null, null, typeOfVehicleToList);
+					await addNewPrivateVehicle(user.uid, vehicleCode);
+				}
+
+        return navigation.navigate('Map');
     }
 
     useLayoutEffect(() => {
