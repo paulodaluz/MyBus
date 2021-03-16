@@ -12,6 +12,7 @@ import Map from './src/pages/Map';
 import ChooseTypeOfVehicle from './src/pages/passengerPages/ChooseTypeOfVehicle';
 import Settings from './src/pages/passengerPages/Settings';
 import EditProfile from './src/pages/passengerPages/EditProfile';
+import AddNewPrivateVehicle from './src/pages/passengerPages/AddNewPrivateVehicle';
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();
@@ -35,6 +36,7 @@ export default function App({navigation}) {
 				<Stack.Screen name="Settings" component={Settings} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="ChooseTypeOfVehicle" component={ChooseTypeOfVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
+				<Stack.Screen name="AddNewPrivateVehicle" component={AddNewPrivateVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
       </Stack.Navigator>
 
     </NavigationContainer>

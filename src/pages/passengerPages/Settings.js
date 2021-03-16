@@ -30,7 +30,7 @@ export default function Settings({ navigation, route }) {
                     </View>
 
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('Map')}>
+                        onPress={() => navigation.navigate('AddNewPrivateVehicle')}>
                             <Text style={styles.nameOfConfig}>Adicionar novo veículo privado</Text>
                     </TouchableOpacity>
 

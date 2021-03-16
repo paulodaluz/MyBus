@@ -38,24 +38,8 @@ export async function getPassenger(uid) {
 	return user;
 };
 
-export async function changeTypeOfVehicleToList(user, typeOfVehicleListed, vehicleCode='') {
-    const completeUser = await getPassenger(user.uid);
-
-		const infosToUpdate = mountBodyToFirebase({typeOfVehicleListed, vehicleCode});
-
-    const addAtrybuteOnFirestoreUser = await updateUser(completeUser.id, infosToUpdate).catch(error => {
-        console.log(`changeTypeOfVehicleToList - addAtrybuteOnFirestoreUser - ERROR = ${error}`)
-        return ({error});
-    });
-
-    if(addAtrybuteOnFirestoreUser && addAtrybuteOnFirestoreUser.error)
-        return addAtrybuteOnFirestoreUser.error;
-
-    return ({ response: "Usuário Atualizado com Sucesso." })
-};
-
-export async function updateUserAllInfos(id, name = '', cpf = '', bornDate = '') {
-	const infosToUpdate = mountBodyToFirebase({ name, cpf, bornDate });
+export async function updateUserAllInfos(id, name = '', cpf = '', bornDate = '', typeOfVehicleListed = '') {
+	const infosToUpdate = mountBodyToFirebase({ name, cpf, bornDate, typeOfVehicleListed });
 
 	const addAtrybuteOnFirestoreUser = await updateUser(id, infosToUpdate).catch(error => {
 			console.log(`changeTypeOfVehicleToList - addAtrybuteOnFirestoreUser - ERROR = ${error}`)
@@ -67,3 +51,43 @@ export async function updateUserAllInfos(id, name = '', cpf = '', bornDate = '')
 
 	return ({ response: "Usuário Atualizado com Sucesso." })
 };
+
+export async function changeTypeOfVehicleToList(user, typeOfVehicleListed, vehicleCode='') {
+	const completeUser = await getPassenger(user.uid);
+
+	const infosToUpdate = mountBodyToFirebase({typeOfVehicleListed, vehicleCode});
+
+	const addAtrybuteOnFirestoreUser = await updateUser(completeUser.id, infosToUpdate).catch(error => {
+		console.log(`changeTypeOfVehicleToList - addAtrybuteOnFirestoreUser - ERROR = ${error}`)
+		return ({error});
+	});
+
+	if(addAtrybuteOnFirestoreUser && addAtrybuteOnFirestoreUser.error)
+		return addAtrybuteOnFirestoreUser.error;
+
+	return ({ response: "Usuário Atualizado com Sucesso." })
+};
+
+export async function addNewPrivateVehicle(uid, newVehicleCode) {
+	let allVehicleCodes = [];
+
+	const completeUser = await getPassenger(uid);
+
+	allVehicleCodes.push(newVehicleCode);
+
+	if(completeUser.codes_private_vehicles.length > 0) {
+		allVehicleCodes = allVehicleCodes.concat(completeUser.codes_private_vehicles);
+	}
+
+	const infosToUpdate = mountBodyToFirebase({vehicleCode: allVehicleCodes});
+
+	const addAtrybuteOnFirestoreUser = await updateUser(completeUser.id, infosToUpdate).catch(error => {
+		console.log(`changeTypeOfVehicleToList - addAtrybuteOnFirestoreUser - ERROR = ${error}`)
+		return ({error});
+	});
+
+	if(addAtrybuteOnFirestoreUser && addAtrybuteOnFirestoreUser.error)
+		return addAtrybuteOnFirestoreUser.error;
+
+	return ({ response: "Usuário Atualizado com Sucesso." })
+}

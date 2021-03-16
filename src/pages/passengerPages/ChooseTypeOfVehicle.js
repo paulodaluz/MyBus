@@ -2,14 +2,14 @@ import React, { useState, useLayoutEffect } from 'react';
 import { Text, View, Button, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 import { changeTypeOfVehicleToList } from '../../backend/users/Passenger';
-import qrCodePng from '../../assets/images/png/qr-code.png';
+import QRCodePng from '../../assets/images/png/qr-code.png';
 
 export default function ChooseTypeOfVehicle({ navigation, route }) {
     const [vehicleCode, setVehicleCode] = useState("");
     const [typeOfVehicleToList, setTypeOfVehicleToList] = useState("public");
     const [subtitleMessage, setSubtitleMessage] = useState("");
 
-    const changeTypeOfVehicle = async() => {
+    const changeTypeOfVehicle = async () => {
         const { user } = route.params;
         if(typeOfVehicleToList === 'public')
             await changeTypeOfVehicleToList(user, typeOfVehicleToList);
@@ -71,21 +71,21 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
                     <View style={styles.arroundScanQrCode}>
                         <Image
                             style={styles.qrCodePng}
-                            source={qrCodePng}
+                            source={QRCodePng}
                         />
                         <Text style={styles.scanQrCode}>Escanear QR-CODE</Text>
                     </View>
                 </View>
             }
             <View style={{paddingTop: "20%"}}></View>
-                <View style={styles.continueButton}>
-                    <Button
-                        onPress={changeTypeOfVehicle}
-                        color="#FFFFFF"
-                        title="Continuar"
-                    />
 
-            </View>
+						<View style={styles.continueButton}>
+							<Button
+								onPress={changeTypeOfVehicle}
+								color="#FFFFFF"
+								title="Continuar"
+							/>
+						</View>
 
             <Text style={styles.observation}>Esta opção pode ser alterada mais tarde nas <Text style={styles.emphasisWord}>Configurações</Text></Text>
 
