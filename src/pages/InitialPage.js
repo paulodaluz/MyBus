@@ -3,7 +3,7 @@ import { StyleSheet, View, Button, Text, Image } from 'react-native';
 import BusinessImage from '../assets/images/png/business-deal-cuate.png';
 import BusStopImage from '../assets/images/png/bustop-cuate.png';
 import GestureRecognizer from 'react-native-swipe-gestures';
-import { getSession, loginOnFirebase } from '../backend/Login';
+import { getSession, getUserOnFirebase } from '../backend/Login';
 
 export default function InitialPage({ navigation, route }) {
   const [typeUserPage, setTypeUserPage] = useState("passenger");
@@ -14,7 +14,7 @@ export default function InitialPage({ navigation, route }) {
 			const uidUser = await getSession();
 
 			if(uidUser) {
-				const user = await loginOnFirebase(uidUser);
+				const user = await getUserOnFirebase(uidUser);
 				return navigation.navigate('Map', {user});
 			}
 		}

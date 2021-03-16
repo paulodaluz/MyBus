@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         paddingLeft: 30,
         paddingRight: 90,
+				fontWeight: "bold",
     },
     typeOfVehicle: {
         display: "flex",

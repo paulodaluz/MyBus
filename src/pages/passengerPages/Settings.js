@@ -42,7 +42,7 @@ export default function Settings({ navigation, route }) {
 
                 <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('Map')}>
+                        onPress={() => navigation.navigate('EditProfile')}>
                             <Text style={styles.nameOfConfig}>Editar Perfil</Text>
                     </TouchableOpacity>
                 </View>
@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
     },
     title: {
 			fontSize: 45,
-			color: "#FFFFFF"
+			color: "#FFFFFF",
+			fontWeight: "bold",
     },
     allConfigOptions: {
 			width: "100%",

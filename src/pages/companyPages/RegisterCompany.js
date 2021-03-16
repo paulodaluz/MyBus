@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput, TouchableOpacity } from 'react-native';
 import { createCompanyBackend } from '../../backend/users/Company';
+import { white } from "../../styles/colors";
 
 export default function RegisterCompany({ navigation, route }) {
 
@@ -86,8 +87,8 @@ export default function RegisterCompany({ navigation, route }) {
       <View style={styles.registerButton}>
         <Button
           onPress={createUser}
-          color="#FFFFFF"
           title="Pronto"
+					color={white}
           />
       </View>
 
@@ -124,6 +125,7 @@ const styles = StyleSheet.create({
   centerTitle: {
     color: '#FFFFFF',
     fontSize: 50,
+		fontWeight: "bold",
   },
   subTitle: {
     color: '#FFFFFF',

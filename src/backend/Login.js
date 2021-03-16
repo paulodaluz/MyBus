@@ -2,7 +2,7 @@ import { getPassenger } from './users/Passenger';
 import { getCompany } from './users/Company';
 import { saveStorage, loadStorage, removeStorage } from '../service/AsyncStorage';
 
-export async function loginOnFirebase(uid) {
+export async function getUserOnFirebase(uid) {
     const passenger = await getPassenger(uid);
 
     if(passenger) {

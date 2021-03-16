@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
-import { createSession, loginOnFirebase } from '../backend/Login';
+import { createSession, getUserOnFirebase } from '../backend/Login';
 import * as authService from '../service/AuthService';
 
 export default function Login({ navigation, route }) {
@@ -16,7 +16,7 @@ export default function Login({ navigation, route }) {
 
     const loggedUser = await authService.login(email, password);
 
-    const user = await loginOnFirebase(loggedUser.user.uid);
+    const user = await getUserOnFirebase(loggedUser.user.uid);
 
     if(user) {
       createSession(user.uid);
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   welcomeBox: {
-    height: "38%  %",
+    height: "38%",
     width: "100%",
     backgroundColor: "#8257E6",
     borderBottomLeftRadius: 30,

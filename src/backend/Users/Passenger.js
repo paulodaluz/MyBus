@@ -1,5 +1,6 @@
 import * as authService from '../../service/AuthService';
 import { saveUser, updateUser, getAllUsers } from '../../service/UserService';
+import { mountBodyToFirebase } from '../utils/Utils';
 
 export async function createPassengerBackend(email, password, name) {
     let user = {email, name};
@@ -23,10 +24,26 @@ export async function createPassengerBackend(email, password, name) {
     return ({ response: user });
 };
 
-export async function changeTypeOfVehicleToList(user, typeOfVehicleListed, vehicleCode='') {
-    const completeUser = await getUser(user.uid);
+export async function getPassenger(uid) {
 
-    const addAtrybuteOnFirestoreUser = await updateUser(completeUser.id, typeOfVehicleListed, vehicleCode).catch(error => {
+	const allUsers = await getAllUsers().catch(error => {
+			return ({error});
+	});
+
+	if(allUsers.error)
+	return allUsers.error;
+
+	const user = allUsers.find((user) => user.uid === uid);
+
+	return user;
+};
+
+export async function changeTypeOfVehicleToList(user, typeOfVehicleListed, vehicleCode='') {
+    const completeUser = await getPassenger(user.uid);
+
+		const infosToUpdate = mountBodyToFirebase({typeOfVehicleListed, vehicleCode});
+
+    const addAtrybuteOnFirestoreUser = await updateUser(completeUser.id, infosToUpdate).catch(error => {
         console.log(`changeTypeOfVehicleToList - addAtrybuteOnFirestoreUser - ERROR = ${error}`)
         return ({error});
     });
@@ -37,16 +54,16 @@ export async function changeTypeOfVehicleToList(user, typeOfVehicleListed, vehic
     return ({ response: "Usuário Atualizado com Sucesso." })
 };
 
-export async function getPassenger(uid) {
+export async function updateUserAllInfos(id, name = '', cpf = '', bornDate = '') {
+	const infosToUpdate = mountBodyToFirebase({ name, cpf, bornDate });
 
-    const allUsers = await getAllUsers().catch(error => {
-        return ({error});
-    });
+	const addAtrybuteOnFirestoreUser = await updateUser(id, infosToUpdate).catch(error => {
+			console.log(`changeTypeOfVehicleToList - addAtrybuteOnFirestoreUser - ERROR = ${error}`)
+			return ({error});
+	});
 
-    if(allUsers.error)
-    return allUsers.error;
+	if(addAtrybuteOnFirestoreUser && addAtrybuteOnFirestoreUser.error)
+			return addAtrybuteOnFirestoreUser.error;
 
-    const user = allUsers.find((user) => user.uid === uid);
-
-    return user;
+	return ({ response: "Usuário Atualizado com Sucesso." })
 };
