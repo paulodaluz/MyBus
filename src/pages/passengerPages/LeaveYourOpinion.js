@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Alert } from "react-native";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Alert, Image } from "react-native";
 import { saveCompanyFeedbackBackend } from "../../backend/feedbacks/CompanyFeedbacks";
 import { saveAppFeedbackBackend } from "../../backend/feedbacks/MyBusFeedbacks";
 import { purple, white, grey } from "../../styles/colors";
+import MyBusIcon from '../../assets/icons/svg/my_bus_icon.svg'
+import TransportIcon from '../../assets/icons/svg/transport_icon.svg'
 
 export default function LeaveYourOpinion({ navigation, route }) {
 	const { uid } = route.params;
@@ -45,7 +47,7 @@ export default function LeaveYourOpinion({ navigation, route }) {
 	}
 
   return (
-		<View style={styles.container}>
+		<View>
 			<View style={styles.boxTitle}>
 				<Text style={styles.title}>Deixe sua opinião</Text>
 				<Text style={styles.subTitle}>Escolha para quem é o seu feedback!</Text>
@@ -55,12 +57,20 @@ export default function LeaveYourOpinion({ navigation, route }) {
 				<TouchableOpacity
 						onPress={() => {setFeedbackRecipient('company'), cleanInputs()}}
 						style={ feedbackRecipient === 'company' ? {...styles.buttonFeedbackTransport, backgroundColor:'#E7E9ED'} : {...styles.buttonFeedbackTransport, backgroundColor: "#FFFFFF"} }>
+							{/* <Image
+								style={{width: 30, height: 30}}
+								source={MyBusIcon}
+							/> */}
 							<Text style={styles.textFeedbackTransport}>Transporte</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity
 						onPress={() => {setFeedbackRecipient('app'), cleanInputs()}}
 						style={ feedbackRecipient === 'app' ? {...styles.buttonFeedbackApp, backgroundColor:'#E7E9ED'} : {...styles.buttonFeedbackApp, backgroundColor: "#FFFFFF"}}>
+							{/* <Image
+								style={{width: 30, height: 30}}
+								source={TransportIcon}
+							/> */}
 							<Text style={styles.textFeedbackApp}>Applicativo MyBus</Text>
 				</TouchableOpacity>
 			</View>
@@ -104,9 +114,6 @@ export default function LeaveYourOpinion({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-	container: {
-
-	},
 	boxTitle: {
 		height: "25%",
 		width: "100%",
@@ -127,7 +134,6 @@ const styles = StyleSheet.create({
 		paddingTop: "2%",
 		paddingRight: "15%"
 	},
-
 	feedbackRecipient: {
 		flexDirection: "row",
 		width: "100%",

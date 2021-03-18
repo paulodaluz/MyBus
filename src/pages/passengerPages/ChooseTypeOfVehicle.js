@@ -42,20 +42,12 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
                 <TouchableOpacity
                     onPress={() => setTypeOfVehicleToList('public')}
                     style={ typeOfVehicleToList === 'public' ? {...styles.publicButton, backgroundColor:'#E7E9ED'} : {...styles.publicButton, backgroundColor: "#FFFFFF"} }>
-                        <Button
-                            onPress={() => setTypeOfVehicleToList('public')}
-                            color="#8190A5"
-                            title="Públicos"
-                        />
+                        <Text style={styles.textPublicButton}>Privado</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => setTypeOfVehicleToList('private')}
                     style={ typeOfVehicleToList === 'private' ? {...styles.privateButton, backgroundColor:'#E7E9ED'} : {...styles.privateButton, backgroundColor: "#FFFFFF"}}>
-                        <Button
-                            onPress={() => setTypeOfVehicleToList('private')}
-                            color="#8190A5"
-                            title="Privado"
-                        />
+												<Text style={styles.textPrivateButton}>Privado</Text>
                 </TouchableOpacity>
             </View>
             <Text style={styles.subtitle}>{subtitleMessage}</Text>
@@ -98,105 +90,113 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#FFFFFF',
-        alignItems: 'center',
-        height: "100%"
-    },
-    titleBox: {
-        height: "38 %",
-        width: "100%",
-        backgroundColor: "#8257E6",
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
-        marginBottom: 40,
-        paddingTop: "8%"
-    },
-    title: {
-        color: '#FFFFFF',
-        fontSize: 42,
-        paddingTop: 50,
-        paddingLeft: 30,
-        paddingRight: 90,
-				fontWeight: "bold",
-    },
-    typeOfVehicle: {
-        display: "flex",
-        flexDirection: "row",
-        width: "100%",
-        height: "6%",
-    },
-    publicButton: {
-        width: "50%",
-        alignItems: "center",
-        paddingTop: "2%"
-    },
-    privateButton: {
-        width: "50%",
-        alignItems: "center",
-        paddingTop: "2%"
-    },
-    subtitle: {
-        fontSize: 18,
-        color: "#8190A5",
-        textAlign: "center",
-        paddingTop: "5%",
-        paddingBottom: "5%",
-        paddingLeft: "10%",
-        paddingRight: "10%",
-    },
-    privateContainer: {
-        width: "100%",
-        alignItems: "center"
-    },
-    containerVehicleCode: {
-        borderWidth: 1,
-        borderColor: '#8492A6',
-        backgroundColor: "transparent",
-        width: "80%",
-        height: 60,
-    },
-    inputVehicleCode: {
-        height: "100%",
-        paddingLeft: "2%"
-    },
-    arroundScanQrCode: {
-        marginTop: "2%",
-        flexDirection: "row",
-        width: "80%",
-    },
-    qrCodePng: {
-        display: "flex",
-        width: 15,
-        height: 15,
-        maxWidth: 15,
-        marginRight: "1%"
-    },
-    scanQrCode: {
-        textDecorationLine: "underline",
-        fontWeight: "bold",
-        color: "#969FAA",
-    },
-    continueButton: {
-        backgroundColor: "#8257E6",
-        borderRadius: 14,
-        height: "8%",
-        width: '85%',
-        padding: "4%",
-        marginBottom: "3%"
-    },
-    observation: {
-        color: "#969FAA",
-        textAlign: "center",
-        fontSize: 15,
-        paddingTop: "2%",
-        paddingLeft: "19%",
-        paddingRight: "19%"
-    },
-    emphasisWord: {
-        textDecorationLine: "underline",
-        fontWeight: "bold"
-    }
-
-
+	container: {
+		backgroundColor: '#FFFFFF',
+		alignItems: 'center',
+		height: "100%"
+	},
+	titleBox: {
+		height: "38%",
+		width: "100%",
+		backgroundColor: "#8257E6",
+		borderBottomLeftRadius: 30,
+		borderBottomRightRadius: 30,
+		marginBottom: 40,
+		paddingTop: "8%"
+	},
+	title: {
+		color: '#FFFFFF',
+		fontSize: 42,
+		paddingTop: 50,
+		paddingLeft: 30,
+		paddingRight: 90,
+		fontWeight: "bold",
+	},
+	typeOfVehicle: {
+		display: "flex",
+		flexDirection: "row",
+		width: "100%",
+		height: "6%",
+	},
+	publicButton: {
+		width: "50%",
+		alignItems: "center",
+	},
+	textPublicButton: {
+		height: "100%",
+		color: "#8190A5",
+		fontSize: 19,
+		paddingTop: "6%"
+	},
+	privateButton: {
+		width: "50%",
+		alignItems: "center",
+	},
+	textPrivateButton: {
+		height: "100%",
+		color: "#8190A5",
+		fontSize: 19,
+		paddingTop: "6%"
+	},
+	subtitle: {
+		fontSize: 18,
+		color: "#8190A5",
+		textAlign: "center",
+		paddingTop: "5%",
+		paddingBottom: "5%",
+		paddingLeft: "10%",
+		paddingRight: "10%",
+	},
+	privateContainer: {
+		width: "100%",
+		alignItems: "center"
+	},
+	containerVehicleCode: {
+		borderWidth: 1,
+		borderColor: '#8492A6',
+		backgroundColor: "transparent",
+		width: "80%",
+		height: 60,
+	},
+	inputVehicleCode: {
+		height: "100%",
+		paddingLeft: "2%"
+	},
+	arroundScanQrCode: {
+		marginTop: "2%",
+		flexDirection: "row",
+		width: "80%",
+	},
+	qrCodePng: {
+		display: "flex",
+		width: 15,
+		height: 15,
+		maxWidth: 15,
+		marginRight: "1%"
+	},
+	scanQrCode: {
+		textDecorationLine: "underline",
+		fontWeight: "bold",
+		color: "#969FAA",
+	},
+	continueButton: {
+		backgroundColor: "#8257E6",
+		borderRadius: 14,
+		height: "8%",
+		width: '85%',
+		padding: "4%",
+		marginBottom: "3%"
+	},
+	observation: {
+		color: "#969FAA",
+		textAlign: "center",
+		fontSize: 15,
+		paddingTop: "2%",
+		paddingLeft: "19%",
+		paddingRight: "19%"
+	},
+	emphasisWord: {
+		textDecorationLine: "underline",
+		fontWeight: "bold"
+	}
 })
