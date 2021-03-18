@@ -10,7 +10,8 @@ import RegisterPassenger from './src/pages/passengerPages/RegisterPassenger';
 import RegisterCompany from './src/pages/companyPages/RegisterCompany';
 import Map from './src/pages/Map';
 import ChooseTypeOfVehicle from './src/pages/passengerPages/ChooseTypeOfVehicle';
-import Settings from './src/pages/passengerPages/Settings';
+import SettingsPassenger from './src/pages/passengerPages/SettingsPassenger';
+import SettingsCompany from './src/pages/companyPages/SettingsCompany';
 import EditProfile from './src/pages/passengerPages/EditProfile';
 import AddNewPrivateVehicle from './src/pages/passengerPages/AddNewPrivateVehicle';
 import LeaveYourOpinion from './src/pages/passengerPages/LeaveYourOpinion';
@@ -34,7 +35,8 @@ export default function App({navigation}) {
 
 				<Stack.Screen name="Map" component={Map} initialParams={{ navigation }} options={{headerShown: false}}/>
 
-				<Stack.Screen name="Settings" component={Settings} initialParams={{ navigation }} options={{headerShown: false}} />
+				<Stack.Screen name="SettingsPassenger" component={SettingsPassenger} initialParams={{ navigation }} options={{headerShown: false}} />
+				<Stack.Screen name="SettingsCompany" component={SettingsCompany} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="ChooseTypeOfVehicle" component={ChooseTypeOfVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="AddNewPrivateVehicle" component={AddNewPrivateVehicle} initialParams={{ navigation }} options={{headerShown: false}} />

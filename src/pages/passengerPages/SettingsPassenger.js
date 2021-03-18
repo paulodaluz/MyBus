@@ -1,9 +1,8 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Switch } from "react-native";
 import { removeSession } from '../../backend/Login';
 
-export default function Settings({ navigation, route }) {
+export default function SettingsPassenger({ navigation, route }) {
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -56,7 +55,7 @@ export default function Settings({ navigation, route }) {
 
                 <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('Map')}>
+                        onPress={() => Linking.openURL(`https://api.whatsapp.com/send?phone=5554999999999`)}>
                             <Text style={styles.nameOfConfig}>Entre em contato conosco</Text>
                     </TouchableOpacity>
                 </View>
@@ -74,45 +73,45 @@ export default function Settings({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-			backgroundColor: "rgba(200, 200, 200, 0.4)",
-			height: "100%"
-    },
-    boxTitle: {
-			height: "18%",
-			width: "100%",
-			backgroundColor: "#8257E6",
-			borderBottomLeftRadius: 30,
-			borderBottomRightRadius: 30,
-			paddingTop: "18%",
-			paddingLeft: "6%",
-    },
-    title: {
-			fontSize: 45,
-			color: "#FFFFFF",
-			fontWeight: "bold",
-    },
-    allConfigOptions: {
-			width: "100%",
-			marginTop: "12%"
-    },
-    configOption: {
-			backgroundColor: "#FFFFFF",
-			borderWidth: 1,
-			borderColor: "#976DD0",
-			paddingLeft: "5%",
-			height: 58,
-			flexDirection: "row"
-    },
-    nameOfConfig: {
-			fontSize: 25,
-			paddingTop: "3%"
-    },
-    buttonListedVehicles: {
-			marginTop: "3%",
-			marginLeft: "8%"
-    },
-    groupOfCategories: {
-			marginBottom: "12%",
-    }
+	container: {
+		backgroundColor: "rgba(200, 200, 200, 0.4)",
+		height: "100%"
+	},
+	boxTitle: {
+		height: "18%",
+		width: "100%",
+		backgroundColor: "#8257E6",
+		borderBottomLeftRadius: 30,
+		borderBottomRightRadius: 30,
+		paddingTop: "18%",
+		paddingLeft: "6%",
+	},
+	title: {
+		fontSize: 45,
+		color: "#FFFFFF",
+		fontWeight: "bold",
+	},
+	allConfigOptions: {
+		width: "100%",
+		marginTop: "12%"
+	},
+	configOption: {
+		backgroundColor: "#FFFFFF",
+		borderWidth: 1,
+		borderColor: "#976DD0",
+		paddingLeft: "5%",
+		height: 58,
+		flexDirection: "row"
+	},
+	nameOfConfig: {
+		fontSize: 25,
+		paddingTop: "3%"
+	},
+	buttonListedVehicles: {
+		marginTop: "3%",
+		marginLeft: "8%"
+	},
+	groupOfCategories: {
+		marginBottom: "12%",
+	}
 });

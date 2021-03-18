@@ -1,16 +1,19 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, FlatList } from 'react-native';
 
 export default function RegisterUser({ navigation, route }) {
   return (
     <View>
-        <Button onPress={() => navigation.navigate('InitialPage')} title="InitialPage" />
-
-        <Button onPress={() => navigation.navigate('Map')} title="Map"/>
-
-        <Button onPress={() => navigation.navigate('ChooseTypeOfVehicle')} title="ChooseTypeOfVehicle"/>
-
-        <Button onPress={() => navigation.navigate('Settings')} title="Settings"/>
+				<FlatList
+					data={[
+						{key: 'InitialPage'},
+						{key: 'Map'},
+						{key: 'ChooseTypeOfVehicle'},
+						{key: 'SettingsPassenger'},
+						{key: 'SettingsCompany'},
+					]}
+					renderItem={({item}) => <Button onPress={() => navigation.navigate(item.key)} title={item.key}/>}
+				/>
     </View>
   );
 }
