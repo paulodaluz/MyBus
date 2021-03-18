@@ -25,12 +25,11 @@ export async function createPassengerBackend(email, password, name) {
 };
 
 export async function getPassenger(uid) {
-
 	const allUsers = await getAllUsers().catch(error => {
 		return ({error});
 	});
 
-	if(allUsers.error)
+	if(allUsers && allUsers.error)
 	return allUsers.error;
 
 	const user = allUsers.find((user) => user.uid === uid);

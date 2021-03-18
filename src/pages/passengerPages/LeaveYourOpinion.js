@@ -24,16 +24,15 @@ export default function LeaveYourOpinion({ navigation, route }) {
 	};
 
 	const saveFeedbackTransport = async () => {
-		console.log('Opa_1')
 		if(!feedback || !vehicleName) {
 			return Alert.alert('Dados inválidos, verifique-os e tente novamente!');
 		}
-		console.log('Opa_2')
+
 		if(vehicleId) {
 			await saveCompanyFeedbackBackend('mI1C18vPX4QtWKznoQSdtGSnNaD3', vehicleId, vehicleName, feedback);
 			return Alert.alert('Feedback registrado!');
 		}
-		console.log('Opa_3')
+
 		await saveCompanyFeedbackBackend('mI1C18vPX4QtWKznoQSdtGSnNaD3', null, vehicleName, feedback);
 
 		cleanInputs();

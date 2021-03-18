@@ -5,18 +5,18 @@ export async function saveCompanyFeedbackBackend(uid, vehicleId='', vehicleName,
 	if(vehicleId) {
 		// TODO buscar o nome do veículo
 	}
-    let opinion = { vehicle_name: vehicleName, feedback };
-		console.log({user, uid, vehicleName, opinion})
+	let opinion = { vehicle_name: vehicleName, feedback };
 
-		if(vehicleId) Object.assign(opinion, {id_vehicle: vehicleId});
+	if(vehicleId) Object.assign(opinion, {id_vehicle: vehicleId});
 
-		const user = await getPassenger(uid);
+	const user = await getPassenger(uid);
 
-    opinion.email = user.email;
+	opinion.email = user.email;
 
-		if(user.name)	opinion.name = user.name_person;
+	if(user.name)	opinion.name_person = user.name;
 
-    await saveFeedback(opinion);
+	console.log('bola', opinion);
+	await saveFeedback(opinion);
 
-    return ({ response: "Feedback Registrado com Sucesso!" });
+	return ({ response: "Feedback Registrado com Sucesso!" });
 };
