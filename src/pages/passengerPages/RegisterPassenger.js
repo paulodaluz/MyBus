@@ -14,11 +14,11 @@ export default function RegisterPassenger({ navigation, route }) {
 
   const createUser = async () => {
     if(!email || !password || !confirmPassword) {
-      return Alert.alert('Dados inválidos, verifique-os e tente novamente!')
+      return Alert.alert('Dados inválidos, verifique-os e tente novamente!');
     }
 
     if(password !== confirmPassword) {
-      return Alert.alert('As senhas não conferem!')
+      return Alert.alert('As senhas não conferem!');
     }
 
     const userCreated = await createPassengerBackend(email, password, name);

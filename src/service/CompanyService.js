@@ -1,6 +1,6 @@
 import { db } from "../database/FirebaseConfiguration";
 
-export const saveCompany = async (company, chave = "") => {
+export const saveCompany = async (company) => {
     return await db.collection("company")
         .add(company)
         .then((result) => {return(result)})

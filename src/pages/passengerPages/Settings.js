@@ -49,7 +49,7 @@ export default function Settings({ navigation, route }) {
 
                 <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('Map')}>
+                        onPress={() => navigation.navigate('LeaveYourOpinion')}>
                             <Text style={styles.nameOfConfig}>Deixe sua opinião</Text>
                     </TouchableOpacity>
                 </View>

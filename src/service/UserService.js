@@ -1,6 +1,6 @@
 import { db } from "../database/FirebaseConfiguration";
 
-export const saveUser = async (user, chave = "") => {
+export const saveUser = async (user) => {
     return await db.collection("users")
         .add(user)
         .then((result) => {return(result)})
@@ -25,7 +25,7 @@ export const getAllUsers = async () => {
     const snapshot = await db.collection('users').get();
     snapshot.forEach((doc) => {
         let user = doc.data();
-        user.id = doc.id
+        user.id = doc.id;
         users.push(user);
     });
 

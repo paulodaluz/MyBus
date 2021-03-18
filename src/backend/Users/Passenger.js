@@ -27,7 +27,7 @@ export async function createPassengerBackend(email, password, name) {
 export async function getPassenger(uid) {
 
 	const allUsers = await getAllUsers().catch(error => {
-			return ({error});
+		return ({error});
 	});
 
 	if(allUsers.error)
