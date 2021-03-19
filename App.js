@@ -12,7 +12,8 @@ import Map from './src/pages/Map';
 import ChooseTypeOfVehicle from './src/pages/passengerPages/ChooseTypeOfVehicle';
 import SettingsPassenger from './src/pages/passengerPages/SettingsPassenger';
 import SettingsCompany from './src/pages/companyPages/SettingsCompany';
-import EditProfile from './src/pages/passengerPages/EditProfile';
+import EditProfilePassenger from './src/pages/passengerPages/EditProfilePassenger';
+import EditProfileCompany from './src/pages/companyPages/EditProfileCompany';
 import AddNewPrivateVehicle from './src/pages/passengerPages/AddNewPrivateVehicle';
 import LeaveYourOpinion from './src/pages/passengerPages/LeaveYourOpinion';
 
@@ -31,7 +32,9 @@ export default function App({navigation}) {
 				<Stack.Screen name="Login" component={Login} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="RegisterPassenger" component={RegisterPassenger} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="RegisterCompany" component={RegisterCompany} initialParams={{ navigation }} options={{headerShown: false}} />
-        <Stack.Screen name="EditProfile" component={EditProfile} initialParams={{ navigation }} options={{headerShown: false}} />
+
+				<Stack.Screen name="EditProfilePassenger" component={EditProfilePassenger} initialParams={{ navigation }} options={{headerShown: false}} />
+        <Stack.Screen name="EditProfileCompany" component={EditProfileCompany} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="Map" component={Map} initialParams={{ navigation }} options={{headerShown: false}}/>
 

@@ -1,5 +1,5 @@
 import * as authService from '../../service/AuthService';
-import { saveCompany, getAllCompanies } from '../../service/CompanyService';
+import { saveCompany, getAllCompanies, updateCompany } from '../../service/CompanyService';
 
 export async function createCompanyBackend(email, password, name, cnpj) {
     let company = {email, name, cnpj};
@@ -35,4 +35,18 @@ export async function getCompany(uid) {
     const company = allCompanies.find((user) => user.uid === uid);
 
     return company;
+};
+
+export async function updateAllInfosOfCompany(id, name = '', cnpj = '') {
+	const infosToUpdate = { name, cnpj };
+
+	const addAtrybuteOnFirestoreCompany = await updateCompany(id, infosToUpdate).catch(error => {
+			console.log(`updateAllInfosOfCompany - ERROR = ${error}`);
+			return ({error});
+	});
+
+	if(addAtrybuteOnFirestoreCompany && addAtrybuteOnFirestoreCompany.error)
+			return addAtrybuteOnFirestoreCompany.error;
+
+	return ({ response: "Empresa Atualizada com Sucesso." })
 };

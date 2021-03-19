@@ -18,3 +18,16 @@ export const getAllCompanies = async () => {
 
     return companies;
 };
+
+export const updateCompany = async (id, infosToUpdate) => {
+	return new Promise((resolve, reject) => {
+			db.collection("company")
+					.doc(id)
+					.update(infosToUpdate)
+					.then(() => resolve())
+					.catch((error) => {
+							console.log(`updateUser ERROR = ${error}`);
+							reject(error);
+					});
+	});
+};

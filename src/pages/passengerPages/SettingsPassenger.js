@@ -41,7 +41,7 @@ export default function SettingsPassenger({ navigation, route }) {
 
                 <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('EditProfile')}>
+                        onPress={() => navigation.navigate('EditProfilePassenger')}>
                             <Text style={styles.nameOfConfig}>Editar Perfil</Text>
                     </TouchableOpacity>
                 </View>

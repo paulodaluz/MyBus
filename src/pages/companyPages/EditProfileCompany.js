@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
-import { getPassenger, updateUserAllInfos } from "../../backend/users/Passenger";
+import { getCompany, updateAllInfosOfCompany } from "../../backend/users/Company";
+// import { updateUserAllInfos } from "../../backend/users/Passenger";
 import { purple, white, grey } from "../../styles/colors";
 
-export default function EditProfile({ navigation, route }) {
+export default function EditProfileCompany({ navigation, route }) {
 	const [name, setName] = useState("");
-	const [cpf, setCpf] = useState("");
+	const [cnpj, setCnpj] = useState("");
 	const [email, setEmail] = useState("");
 	const [password] = useState("******");
-	const [bornDate, setBornDate] = useState("");
 
 	const [id, setId] = useState("");
 	const [uid, setUid] = useState("");
@@ -16,9 +16,10 @@ export default function EditProfile({ navigation, route }) {
 	useEffect(() => {
 
 		async function getData() {
-			const { uid } = route.params;
+			// const { uid } = route.params;
+			const uid = 'TGTeU5cvOaYcxmGIvrA6RSpbpxm2'
 
-			const user = await getPassenger(uid);
+			const user = await getCompany(uid);
 
 			setId(user.id);
 
@@ -28,11 +29,7 @@ export default function EditProfile({ navigation, route }) {
 
 			setEmail(user.email);
 
-			if(user.cpf)
-				setCpf(user.cpf);
-
-			if(user.born_date)
-				setBornDate(user.born_date);
+			setCnpj(user.cnpj);
 		}
 
 		getData();
@@ -40,9 +37,9 @@ export default function EditProfile({ navigation, route }) {
   }, []);
 
 	const updateUser = async () => {
-		await updateUserAllInfos(id, name, cpf, bornDate);
+		await updateAllInfosOfCompany(id, name, cnpj);
 
-		return navigation.navigate('Settings', {uid});
+		return navigation.navigate('SettingsCompany', {uid});
 	}
 
   return (
@@ -53,7 +50,7 @@ export default function EditProfile({ navigation, route }) {
 
 			<View style={styles.body}>
 
-				<Text style={styles.nameOfInput}>Nome:</Text>
+				<Text style={styles.nameOfInput}>Nome da empresa:</Text>
 				<TextInput
 						style={styles.inputButton}
 						placeholder="Nome completo"
@@ -62,13 +59,13 @@ export default function EditProfile({ navigation, route }) {
 						onChangeText={name => setName(name)}
 					/>
 
-				<Text style={styles.nameOfInput}>CPF:</Text>
+				<Text style={styles.nameOfInput}>CNPJ:</Text>
 				<TextInput
 						style={styles.inputButton}
 						placeholder="CPF"
 						keyboardType='number-pad'
-						value={cpf}
-						onChangeText={cpf => setCpf(cpf)}
+						value={cnpj}
+						onChangeText={cnpj => setCnpj(cnpj)}
 					/>
 
 				<Text style={styles.nameOfInput}>Email:</Text>
@@ -82,15 +79,6 @@ export default function EditProfile({ navigation, route }) {
 						placeholder="Senha"
 						secureTextEntry={true}
 						value={password}
-					/>
-
-				<Text style={styles.nameOfInput}>Data de Nascimento:</Text>
-				<TextInput
-						style={styles.inputButton}
-						placeholder="Data de Nascimento"
-						value={bornDate}
-						keyboardType='number-pad'
-						onChangeText={bornDate => setBornDate(bornDate)}
 					/>
 
 				<View style={styles.updateButton}>
@@ -111,7 +99,7 @@ const styles = StyleSheet.create({
 	},
 	boxTitle: {
 		backgroundColor: purple,
-		height: "16%",
+		height: "17%",
 		width: "100%",
 		borderBottomLeftRadius: 30,
 		borderBottomRightRadius: 30
@@ -134,7 +122,7 @@ const styles = StyleSheet.create({
 		paddingTop: "6%"
 	},
 	inputButton: {
-    height: "9%",
+    height: "10%",
     width: '100%',
     borderWidth: 1,
     borderColor: grey,
@@ -152,7 +140,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     backgroundColor: "#47525E",
     borderRadius: 14,
-    height: "9%",
+    height: "11%",
     width: '100%',
     paddingTop: "4%",
     marginBottom: "3%"

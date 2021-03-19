@@ -20,7 +20,7 @@ export default function SettingsCompany({ navigation, route }) {
 
                 <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('Map')}>
+                        onPress={() => navigation.navigate('EditProfileCompany')}>
                             <Text style={styles.nameOfConfig}>Editar perfil</Text>
                     </TouchableOpacity>
                 </View>
