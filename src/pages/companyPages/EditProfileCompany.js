@@ -16,8 +16,7 @@ export default function EditProfileCompany({ navigation, route }) {
 	useEffect(() => {
 
 		async function getData() {
-			// const { uid } = route.params;
-			const uid = 'TGTeU5cvOaYcxmGIvrA6RSpbpxm2'
+			const { uid } = route.params;
 
 			const user = await getCompany(uid);
 

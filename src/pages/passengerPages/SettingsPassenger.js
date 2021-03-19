@@ -48,14 +48,14 @@ export default function SettingsPassenger({ navigation, route }) {
 
                 <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('LeaveYourOpinion')}>
+                        onPress={() => navigation.navigate('LeaveYourOpinionPassenger')}>
                             <Text style={styles.nameOfConfig}>Deixe sua opinião</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => Linking.openURL(`https://api.whatsapp.com/send?phone=5554999999999`)}>
+                        onPress={() => Linking.openURL(`https://api.whatsapp.com/send?phone=55540808`)}>
                             <Text style={styles.nameOfConfig}>Entre em contato conosco</Text>
                     </TouchableOpacity>
                 </View>

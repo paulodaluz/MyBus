@@ -15,7 +15,8 @@ import SettingsCompany from './src/pages/companyPages/SettingsCompany';
 import EditProfilePassenger from './src/pages/passengerPages/EditProfilePassenger';
 import EditProfileCompany from './src/pages/companyPages/EditProfileCompany';
 import AddNewPrivateVehicle from './src/pages/passengerPages/AddNewPrivateVehicle';
-import LeaveYourOpinion from './src/pages/passengerPages/LeaveYourOpinion';
+import LeaveYourOpinionPassenger from './src/pages/passengerPages/LeaveYourOpinionPassenger';
+import LeaveYourOpinionCompany from './src/pages/companyPages/LeaveYourOpinionCompany';
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();
@@ -44,7 +45,8 @@ export default function App({navigation}) {
 				<Stack.Screen name="ChooseTypeOfVehicle" component={ChooseTypeOfVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="AddNewPrivateVehicle" component={AddNewPrivateVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
 
-				<Stack.Screen name="LeaveYourOpinion" component={LeaveYourOpinion} initialParams={{ navigation }} options={{headerShown: false}} />
+				<Stack.Screen name="LeaveYourOpinionPassenger" component={LeaveYourOpinionPassenger} initialParams={{ navigation }} options={{headerShown: false}} />
+				<Stack.Screen name="LeaveYourOpinionCompany" component={LeaveYourOpinionCompany} initialParams={{ navigation }} options={{headerShown: false}} />
       </Stack.Navigator>
 
     </NavigationContainer>

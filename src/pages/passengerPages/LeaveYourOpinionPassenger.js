@@ -31,11 +31,11 @@ export default function LeaveYourOpinion({ navigation, route }) {
 		}
 
 		if(vehicleId) {
-			await saveCompanyFeedbackBackend('mI1C18vPX4QtWKznoQSdtGSnNaD3', vehicleId, vehicleName, feedback);
+			await saveCompanyFeedbackBackend(uid, vehicleId, vehicleName, feedback);
 			return Alert.alert('Feedback registrado!');
 		}
 
-		await saveCompanyFeedbackBackend('mI1C18vPX4QtWKznoQSdtGSnNaD3', null, vehicleName, feedback);
+		await saveCompanyFeedbackBackend(uid, null, vehicleName, feedback);
 
 		cleanInputs();
 		return Alert.alert('Feedback registrado!');

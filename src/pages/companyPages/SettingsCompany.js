@@ -27,12 +27,12 @@ export default function SettingsCompany({ navigation, route }) {
 
                 <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('Map')}>
+                        onPress={() => navigation.navigate('LeaveYourOpinionCompany')}>
                             <Text style={styles.nameOfConfig}>Deixe sua opinião</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => Linking.openURL(`https://api.whatsapp.com/send?phone=5554999999999`)}>
+                        onPress={() => Linking.openURL(`https://api.whatsapp.com/send?phone=55540808`)}>
                             <Text style={styles.nameOfConfig}>Entre em contato conosco</Text>
                     </TouchableOpacity>
                 </View>
