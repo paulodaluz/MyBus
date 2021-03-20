@@ -13,7 +13,7 @@ export default function SettingsCompany({ navigation, route }) {
 
                 <View style={styles.groupOfCategories}>
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('Map')}>
+                        onPress={() => navigation.navigate('ReceivedFeedbacks')}>
                             <Text style={styles.nameOfConfig}>Feedbacks recebidos</Text>
                     </TouchableOpacity>
                 </View>

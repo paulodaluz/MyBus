@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Button, FlatList } from 'react-native';
 
-export default function RegisterUser({ navigation, route }) {
+export default function AllPages({ navigation, route }) {
   return (
     <View>
 				<FlatList

@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Alert, Image } from "react-native";
 import { saveCompanyFeedbackBackend } from "../../backend/feedbacks/CompanyFeedbacks";
 import { saveAppFeedbackBackend } from "../../backend/feedbacks/MyBusFeedbacks";
 import { purple, white, grey } from "../../styles/colors";
 import MyBusIcon from '../../assets/icons/svg/my_bus_icon.svg'
 import TransportIcon from '../../assets/icons/svg/transport_icon.svg'
+import { getVehicle } from "../../backend/vehicles/Vehicle";
 
 export default function LeaveYourOpinion({ navigation, route }) {
 	const { uid } = route.params;
-	const { vehicleId } = route.params;
+	const { vehicleRegistration } = route.params;
 
 	const [feedbackRecipient, setFeedbackRecipient] = useState("company");
 	const [vehicleName, setVehicleName] = useState("");
 	const [feedback, setFeedback] = useState("");
+	const [vehicle, setVehicle] = useState()
 
 	const saveFeedbackApp = async () => {
 		if(!feedback) {
@@ -30,8 +32,8 @@ export default function LeaveYourOpinion({ navigation, route }) {
 			return Alert.alert('Dados inválidos, verifique-os e tente novamente!');
 		}
 
-		if(vehicleId) {
-			await saveCompanyFeedbackBackend(uid, vehicleId, vehicleName, feedback);
+		if(vehicleRegistration) {
+			await saveCompanyFeedbackBackend(uid, vehicle, null, feedback);
 			return Alert.alert('Feedback registrado!');
 		}
 
@@ -44,7 +46,22 @@ export default function LeaveYourOpinion({ navigation, route }) {
 	const cleanInputs = async () => {
 		setFeedback("");
 		setVehicleName("");
-	}
+	};
+
+	useEffect(() => {
+
+		async function getInfosOfVehicle() {
+			if(vehicleRegistration) {
+				const vehicle = await getVehicle({registrationPlate: vehicleRegistration});
+				setVehicleName(vehicle.name);
+				setVehicle(vehicle);
+			}
+		}
+
+		getInfosOfVehicle();
+
+  }, []);
+
 
   return (
 		<View>
