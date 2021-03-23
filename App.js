@@ -18,6 +18,7 @@ import AddNewPrivateVehicle from './src/pages/passengerPages/AddNewPrivateVehicl
 import LeaveYourOpinionPassenger from './src/pages/passengerPages/LeaveYourOpinionPassenger';
 import LeaveYourOpinionCompany from './src/pages/companyPages/LeaveYourOpinionCompany';
 import ReceivedFeedbacks from './src/pages/companyPages/ReceivedFeedbacks';
+import CreateNewVehicle from './src/pages/companyPages/CreateNewVehicle';
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();
@@ -50,6 +51,8 @@ export default function App({navigation}) {
 				<Stack.Screen name="LeaveYourOpinionCompany" component={LeaveYourOpinionCompany} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="ReceivedFeedbacks" component={ReceivedFeedbacks} initialParams={{ navigation }} options={{headerShown: false}} />
+
+				<Stack.Screen name="CreateNewVehicle" component={CreateNewVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
       </Stack.Navigator>
 
     </NavigationContainer>
