@@ -6,11 +6,9 @@ import { createPassengerBackend } from '../../backend/users/Passenger';
 export default function RegisterPassenger({ navigation, route }) {
 
   const [name, setName] = useState("Paulo Ricardo da Luz Júnior");
-  const [email, setEmail] = useState("paulera.daluz@gmail.com");
+  const [email, setEmail] = useState("paulo.daluz@gmail.com");
   const [password, setPassword] = useState("123456");
   const [confirmPassword, setConfirmPassword] = useState("123456");
-
-  const [error, setError] = useState("");
 
   const createUser = async () => {
     if(!email || !password || !confirmPassword) {
@@ -27,7 +25,7 @@ export default function RegisterPassenger({ navigation, route }) {
       return Alert.alert('Erro ao criar o usuário');
 
     await createSession(userCreated.response.uid);
-    return navigation.navigate('ChooseTypeOfVehicle', { user: userCreated.response })
+    return navigation.navigate('ChooseTypeOfVehicle', { user: userCreated.response });
   }
 
   return (
@@ -49,7 +47,7 @@ export default function RegisterPassenger({ navigation, route }) {
           placeholder="Nome completo"
           textContentType='name'
           value={name}
-          onChangeText={name => setName(name)}
+          onChangeText={text => setName(text)}
         />
 
       <TextInput
@@ -57,7 +55,7 @@ export default function RegisterPassenger({ navigation, route }) {
           placeholder="Email"
           textContentType='emailAddress'
           value={email}
-          onChangeText={email => setEmail(email)}
+          onChangeText={text => setEmail(text)}
         />
 
       <TextInput
@@ -65,7 +63,7 @@ export default function RegisterPassenger({ navigation, route }) {
           placeholder="Senha"
           secureTextEntry={true}
           value={password}
-          onChangeText={password => setPassword(password)}
+          onChangeText={text => setPassword(text)}
         />
 
       <TextInput
@@ -73,7 +71,7 @@ export default function RegisterPassenger({ navigation, route }) {
           placeholder="Confirme sua senha"
           secureTextEntry={true}
           value={confirmPassword}
-          onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
+          onChangeText={text => setConfirmPassword(text)}
         />
 
       <View style={styles.registerButton}>

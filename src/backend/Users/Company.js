@@ -11,11 +11,13 @@ export async function createCompanyBackend(email, password, name, cnpj) {
     if(registeredAuthenticationUser && registeredAuthenticationUser.error)
         return registeredAuthenticationUser;
 
-    company.uid = registeredAuthenticationUser.user.uid;
+		company.uid = registeredAuthenticationUser.user.uid;
 
-    const registeredOnFirestoreUser = await saveCompany(company).catch(error => {
-        return ({error});
-    });
+		const registeredOnFirestoreUser = await saveCompany(company).catch(error => {
+				return ({error});
+		});
+
+		company.id = registeredOnFirestoreUser._delegate._key.path.segments.find(segment => segment !== 'companies');
 
     if(registeredOnFirestoreUser.error)
         return registeredOnFirestoreUser;

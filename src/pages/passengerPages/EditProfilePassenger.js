@@ -4,6 +4,8 @@ import { getPassenger, updateUserAllInfos } from "../../backend/users/Passenger"
 import { purple, white, grey } from "../../styles/colors";
 
 export default function EditProfileCompany({ navigation, route }) {
+	const { uid } = route.params;
+
 	const [name, setName] = useState("");
 	const [cpf, setCpf] = useState("");
 	const [email, setEmail] = useState("");
@@ -11,18 +13,13 @@ export default function EditProfileCompany({ navigation, route }) {
 	const [bornDate, setBornDate] = useState("");
 
 	const [id, setId] = useState("");
-	const [uid, setUid] = useState("");
 
 	useEffect(() => {
 
 		async function getData() {
-			const { uid } = route.params;
-
 			const user = await getPassenger(uid);
 
 			setId(user.id);
-
-			setUid(user.uid);
 
 			setName(user.name);
 
@@ -59,7 +56,7 @@ export default function EditProfileCompany({ navigation, route }) {
 						placeholder="Nome completo"
 						textContentType='name'
 						value={name}
-						onChangeText={name => setName(name)}
+						onChangeText={text => setName(text)}
 					/>
 
 				<Text style={styles.nameOfInput}>CPF:</Text>
@@ -68,7 +65,7 @@ export default function EditProfileCompany({ navigation, route }) {
 						placeholder="CPF"
 						keyboardType='number-pad'
 						value={cpf}
-						onChangeText={cpf => setCpf(cpf)}
+						onChangeText={text => setCpf(text)}
 					/>
 
 				<Text style={styles.nameOfInput}>Email:</Text>
@@ -90,7 +87,7 @@ export default function EditProfileCompany({ navigation, route }) {
 						placeholder="Data de Nascimento"
 						value={bornDate}
 						keyboardType='number-pad'
-						onChangeText={bornDate => setBornDate(bornDate)}
+						onChangeText={date => setBornDate(date)}
 					/>
 
 				<View style={styles.updateButton}>

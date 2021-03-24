@@ -1,5 +1,5 @@
 import * as authService from '../../service/AuthService';
-import { saveUser, updateUser, getAllUsers } from '../../service/UserService';
+import { saveUser, updateUser, getAllUsers } from '../../service/PassengerService';
 import { mountBodyToFirebase } from '../utils/Utils';
 
 export async function createPassengerBackend(email, password, name) {
@@ -12,11 +12,13 @@ export async function createPassengerBackend(email, password, name) {
     if(registeredAuthenticationUser.error)
         return registeredAuthenticationUser;
 
+		user.uid = registeredAuthenticationUser.user.uid;
+
 		const registeredOnFirestoreUser = await saveUser({ email, name, uid: registeredAuthenticationUser.user.uid }).catch(error => {
 				return ({error});
 		});
 
-    user.uid = registeredAuthenticationUser.user.uid;
+		user.id = registeredOnFirestoreUser._delegate._key.path.segments.find(segment => segment !== 'passengers');
 
     if(registeredOnFirestoreUser.error)
         return registeredOnFirestoreUser;

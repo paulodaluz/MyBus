@@ -43,7 +43,7 @@ export default function Login({ navigation, route }) {
           placeholder="Email"
           value={email}
           textContentType='emailAddress'
-          onChangeText={email => setEmail(email)}
+          onChangeText={text => setEmail(text)}
         />
 
       <TextInput
@@ -51,7 +51,7 @@ export default function Login({ navigation, route }) {
           placeholder="Senha"
           value={password}
           secureTextEntry={true}
-          onChangeText={password => setPassword(password)}
+          onChangeText={text => setPassword(text)}
         />
 
       <View style={styles.loginButton}>

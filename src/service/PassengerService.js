@@ -1,7 +1,7 @@
 import { db } from "../database/FirebaseConfiguration";
 
 export const saveUser = async (user) => {
-    return await db.collection("users")
+    return await db.collection("passengers")
         .add(user)
         .then((result) => {return(result)})
         .catch((error) => {return(error)});
@@ -9,12 +9,12 @@ export const saveUser = async (user) => {
 
 export const updateUser = async (id, infosToUpdate) => {
 		return new Promise((resolve, reject) => {
-				db.collection("users")
+				db.collection("passengers")
 						.doc(id)
 						.update(infosToUpdate)
 						.then(() => resolve())
 						.catch((error) => {
-								console.log(`updateUser ERROR = ${error}`);
+								console.log(`updatePassenger ERROR = ${error}`);
 								reject(error);
 						});
 		});
@@ -22,7 +22,7 @@ export const updateUser = async (id, infosToUpdate) => {
 
 export const getAllUsers = async () => {
     let users = [];
-    const snapshot = await db.collection('users').get();
+    const snapshot = await db.collection('passengers').get();
     snapshot.forEach((doc) => {
         let user = doc.data();
         user.id = doc.id;

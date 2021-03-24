@@ -23,7 +23,7 @@ export async function saveCompanyFeedbackBackend(uid, vehicle='', vehicleName, f
 	await saveFeedback(opinion);
 
 	return ({ response: "Feedback Registrado com Sucesso!" });
-};
+}
 
 export async function getCompanyFeedbackBackend(uidCompany) {
 	let feedbacksForThisCompany = [];
@@ -34,12 +34,15 @@ export async function getCompanyFeedbackBackend(uidCompany) {
 
 	const allFeedbacks = await getAllFeedbacks();
 
+	if(!vehiclesRegistration){
+		return [];
+	}
+
 	vehiclesRegistration.forEach(vehicleRegistration => {
     const companyFeedbacks = allFeedbacks.filter(feedback => feedback.vehicle_registration_plate === vehicleRegistration);
     feedbacksForThisCompany = feedbacksForThisCompany.concat(companyFeedbacks);
 	});
 
-	console.log({feedbacksForThisCompany})
 	return feedbacksForThisCompany;
-};
+}
 

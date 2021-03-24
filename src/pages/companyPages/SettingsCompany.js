@@ -1,53 +1,68 @@
-import React from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from "react-native";
-import { removeSession } from '../../backend/Login';
+import { getSession, removeSession } from '../../backend/Login';
 
 export default function SettingsCompany({ navigation, route }) {
-    return(
-        <View style={styles.container}>
-            <View style={styles.boxTitle}>
-                <Text style={styles.title}>Configurações</Text>
-            </View>
+	const [uid, setUid] = useState("");
 
-            <View style={styles.allConfigOptions}>
+	const logout = async () => {
+		await removeSession();
+		navigation.navigate('InitialPage');
+	}
 
-                <View style={styles.groupOfCategories}>
-                    <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('ReceivedFeedbacks')}>
-                            <Text style={styles.nameOfConfig}>Feedbacks recebidos</Text>
-                    </TouchableOpacity>
-                </View>
+	useLayoutEffect(() => {
+		const getSessionFromStorange = async () => {
+			setUid(await getSession());
+		}
 
-                <View style={styles.groupOfCategories}>
-                    <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('EditProfileCompany')}>
-                            <Text style={styles.nameOfConfig}>Editar perfil</Text>
-                    </TouchableOpacity>
-                </View>
+		getSessionFromStorange();
+	})
 
-                <View style={styles.groupOfCategories}>
-                    <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('LeaveYourOpinionCompany')}>
-                            <Text style={styles.nameOfConfig}>Deixe sua opinião</Text>
-                    </TouchableOpacity>
+	return(
+			<View style={styles.container}>
+					<View style={styles.boxTitle}>
+							<Text style={styles.title}>Configurações</Text>
+					</View>
 
-                    <TouchableOpacity style={styles.configOption}
-                        onPress={() => Linking.openURL(`https://api.whatsapp.com/send?phone=55540808`)}>
-                            <Text style={styles.nameOfConfig}>Entre em contato conosco</Text>
-                    </TouchableOpacity>
-                </View>
+					<View style={styles.allConfigOptions}>
 
-                <View style={styles.groupOfCategories}>
-                    <TouchableOpacity style={styles.configOption}
-                        onPress={() => {removeSession(), navigation.navigate('InitialPage')}}>
-                            <Text style={styles.nameOfConfig}>Sair da conta</Text>
-                    </TouchableOpacity>
-                </View>
+							<View style={styles.groupOfCategories}>
+									<TouchableOpacity style={styles.configOption}
+											onPress={() => navigation.navigate('ReceivedFeedbacks', { uid })}>
+													<Text style={styles.nameOfConfig}>Feedbacks recebidos</Text>
+									</TouchableOpacity>
+							</View>
 
-            </View>
+							<View style={styles.groupOfCategories}>
+									<TouchableOpacity style={styles.configOption}
+											onPress={() => navigation.navigate('EditProfileCompany', { uid })}>
+													<Text style={styles.nameOfConfig}>Editar perfil</Text>
+									</TouchableOpacity>
+							</View>
 
-        </View>
-    )
+							<View style={styles.groupOfCategories}>
+									<TouchableOpacity style={styles.configOption}
+											onPress={() => navigation.navigate('LeaveYourOpinionCompany', { uid })}>
+													<Text style={styles.nameOfConfig}>Deixe sua opinião</Text>
+									</TouchableOpacity>
+
+									<TouchableOpacity style={styles.configOption}
+											onPress={() => Linking.openURL(`https://api.whatsapp.com/send?phone=55540808`)}>
+													<Text style={styles.nameOfConfig}>Entre em contato conosco</Text>
+									</TouchableOpacity>
+							</View>
+
+							<View style={styles.groupOfCategories}>
+									<TouchableOpacity style={styles.configOption}
+											onPress={() => logout()}>
+													<Text style={styles.nameOfConfig}>Sair da conta</Text>
+									</TouchableOpacity>
+							</View>
+
+					</View>
+
+			</View>
+	)
 }
 
 const styles = StyleSheet.create({

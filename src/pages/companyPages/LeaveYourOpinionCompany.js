@@ -45,7 +45,7 @@ export default function LeaveYourOpinionCompany({ navigation, route }) {
 					placeholder="Digite seu feedback"
 					textContentType='name'
 					value={feedback}
-					onChangeText={feedback => setFeedback(feedback)}
+					onChangeText={text => setFeedback(text)}
 				/>
 
 				<View style={styles.sendButton}>

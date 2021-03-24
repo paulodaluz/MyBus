@@ -13,7 +13,7 @@ export async function getUserOnFirebase(uid) {
 
     if(company)
       return company;
-};
+}
 
 export async function createSession(uid) {
   await saveStorage('uid', uid);

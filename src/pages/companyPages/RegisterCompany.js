@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput, TouchableOpacity } from 'react-native';
+import { createSession } from '../../backend/Login';
 import { createCompanyBackend } from '../../backend/users/Company';
 import { white } from "../../styles/colors";
 
 export default function RegisterCompany({ navigation, route }) {
-
-  const [name, setName] = useState("Comercial Zaffari");
-  const [cnpj, setCnpj] = useState("92016757000191");
-  const [email, setEmail] = useState("presidencia@zaffari.com.br");
+  const [name, setName] = useState("Sudeste Transportes Coletivos");
+  const [cnpj, setCnpj] = useState("10000178000196");
+  const [email, setEmail] = useState("presidencia@sudesttransp.com.br");
   const [password, setPassword] = useState("123456");
   const [confirmPassword, setConfirmPassword] = useState("123456");
-
-  const [error, setError] = useState("");
 
   const createUser = async () => {
     if(!email || !password || !confirmPassword || !name || !cnpj) {
@@ -49,7 +47,7 @@ export default function RegisterCompany({ navigation, route }) {
           placeholder="Nome da empresa"
           textContentType='name'
           value={name}
-          onChangeText={name => setName(name)}
+          onChangeText={text => setName(text)}
         />
 
       <TextInput
@@ -57,7 +55,7 @@ export default function RegisterCompany({ navigation, route }) {
           placeholder="CNPJ"
           keyboardType='number-pad'
           value={cnpj}
-          onChangeText={cnpj => setCnpj(cnpj)}
+          onChangeText={text => setCnpj(text)}
         />
 
       <TextInput
@@ -65,7 +63,7 @@ export default function RegisterCompany({ navigation, route }) {
           placeholder="Email"
           textContentType='emailAddress'
           value={email}
-          onChangeText={email => setEmail(email)}
+          onChangeText={text => setEmail(text)}
         />
 
       <TextInput
@@ -73,7 +71,7 @@ export default function RegisterCompany({ navigation, route }) {
           placeholder="Senha"
           secureTextEntry={true}
           value={password}
-          onChangeText={password => setPassword(password)}
+          onChangeText={text => setPassword(text)}
         />
 
       <TextInput
@@ -81,7 +79,7 @@ export default function RegisterCompany({ navigation, route }) {
           placeholder="Confirme sua senha"
           secureTextEntry={true}
           value={confirmPassword}
-          onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
+          onChangeText={text => setConfirmPassword(text)}
         />
 
       <View style={styles.registerButton}>

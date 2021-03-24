@@ -5,20 +5,19 @@ import { updateUserAllInfos, addNewPrivateVehicle } from '../../backend/users/Pa
 import QRCodePng from '../../assets/images/png/qr-code.png';
 
 export default function ChooseTypeOfVehicle({ navigation, route }) {
+		const { user } = route.params;
     const [vehicleCode, setVehicleCode] = useState("");
     const [typeOfVehicleToList, setTypeOfVehicleToList] = useState("public");
     const [subtitleMessage, setSubtitleMessage] = useState("");
 
     const changeTypeOfVehicle = async () => {
-        const { user } = route.params;
 
         if(typeOfVehicleToList === 'public') {
-					await updateUserAllInfos(user.uid, null, null, null, typeOfVehicleToList);
+					await updateUserAllInfos(user.id, null, null, null, typeOfVehicleToList);
 				}
 
         if(typeOfVehicleToList === 'private') {
-					await updateUserAllInfos(user.uid, null, null, null, typeOfVehicleToList);
-					await addNewPrivateVehicle(user.uid, vehicleCode);
+					await Promise.all([await updateUserAllInfos(user.id, null, null, null, typeOfVehicleToList), await addNewPrivateVehicle(user.uid, vehicleCode)]);
 				}
 
         return navigation.navigate('Map');
@@ -61,7 +60,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
                             placeholder="Código de seu Veículo"
                             style={vehicleCode.length > 0 ? {...styles.inputVehicleCode, fontSize: 40, textAlign: "center"} : {...styles.inputVehicleCode, fontSize: 18} }
                             value={vehicleCode}
-                            onChangeText={vehicleCode => setVehicleCode(vehicleCode)}
+                            onChangeText={text => setVehicleCode(text)}
                         />
                     </View>
                     <View style={styles.arroundScanQrCode}>

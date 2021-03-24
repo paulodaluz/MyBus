@@ -8,7 +8,7 @@ import { getAllFunctionsVehicles } from '../../service/VehicleFunctionsService';
 
 
 export default function CreateNewVehicle({ navigation, route }) {
-	// const { uid } = route.params;
+	const { uid } = route.params;
 
 	const [thereIsBathroom, setThereIsBathroom] = useState(false);
 	const [thereIsAirConditioning, setThereIsAirConditioning] = useState(false);
@@ -33,7 +33,6 @@ export default function CreateNewVehicle({ navigation, route }) {
 
 		if(errors) return;
 
-		console.log('bola')
 		let vehicle = {
 			registrationPlate,
 			name,
@@ -51,7 +50,7 @@ export default function CreateNewVehicle({ navigation, route }) {
 
 		const [createdVehicle, vehicleFunctionsAdded, vehicleAddedInCompany] = await Promise.all([createNewVehicle(vehicle),
 					addFunctionsToVehicle(functionsVehicle),
-						addNewVehicleInCompany('TGTeU5cvOaYcxmGIvrA6RSpbpxm2', registrationPlate)]);
+						addNewVehicleInCompany(uid, registrationPlate)]);
 
 		if((createVehicle && createdVehicle.error) || (vehicleFunctionsAdded && vehicleFunctionsAdded.error) || (vehicleAddedInCompany && vehicleAddedInCompany.error)) {
 			Alert.alert('Erro ao criar usuário.')

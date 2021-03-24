@@ -8,9 +8,11 @@ export async function saveAppFeedbackBackend(uid, feedback) {
 
     opinion.email = user.email;
 
-		if(user.name)	opinion.name = user.name;
+		if(user.name) {
+			opinion.name = user.name;
+		}
 
     await saveFeedback(opinion);
 
     return ({ response: "Feedback Registrado com Sucesso!" });
-};
+}

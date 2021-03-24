@@ -1,16 +1,15 @@
 import { Text, View, Button, TextInput, StyleSheet, Image, Alert } from 'react-native';
 import React, { useState } from 'react';
-
 import { addNewPrivateVehicle } from '../../backend/users/Passenger';
 import QRCodePng from '../../assets/images/png/qr-code.png';
 import { grey, purple, white } from '../../styles/colors';
 
 export default function AddNewPrivateVehicle({ navigation, route }) {
+	const { uid } = route.params;
 	const [vehicleCode, setVehicleCode] = useState("");
 
 	const addNewVehicle = async () => {
-		// const { uid } = route.params;
-		await addNewPrivateVehicle('rDWIXwMQkBQJhWQUyfO3464OlJF2', vehicleCode);
+		await addNewPrivateVehicle(uid, vehicleCode);
 
 		return Alert.alert('Veículo adicionado com sucesso! Para visualizar volte ao mapa!');
 	}
@@ -31,7 +30,7 @@ export default function AddNewPrivateVehicle({ navigation, route }) {
 										placeholder="Código de seu Veículo"
 										style={vehicleCode.length > 0 ? {...styles.inputVehicleCode, fontSize: 40, textAlign: "center"} : {...styles.inputVehicleCode, fontSize: 18} }
 										value={vehicleCode}
-										onChangeText={vehicleCode => setVehicleCode(vehicleCode)}
+										onChangeText={text => setVehicleCode(text)}
 								/>
 						</View>
 
@@ -127,14 +126,6 @@ const styles = StyleSheet.create({
 		color: "#969FAA",
 	},
 	continueButton: {
-		backgroundColor: "#8257E6",
-		borderRadius: 14,
-		height: "6%",
-		width: '85%',
-		padding: "4%",
-		marginBottom: "3%"
-	},
-	continueButton: {
 		alignItems: "center",
 		backgroundColor: "#8257E6",
 		borderRadius: 14,
@@ -146,13 +137,11 @@ const styles = StyleSheet.create({
 		marginBottom: "3%"
 	},
 	observation: {
-		fontSize: 15,
 		paddingTop: "15%",
 		paddingLeft: "13%",
 		paddingRight: "13%",
 		textAlign: "center",
 		fontSize: 20,
 		color: '#969FAA',
-		textAlign: "center"
 	},
 });

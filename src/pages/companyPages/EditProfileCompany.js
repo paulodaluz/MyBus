@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 import { getCompany, updateAllInfosOfCompany } from "../../backend/users/Company";
-// import { updateUserAllInfos } from "../../backend/users/Passenger";
 import { purple, white, grey } from "../../styles/colors";
 
 export default function EditProfileCompany({ navigation, route }) {
+	const { uid } = route.params;
+
 	const [name, setName] = useState("");
 	const [cnpj, setCnpj] = useState("");
 	const [email, setEmail] = useState("");
 	const [password] = useState("******");
 
 	const [id, setId] = useState("");
-	const [uid, setUid] = useState("");
 
 	useEffect(() => {
 
 		async function getData() {
-			const { uid } = route.params;
-
 			const user = await getCompany(uid);
 
 			setId(user.id);
-
-			setUid(user.uid);
 
 			setName(user.name);
 
@@ -55,16 +51,16 @@ export default function EditProfileCompany({ navigation, route }) {
 						placeholder="Nome completo"
 						textContentType='name'
 						value={name}
-						onChangeText={name => setName(name)}
+						onChangeText={text => setName(text)}
 					/>
 
 				<Text style={styles.nameOfInput}>CNPJ:</Text>
 				<TextInput
 						style={styles.inputButton}
-						placeholder="CPF"
+						placeholder="CNPJ"
 						keyboardType='number-pad'
 						value={cnpj}
-						onChangeText={cnpj => setCnpj(cnpj)}
+						onChangeText={text => setCnpj(text)}
 					/>
 
 				<Text style={styles.nameOfInput}>Email:</Text>

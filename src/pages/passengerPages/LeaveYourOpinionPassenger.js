@@ -52,9 +52,9 @@ export default function LeaveYourOpinion({ navigation, route }) {
 
 		async function getInfosOfVehicle() {
 			if(vehicleRegistration) {
-				const vehicle = await getVehicle({registrationPlate: vehicleRegistration});
-				setVehicleName(vehicle.name);
-				setVehicle(vehicle);
+				let vehicleFromDB = await getVehicle({registrationPlate: vehicleRegistration});
+				setVehicleName(vehicleFromDB.name);
+				setVehicle(vehicleFromDB);
 			}
 		}
 
@@ -102,7 +102,7 @@ export default function LeaveYourOpinion({ navigation, route }) {
 						placeholder="Digite o nome do transporte"
 						textContentType='name'
 						value={vehicleName}
-						onChangeText={vehicleName => setVehicleName(vehicleName)}
+						onChangeText={text => setVehicleName(text)}
 					/>
 				</View>
 			}
@@ -112,7 +112,7 @@ export default function LeaveYourOpinion({ navigation, route }) {
 					placeholder="Digite seu feedback"
 					textContentType='name'
 					value={feedback}
-					onChangeText={feedback => setFeedback(feedback)}
+					onChangeText={text => setFeedback(text)}
 				/>
 
 				<View style={styles.sendButton}>
