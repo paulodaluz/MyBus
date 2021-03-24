@@ -31,7 +31,7 @@ export default function Map({ navigation, route }) {
 
     return (
 			<View style={styles.container}>
-				<MapView style={styles.mapStyle} initialRegion={localicaoAtual} region={localicaoAtual}>
+				<MapView onPress={(e) => {console.log(e.nativeEvent.coordinate)}} style={styles.mapStyle} initialRegion={localicaoAtual} region={localicaoAtual}>
 					{
 						localizacoes.map((item, key) => <Marker
 									key={key}

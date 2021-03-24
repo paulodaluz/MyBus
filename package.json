@@ -1,5 +1,5 @@
 {
-	"name": "my-bus",
+  "name": "my-bus",
   "version": "1.0.0",
   "description": "Project created to be used how TCC.",
   "main": "node_modules/expo/AppEntry.js",
