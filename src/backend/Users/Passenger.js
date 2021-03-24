@@ -12,9 +12,9 @@ export async function createPassengerBackend(email, password, name) {
     if(registeredAuthenticationUser.error)
         return registeredAuthenticationUser;
 
-        const registeredOnFirestoreUser = await saveUser({ email, name, uid: registeredAuthenticationUser.user.uid }).catch(error => {
-            return ({error});
-        });
+		const registeredOnFirestoreUser = await saveUser({ email, name, uid: registeredAuthenticationUser.user.uid }).catch(error => {
+				return ({error});
+		});
 
     user.uid = registeredAuthenticationUser.user.uid;
 
@@ -22,7 +22,7 @@ export async function createPassengerBackend(email, password, name) {
         return registeredOnFirestoreUser;
 
     return ({ response: user });
-};
+}
 
 export async function getPassenger(uid) {
 	const allUsers = await getAllUsers().catch(error => {
@@ -30,12 +30,12 @@ export async function getPassenger(uid) {
 	});
 
 	if(allUsers && allUsers.error)
-	return allUsers.error;
+		return allUsers.error;
 
-	const user = allUsers.find((user) => user.uid === uid);
+	const passenger = allUsers.find((user) => user.uid === uid);
 
-	return user;
-};
+	return passenger;
+}
 
 export async function updateUserAllInfos(id, name = '', cpf = '', bornDate = '', typeOfVehicleListed = '') {
 	const infosToUpdate = mountBodyToFirebase({ name, cpf, bornDate, typeOfVehicleListed });
@@ -49,7 +49,7 @@ export async function updateUserAllInfos(id, name = '', cpf = '', bornDate = '',
 			return addAtrybuteOnFirestoreUser.error;
 
 	return ({ response: "Usuário Atualizado com Sucesso." })
-};
+}
 
 export async function addNewPrivateVehicle(uid, newVehicleCode) {
 	let allVehicleCodes = [];

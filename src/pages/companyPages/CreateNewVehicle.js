@@ -2,23 +2,82 @@ import { Text, View, Button, TextInput, StyleSheet, Alert, Switch } from 'react-
 import React, { useState } from 'react';
 
 import { purple, white, orange } from '../../styles/colors';
+import { addFunctionsToVehicle, createNewVehicle } from '../../backend/vehicles/Vehicle';
+import { addNewVehicleInCompany } from '../../backend/users/Company';
+import { getAllFunctionsVehicles } from '../../service/VehicleFunctionsService';
 
 
 export default function CreateNewVehicle({ navigation, route }) {
+	// const { uid } = route.params;
+
 	const [thereIsBathroom, setThereIsBathroom] = useState(false);
 	const [thereIsAirConditioning, setThereIsAirConditioning] = useState(false);
 	const [thereIsWifi, setThereIsWifi] = useState(false);
 	const [thereIsWheelchairSupport, setThereIsWheelchairSupport] = useState(false);
 
 	const [name, setName] = useState("");
+	const [isPublic, setIsPublic] = useState(false);
 	const [price, setPrice] = useState("");
+	const [registrationPlate, setRegistrationPlate] = useState("");
 
 	const toggleSwitchBathroom = () => setThereIsBathroom(previousState => !previousState);
 	const toggleSwitchAirC = () => setThereIsAirConditioning(previousState => !previousState);
 	const toggleSwitchWifi = () => setThereIsWifi(previousState => !previousState);
 	const toggleSwitchWheelchairSup = () => setThereIsWheelchairSupport(previousState => !previousState);
+	const toggleSwitchIsPublic = () => setIsPublic(previousState => !previousState);
 
-	const buttonColor = { false: '#343F4B', true: "#47525E" }
+	const buttonColor = { false: '#343F4B', true: "#47525E" };
+
+	const createVehicle = async () => {
+		const errors = await verifyInputs();
+
+		if(errors) return;
+
+		console.log('bola')
+		let vehicle = {
+			registrationPlate,
+			name,
+			isPublic
+		}
+
+		let functionsVehicle = {
+			thereIsWifi,
+			thereIsAirConditioning,
+			thereIsBathroom,
+			thereIsWheelchairSupport,
+			price,
+			registrationPlate
+		}
+
+		const [createdVehicle, vehicleFunctionsAdded, vehicleAddedInCompany] = await Promise.all([createNewVehicle(vehicle),
+					addFunctionsToVehicle(functionsVehicle),
+						addNewVehicleInCompany('TGTeU5cvOaYcxmGIvrA6RSpbpxm2', registrationPlate)]);
+
+		if((createVehicle && createdVehicle.error) || (vehicleFunctionsAdded && vehicleFunctionsAdded.error) || (vehicleAddedInCompany && vehicleAddedInCompany.error)) {
+			Alert.alert('Erro ao criar usuário.')
+		}
+
+		Alert.alert("Usuário Cadastrado com Sucesso");
+	}
+
+	const verifyInputs = async () => {
+		if(!name || !price || !registrationPlate) {
+			Alert.alert('Dados inválidos, verifique os campos e tente novamente!')
+			return 'Campos não preenchidos!';
+		}
+
+		const allFunctionsVehicles = await getAllFunctionsVehicles().catch(error => {
+			return ({error});
+		});
+
+		const alreadyExists = allFunctionsVehicles.find((vehicleFunctions) => vehicleFunctions.registration_plate === registrationPlate.toUpperCase());
+
+		if(alreadyExists) {
+			Alert.alert("Usuário já existe");
+			return 'Usuário já existe';
+		}
+		return;
+	}
 
 	return(
 		<View>
@@ -43,6 +102,15 @@ export default function CreateNewVehicle({ navigation, route }) {
 					value={price}
 					placeholder="Digite o valor"
 					keyboardType="numeric"
+      	/>
+
+				<Text style={styles.inputName}>Placa do Veículo</Text>
+				<TextInput
+					style={styles.input}
+					onChangeText={(text) => setRegistrationPlate(text)}
+					value={registrationPlate}
+					placeholder="Digite a placa"
+					keyboardType="default"
       	/>
 
 				<View>
@@ -96,11 +164,23 @@ export default function CreateNewVehicle({ navigation, route }) {
 						/>
 					</View>
 
+					<View style={styles.optionFuntionOfVehicle}>
+						<Text style={styles.functionOfVehicle}>veiculo público</Text>
+						<Switch
+							style={styles.buttonListedVehicles}
+							trackColor={buttonColor}
+							ios_backgroundColor="#E5E9F2"
+							onValueChange={toggleSwitchIsPublic}
+							value={isPublic}
+							tex
+						/>
+					</View>
+
 				</View>
 
 				<View style={styles.registerButton}>
         <Button
-          onPress={() => console.log()}
+          onPress={() => createVehicle()}
           title="Cadastrar"
 					color={white}
           />
@@ -114,23 +194,23 @@ const styles = StyleSheet.create({
 	boxTitle: {
 		width: "100%",
 		backgroundColor: purple,
-		height: "16%",
+		height: "13%",
 		borderBottomLeftRadius: 30,
 		borderBottomRightRadius: 30,
-		marginBottom: "10%"
+		marginBottom: "6%"
 	},
 	title: {
 		color: white,
 		fontWeight: 'bold',
 		textAlign: "center",
-		paddingTop: "15%",
+		paddingTop: "11%",
 		fontSize: 25,
 		paddingLeft: "13%",
 		paddingRight: "13%"
 	},
 	body: {
 		width: "92%",
-		height: "75%",
+		height: "83%",
 		backgroundColor: purple,
 		borderRadius: 30,
 		paddingTop: "5%",
@@ -147,7 +227,7 @@ const styles = StyleSheet.create({
 		paddingBottom: "2%"
 	},
 	input: {
-		width: "90%",
+		width: "98%",
 		height: "7%",
 		backgroundColor: white,
 		borderRadius: 30,
@@ -155,7 +235,7 @@ const styles = StyleSheet.create({
 		paddingRight: "8%",
 		fontSize: 25,
 		fontWeight: "bold",
-		marginBottom: "9%",
+		marginBottom: "8%",
 		borderWidth: 1,
 		borderColor: orange
 	},
@@ -169,7 +249,7 @@ const styles = StyleSheet.create({
 	optionFuntionOfVehicle: {
 		width: "100%",
 		flexDirection: "row",
-		paddingTop: "7%",
+		paddingTop: "6%",
 		display: "flex",
 	},
 	functionOfVehicle: {
@@ -185,10 +265,10 @@ const styles = StyleSheet.create({
 	},
 	registerButton: {
 		borderRadius: 30,
-		marginTop: "10%",
+		marginTop: "5%",
 		backgroundColor: orange,
 		width: "60%",
-		height: "8%",
+		height: "7%",
 		alignItems: "center",
 		alignSelf: "center",
 		paddingTop: "2%"

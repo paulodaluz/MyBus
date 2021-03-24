@@ -21,7 +21,7 @@ export async function createCompanyBackend(email, password, name, cnpj) {
         return registeredOnFirestoreUser;
 
     return ({ response: company });
-};
+}
 
 export async function getCompany(uid) {
 
@@ -35,7 +35,7 @@ export async function getCompany(uid) {
     const company = allCompanies.find((user) => user.uid === uid);
 
     return company;
-};
+}
 
 export async function updateAllInfosOfCompany(id, name = '', cnpj = '') {
 	const infosToUpdate = { name, cnpj };
@@ -49,4 +49,20 @@ export async function updateAllInfosOfCompany(id, name = '', cnpj = '') {
 			return addAtrybuteOnFirestoreCompany.error;
 
 	return ({ response: "Empresa Atualizada com Sucesso." })
-};
+}
+
+export async function addNewVehicleInCompany(uid, newVehiclePlate) {
+	let allVehiclePlates = [];
+
+	const company = await getCompany(uid);
+
+	if(company.linked_vehicles && company.linked_vehicles.length > 0) {
+		allVehiclePlates = allVehiclePlates.concat(company.linked_vehicles);
+	}
+
+	allVehiclePlates.push(newVehiclePlate.toUpperCase());
+
+	await updateCompany(company.id, {linked_vehicles: allVehiclePlates});
+
+	return {response: `Veiculo adicionado com sucesso!`}
+}

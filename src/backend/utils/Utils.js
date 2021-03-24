@@ -13,3 +13,14 @@ export function mountBodyToFirebase({typeOfVehicleListed, name, vehicleCode, bor
 
 	return infosToUpdate;
 }
+
+export function generateRandomPassword(length) {
+	/* var password = generator.generate({
+		length,
+		numbers: true,
+		uppercase: true
+	});
+
+	return password; */
+	return 'HB1F5^OP@qC^';
+}
