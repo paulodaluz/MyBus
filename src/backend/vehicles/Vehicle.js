@@ -7,7 +7,7 @@ export async function createNewVehicle(vehicleInfos) {
 		id_to_share_localization: `#${vehicleInfos.registrationPlate.toUpperCase()}`,
 		password_to_share_localization: generateRandomPassword(9),
 		name: vehicleInfos.name,
-		id_to_passagers: `#${generateRandomPassword(7)}`,
+		id_to_passagers: `#${generateRandomPassword(6)}`,
 		is_public: vehicleInfos.isPublic,
 		registration_plate: vehicleInfos.registrationPlate.toUpperCase()
 	};

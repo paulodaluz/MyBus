@@ -12,6 +12,7 @@ export default function AllPages({ navigation, route }) {
 						{key: 'SettingsPassenger'},
 						{key: 'SettingsCompany'},
 						{key: 'CreateNewVehicle'},
+						{key: 'AskShowVehicleCode'},
 					]}
 					renderItem={({item}) => <Button onPress={() => navigation.navigate(item.key)} title={item.key}/>}
 				/>

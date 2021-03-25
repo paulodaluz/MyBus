@@ -6,19 +6,22 @@ import { NavigationContainer } from '@react-navigation/native';
 import AllPages from './src/pages/AllPages';
 import InitialPage from './src/pages/InitialPage';
 import Login from './src/pages/Login';
-import RegisterPassenger from './src/pages/passengerPages/RegisterPassenger';
-import RegisterCompany from './src/pages/companyPages/RegisterCompany';
 import Map from './src/pages/Map';
+
+import RegisterPassenger from './src/pages/passengerPages/RegisterPassenger';
 import ChooseTypeOfVehicle from './src/pages/passengerPages/ChooseTypeOfVehicle';
 import SettingsPassenger from './src/pages/passengerPages/SettingsPassenger';
-import SettingsCompany from './src/pages/companyPages/SettingsCompany';
 import EditProfilePassenger from './src/pages/passengerPages/EditProfilePassenger';
-import EditProfileCompany from './src/pages/companyPages/EditProfileCompany';
 import AddNewPrivateVehicle from './src/pages/passengerPages/AddNewPrivateVehicle';
 import LeaveYourOpinionPassenger from './src/pages/passengerPages/LeaveYourOpinionPassenger';
+
+import RegisterCompany from './src/pages/companyPages/RegisterCompany';
+import SettingsCompany from './src/pages/companyPages/SettingsCompany';
+import EditProfileCompany from './src/pages/companyPages/EditProfileCompany';
 import LeaveYourOpinionCompany from './src/pages/companyPages/LeaveYourOpinionCompany';
 import ReceivedFeedbacks from './src/pages/companyPages/ReceivedFeedbacks';
 import CreateNewVehicle from './src/pages/companyPages/CreateNewVehicle';
+import AskShowVehicleCode from './src/pages/companyPages/AskShowVehicleCode';
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();
@@ -46,6 +49,8 @@ export default function App({navigation}) {
 
 				<Stack.Screen name="ChooseTypeOfVehicle" component={ChooseTypeOfVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="AddNewPrivateVehicle" component={AddNewPrivateVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
+
+				<Stack.Screen name="AskShowVehicleCode" component={AskShowVehicleCode} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="LeaveYourOpinionPassenger" component={LeaveYourOpinionPassenger} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="LeaveYourOpinionCompany" component={LeaveYourOpinionCompany} initialParams={{ navigation }} options={{headerShown: false}} />
