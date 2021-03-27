@@ -22,6 +22,7 @@ import LeaveYourOpinionCompany from './src/pages/companyPages/LeaveYourOpinionCo
 import ReceivedFeedbacks from './src/pages/companyPages/ReceivedFeedbacks';
 import CreateNewVehicle from './src/pages/companyPages/CreateNewVehicle';
 import AskShowVehicleCode from './src/pages/companyPages/AskShowVehicleCode';
+import ShowVehicleCode from './src/pages/companyPages/ShowVehicleCode';
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();
@@ -51,6 +52,7 @@ export default function App({navigation}) {
 				<Stack.Screen name="AddNewPrivateVehicle" component={AddNewPrivateVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="AskShowVehicleCode" component={AskShowVehicleCode} initialParams={{ navigation }} options={{headerShown: false}} />
+				<Stack.Screen name="ShowVehicleCode" component={ShowVehicleCode} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="LeaveYourOpinionPassenger" component={LeaveYourOpinionPassenger} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="LeaveYourOpinionCompany" component={LeaveYourOpinionCompany} initialParams={{ navigation }} options={{headerShown: false}} />
