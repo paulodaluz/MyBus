@@ -1,34 +1,34 @@
-import { Text, View, Button, TextInput, StyleSheet, Alert, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
-import { purple, white, orange, grey, black } from '../../styles/colors';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { purple, white, orange } from '../../styles/colors';
 
 export default function AskPointsVehicleWillPass({ navigation, route }) {
-	// const { uid } = route.params;
+	const { vehicle } = route.params;
 
 	return(
 		<View>
 			<View style={styles.boxTitle}>
-				<Text style={styles.title}>DIGITE AS INFORMAÇÕES DO VEICULO</Text>
+				<Text style={styles.title}>INFORMAÇÕES DO VEICULO</Text>
 			</View>
 
 			<View style={styles.body}>
-				<Text style={styles.question}>DESEJA VISUALIZAR O CÓDIGO DO VEÍCULO?</Text>
+				<Text style={styles.question}>deseja selecionar os pontos por onde o veiculo ira passar?</Text>
 
 				<View style={styles.buttons}>
+
 					<View style={styles.button}>
-						<TouchableOpacity onPress={() => console.log()}>
+						<TouchableOpacity onPress={() => navigation.navigate('ChoicePointsVehicleWillPass', { vehicle })}>
 							<Text style={styles.buttonText}>Sim</Text>
 						</TouchableOpacity>
 					</View>
 
 					<View style={styles.button}>
-						<TouchableOpacity onPress={() => console.log()}>
+						<TouchableOpacity onPress={() => navigation.navigate('ListVehicleInfosCompany', { vehicle })}>
 							<Text style={styles.buttonText}>Mais Tarde</Text>
 							</TouchableOpacity>
 					</View>
-				</View>
 
-				<Text style={styles.observation}>O código e senha do veículo são utilizados pelo motorista para logar no aplicativo e compartilhar sua localização</Text>
+				</View>
 
 			</View>
 
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 	},
 	body: {
 		width: "92%",
-		height: "40%",
+		height: "36%",
 		backgroundColor: purple,
 		borderRadius: 30,
 		paddingTop: "10%",
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		textAlign: "center",
 		fontSize: 24,
+		textTransform: "uppercase",
 		paddingLeft: "8%",
 		paddingRight: "8%",
 		marginBottom: "2%"
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
 	buttons: {
 		flexDirection: "row",
 		marginLeft: "5%",
-		height: "50%",
+		height: "56%",
 		width: "100%",
 		marginBottom: "1%"
 	},

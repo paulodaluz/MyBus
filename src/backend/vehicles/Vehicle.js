@@ -14,7 +14,7 @@ export async function createNewVehicle(vehicleInfos) {
 
 	await saveVehicle(vehicle);
 
-	return {response: "Veiculo cadastrado com sucesso!"};
+	return {response: vehicle};
 }
 
 export async function addFunctionsToVehicle(newVehicleFunctions) {

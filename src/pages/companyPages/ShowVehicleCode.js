@@ -32,7 +32,7 @@ export default function ShowVehicleCode({ navigation, route }) {
 					<Text style={styles.inputText}>{vehicle.password}</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.button} onPress={() => console.log('Login')}>
+				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AskPointsVehicleWillPass', { vehicle })}>
 					<Text style={styles.buttonText}>Continuar</Text>
 				</TouchableOpacity>
 			</View>

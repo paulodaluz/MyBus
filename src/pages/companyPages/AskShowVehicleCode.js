@@ -1,9 +1,9 @@
-import { Text, View, Button, TextInput, StyleSheet, Alert, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
-import { purple, white, orange, grey, black } from '../../styles/colors';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { purple, white, orange } from '../../styles/colors';
 
 export default function AskShowVehicleCode({ navigation, route }) {
-	// const { uid } = route.params;
+	const { vehicle } = route.params;
 
 	return(
 		<View>
@@ -16,13 +16,13 @@ export default function AskShowVehicleCode({ navigation, route }) {
 
 				<View style={styles.buttons}>
 					<View style={styles.button}>
-						<TouchableOpacity onPress={() => navigation.navigate("ShowVehicleCode")}>
+						<TouchableOpacity onPress={() => navigation.navigate("ShowVehicleCode", { vehicle })}>
 							<Text style={styles.buttonText}>Sim</Text>
 						</TouchableOpacity>
 					</View>
 
 					<View style={styles.button}>
-						<TouchableOpacity onPress={() => navigation.navigate("AskPointsVehicleWillPass")}>
+						<TouchableOpacity onPress={() => navigation.navigate("AskPointsVehicleWillPass", { vehicle })}>
 							<Text style={styles.buttonText}>Mais Tarde</Text>
 							</TouchableOpacity>
 					</View>

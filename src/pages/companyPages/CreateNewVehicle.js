@@ -6,7 +6,6 @@ import { addFunctionsToVehicle, createNewVehicle } from '../../backend/vehicles/
 import { addNewVehicleInCompany } from '../../backend/users/Company';
 import { getAllFunctionsVehicles } from '../../service/VehicleFunctionsService';
 
-
 export default function CreateNewVehicle({ navigation, route }) {
 	const { uid } = route.params;
 
@@ -53,10 +52,10 @@ export default function CreateNewVehicle({ navigation, route }) {
 						addNewVehicleInCompany(uid, registrationPlate)]);
 
 		if((createVehicle && createdVehicle.error) || (vehicleFunctionsAdded && vehicleFunctionsAdded.error) || (vehicleAddedInCompany && vehicleAddedInCompany.error)) {
-			Alert.alert('Erro ao criar usuário.')
+			return Alert.alert('Erro ao criar usuário.')
 		}
 
-		Alert.alert("Usuário Cadastrado com Sucesso");
+		navigation.navigate('AskShowVehicleCode', { vehicle: createdVehicle.response });
 	}
 
 	const verifyInputs = async () => {
