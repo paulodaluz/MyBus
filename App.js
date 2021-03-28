@@ -26,6 +26,7 @@ import ShowVehicleCode from './src/pages/companyPages/ShowVehicleCode';
 import AskPointsVehicleWillPass from './src/pages/companyPages/AskPointsVehicleWillPass';
 import ChoicePointsVehicleWillPass from './src/pages/companyPages/ChoicePointsVehicleWillPass';
 import ListVehicleInfosCompany from './src/pages/companyPages/ListVehicleInfosCompany';
+import EditVehicle from './src/pages/companyPages/EditVehicle';
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();
@@ -57,6 +58,7 @@ export default function App({navigation}) {
 				<Stack.Screen name="AskShowVehicleCode" component={AskShowVehicleCode} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="ShowVehicleCode" component={ShowVehicleCode} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="ListVehicleInfosCompany" component={ListVehicleInfosCompany} initialParams={{ navigation }} options={{headerShown: false}} />
+				<Stack.Screen name="EditVehicle" component={EditVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="AskPointsVehicleWillPass" component={AskPointsVehicleWillPass} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="ChoicePointsVehicleWillPass" component={ChoicePointsVehicleWillPass} initialParams={{ navigation }} options={{headerShown: false}} />

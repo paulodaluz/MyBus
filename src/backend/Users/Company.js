@@ -68,3 +68,25 @@ export async function addNewVehicleInCompany(uid, newVehiclePlate) {
 
 	return {response: `Veiculo adicionado com sucesso!`}
 }
+
+export async function updatePlateVehicleCompany(uid, oldPlate, newPlate) {
+	if(oldPlate === newPlate) {
+		return {response: `Veiculo atualizado com sucesso!`}
+	}
+
+	let allVehiclePlates = [];
+
+	const company = await getCompany(uid);
+
+	if(company.linked_vehicles && company.linked_vehicles.length > 0) {
+		allVehiclePlates = allVehiclePlates.concat(company.linked_vehicles);
+	}
+
+	allVehiclePlates.push(newPlate.toUpperCase());
+
+	allVehiclePlates = allVehiclePlates.filter(vehiclePlate => vehiclePlate !== oldPlate);
+
+	await updateCompany(company.id, {linked_vehicles: allVehiclePlates});
+
+	return {response: `Veiculo atualizado com sucesso!`}
+}

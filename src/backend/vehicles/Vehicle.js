@@ -1,5 +1,5 @@
-import { saveFunctionsVehicle } from '../../service/VehicleFunctionsService';
-import { getAllVehicles, saveVehicle } from '../../service/VehicleService';
+import { getAllFunctionsVehicles, saveFunctionsVehicle, updateFunctionsVehicle } from '../../service/VehicleFunctionsService';
+import { getAllVehicles, saveVehicle, updateVehicle } from '../../service/VehicleService';
 import { generateRandomPassword } from '../utils/Utils';
 
 export async function createNewVehicle(vehicleInfos) {
@@ -17,6 +17,45 @@ export async function createNewVehicle(vehicleInfos) {
 	return {response: vehicle};
 }
 
+export async function editVehicle(vehicleId, vehicleInfos, vehicleFunctionsId, functionsVehicleInfos) {
+	let vehicle = {
+		id_to_share_localization: `#${vehicleInfos.registrationPlate.toUpperCase()}`,
+		name: vehicleInfos.name,
+		is_public: vehicleInfos.isPublic,
+		registration_plate: vehicleInfos.registrationPlate.toUpperCase()
+	};
+
+	let functionsVehicle = {
+		wifi: functionsVehicleInfos.thereIsWifi,
+		air_conditioning: functionsVehicleInfos.thereIsAirConditioning,
+		washrooms: functionsVehicleInfos.thereIsBathroom,
+		suport_wheelchair: functionsVehicleInfos.thereIsWheelchairSupport,
+		price_transport: functionsVehicleInfos.price,
+		registration_plate: functionsVehicleInfos.registrationPlate.toUpperCase()
+	};
+
+	await Promise.all([await updateVehicle(vehicleId, vehicle),
+		await updateFunctionsVehicle(vehicleFunctionsId, functionsVehicle)])
+
+	return {response: Object.assign(vehicle, functionsVehicle)};
+}
+
+
+export async function getVehicle({registrationPlate='', name=''}) {
+	const allVehicles = await getAllVehicles().catch(error => {
+		return ({error});
+	});
+
+	if(allVehicles && allVehicles.error)
+		return allVehicles.error;
+
+	if(registrationPlate) {
+		return allVehicles.find((vehicle) => vehicle.registration_plate === registrationPlate);
+	}
+
+	return allVehicles.find((vehicle) => vehicle.name.toLowerCase().includes(name.toLowerCase()));
+}
+
 export async function addFunctionsToVehicle(newVehicleFunctions) {
 	let functionsVehicle = {
 		wifi: newVehicleFunctions.thereIsWifi,
@@ -32,17 +71,13 @@ export async function addFunctionsToVehicle(newVehicleFunctions) {
 	return { response: "Funções do veículo cadastradas com sucesso!" };
 }
 
-export async function getVehicle({registrationPlate='', name=''}) {
-	const allVehicles = await getAllVehicles().catch(error => {
+export async function getVehicleFunction({registrationPlate=''}) {
+	const allVehicleFunctions = await getAllFunctionsVehicles().catch(error => {
 		return ({error});
 	});
 
-	if(allVehicles && allVehicles.error)
-		return allVehicles.error;
+	if(allVehicleFunctions && allVehicleFunctions.error)
+		return allVehicleFunctions.error;
 
-	if(registrationPlate) {
-		return allVehicles.find((vehicle) => vehicle.registration_plate === registrationPlate);
-	}
-
-	return allVehicles.find((vehicle) => vehicle.name.toLowerCase().includes(name.toLowerCase()));
+	return allVehicleFunctions.find((vehicleFunctions) => vehicleFunctions.registration_plate === registrationPlate);
 }

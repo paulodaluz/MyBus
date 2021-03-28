@@ -6,7 +6,7 @@ import * as authService from '../service/AuthService';
 export default function Login({ navigation, route }) {
 
   // const [email, setEmail] = useState("paulera.daluz@gmail.com");
-  const [email, setEmail] = useState("presidencia@zaffari.com.br");
+  const [email, setEmail] = useState("presidencia@sudesttransp.com.br");
   const [password, setPassword] = useState("123456");
 
   const login = async () => {
