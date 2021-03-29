@@ -1,18 +1,47 @@
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { purple, white, orange, black } from '../../styles/colors';
 import MyBusIcon from '../../assets/icons/svg/my_bus_icon.svg';
+import { getVehicle, getVehicleFunction } from '../../backend/vehicles/Vehicle';
 
 export default function ListVehicleInfosCompany({ navigation, route }) {
-	const vehicle = {
-		name: '07 Hípica / Planaltina',
-		plateId: '#ISA6529',
-		password: '#8257E6',
-		registration_plate: 'ISA6529',
-		id_to_passagers: '#3869ABCD',
-		status: 'Operando Normalmente',
-		price: '3,89'
-	}
+	const { registrationPlate, receivedVehicle } = route.params;
+
+	const [name, setName] = useState("");
+	const [status, setStatus] = useState("");
+	const [idToPassangers, setIdToPassangers] = useState("");
+	const [plateId, setPlateId] = useState("");
+	const [password, setPassword] = useState("");
+	const [price, setPrice] = useState("");
+
+	useLayoutEffect(() => {
+		const getVehicleData = async () => {
+			// setStatus(vehicle.);
+
+			if(receivedVehicle) {
+				setName(receivedVehicle.name);
+				setIdToPassangers(receivedVehicle.id_to_passagers);
+				setPlateId(receivedVehicle.id_to_share_localization);
+				setPassword(receivedVehicle.password_to_share_localization);
+				setPrice(receivedVehicle.price);
+
+				return;
+			}
+
+			const [vehicle, vehicleFunctions] = await Promise.all([
+				getVehicle({registrationPlate}),
+				getVehicleFunction({registrationPlate})]);
+
+			setName(vehicle.name);
+			setIdToPassangers(vehicle.id_to_passagers);
+			setPlateId(vehicle.id_to_share_localization);
+			setPassword(vehicle.password_to_share_localization);
+
+			setPrice(vehicleFunctions.price_transport);
+		}
+
+		getVehicleData();
+	}, [])
 
 	return(
 		<View>
@@ -22,29 +51,29 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 						source={MyBusIcon}
 					/> */}
 				<Text style={styles.infoNameTitle}>Nome do Veículo:</Text>
-				<Text style={styles.infoTitle}>{vehicle.name}</Text>
+				<Text style={styles.infoTitle}>{name}</Text>
 
 			</View>
 
 			<View style={styles.body}>
 
 				<View style={{paddingLeft: "8%"}}>
-					<Text style={styles.info}>{vehicle.name}</Text>
+					<Text style={styles.info}>{name}</Text>
 
 					<Text style={styles.infoName}>Situação Atual</Text>
-					<Text style={styles.info}>{vehicle.status}</Text>
+					<Text style={styles.info}>Operando normalmente</Text>
 
 					<Text style={styles.infoName}>Código do Veículo</Text>
-					<Text style={styles.info}>{vehicle.id_to_passagers}</Text>
+					<Text style={styles.info}>{idToPassangers}</Text>
 
 					<Text style={styles.infoName}>Usuário do Motorista</Text>
-					<Text style={styles.info}>{vehicle.plateId}</Text>
+					<Text style={styles.info}>{plateId}</Text>
 
 					<Text style={styles.infoName}>Senha do Motorista</Text>
-					<Text style={styles.info}>{vehicle.password}</Text>
+					<Text style={styles.info}>{password}</Text>
 
 					<View style={styles.vehicleFunctions}>
-						<Text style={styles.price}>{vehicle.price}</Text>
+						<Text style={styles.price}>{price}</Text>
 					</View>
 				</View>
 
