@@ -3,12 +3,17 @@ import React, { useState } from 'react';
 import { addNewPrivateVehicle } from '../../backend/users/Passenger';
 import QRCodePng from '../../assets/images/png/qr-code.png';
 import { grey, purple, white } from '../../styles/colors';
+import { getVehicle } from '../../backend/vehicles/Vehicle';
 
 export default function AddNewPrivateVehicle({ navigation, route }) {
 	const { uid } = route.params;
-	const [vehicleCode, setVehicleCode] = useState("");
+	const [ vehicleCode, setVehicleCode ] = useState("");
 
 	const addNewVehicle = async () => {
+		const vehicle = await getVehicle({idToPassengers: vehicleCode});
+		if(!vehicle || vehicle.is_public === true) {
+			return Alert.alert('Código do veículo inálido!');
+		}
 		await addNewPrivateVehicle(uid, vehicleCode);
 
 		return Alert.alert('Veículo adicionado com sucesso! Para visualizar volte ao mapa!');

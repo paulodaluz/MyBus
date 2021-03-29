@@ -20,7 +20,7 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 
 			if(receivedVehicle) {
 				setName(receivedVehicle.name);
-				setIdToPassangers(receivedVehicle.id_to_passagers);
+				setIdToPassangers(receivedVehicle.id_to_passengers);
 				setPlateId(receivedVehicle.id_to_share_localization);
 				setPassword(receivedVehicle.password_to_share_localization);
 				setPrice(receivedVehicle.price);
@@ -33,7 +33,7 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 				getVehicleFunction({registrationPlate})]);
 
 			setName(vehicle.name);
-			setIdToPassangers(vehicle.id_to_passagers);
+			setIdToPassangers(vehicle.id_to_passengers);
 			setPlateId(vehicle.id_to_share_localization);
 			setPassword(vehicle.password_to_share_localization);
 

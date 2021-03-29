@@ -7,7 +7,7 @@ export async function createNewVehicle(vehicleInfos) {
 		id_to_share_localization: `${vehicleInfos.registrationPlate.toUpperCase()}`,
 		password_to_share_localization: generateRandomPassword(9),
 		name: vehicleInfos.name,
-		id_to_passagers: `#${generateRandomPassword(6)}`,
+		id_to_passengers: `#${generateRandomPassword(6)}`,
 		is_public: vehicleInfos.isPublic,
 		registration_plate: vehicleInfos.registrationPlate.toUpperCase()
 	};
@@ -41,7 +41,7 @@ export async function editVehicle(vehicleId, vehicleInfos, vehicleFunctionsId, f
 }
 
 
-export async function getVehicle({registrationPlate='', name=''}) {
+export async function getVehicle({registrationPlate='', name='', idToPassengers=''}) {
 	const allVehicles = await getAllVehicles().catch(error => {
 		return ({error});
 	});
@@ -51,6 +51,10 @@ export async function getVehicle({registrationPlate='', name=''}) {
 
 	if(registrationPlate) {
 		return allVehicles.find((vehicle) => vehicle.registration_plate === registrationPlate);
+	}
+
+	if(idToPassengers) {
+		return allVehicles.find((vehicle) => vehicle.id_to_passagers === idToPassengers);
 	}
 
 	return allVehicles.find((vehicle) => vehicle.name.toLowerCase().includes(name.toLowerCase()));

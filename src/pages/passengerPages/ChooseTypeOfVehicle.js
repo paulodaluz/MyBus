@@ -1,8 +1,9 @@
 import React, { useState, useLayoutEffect } from 'react';
-import { Text, View, Button, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Button, TextInput, Alert, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 import { updateUserAllInfos, addNewPrivateVehicle } from '../../backend/users/Passenger';
 import QRCodePng from '../../assets/images/png/qr-code.png';
+import { getVehicle } from '../../backend/vehicles/Vehicle';
 
 export default function ChooseTypeOfVehicle({ navigation, route }) {
 		const { user } = route.params;
@@ -17,7 +18,12 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 				}
 
         if(typeOfVehicleToList === 'private') {
-					await Promise.all([await updateUserAllInfos(user.id, null, null, null, typeOfVehicleToList), await addNewPrivateVehicle(user.uid, vehicleCode)]);
+					const vehicle = await getVehicle({idToPassengers: vehicleCode});
+					if(!vehicle || vehicle.is_public === true) {
+						return Alert.alert('Código do veículo inálido!');
+					}
+					await Promise.all([await updateUserAllInfos(user.id, null, null, null, typeOfVehicleToList),
+						await addNewPrivateVehicle(user.uid, vehicleCode)]);
 				}
 
         return navigation.navigate('Map');

@@ -7,6 +7,7 @@ import AllPages from './src/pages/AllPages';
 import InitialPage from './src/pages/InitialPage';
 import Login from './src/pages/Login';
 import Map from './src/pages/Map';
+import ForgotMyPassword from './src/pages/ForgotMyPassword';
 
 import RegisterPassenger from './src/pages/passengerPages/RegisterPassenger';
 import ChooseTypeOfVehicle from './src/pages/passengerPages/ChooseTypeOfVehicle';
@@ -41,6 +42,7 @@ export default function App({navigation}) {
         <Stack.Screen name="InitialPage" component={InitialPage} initialParams={{ navigation }} options={{headerShown: false}}/>
 
 				<Stack.Screen name="Login" component={Login} initialParams={{ navigation }} options={{headerShown: false}}/>
+				<Stack.Screen name="ForgotMyPassword" component={ForgotMyPassword} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="RegisterPassenger" component={RegisterPassenger} initialParams={{ navigation }} options={{headerShown: false}}/>
         <Stack.Screen name="RegisterCompany" component={RegisterCompany} initialParams={{ navigation }} options={{headerShown: false}} />
 
