@@ -31,3 +31,13 @@ export const getAllFunctionsVehicles = async () => {
 
 	return functionsVehicles;
 };
+
+export const deleteVehicleFunctions = (id) => {
+  return new Promise((resolve, reject) => {
+    db.collection("vehicle_functions")
+      .doc(id)
+      .delete()
+      .then(() => resolve())
+      .catch((erro) => reject(erro));
+  });
+};

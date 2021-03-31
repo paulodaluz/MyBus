@@ -28,7 +28,7 @@ export default function SettingsCompany({ navigation, route }) {
 
 							<View style={styles.groupOfCategories}>
 								<TouchableOpacity style={styles.configOption}
-											onPress={() => navigation.navigate('CreateNewVehicle', { uid: user.uid })}>
+											onPress={() => navigation.navigate('CreateNewVehicle', { uid })}>
 												<Text style={styles.nameOfConfig}>Cadastrar novo veículo</Text>
 								</TouchableOpacity>
 

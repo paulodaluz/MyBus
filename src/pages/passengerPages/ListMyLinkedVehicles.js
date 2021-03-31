@@ -10,12 +10,12 @@ export default function ListMyLinkedVehicles({ navigation, route }) {
 	const [vehicles, setVehicles] = useState([]);
 
 	const removeVehicle = async (item) => {
-		await removePrivateVehicle(uid, item.id_to_passagers);
+		await removePrivateVehicle(uid, item.id_to_passengers, item.registration_plate);
 		await getVehicleData();
 	}
 
 	const getVehicleData = async () => {
-		setVehicles(await getMyVehicles('nOLWxCGtJybn5N9y8MMdEGBBKPp1'));
+		setVehicles(await getMyVehicles(uid));
 	}
 
 	useLayoutEffect(() => {
@@ -26,8 +26,8 @@ export default function ListMyLinkedVehicles({ navigation, route }) {
 		<View style={styles.box}>
 			<Text style={styles.infoName}>Nome do Veículo:</Text>
 			<Text style={styles.info}>{item.name}</Text>
-			<Text style={styles.infoName}>Código do Veículo:</Text>
-			<Text style={styles.info}>{item.id_to_passagers}</Text>
+			<Text style={styles.infoName}>Código para Passageiros:</Text>
+			<Text style={styles.info}>{item.id_to_passengers}</Text>
 			<Text style={styles.infoName}>Situação Atual:</Text>
 			<Text style={styles.info}>{"Operando Normalmente"}</Text>
 

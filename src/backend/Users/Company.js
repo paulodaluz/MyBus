@@ -69,6 +69,22 @@ export async function addNewVehicleInCompany(uid, newVehiclePlate) {
 	return {response: `Veiculo adicionado com sucesso!`}
 }
 
+export async function removeVehicleInCompany(uid, vehiclePlateToRemove) {
+	let allVehiclePlates = [];
+
+	const company = await getCompany(uid);
+
+	company.linked_vehicles.filter(vehiclePlate => {
+		if(vehiclePlate !== vehiclePlateToRemove) {
+			allVehiclePlates.push(vehiclePlate);
+		}
+	})
+
+	await updateCompany(company.id, {linked_vehicles: allVehiclePlates});
+
+	return {response: `Veiculo adicionado com sucesso!`}
+}
+
 export async function updatePlateVehicleCompany(uid, oldPlate, newPlate) {
 	if(oldPlate === newPlate) {
 		return {response: `Veiculo atualizado com sucesso!`}

@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { purple, white, orange, black } from '../../styles/colors';
 import MyBusIcon from '../../assets/icons/svg/my_bus_icon.svg';
 import { getVehicle, getVehicleFunction } from '../../backend/vehicles/Vehicle';
@@ -14,30 +14,30 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 	const [password, setPassword] = useState("");
 	const [price, setPrice] = useState("");
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		const getVehicleData = async () => {
-			// setStatus(vehicle.);
 
+			console.log('bola')
 			if(receivedVehicle) {
+				console.log('bola2', receivedVehicle)
 				setName(receivedVehicle.name);
 				setIdToPassangers(receivedVehicle.id_to_passengers);
 				setPlateId(receivedVehicle.id_to_share_localization);
 				setPassword(receivedVehicle.password_to_share_localization);
 				setPrice(receivedVehicle.price);
-
-				return;
 			}
+			if(!receivedVehicle) {
+				const [vehicle, vehicleFunctions] = await Promise.all([
+					getVehicle({registrationPlate}),
+					getVehicleFunction({registrationPlate})]);
+					console.log({vehicleFunctions, receivedVehicle})
+				setName(vehicle.name);
+				setIdToPassangers(vehicle.id_to_passengers);
+				setPlateId(vehicle.id_to_share_localization);
+				setPassword(vehicle.password_to_share_localization);
 
-			const [vehicle, vehicleFunctions] = await Promise.all([
-				getVehicle({registrationPlate}),
-				getVehicleFunction({registrationPlate})]);
-
-			setName(vehicle.name);
-			setIdToPassangers(vehicle.id_to_passengers);
-			setPlateId(vehicle.id_to_share_localization);
-			setPassword(vehicle.password_to_share_localization);
-
-			setPrice(vehicleFunctions.price_transport);
+				setPrice(vehicleFunctions.price_transport);
+			}
 		}
 
 		getVehicleData();

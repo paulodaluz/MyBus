@@ -1,7 +1,9 @@
-import { getAllFunctionsVehicles, saveFunctionsVehicle, updateFunctionsVehicle } from '../../service/VehicleFunctionsService';
+import { getAllCompanies } from '../../service/CompanyService';
+import { getAllUsers, updateUser } from '../../service/PassengerService';
+import { deleteVehicleFunctions, getAllFunctionsVehicles, saveFunctionsVehicle, updateFunctionsVehicle } from '../../service/VehicleFunctionsService';
 import { getAllVehicles, saveVehicle, updateVehicle, deleteVehicle } from '../../service/VehicleService';
-import { getUserOnFirebase } from '../Login';
-import { generateRandomPassword } from '../utils/Utils';
+import { removeVehicleInCompany } from '../users/Company';
+import { generateRandomPassword, mountBodyToFirebase } from '../utils/Utils';
 
 export async function createNewVehicle(vehicleInfos) {
 	let vehicle = {
@@ -89,11 +91,28 @@ export async function getVehicleFunction({registrationPlate=''}) {
 
 export async function getMyVehicles(uid) {
 	let myVehicles = [];
-	const [user, allVehicles] = await Promise.all([getUserOnFirebase(uid), getAllVehicles()]);
+	let user;
+	let userVehicles;
+
+	const [allUsers, allCompanies] = await Promise.all([getAllUsers(), getAllCompanies()]);
+
+	const passenger = allUsers.find((user) => user.uid === uid);
+
+	const company = allCompanies.find((user) => user.uid === uid);
+
+	if(passenger) {
+		user = passenger;
+	}
+
+	if(company) {
+		user = company;
+	}
+
+	const allVehicles = await getAllVehicles();
 
 	// passenger
 	if(user.isPassenger) {
-		const userVehicles = user.codes_private_vehicles.filter(vehicleCode => {
+		userVehicles = user.codes_private_vehicles.filter(vehicleCode => {
 			return allVehicles.filter(userVehicle =>  userVehicle.id_to_passagers === vehicleCode);
 		});
 
@@ -106,8 +125,64 @@ export async function getMyVehicles(uid) {
 			});
 
 		});
+		return myVehicles;
 	}
 
+	userVehicles = user.linked_vehicles.filter(vehicleCode => {
+		return allVehicles.filter(userVehicle =>  userVehicle.id_to_share_localization === vehicleCode);
+	});
+
+	userVehicles.forEach(vehicleCode => {
+		allVehicles.forEach(vehicle => {
+			if(vehicle.id_to_share_localization === vehicleCode) {
+				myVehicles.push(vehicle)
+			}
+		});
+
+	});
 
 	return myVehicles;
+}
+
+export async function deleteVehicleFromAllDatabases(completeUser, idToPassengersToRemove, vehiclePlateToRemove) {
+	const [allVehicleFunctions, allVehicles, allUsers] = await Promise.all([getAllFunctionsVehicles(), getAllVehicles(), getAllUsers()]);
+
+	// remover da tabela do usuário passageiro
+	allUsers.map(async user => {
+		const isThereCodeToRemove = user.codes_private_vehicles.includes(idToPassengersToRemove);
+
+		if(isThereCodeToRemove) {
+			await deleteVehicleFromUser(user, idToPassengersToRemove);
+		}
+	});
+
+	// remover o veiculo da tabela da empresa
+	await removeVehicleInCompany(completeUser.uid, vehiclePlateToRemove);
+
+	// remover o veiculo da tabela de funções
+	const vehicleFunctionsToRemove = allVehicleFunctions.find((vehicleFunctions) => vehicleFunctions.registration_plate === vehiclePlateToRemove);
+
+	await deleteVehicleFunctions(vehicleFunctionsToRemove.id);
+
+	// remover o veiculo da tabela de veiculos
+	const vehicleToRemove = allVehicles.find((vehicle) => vehicle.registration_plate === vehiclePlateToRemove);
+
+	await deleteVehicle(vehicleToRemove.id);
+
+	return ({ response: "Veículo Removido com Sucesso." });
+}
+
+export async function deleteVehicleFromUser(completeUser, idToPassengersToRemove) {
+	let allVehicleCodes = [];
+
+	allVehicleCodes = completeUser.codes_private_vehicles.filter(vehicleCode => vehicleCode !== idToPassengersToRemove)
+
+	const infosToUpdate = mountBodyToFirebase({vehicleCode: allVehicleCodes});
+
+	const addAtrybuteOnFirestoreUser = await updateUser(completeUser.id, infosToUpdate);
+
+	if(addAtrybuteOnFirestoreUser && addAtrybuteOnFirestoreUser.error)
+		return addAtrybuteOnFirestoreUser.error;
+
+	return ({ response: "Usuário Atualizado com Sucesso." });
 }

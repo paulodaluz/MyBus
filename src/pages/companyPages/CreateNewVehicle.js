@@ -30,7 +30,7 @@ export default function CreateNewVehicle({ navigation, route }) {
 	const createVehicle = async () => {
 		const errors = await verifyInputs();
 
-		if(errors) return;
+		if(errors === 'Usuário já existe') return;
 
 		let vehicle = {
 			registrationPlate,
@@ -46,16 +46,15 @@ export default function CreateNewVehicle({ navigation, route }) {
 			price,
 			registrationPlate
 		}
-
 		const [createdVehicle, vehicleFunctionsAdded, vehicleAddedInCompany] = await Promise.all([createNewVehicle(vehicle),
-					addFunctionsToVehicle(functionsVehicle),
-						addNewVehicleInCompany(uid, registrationPlate)]);
+			addFunctionsToVehicle(functionsVehicle),
+			addNewVehicleInCompany(uid, registrationPlate)]);
 
-		if((createVehicle && createdVehicle.error) || (vehicleFunctionsAdded && vehicleFunctionsAdded.error) || (vehicleAddedInCompany && vehicleAddedInCompany.error)) {
-			return Alert.alert('Erro ao criar usuário.')
-		}
+			if((createVehicle && createdVehicle.error) || (vehicleFunctionsAdded && vehicleFunctionsAdded.error) || (vehicleAddedInCompany && vehicleAddedInCompany.error)) {
+				return Alert.alert('Erro ao criar usuário.')
+			}
 
-		navigation.navigate('AskShowVehicleCode', { vehicle: createdVehicle.response });
+		navigation.navigate('AskShowVehicleCode', { uid, vehicle: createdVehicle.response });
 	}
 
 	const verifyInputs = async () => {

@@ -1,6 +1,8 @@
 import * as authService from '../../service/AuthService';
 import { saveUser, updateUser, getAllUsers } from '../../service/PassengerService';
 import { mountBodyToFirebase } from '../utils/Utils';
+import { deleteVehicleFromAllDatabases, deleteVehicleFromUser } from '../vehicles/Vehicle';
+import { getCompany } from './Company';
 
 export async function createPassengerBackend(email, password, name) {
     let user = {email, name};
@@ -77,22 +79,20 @@ export async function addNewPrivateVehicle(uid, newVehicleCode) {
 	return ({ response: "Usuário Atualizado com Sucesso." });
 }
 
-export async function removePrivateVehicle(uid, idToPassengers) {
-	let allVehicleCodes = [];
+export async function removePrivateVehicle(uid, idToPassengers, vehiclePlate) {
+	let user;
+	const [passenger, company] = await Promise.all([getPassenger(uid), getCompany(uid)]);
 
-	const completeUser = await getPassenger(uid);
+	if(passenger) {
+		user = passenger;
+	}
 
-	allVehicleCodes = completeUser.codes_private_vehicles.filter(vehicleCode => vehicleCode !== idToPassengers)
+	if(company) {
+		user = company;
+	}
 
-	const infosToUpdate = mountBodyToFirebase({vehicleCode: allVehicleCodes});
-
-	const addAtrybuteOnFirestoreUser = await updateUser(completeUser.id, infosToUpdate).catch(error => {
-		console.log(`removePrivateVehicle - ERROR = ${error}`);
-		return ({error});
-	});
-
-	if(addAtrybuteOnFirestoreUser && addAtrybuteOnFirestoreUser.error)
-		return addAtrybuteOnFirestoreUser.error;
-
-	return ({ response: "Usuário Atualizado com Sucesso." });
+	if(user.isPassenger) {
+		return await deleteVehicleFromUser(user, idToPassengers);
+	}
+	return await deleteVehicleFromAllDatabases(user, idToPassengers, vehiclePlate);
 }

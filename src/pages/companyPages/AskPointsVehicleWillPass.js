@@ -3,7 +3,7 @@ import React from 'react';
 import { purple, white, orange } from '../../styles/colors';
 
 export default function AskPointsVehicleWillPass({ navigation, route }) {
-	const { vehicle } = route.params;
+	const { uid, vehicle } = route.params;
 
 	return(
 		<View>
@@ -17,13 +17,13 @@ export default function AskPointsVehicleWillPass({ navigation, route }) {
 				<View style={styles.buttons}>
 
 					<View style={styles.button}>
-						<TouchableOpacity onPress={() => navigation.navigate('ChoicePointsVehicleWillPass', { vehicle })}>
+						<TouchableOpacity onPress={() => navigation.navigate('ChoicePointsVehicleWillPass', { uid, vehicle })}>
 							<Text style={styles.buttonText}>Sim</Text>
 						</TouchableOpacity>
 					</View>
 
 					<View style={styles.button}>
-						<TouchableOpacity onPress={() => navigation.navigate('ListVehicleInfosCompany', { vehicle })}>
+						<TouchableOpacity onPress={() => navigation.navigate('ListVehicleInfosCompany', { uid, receivedVehicle: vehicle })}>
 							<Text style={styles.buttonText}>Mais Tarde</Text>
 							</TouchableOpacity>
 					</View>

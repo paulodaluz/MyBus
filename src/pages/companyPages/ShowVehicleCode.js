@@ -5,11 +5,7 @@ import Clipboard from 'expo-clipboard';
 import { purple, white, orange, grey, black } from '../../styles/colors';
 
 export default function ShowVehicleCode({ navigation, route }) {
-	// const { uid } = route.params;
-	const vehicle = {
-		plateId : '#ISA6529',
-		password: 'xZjtuBZI2'
-	}
+	const { uid, vehicle } = route.params;
 
 	const copyToClipboard = (text) => {
     Clipboard.setString(text);
@@ -32,7 +28,7 @@ export default function ShowVehicleCode({ navigation, route }) {
 					<Text style={styles.inputText}>{vehicle.password}</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AskPointsVehicleWillPass', { vehicle })}>
+				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AskPointsVehicleWillPass', { uid, vehicle })}>
 					<Text style={styles.buttonText}>Continuar</Text>
 				</TouchableOpacity>
 			</View>
