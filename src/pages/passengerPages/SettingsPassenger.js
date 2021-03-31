@@ -49,7 +49,7 @@ export default function SettingsPassenger({ navigation, route }) {
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.configOption}
-                        onPress={() => navigation.navigate('Map', { uid })}>
+                        onPress={() => navigation.navigate('ListMyLinkedVehicles', { uid })}>
                             <Text style={styles.nameOfConfig}>Remover veículo privado</Text>
                     </TouchableOpacity>
                 </View>

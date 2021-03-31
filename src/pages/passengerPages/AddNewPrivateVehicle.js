@@ -16,8 +16,13 @@ export default function AddNewPrivateVehicle({ navigation, route }) {
 		}
 		await addNewPrivateVehicle(uid, vehicleCode);
 
-		return Alert.alert('Veículo adicionado com sucesso! Para visualizar volte ao mapa!');
+		Alert.alert('Veículo adicionado com sucesso! Para visualizar volte ao mapa!');
+		return cleanInputs();
 	}
+
+	const cleanInputs = async () => {
+		setVehicleCode("");
+	};
 
 	return(
 		<View style={styles.container}>

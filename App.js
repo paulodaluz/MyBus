@@ -15,6 +15,7 @@ import SettingsPassenger from './src/pages/passengerPages/SettingsPassenger';
 import EditProfilePassenger from './src/pages/passengerPages/EditProfilePassenger';
 import AddNewPrivateVehicle from './src/pages/passengerPages/AddNewPrivateVehicle';
 import LeaveYourOpinionPassenger from './src/pages/passengerPages/LeaveYourOpinionPassenger';
+import ListMyLinkedVehicles from './src/pages/passengerPages/ListMyLinkedVehicles';
 
 import RegisterCompany from './src/pages/companyPages/RegisterCompany';
 import SettingsCompany from './src/pages/companyPages/SettingsCompany';
@@ -56,6 +57,7 @@ export default function App({navigation}) {
 
 				<Stack.Screen name="ChooseTypeOfVehicle" component={ChooseTypeOfVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="AddNewPrivateVehicle" component={AddNewPrivateVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
+				<Stack.Screen name="ListMyLinkedVehicles" component={ListMyLinkedVehicles} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="AskShowVehicleCode" component={AskShowVehicleCode} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="ShowVehicleCode" component={ShowVehicleCode} initialParams={{ navigation }} options={{headerShown: false}} />

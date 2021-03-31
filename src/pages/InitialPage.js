@@ -14,7 +14,7 @@ export default function InitialPage({ navigation, route }) {
 			const uidUser = await getSession();
 
 			if(uidUser) {
-				const user = undefined/* await getUserOnFirebase(uidUser); */
+				const user = await getUserOnFirebase(uidUser);
 				if(user)
 					return navigation.navigate('Map', {user});
 			}

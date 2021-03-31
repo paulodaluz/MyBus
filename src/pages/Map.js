@@ -5,9 +5,11 @@ import * as Location from 'expo-location'
 import { purple, white } from '../styles/colors';
 
 export default function Map({ navigation, route }) {
-	const typeUserPage = 'passenger'; // company passenger
-	const [myPosition, seMyposition] = useState(null)
-	const [localizacoes, setLocalizacoes] = useState([])
+	const { user } = route.params;
+	const typeUserPage = user.isPassenger === true ? 'passenger' : 'company';
+
+	const [myPosition, seMyposition] = useState(null);
+	const [localizacoes, setLocalizacoes] = useState([]);
 
 	const [localicaoAtual, setLocalicaoAtual] = useState({
 			latitude: -28.2612,
@@ -27,44 +29,45 @@ export default function Map({ navigation, route }) {
 					.catch(error => Alert.alert("Erro ao acessar o GPS!"))
 		}
 	}
-		useEffect(() => {
-			getMyPosition()
-		}, [])
 
-    return (
-			<View style={styles.container}>
-				<MapView onPress={(e) => {console.log(e.nativeEvent.coordinate)}} style={styles.mapStyle} initialRegion={localicaoAtual} region={localicaoAtual}>
-					{
-						localizacoes.map((item, key) => <Marker
-									key={key}
-									coordinate={item}
-									title={item.nome}
-							/>)
-					}
+	useEffect(() => {
+		getMyPosition()
+	}, [])
 
-					{myPosition ?
-					<Marker
-							coordinate={myPosition}
-							title={"Onde eu estou!"}
-							// image={orangeMarkerImg}
-						/>
+	return (
+		<View style={styles.container}>
+			<MapView onPress={(e) => {console.log(e.nativeEvent.coordinate)}} style={styles.mapStyle} initialRegion={localicaoAtual} region={localicaoAtual}>
+				{
+					localizacoes.map((item, key) => <Marker
+								key={key}
+								coordinate={item}
+								title={item.nome}
+						/>)
+				}
 
-						: null
-					}
-				</MapView>
-				<View style={styles.buttons}>
+				{myPosition ?
+				<Marker
+						coordinate={myPosition}
+						title={"Onde eu estou!"}
+						// image={orangeMarkerImg}
+					/>
 
-					<TouchableOpacity onPress={() => typeUserPage === 'passenger' ? navigation.navigate('SettingsPassenger') : navigation.navigate('SettingsCompany')}
-						style={styles.configButton}>
-							<Text style={styles.buttonText}>CONFIGURAÇÕES</Text>
-					</TouchableOpacity>
+					: null
+				}
+			</MapView>
+			<View style={styles.buttons}>
 
-					<TouchableOpacity onPress={() => typeUserPage === 'passenger' ? navigation.navigate('AddNewPrivateVehicle') : navigation.navigate('CreateNewVehicle')}
-						style={styles.addVehicleButton}>
-							<Text style={styles.buttonText}>CADASTRAR NOVO VEÍCULO</Text>
-					</TouchableOpacity>
-          </View>
-			</View>
+				<TouchableOpacity onPress={() => typeUserPage === 'passenger' ? navigation.navigate('SettingsPassenger') : navigation.navigate('SettingsCompany')}
+					style={styles.configButton}>
+						<Text style={styles.buttonText}>CONFIGURAÇÕES</Text>
+				</TouchableOpacity>
+
+				<TouchableOpacity onPress={() => typeUserPage === 'passenger' ? navigation.navigate('AddNewPrivateVehicle', { uid: user.uid }) : navigation.navigate('CreateNewVehicle', { uid: user.uid })}
+					style={styles.addVehicleButton}>
+						<Text style={styles.buttonText}>CADASTRAR NOVO VEÍCULO</Text>
+				</TouchableOpacity>
+				</View>
+		</View>
 	);
 }
 

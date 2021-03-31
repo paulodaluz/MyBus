@@ -177,11 +177,11 @@ export default function CreateNewVehicle({ navigation, route }) {
 				</View>
 
 				<View style={styles.registerButton}>
-        <Button
-          onPress={() => createVehicle()}
-          title="Cadastrar"
-					color={white}
-          />
+					<Button
+						onPress={() => createVehicle()}
+						title="Cadastrar"
+						color={white}
+					/>
       </View>
 			</View>
 		</View>

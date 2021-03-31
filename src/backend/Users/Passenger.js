@@ -14,7 +14,7 @@ export async function createPassengerBackend(email, password, name) {
 
 		user.uid = registeredAuthenticationUser.user.uid;
 
-		const registeredOnFirestoreUser = await saveUser({ email, name, uid: registeredAuthenticationUser.user.uid }).catch(error => {
+		const registeredOnFirestoreUser = await saveUser({ email, name, uid: registeredAuthenticationUser.user.uid, isPassenger: true }).catch(error => {
 				return ({error});
 		});
 
@@ -68,6 +68,26 @@ export async function addNewPrivateVehicle(uid, newVehicleCode) {
 
 	const addAtrybuteOnFirestoreUser = await updateUser(completeUser.id, infosToUpdate).catch(error => {
 		console.log(`changeTypeOfVehicleToList - addAtrybuteOnFirestoreUser - ERROR = ${error}`);
+		return ({error});
+	});
+
+	if(addAtrybuteOnFirestoreUser && addAtrybuteOnFirestoreUser.error)
+		return addAtrybuteOnFirestoreUser.error;
+
+	return ({ response: "Usuário Atualizado com Sucesso." });
+}
+
+export async function removePrivateVehicle(uid, idToPassengers) {
+	let allVehicleCodes = [];
+
+	const completeUser = await getPassenger(uid);
+
+	allVehicleCodes = completeUser.codes_private_vehicles.filter(vehicleCode => vehicleCode !== idToPassengers)
+
+	const infosToUpdate = mountBodyToFirebase({vehicleCode: allVehicleCodes});
+
+	const addAtrybuteOnFirestoreUser = await updateUser(completeUser.id, infosToUpdate).catch(error => {
+		console.log(`removePrivateVehicle - ERROR = ${error}`);
 		return ({error});
 	});
 

@@ -5,7 +5,7 @@ import * as authService from '../service/AuthService';
 
 export default function Login({ navigation, route }) {
 
-  // const [email, setEmail] = useState("paulera.daluz@gmail.com");
+  // const [email, setEmail] = useState("paulo.daluz@gmail.com");
   const [email, setEmail] = useState("presidencia@sudesttransp.com.br");
   const [password, setPassword] = useState("123456");
 

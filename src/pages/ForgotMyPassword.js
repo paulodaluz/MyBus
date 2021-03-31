@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button, FlatList, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Button, Text, TextInput } from 'react-native';
 
 export default function ForgotMyPassword({ navigation, route }) {
 
-  const [email, setEmail] = useState("presidencia@sudesttransp.com.br");
+  const [email, setEmail] = useState("");
 
   return (
     <View style={styles.container}>

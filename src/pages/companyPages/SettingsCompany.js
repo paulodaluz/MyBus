@@ -27,6 +27,18 @@ export default function SettingsCompany({ navigation, route }) {
 					<View style={styles.allConfigOptions}>
 
 							<View style={styles.groupOfCategories}>
+								<TouchableOpacity style={styles.configOption}
+											onPress={() => navigation.navigate('CreateNewVehicle', { uid: user.uid })}>
+												<Text style={styles.nameOfConfig}>Cadastrar novo veículo</Text>
+								</TouchableOpacity>
+
+								<TouchableOpacity style={styles.configOption}
+											onPress={() => navigation.navigate('ListMyLinkedVehicles', { uid })}>
+												<Text style={styles.nameOfConfig}>Deletar veículo</Text>
+								</TouchableOpacity>
+							</View>
+
+							<View style={styles.groupOfCategories}>
 									<TouchableOpacity style={styles.configOption}
 											onPress={() => navigation.navigate('ReceivedFeedbacks', { uid })}>
 													<Text style={styles.nameOfConfig}>Feedbacks recebidos</Text>

@@ -31,3 +31,13 @@ export const getAllVehicles = async () => {
 
     return vehicles;
 };
+
+export const deleteVehicle = (id) => {
+  return new Promise((resolve, reject) => {
+    db.collection("vehicles")
+      .doc(id)
+      .delete()
+      .then(() => resolve())
+      .catch((erro) => reject(erro));
+  });
+};

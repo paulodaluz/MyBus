@@ -1,5 +1,6 @@
 import { getAllFunctionsVehicles, saveFunctionsVehicle, updateFunctionsVehicle } from '../../service/VehicleFunctionsService';
-import { getAllVehicles, saveVehicle, updateVehicle } from '../../service/VehicleService';
+import { getAllVehicles, saveVehicle, updateVehicle, deleteVehicle } from '../../service/VehicleService';
+import { getUserOnFirebase } from '../Login';
 import { generateRandomPassword } from '../utils/Utils';
 
 export async function createNewVehicle(vehicleInfos) {
@@ -34,8 +35,8 @@ export async function editVehicle(vehicleId, vehicleInfos, vehicleFunctionsId, f
 		registration_plate: functionsVehicleInfos.registrationPlate.toUpperCase()
 	};
 
-	await Promise.all([await updateVehicle(vehicleId, vehicle),
-		await updateFunctionsVehicle(vehicleFunctionsId, functionsVehicle)])
+	await Promise.all([updateVehicle(vehicleId, vehicle),
+		updateFunctionsVehicle(vehicleFunctionsId, functionsVehicle)])
 
 	return {response: Object.assign(vehicle, functionsVehicle)};
 }
@@ -84,4 +85,29 @@ export async function getVehicleFunction({registrationPlate=''}) {
 		return allVehicleFunctions.error;
 
 	return allVehicleFunctions.find((vehicleFunctions) => vehicleFunctions.registration_plate === registrationPlate);
+}
+
+export async function getMyVehicles(uid) {
+	let myVehicles = [];
+	const [user, allVehicles] = await Promise.all([getUserOnFirebase(uid), getAllVehicles()]);
+
+	// passenger
+	if(user.isPassenger) {
+		const userVehicles = user.codes_private_vehicles.filter(vehicleCode => {
+			return allVehicles.filter(userVehicle =>  userVehicle.id_to_passagers === vehicleCode);
+		});
+
+		userVehicles.forEach(vehicleCode => {
+
+			allVehicles.forEach(vehicle => {
+				if(vehicle.id_to_passagers === vehicleCode) {
+					myVehicles.push(vehicle)
+				}
+			});
+
+		});
+	}
+
+
+	return myVehicles;
 }
