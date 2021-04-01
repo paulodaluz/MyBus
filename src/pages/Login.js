@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
-import { createSession, getUserOnFirebase } from '../backend/Login';
+import { createSession, getUserOnFirebase, driverLoginIsValid } from '../backend/Login';
 import * as authService from '../service/AuthService';
+import { getAllVehicles } from '../service/VehicleService';
 
 export default function Login({ navigation, route }) {
-
+	const { isDriver=false } = route.params;
   // const [email, setEmail] = useState("paulo.daluz@gmail.com");
   const [email, setEmail] = useState("presidencia@sudesttransp.com.br");
   const [password, setPassword] = useState("123456");
+
+	const [allVehicles, setAllVehicles] = useState([]);
 
   const login = async () => {
     if(!email || !password) {
       return Alert.alert('Usuário ou senha inválida!');
     }
+
+		if(isDriver) {
+			const loggedDriver = driverLoginIsValid(email, password, allVehicles)
+			if(loggedDriver.response) {
+				return navigation.navigate('Map', { user: loggedDriver.vehicleDriver });
+			}
+			return Alert.alert('Dados inválidos!');
+		}
 
     const loggedUser = await authService.login(email, password);
 
@@ -25,6 +36,18 @@ export default function Login({ navigation, route }) {
 
     return Alert.alert('Usuário ou senha inválida!');
   }
+
+	useEffect(() => {
+
+		async function getAllVehiclesData() {
+			await setAllVehicles(await getAllVehicles());
+		}
+
+		if(isDriver) {
+			getAllVehiclesData();
+		}
+
+  }, []);
 
   return (
     <View style={styles.container}>

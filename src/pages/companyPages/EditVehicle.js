@@ -6,8 +6,7 @@ import { editVehicle, getVehicle, getVehicleFunction } from '../../backend/vehic
 import { updatePlateVehicleCompany } from '../../backend/users/Company';
 
 export default function EditVehicle({ navigation, route }) {
-	const { registration_Plate } = route.params;
-	const { uid } = route.params;
+	const { uid, registration_Plate } = route.params;
 
 	const [vehicleId, setVehicleId] = useState("");
 	const [vehicleFunctionsId, setVehicleFunctionsId] = useState("");
@@ -72,7 +71,6 @@ export default function EditVehicle({ navigation, route }) {
 
 	useLayoutEffect(() => {
 		const getVehicleData = async () => {
-			console.log({registration_Plate})
 			const [vehicle, vehicleFunctions] = await Promise.all([getVehicle({registrationPlate: registration_Plate}),
 				getVehicleFunction({registrationPlate: registration_Plate})]);
 

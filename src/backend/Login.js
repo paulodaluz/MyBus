@@ -15,6 +15,15 @@ export async function getUserOnFirebase(uid) {
       return company;
 }
 
+export async function driverLoginIsValid(registrationPlate, password, allVehicles) {
+	const vehicleDriver = allVehicles.find(vehicle => vehicle.registration_plate === registrationPlate);
+
+	if(vehicleDriver) {
+		return {response: vehiclesDriver.password_to_share_localization === password, vehicleDriver};
+	}
+	return {response: false};
+}
+
 export async function createSession(uid) {
   await saveStorage('uid', uid);
   return;

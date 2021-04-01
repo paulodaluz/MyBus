@@ -30,6 +30,9 @@ import ChoicePointsVehicleWillPass from './src/pages/companyPages/ChoicePointsVe
 import ListVehicleInfosCompany from './src/pages/companyPages/ListVehicleInfosCompany';
 import EditVehicle from './src/pages/companyPages/EditVehicle';
 
+
+import SettingsDriver from './src/pages/driverPages/SettingsDriver';
+
 export default function App({navigation}) {
   const Stack = createStackNavigator();
 
@@ -73,6 +76,8 @@ export default function App({navigation}) {
 				<Stack.Screen name="ReceivedFeedbacks" component={ReceivedFeedbacks} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="CreateNewVehicle" component={CreateNewVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
+
+				<Stack.Screen name="SettingsDriver" component={SettingsDriver} initialParams={{ navigation }} options={{headerShown: false}} />
       </Stack.Navigator>
 
     </NavigationContainer>

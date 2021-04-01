@@ -12,8 +12,9 @@ var firebaseConfig = {
 
 const firebaseApp =
     firebase.app.length > 0
-		? firebase.app()
-		: firebase.initializeApp(firebaseConfig)
+		?firebase.initializeApp(firebaseConfig)
+		: firebase.app()
+
 
 const db = firebaseApp.firestore();
 

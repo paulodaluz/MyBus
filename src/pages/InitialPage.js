@@ -91,7 +91,7 @@ export default function InitialPage({ navigation, route }) {
               title="Cadastre-se"
               color="#FFFFFF"
             />
-          </View>
+					</View>
         </GestureRecognizer>
       </View>
 
@@ -187,5 +187,8 @@ const styles = StyleSheet.create({
     height: "90%",
     display: 'flex',
     alignItems: 'center'
-  }
+  },
+	loginDriver :{
+		height: "90%"
+	}
 });
