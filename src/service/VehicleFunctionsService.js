@@ -4,7 +4,10 @@ export const saveFunctionsVehicle = async (functionsVehicle) => {
 	return await db.collection("vehicle_functions")
 		.add(functionsVehicle)
 		.then((result) => {return(result)})
-		.catch((error) => {return(error)});
+		.catch((error) => {
+			console.log(`VehicleFunctionsService - saveFunctionsVehicle - ERROR = ${error}`);
+			return(error);
+		});
 };
 
 export const updateFunctionsVehicle = async (id, functionsVehicle) => {
@@ -14,8 +17,8 @@ export const updateFunctionsVehicle = async (id, functionsVehicle) => {
 			.update(functionsVehicle)
 				.then(() => resolve())
 				.catch((error) => {
-						console.log(`updateFunctionsVehicle ERROR = ${error}`);
-						reject(error);
+					console.log(`VehicleFunctionsService - updateFunctionsVehicle - ERROR = ${error}`);
+					reject(error);
 				});
 	});
 }
@@ -24,9 +27,9 @@ export const getAllFunctionsVehicles = async () => {
 	let functionsVehicles = [];
 	const snapshot = await db.collection('vehicle_functions').get();
 	snapshot.forEach((doc) => {
-			let functionsVehicle = doc.data();
-			functionsVehicle.id = doc.id;
-			functionsVehicles.push(functionsVehicle);
+		let functionsVehicle = doc.data();
+		functionsVehicle.id = doc.id;
+		functionsVehicles.push(functionsVehicle);
 	});
 
 	return functionsVehicles;
@@ -38,6 +41,9 @@ export const deleteVehicleFunctions = (id) => {
       .doc(id)
       .delete()
       .then(() => resolve())
-      .catch((erro) => reject(erro));
+      .catch((erro) => {
+				console.log(`VehicleFunctionsService - deleteVehicleFunctions - ERROR = ${error}`);
+				reject(erro);
+			});
   });
 };
