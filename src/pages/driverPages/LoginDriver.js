@@ -1,31 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
-import { createSession, getUserOnFirebase, driverLoginIsValid } from '../backend/Login';
-import * as authService from '../service/AuthService';
-import { getAllVehicles } from '../service/VehicleService';
+import { getVehicleFunction } from '../../backend/vehicles/Vehicle';
+import { driverLoginIsValid } from '../../backend/Login';
+import { getAllVehicles } from '../../service/VehicleService';
+import { getCompanyByRegistrationPlate } from '../../backend/users/Company';
 
-export default function Login({ navigation, route }) {
+export default function LoginDriver({ navigation }) {
+  const [registrationPlate, setRegistrationPlate] = useState("ISA6529");
+  const [password, setPassword] = useState("N2Q6H6MJI");
 
-  // const [email, setEmail] = useState("paulo.daluz@gmail.com");
-  const [email, setEmail] = useState("presidencia@sudesttransp.com.br");
-  const [password, setPassword] = useState("123456");
+	const [allVehicles, setAllVehicles] = useState([]);
 
   const login = async () => {
-    if(!email || !password) {
+    if(!registrationPlate || !password) {
       return Alert.alert('Usuário ou senha inválida!');
     }
 
-    const loggedUser = await authService.login(email, password);
+		const loggedDriver = driverLoginIsValid(registrationPlate, password, allVehicles);
 
-    const user = await getUserOnFirebase(loggedUser.user.uid);
+		if(loggedDriver) {
+			const myVehicle = getMyVehicle(allVehicles, registrationPlate);
+			const [myCompany, vehicleFunctions] = await Promise.all([getMyCompany(registrationPlate), getFunctionsFromVehicle(registrationPlate)]);
 
-    if(user) {
-      createSession(user.uid);
-      return navigation.navigate('MapCompany', {user});
-    }
-
-    return Alert.alert('Usuário ou senha inválida!');
+			return navigation.navigate('MapDriver', { company: myCompany, vehicle: myVehicle, vehicleFunctions });
+		}
+		return Alert.alert('Dados inválidos!');
   }
+
+	const getMyVehicle = (vehicles, myRegistrationPlate) => {
+		return vehicles.find(vehicle => vehicle.registration_plate === myRegistrationPlate);
+	}
+
+	const getMyCompany = async (myRegistrationPlate) => {
+		return await getCompanyByRegistrationPlate({registrationPlate: myRegistrationPlate})
+	}
+
+	const getFunctionsFromVehicle = async (myRegistrationPlate) => {
+		return await getVehicleFunction({registrationPlate: myRegistrationPlate})
+	}
+
+	useEffect(() => {
+
+		async function getAllVehiclesData() {
+			await setAllVehicles(await getAllVehicles());
+		}
+
+		getAllVehiclesData();
+
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -41,10 +63,9 @@ export default function Login({ navigation, route }) {
 
       <TextInput
           style={styles.inputButton}
-          placeholder="Email"
-          value={email}
-          textContentType='emailAddress'
-          onChangeText={text => setEmail(text)}
+          placeholder="Placa do veículo"
+          value={registrationPlate}
+          onChangeText={text => setRegistrationPlate(text)}
         />
 
       <TextInput
@@ -62,8 +83,6 @@ export default function Login({ navigation, route }) {
             title="Entrar"
           />
       </View>
-
-    <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
 
     </View>
   );
@@ -115,8 +134,5 @@ const styles = StyleSheet.create({
     width: '85%',
     paddingTop: "4%",
     marginBottom: "3%"
-  },
-  forgotPasswordText: {
-    color: "#8492A6"
   }
 });

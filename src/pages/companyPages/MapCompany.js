@@ -31,7 +31,7 @@ export default function MapCompany({ navigation, route }) {
 
 		async function getData() {
 			let vehicleInfos = await getVehiclesInfos(user.linked_vehicles);
-			setVehiclesWithoutlocalization(vehicleInfos)
+			setVehiclesWithoutlocalization(vehicleInfos);
 			await getLocalizationRealTime();
 		}
 

@@ -106,3 +106,17 @@ export async function updatePlateVehicleCompany(uid, oldPlate, newPlate) {
 
 	return {response: `Veiculo atualizado com sucesso!`}
 }
+
+export async function getCompanyByRegistrationPlate({registrationPlate}) {
+
+	const allCompanies = await getAllCompanies().catch(error => {
+			return ({error});
+	});
+
+	if(allCompanies && allCompanies.error)
+			return allCompanies.error;
+
+	const company = allCompanies.find((user) => user.linked_vehicles.includes(registrationPlate));
+
+	return company;
+}

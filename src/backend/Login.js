@@ -19,9 +19,9 @@ export async function driverLoginIsValid(registrationPlate, password, allVehicle
 	const vehicleDriver = allVehicles.find(vehicle => vehicle.registration_plate === registrationPlate);
 
 	if(vehicleDriver) {
-		return {response: vehiclesDriver.password_to_share_localization === password, vehicleDriver};
+		return vehicleDriver.password_to_share_localization === password;
 	}
-	return {response: false};
+	return false;
 }
 
 export async function createSession(uid) {

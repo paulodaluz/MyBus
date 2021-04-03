@@ -32,6 +32,8 @@ import ListVehicleInfosCompany from './src/pages/companyPages/ListVehicleInfosCo
 import EditVehicle from './src/pages/companyPages/EditVehicle';
 
 import SettingsDriver from './src/pages/driverPages/SettingsDriver';
+import MapDriver from './src/pages/driverPages/MapDriver';
+import LoginDriver from './src/pages/driverPages/LoginDriver';
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();
@@ -78,7 +80,9 @@ export default function App({navigation}) {
 
 				<Stack.Screen name="CreateNewVehicle" component={CreateNewVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
 
-				<Stack.Screen name="SettingsDriver" component={SettingsDriver} initialParams={{ navigation }} options={{headerShown: false, gestureEnabled: false}} />
+				<Stack.Screen name="SettingsDriver" component={SettingsDriver} initialParams={{ navigation }} options={{headerShown: false}} />
+				<Stack.Screen name="MapDriver" component={MapDriver} initialParams={{ navigation }} options={{headerShown: false, gestureEnabled: false}} />
+				<Stack.Screen name="LoginDriver" component={LoginDriver} initialParams={{ navigation }} options={{headerShown: false, gestureEnabled: false}} />
       </Stack.Navigator>
 
     </NavigationContainer>

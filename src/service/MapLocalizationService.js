@@ -1,12 +1,12 @@
 import * as firebase from "firebase";
 const databaseName = 'real_time_database';
 
-export const registerRealTimeLocalVehicle = (companyUid, vehicleRegistrationPlate) => {
-  firebase.database().ref(`/${databaseName}/${companyUid}/${vehicleRegistrationPlate}`)
+export const registerRealTimeLocalVehicle = (accessDatabase, infosVehicle) => {
+  firebase.database().ref(`/${databaseName}/${accessDatabase.companyUid}/${accessDatabase.vehiclePlate}`)
 		.set({
-			latitude: '-28.2660607',
-			longitude: '-52.4155144',
-			status: 'Operando Normalmente'
+			latitude: infosVehicle.latitude,
+			longitude: infosVehicle.longitude,
+			status: infosVehicle.status
 		});
 }
 
