@@ -6,7 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import AllPages from './src/pages/AllPages';
 import InitialPage from './src/pages/InitialPage';
 import Login from './src/pages/Login';
-import Map from './src/pages/Map';
+import MapPassenger from './src/pages/passengerPages/MapPassenger';
+import MapCompany from './src/pages/companyPages/MapCompany';
 import ForgotMyPassword from './src/pages/ForgotMyPassword';
 
 import RegisterPassenger from './src/pages/passengerPages/RegisterPassenger';
@@ -52,7 +53,8 @@ export default function App({navigation}) {
 				<Stack.Screen name="EditProfilePassenger" component={EditProfilePassenger} initialParams={{ navigation }} options={{headerShown: false}} />
         <Stack.Screen name="EditProfileCompany" component={EditProfileCompany} initialParams={{ navigation }} options={{headerShown: false}} />
 
-				<Stack.Screen name="Map" component={Map} initialParams={{ navigation }} options={{headerShown: false, gestureEnabled: false}}/>
+				<Stack.Screen name="MapPassenger" component={MapPassenger} initialParams={{ navigation }} options={{headerShown: false, gestureEnabled: false}}/>
+				<Stack.Screen name="MapCompany" component={MapCompany} initialParams={{ navigation }} options={{headerShown: false, gestureEnabled: false}}/>
 
 				<Stack.Screen name="SettingsPassenger" component={SettingsPassenger} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="SettingsCompany" component={SettingsCompany} initialParams={{ navigation }} options={{headerShown: false}} />

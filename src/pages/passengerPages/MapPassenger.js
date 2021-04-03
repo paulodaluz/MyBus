@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions, Alert, Text, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 import * as Location from 'expo-location'
-import { purple, white } from '../styles/colors';
+import { purple, white } from '../../styles/colors';
 
-export default function Map({ navigation, route }) {
+export default function MapPassenger({ navigation, route }) {
 	const { user } = route.params;
 	const typeUserPage = user.isPassenger === true ? 'passenger' : 'company';
 
@@ -49,7 +49,7 @@ export default function Map({ navigation, route }) {
 				<Marker
 						coordinate={myPosition}
 						title={"Onde eu estou!"}
-						// image={orangeMarkerImg}
+						image={orangeMarkerImg}
 					/>
 
 					: null

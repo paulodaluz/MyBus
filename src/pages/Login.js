@@ -20,7 +20,7 @@ export default function Login({ navigation, route }) {
 		if(isDriver) {
 			const loggedDriver = driverLoginIsValid(email, password, allVehicles)
 			if(loggedDriver.response) {
-				return navigation.navigate('Map', { user: loggedDriver.vehicleDriver });
+				return navigation.navigate('MapCompany', { user: loggedDriver.vehicleDriver });
 			}
 			return Alert.alert('Dados inválidos!');
 		}
@@ -31,7 +31,7 @@ export default function Login({ navigation, route }) {
 
     if(user) {
       createSession(user.uid);
-      return navigation.navigate('Map', {user});
+      return navigation.navigate('MapCompany', {user});
     }
 
     return Alert.alert('Usuário ou senha inválida!');

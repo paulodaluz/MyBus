@@ -26,7 +26,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 						await addNewPrivateVehicle(user.uid, vehicleCode)]);
 				}
 
-        return navigation.navigate('Map');
+        return navigation.navigate('MapPassenger');
     }
 
     useLayoutEffect(() => {

@@ -26,7 +26,7 @@ export default function RegisterCompany({ navigation, route }) {
       return Alert.alert('Erro ao criar o usuário');
 
     await createSession(companyCreated.response.uid);
-    return navigation.navigate('Map', { company: companyCreated.response })
+    return navigation.navigate('MapCompany', { company: companyCreated.response })
   }
 
   return (

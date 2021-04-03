@@ -7,7 +7,8 @@ export default function AllPages({ navigation, route }) {
 				<FlatList
 					data={[
 						{key: 'InitialPage'},
-						{key: 'Map'},
+						{key: 'MapCompany'},
+						{key: 'MapPassenger'},
 						{key: 'ChooseTypeOfVehicle'},
 						{key: 'SettingsPassenger'},
 						{key: 'SettingsCompany'},
