@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput, TouchableOpacity } from 'react-native';
 import { createSession } from '../../backend/Login';
 import { createCompanyBackend } from '../../backend/users/Company';
-import { isSecurityPassword } from '../../backend/utils/Utils';
+import { isSecurityPassword, isValidCNPJ, isValidEmail } from '../../backend/utils/Utils';
 import { white } from "../../styles/colors";
 
 export default function RegisterCompany({ navigation, route }) {
@@ -21,8 +21,16 @@ export default function RegisterCompany({ navigation, route }) {
       return Alert.alert('As senhas não conferem!');
     }
 
+		if(!isValidEmail(email)) {
+      return Alert.alert('E-mail inválido!');
+    }
+
 		if(!isSecurityPassword(password)) {
       return Alert.alert('A senha deve conter oito caracteres, pelo menos uma letra maiúscula, minúscula e um número!');
+    }
+
+		if(!isValidCNPJ(cnpj)) {
+      return Alert.alert('CNPJ inválido! O CNPJ deve conter apenas numeros!');
     }
 
     const companyCreated = await createCompanyBackend(email, password, name, cnpj);

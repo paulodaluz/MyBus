@@ -20,6 +20,10 @@ export default function RegisterPassenger({ navigation, route }) {
       return Alert.alert('As senhas não conferem!');
     }
 
+		if(!isValidEmail(email)) {
+			return Alert.alert('E-mail inválido!');
+		}
+
 		if(!isSecurityPassword(password)) {
       return Alert.alert('A senha deve conter oito caracteres, pelo menos uma letra maiúscula, minúscula e um número!');
     }

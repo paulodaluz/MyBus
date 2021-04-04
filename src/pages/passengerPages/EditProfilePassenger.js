@@ -37,6 +37,12 @@ export default function EditProfileCompany({ navigation, route }) {
   }, []);
 
 	const updateUser = async () => {
+		if(cpf) {
+			if(!isValidCPF(cpf)) {
+				return Alert.alert('CPF inválido! O CPF deve conter apenas numeros!');
+			}
+		}
+
 		await updateUserAllInfos(id, name, cpf, bornDate);
 
 		return navigation.navigate('SettingsPassenger', {uid});
