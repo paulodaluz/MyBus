@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
 import { createSession } from '../../backend/Login';
 import { createPassengerBackend } from '../../backend/users/Passenger';
+import { isSecurityPassword } from '../../backend/utils/Utils';
 
 export default function RegisterPassenger({ navigation, route }) {
 
@@ -17,6 +18,10 @@ export default function RegisterPassenger({ navigation, route }) {
 
     if(password !== confirmPassword) {
       return Alert.alert('As senhas não conferem!');
+    }
+
+		if(!isSecurityPassword(password)) {
+      return Alert.alert('A senha deve conter oito caracteres, pelo menos uma letra maiúscula, minúscula e um número!');
     }
 
     const userCreated = await createPassengerBackend(email, password, name);

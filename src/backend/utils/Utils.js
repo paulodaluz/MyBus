@@ -17,3 +17,13 @@ export function mountBodyToFirebase({typeOfVehicleListed, name, vehicleCode, bor
 export function generateRandomPassword(length) {
 	return Math.random().toString(36).slice(-length).toUpperCase();
 }
+
+export function isSecurityPassword(password) {
+	let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+	if (regex.test(password)) {
+		return true;
+	}
+
+	return false;
+}

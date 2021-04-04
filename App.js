@@ -82,7 +82,7 @@ export default function App({navigation}) {
 
 				<Stack.Screen name="SettingsDriver" component={SettingsDriver} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="MapDriver" component={MapDriver} initialParams={{ navigation }} options={{headerShown: false, gestureEnabled: false}} />
-				<Stack.Screen name="LoginDriver" component={LoginDriver} initialParams={{ navigation }} options={{headerShown: false, gestureEnabled: false}} />
+				<Stack.Screen name="LoginDriver" component={LoginDriver} initialParams={{ navigation }} options={{headerShown: false}} />
       </Stack.Navigator>
 
     </NavigationContainer>

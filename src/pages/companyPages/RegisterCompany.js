@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput, TouchableOpacity } from 'react-native';
 import { createSession } from '../../backend/Login';
 import { createCompanyBackend } from '../../backend/users/Company';
+import { isSecurityPassword } from '../../backend/utils/Utils';
 import { white } from "../../styles/colors";
 
 export default function RegisterCompany({ navigation, route }) {
@@ -18,6 +19,10 @@ export default function RegisterCompany({ navigation, route }) {
 
     if(password !== confirmPassword) {
       return Alert.alert('As senhas não conferem!');
+    }
+
+		if(!isSecurityPassword(password)) {
+      return Alert.alert('A senha deve conter oito caracteres, pelo menos uma letra maiúscula, minúscula e um número!');
     }
 
     const companyCreated = await createCompanyBackend(email, password, name, cnpj);
