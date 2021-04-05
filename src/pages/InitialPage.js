@@ -4,6 +4,7 @@ import BusinessImage from '../assets/images/png/business-deal-cuate.png';
 import BusStopImage from '../assets/images/png/bustop-cuate.png';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { getSession, getUserOnFirebase } from '../backend/Login';
+import { purple } from '../styles/colors';
 
 export default function InitialPage({ navigation, route }) {
   const [typeUserPage, setTypeUserPage] = useState("passenger");
@@ -91,6 +92,20 @@ export default function InitialPage({ navigation, route }) {
               title="Cadastre-se"
               color="#FFFFFF"
             />
+
+					<View style={typeUserPage === 'company' ? styles.driverLogin : null}>
+            {
+							typeUserPage === 'company' ?
+							<Button
+								onPress={() => navigation.navigate('LoginDriver')}
+								title="Login do Motorista"
+								color="#FFFFFF"
+							/>
+							:
+							null
+						}
+          </View>
+
 					</View>
         </GestureRecognizer>
       </View>
@@ -135,7 +150,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     marginTop: 20,
-    backgroundColor: "#8257E6",
+    backgroundColor: purple,
     borderRadius: 14,
     height: "9%",
     width: '85%',
@@ -150,6 +165,15 @@ const styles = StyleSheet.create({
     paddingTop: "2%",
     alignItems: 'center',
   },
+	driverLogin: {
+		marginTop: '10%',
+    backgroundColor: purple,
+    borderRadius: 14,
+    height: "120%",
+    width: '100%',
+    paddingTop: "3%",
+    alignItems: 'center',
+	},
   message: {
     fontSize: 18,
     color: "#8190A5",
