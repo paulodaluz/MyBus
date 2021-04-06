@@ -22,6 +22,8 @@ export default function AllPages({ navigation, route }) {
 						{key: 'SettingsDriver'},
 						{key: 'MapDriver'},
 						{key: 'LoginDriver'},
+						{key: 'LeaveYourOpinionCompany'},
+						{key: 'LeaveYourOpinionPassenger'},
 					]}
 					renderItem={({item}) => <Button onPress={() => navigation.navigate(item.key)} title={item.key}/>}
 				/>

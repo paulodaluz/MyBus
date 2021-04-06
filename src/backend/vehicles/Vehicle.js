@@ -97,7 +97,6 @@ export async function getMyVehicles(uid) {
 	const [allUsers, allCompanies] = await Promise.all([getAllUsers(), getAllCompanies()]);
 
 	const passenger = allUsers.find((user) => user.uid === uid);
-
 	const company = allCompanies.find((user) => user.uid === uid);
 
 	if(passenger) {
@@ -119,12 +118,13 @@ export async function getMyVehicles(uid) {
 		userVehicles.forEach(vehicleCode => {
 
 			allVehicles.forEach(vehicle => {
-				if(vehicle.id_to_passagers === vehicleCode) {
+				if(vehicle.id_to_passagers === vehicleCode || vehicle.registration_plate === vehicleCode) {
 					myVehicles.push(vehicle)
 				}
 			});
 
 		});
+
 		return myVehicles;
 	}
 

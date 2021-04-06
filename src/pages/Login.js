@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
 import { createSession, getUserOnFirebase, driverLoginIsValid } from '../backend/Login';
 import * as authService from '../service/AuthService';
-import { getAllVehicles } from '../service/VehicleService';
 
 export default function Login({ navigation, route }) {
 
-  // const [email, setEmail] = useState("paulo.daluz@gmail.com");
-  const [email, setEmail] = useState("presidencia@sudesttransp.com.br");
+  const [email, setEmail] = useState("paulo.daluz@gmail.com");
+  // const [email, setEmail] = useState("presidencia@sudesttransp.com.br");
   const [password, setPassword] = useState("123456");
 
   const login = async () => {
@@ -21,6 +20,9 @@ export default function Login({ navigation, route }) {
 
     if(user) {
       createSession(user.uid);
+			if(user.isPassenger) {
+				return navigation.navigate('MapPassenger', {user});
+			}
       return navigation.navigate('MapCompany', {user});
     }
 

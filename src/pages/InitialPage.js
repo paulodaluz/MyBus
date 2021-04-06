@@ -16,8 +16,10 @@ export default function InitialPage({ navigation, route }) {
 
 			if(uidUser) {
 				const user = await getUserOnFirebase(uidUser);
-				if(user)
-					return navigation.navigate('MapCompany', {user});
+				if(user.isPassenger) {
+					return navigation.navigate('MapPassenger', {user});
+				}
+				return navigation.navigate('MapCompany', {user});
 			}
 		}
 

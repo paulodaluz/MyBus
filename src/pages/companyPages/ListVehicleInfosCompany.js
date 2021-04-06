@@ -28,7 +28,7 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 				const [vehicle, vehicleFunctions] = await Promise.all([
 					getVehicle({registrationPlate}),
 					getVehicleFunction({registrationPlate})]);
-					console.log({vehicleFunctions, receivedVehicle})
+
 				setName(vehicle.name);
 				setIdToPassangers(vehicle.id_to_passengers);
 				setPlateId(vehicle.id_to_share_localization);

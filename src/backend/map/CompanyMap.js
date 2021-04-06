@@ -1,44 +1,19 @@
-import { getLocalizationVehicles } from '../../service/MapLocalizationService';
-import { getAllVehicles } from '../../service/VehicleService';
+import { getAllLocalizationVehicles } from '../../service/MapLocalizationService';
 
-export async function getVehiclesInfos(companyVehiclesPlate) {
-	let companyVehiclesInfos = [];
+export async function getVehiclesLocalization(vehiclesPlate) {
+	const allLocalizations = await getAllLocalizationVehicles();
 
-	const allVehicles = await getAllVehicles();
+	const myVehicles = [];
 
-	companyVehiclesPlate.map((companyVehiclePlate) => {
-		let existsVehicle = allVehicles.find(vehicle => vehicle.registration_plate == companyVehiclePlate);
+	vehiclesPlate.forEach((vehiclePlate) => {
 
-		if(existsVehicle) {
-			companyVehiclesInfos.push(existsVehicle);
+		for(let index in allLocalizations) {
+			if(allLocalizations[index][vehiclePlate]) {
+				let vehicle = {registration_plate: vehiclePlate, ...allLocalizations[index][vehiclePlate]}
+				myVehicles.push(vehicle);
+			}
 		}
 	})
 
-	return companyVehiclesInfos;
-}
-
-export async function getVehiclesLocalization(userUid, vehicles) {
-	if(!vehicles.length) {
-		return [];
-	}
-
-	let completeVehicles = [];
-
-	const realtimeInfos = await getLocalizationVehicles(userUid);
-
-	vehicles.map((vehicle) => {
-		let realtimeInfosVehicle = realtimeInfos[vehicle.registration_plate]
-
-		let oneVehicle = vehicle;
-
-		oneVehicle.coordinate = {
-			latitude: realtimeInfosVehicle.latitude,
-			longitude: realtimeInfosVehicle.longitude
-		}
-		oneVehicle.status = realtimeInfosVehicle.status;
-
-		completeVehicles.push(oneVehicle);
-	})
-
-	return completeVehicles;
+	return myVehicles;
 }

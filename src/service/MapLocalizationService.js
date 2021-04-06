@@ -25,3 +25,35 @@ export const getLocalizationVehicles = (companyUid) => {
 			})
 	})
 }
+
+export const getAllLocalizationVehicles = () => {
+	return new Promise((resolve, reject) => {
+		firebase
+			.database()
+			.ref(`/${databaseName}`)
+			.on('value', snapchot => {
+				let dados = snapchot.val();
+				if (dados) {
+					return resolve(dados);
+				}
+				console.log(`MapLocalizationService - getAllLocalizationVehicles - ERROR = ${error}`);
+				return resolve(undefined);
+			})
+	})
+}
+
+export const getSpecificVehicle = (companyUid, vehiclePlate) => {
+	return new Promise((resolve, reject) => {
+		firebase
+			.database()
+			.ref(`/${databaseName}/${companyUid}/${vehiclePlate}`)
+			.on('value', snapchot => {
+				let dados = snapchot.val();
+				if (dados) {
+					return resolve(dados);
+				}
+				console.log(`MapLocalizationService - getSpecificVehicle - ERROR = ${error}`);
+				return resolve(undefined);
+			})
+	})
+}

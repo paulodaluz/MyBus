@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions, Alert, Text, Modal, Pressable, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Dimensions, Alert, Text, Modal, Image, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 import * as Location from 'expo-location'
 import { black, grey, orange, purple, white } from '../../styles/colors';

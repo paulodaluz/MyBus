@@ -77,7 +77,6 @@ export default function EditVehicle({ navigation, route }) {
 			const [vehicle, vehicleFunctions] = await Promise.all([getVehicle({registrationPlate: registration_Plate}),
 				getVehicleFunction({registrationPlate: registration_Plate})]);
 
-			console.log({vehicleFunctions})
 			setName(vehicle.name);
 			setVehicleId(vehicle.id);
 			setIsPublic(vehicle.is_public);

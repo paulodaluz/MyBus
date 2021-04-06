@@ -3,12 +3,15 @@ import { StyleSheet, View, Dimensions, Alert, Text, TouchableOpacity } from 'rea
 import MapView, { Marker } from 'react-native-maps'
 import * as Location from 'expo-location'
 import { purple, white } from '../../styles/colors';
+import { getVehiclesLocalization } from '../../backend/map/CompanyMap';
+import { getMyVehicles } from '../../backend/vehicles/Vehicle';
 
 export default function MapPassenger({ navigation, route }) {
 	const { user } = route.params;
 
 	const [myPosition, seMyposition] = useState(null);
-	const [localizacoes, setLocalizacoes] = useState([]);
+	const [localizations, setLocalizations] = useState([]);
+	const [completeVehiclesInfos, setCompleteVehiclesInfos] = useState([]);
 
 	const [localicaoAtual, setLocalicaoAtual] = useState({
 		latitude: -28.2612,
@@ -32,18 +35,38 @@ export default function MapPassenger({ navigation, route }) {
 		}
 	}
 
+	const getData = async () => {
+		const myVehicles = await getMyVehicles(user.uid);
+		const vehicleLocalizations = await getVehiclesLocalization(user.codes_private_vehicles);
+		setLocalizations(vehicleLocalizations);
+		joinVehicleInfos(myVehicles, vehicleLocalizations);
+	}
+
+	const joinVehicleInfos = (vehicles, vehiclesLocalizations) => {
+		let completeVehiclesInfosUser = [];
+
+		vehiclesLocalizations.forEach(vehicleLocalization => {
+			let localization = vehicles.find(vehicle => vehicle.registration_plate === vehicleLocalization.registration_plate)
+			const userVehicle = Object.assign(localization, vehicleLocalization);
+			completeVehiclesInfosUser.push(userVehicle)
+		})
+
+		setCompleteVehiclesInfos(completeVehiclesInfosUser);
+	}
+
 	useEffect(() => {
-		getMyPosition()
+		getMyPosition();
+		getData();
 	}, [])
 
 	return (
 		<View style={styles.container}>
 			<MapView onPress={(e) => {console.log(e.nativeEvent.coordinate)}} style={styles.mapStyle} initialRegion={localicaoAtual} region={localicaoAtual}>
 				{
-					localizacoes.map((item, key) => <Marker
+					completeVehiclesInfos.map((vehicle, key) => <Marker
 								key={key}
-								coordinate={item}
-								title={item.nome}
+								coordinate={{latitude: vehicle.latitude, longitude: vehicle.longitude}}
+								title={vehicle.name}
 						/>)
 				}
 
@@ -61,12 +84,12 @@ export default function MapPassenger({ navigation, route }) {
 
 				<TouchableOpacity onPress={() => navigation.navigate('SettingsPassenger')}
 					style={styles.configButton}>
-						<Text style={styles.buttonText}>CONFIGURAÇÕES</Text>
+						<Text style={styles.buttonText}>Configurações</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity onPress={() => navigation.navigate('AddNewPrivateVehicle', { uid: user.uid })}
 					style={styles.addVehicleButton}>
-						<Text style={styles.buttonText}>CADASTRAR NOVO VEÍCULO</Text>
+						<Text style={styles.buttonText}>Adicionar veiculo privado</Text>
 				</TouchableOpacity>
 				</View>
 		</View>

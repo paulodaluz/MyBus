@@ -7,7 +7,7 @@ import MyBusIcon from '../../assets/icons/svg/my_bus_icon.svg'
 import TransportIcon from '../../assets/icons/svg/transport_icon.svg'
 import { getVehicle } from "../../backend/vehicles/Vehicle";
 
-export default function LeaveYourOpinion({ navigation, route }) {
+export default function LeaveYourOpinionPassenger({ navigation, route }) {
 	const { uid } = route.params;
 	const { vehicleRegistration } = route.params;
 
