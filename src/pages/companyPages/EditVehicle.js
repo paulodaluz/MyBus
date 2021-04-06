@@ -6,7 +6,7 @@ import { editVehicle, getVehicle, getVehicleFunction } from '../../backend/vehic
 import { updatePlateVehicleCompany } from '../../backend/users/Company';
 
 export default function EditVehicle({ navigation, route }) {
-	const { uid, registration_Plate } = route.params;
+	const { uid, registration_Plate, backPage, params } = route.params;
 
 	const [vehicleId, setVehicleId] = useState("");
 	const [vehicleFunctionsId, setVehicleFunctionsId] = useState("");
@@ -57,8 +57,11 @@ export default function EditVehicle({ navigation, route }) {
 		if((updatedVehicle && updatedVehicle.error)) {
 			return Alert.alert('Erro ao atualizar usuário.')
 		}
-
-		navigation.navigate('ListVehicleInfosCompany', { registrationPlate: updatedVehicle.registration_plate });
+		if(backPage) {
+			const vehicleFunctions = await getVehicleFunction({registrationPlate});
+			return navigation.navigate(backPage, { ...params, vehicleFunctions });
+		}
+		return navigation.navigate('ListVehicleInfosCompany', { registrationPlate: updatedVehicle.registration_plate });
 	}
 
 	const verifyInputs = async () => {

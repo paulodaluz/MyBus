@@ -17,9 +17,7 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 	useEffect(() => {
 		const getVehicleData = async () => {
 
-			console.log('bola')
 			if(receivedVehicle) {
-				console.log('bola2', receivedVehicle)
 				setName(receivedVehicle.name);
 				setIdToPassangers(receivedVehicle.id_to_passengers);
 				setPlateId(receivedVehicle.id_to_share_localization);

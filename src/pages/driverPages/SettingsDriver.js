@@ -27,7 +27,7 @@ export default function SettingsDriver({ navigation, route }) {
 
 							<View style={styles.groupOfCategories}>
 								<TouchableOpacity style={styles.configOption}
-											onPress={() => navigation.navigate('EditVehicle', { uid, registration_Plate })}>
+											onPress={() => navigation.navigate('EditVehicle', { uid, registration_Plate, backPage: 'SettingsDriver', params: { uid, registration_Plate } })}>
 												<Text style={styles.nameOfConfig}>Editar informações do veículo</Text>
 								</TouchableOpacity>
 							</View>

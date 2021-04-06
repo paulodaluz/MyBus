@@ -6,27 +6,29 @@ import { purple, white } from '../../styles/colors';
 
 export default function MapPassenger({ navigation, route }) {
 	const { user } = route.params;
-	const typeUserPage = user.isPassenger === true ? 'passenger' : 'company';
 
 	const [myPosition, seMyposition] = useState(null);
 	const [localizacoes, setLocalizacoes] = useState([]);
 
 	const [localicaoAtual, setLocalicaoAtual] = useState({
-			latitude: -28.2612,
-			longitude: -52.4083,
-			latitudeDelta: 0.050,
-			longitudeDelta: 0.050,
+		latitude: -28.2612,
+		longitude: -52.4083,
+		latitudeDelta: 0.050,
+		longitudeDelta: 0.050,
 	})
 
 	const getMyPosition = async () => {
-		let { status } = await Location.requestPermissionsAsync()
+		let { status } = await Location.requestPermissionsAsync();
 
 		if (status !== "granted") {
-				Alert.alert("Permissão de acesso a localização negado!")
+			Alert.alert("Permissão de acesso a localização negado!");
 		} else {
-				await Location.getCurrentPositionAsync({})
-					.then(retorno => seMyposition(retorno.coords))
-					.catch(error => Alert.alert("Erro ao acessar o GPS!"))
+			await Location.getCurrentPositionAsync({})
+				.then(retorno => seMyposition(retorno.coords))
+				.catch(error => {
+					console.log(`MapDriverPage - getMyPosition - ERROR = ${error}`)
+					Alert.alert("Erro ao acessar o GPS!")
+				});
 		}
 	}
 
@@ -49,7 +51,7 @@ export default function MapPassenger({ navigation, route }) {
 				<Marker
 						coordinate={myPosition}
 						title={"Onde eu estou!"}
-						image={orangeMarkerImg}
+						// image={orangeMarkerImg}
 					/>
 
 					: null
@@ -57,12 +59,12 @@ export default function MapPassenger({ navigation, route }) {
 			</MapView>
 			<View style={styles.buttons}>
 
-				<TouchableOpacity onPress={() => typeUserPage === 'passenger' ? navigation.navigate('SettingsPassenger') : navigation.navigate('SettingsCompany')}
+				<TouchableOpacity onPress={() => navigation.navigate('SettingsPassenger')}
 					style={styles.configButton}>
 						<Text style={styles.buttonText}>CONFIGURAÇÕES</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity onPress={() => typeUserPage === 'passenger' ? navigation.navigate('AddNewPrivateVehicle', { uid: user.uid }) : navigation.navigate('CreateNewVehicle', { uid: user.uid })}
+				<TouchableOpacity onPress={() => navigation.navigate('AddNewPrivateVehicle', { uid: user.uid })}
 					style={styles.addVehicleButton}>
 						<Text style={styles.buttonText}>CADASTRAR NOVO VEÍCULO</Text>
 				</TouchableOpacity>
