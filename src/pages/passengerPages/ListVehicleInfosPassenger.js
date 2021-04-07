@@ -130,7 +130,7 @@ export default function ListVehicleInfosPassenger({ navigation, route }) {
 				</View>
 				<View style={{backgroundColor: '#ACA7BE', width: '100%', height: 1, marginTop: '3%'}}></View>
 
-				<TouchableOpacity style={styles.buttonGiveFeedback} onPress={() => console.log()}>
+				<TouchableOpacity style={styles.buttonGiveFeedback} onPress={() =>  navigation.navigate('LeaveYourOpinionPassenger', { uid })}>
 						<Text style={styles.textButton}>Dar um feedback</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.buttonSeeOnMap} onPress={() => navigation.goBack()}>

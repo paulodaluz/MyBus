@@ -63,11 +63,14 @@ export default function MapPassenger({ navigation, route }) {
 		<View style={styles.container}>
 			<MapView onPress={(e) => {console.log(e.nativeEvent.coordinate)}} style={styles.mapStyle} initialRegion={localicaoAtual} region={localicaoAtual}>
 				{
-					completeVehiclesInfos.map((vehicle, key) => <Marker
-								key={key}
-								coordinate={{latitude: vehicle.latitude, longitude: vehicle.longitude}}
-								title={vehicle.name}
-						/>)
+					completeVehiclesInfos.map((vehicle, key) =>
+						<Marker
+						onPress={() => navigation.navigate('ListVehicleInfosPassenger', { registrationPlate: vehicle.vehicle.registration_plate, uid: user.uid })}
+							key={key}
+							coordinate={{latitude: vehicle.latitude, longitude: vehicle.longitude}}
+							title={vehicle.name}
+						/>
+					)
 				}
 
 				{myPosition ?
