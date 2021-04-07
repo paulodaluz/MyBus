@@ -17,6 +17,7 @@ import EditProfilePassenger from './src/pages/passengerPages/EditProfilePassenge
 import AddNewPrivateVehicle from './src/pages/passengerPages/AddNewPrivateVehicle';
 import LeaveYourOpinionPassenger from './src/pages/passengerPages/LeaveYourOpinionPassenger';
 import ListMyLinkedVehicles from './src/pages/passengerPages/ListMyLinkedVehicles';
+import ListVehicleInfosPassenger from './src/pages/passengerPages/ListVehicleInfosPassenger';
 
 import RegisterCompany from './src/pages/companyPages/RegisterCompany';
 import SettingsCompany from './src/pages/companyPages/SettingsCompany';
@@ -79,6 +80,7 @@ export default function App({navigation}) {
 				<Stack.Screen name="ReceivedFeedbacks" component={ReceivedFeedbacks} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="CreateNewVehicle" component={CreateNewVehicle} initialParams={{ navigation }} options={{headerShown: false}} />
+				<Stack.Screen name="ListVehicleInfosPassenger" component={ListVehicleInfosPassenger} initialParams={{ navigation }} options={{headerShown: false}} />
 
 				<Stack.Screen name="SettingsDriver" component={SettingsDriver} initialParams={{ navigation }} options={{headerShown: false}} />
 				<Stack.Screen name="MapDriver" component={MapDriver} initialParams={{ navigation }} options={{headerShown: false, gestureEnabled: false}} />
