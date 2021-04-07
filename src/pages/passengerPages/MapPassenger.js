@@ -10,7 +10,6 @@ export default function MapPassenger({ navigation, route }) {
 	const { user } = route.params;
 
 	const [myPosition, seMyposition] = useState(null);
-	const [localizations, setLocalizations] = useState([]);
 	const [completeVehiclesInfos, setCompleteVehiclesInfos] = useState([]);
 
 	const [localicaoAtual, setLocalicaoAtual] = useState({
@@ -38,7 +37,6 @@ export default function MapPassenger({ navigation, route }) {
 	const getData = async () => {
 		const myVehicles = await getMyVehicles(user.uid);
 		const vehicleLocalizations = await getVehiclesLocalization(user.codes_private_vehicles);
-		setLocalizations(vehicleLocalizations);
 		joinVehicleInfos(myVehicles, vehicleLocalizations);
 	}
 

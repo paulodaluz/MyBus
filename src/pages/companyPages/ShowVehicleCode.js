@@ -1,8 +1,8 @@
-import { Text, View, Button, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
 import Clipboard from 'expo-clipboard';
 
-import { purple, white, orange, grey, black } from '../../styles/colors';
+import { purple, white, grey } from '../../styles/colors';
 
 export default function ShowVehicleCode({ navigation, route }) {
 	const { uid, vehicle } = route.params;

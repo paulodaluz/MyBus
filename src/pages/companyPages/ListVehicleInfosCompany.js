@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { purple, white, orange, black } from '../../styles/colors';
 import MyBusIcon from '../../assets/icons/svg/my_bus_icon.svg';
@@ -8,7 +8,7 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 	const { registrationPlate, receivedVehicle } = route.params;
 
 	const [name, setName] = useState("");
-	const [status, setStatus] = useState("");
+	const [status, setStatus] = useState("Operando normalmente");
 	const [idToPassangers, setIdToPassangers] = useState("");
 	const [plateId, setPlateId] = useState("");
 	const [password, setPassword] = useState("");
@@ -59,7 +59,7 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 					<Text style={styles.info}>{name}</Text>
 
 					<Text style={styles.infoName}>Situação Atual</Text>
-					<Text style={styles.info}>Operando normalmente</Text>
+					<Text style={styles.info}>{status}</Text>
 
 					<Text style={styles.infoName}>Código do Veículo</Text>
 					<Text style={styles.info}>{idToPassangers}</Text>

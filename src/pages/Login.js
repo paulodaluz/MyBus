@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
-import { createSession, getUserOnFirebase, driverLoginIsValid } from '../backend/Login';
+import { createSession, getUserOnFirebase } from '../backend/Login';
 import * as authService from '../service/AuthService';
 
 export default function Login({ navigation, route }) {

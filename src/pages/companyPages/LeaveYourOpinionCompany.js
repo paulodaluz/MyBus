@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Button, Alert, Image } from "react-native";
+import { View, Text, TextInput, StyleSheet, Button, Alert } from "react-native";
 import { saveAppFeedbackBackend } from "../../backend/feedbacks/MyBusFeedbacks";
 import { purple, white, grey } from "../../styles/colors";
 import MyBusIcon from '../../assets/icons/svg/my_bus_icon.svg'

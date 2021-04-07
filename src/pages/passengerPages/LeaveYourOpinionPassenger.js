@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Alert, Image } from "react-native";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Alert } from "react-native";
 import { saveCompanyFeedbackBackend } from "../../backend/feedbacks/CompanyFeedbacks";
 import { saveAppFeedbackBackend } from "../../backend/feedbacks/MyBusFeedbacks";
 import { purple, white, grey } from "../../styles/colors";
