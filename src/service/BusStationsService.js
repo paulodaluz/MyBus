@@ -8,7 +8,7 @@ export const getAllBusStations = async () => {
 		let busStation = doc.data();
 
 		busStation.id = doc.id;
-		busStations.push(vehicle);
+		busStations.push(busStation);
 
 	});
 
