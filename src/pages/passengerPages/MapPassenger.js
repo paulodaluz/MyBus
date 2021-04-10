@@ -5,11 +5,13 @@ import * as Location from 'expo-location'
 import { purple, white } from '../../styles/colors';
 import { getVehiclesLocalization } from '../../backend/map/CompanyMap';
 import { getMyVehicles } from '../../backend/vehicles/Vehicle';
+import { getBusStopsLocalzations } from '../../backend/map/PassengerMap';
 
 export default function MapPassenger({ navigation, route }) {
 	const { user } = route.params;
 
-	const [myPosition, seMyposition] = useState(null);
+	const [myPosition, setMyposition] = useState(null);
+	const [busStops, setBusStops] = useState([]);
 	const [completeVehiclesInfos, setCompleteVehiclesInfos] = useState([]);
 
 	const [localicaoAtual, setLocalicaoAtual] = useState({
@@ -26,7 +28,7 @@ export default function MapPassenger({ navigation, route }) {
 			Alert.alert("Permissão de acesso a localização negado!");
 		} else {
 			await Location.getCurrentPositionAsync({})
-				.then(retorno => seMyposition(retorno.coords))
+				.then(retorno => setMyposition(retorno.coords))
 				.catch(error => {
 					console.log(`MapDriverPage - getMyPosition - ERROR = ${error}`)
 					Alert.alert("Erro ao acessar o GPS!")
@@ -34,7 +36,7 @@ export default function MapPassenger({ navigation, route }) {
 		}
 	}
 
-	const getData = async () => {
+	const getVehiclesInfos = async () => {
 		const myVehicles = await getMyVehicles(user.uid);
 		const vehicleLocalizations = await getVehiclesLocalization(user.codes_private_vehicles);
 		joinVehicleInfos(myVehicles, vehicleLocalizations);
@@ -52,9 +54,14 @@ export default function MapPassenger({ navigation, route }) {
 		setCompleteVehiclesInfos(completeVehiclesInfosUser);
 	}
 
+	const getBusStops = async () => {
+		setBusStops(await getBusStopsLocalzations(completeVehiclesInfos));
+	}
+
 	useEffect(() => {
 		getMyPosition();
-		getData();
+		getVehiclesInfos();
+		getBusStops();
 	}, [])
 
 	return (
@@ -67,6 +74,17 @@ export default function MapPassenger({ navigation, route }) {
 							key={key}
 							coordinate={{latitude: vehicle.latitude, longitude: vehicle.longitude}}
 							title={vehicle.name}
+							// image={}
+						/>
+					)
+				}
+				{
+					busStops.map((busStop, key) =>
+						<Marker
+							key={key}
+							coordinate={{latitude: busStop.latitude, longitude: busStop.longitude}}
+							title={'Parada de Ônibus'}
+							// image={}
 						/>
 					)
 				}
@@ -75,7 +93,7 @@ export default function MapPassenger({ navigation, route }) {
 				<Marker
 						coordinate={myPosition}
 						title={"Onde eu estou!"}
-						// image={orangeMarkerImg}
+						// image={}
 					/>
 
 					: null
