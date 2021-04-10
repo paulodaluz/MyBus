@@ -1,3 +1,4 @@
+import { getAllBusStations } from '../../service/BusStationsService';
 import { getLocalizationVehicles } from '../../service/MapLocalizationService';
 import { getAllVehicles } from '../../service/VehicleService';
 
@@ -41,4 +42,19 @@ export async function getVehiclesLocalization(userUid, vehicles) {
 	})
 
 	return completeVehicles;
+}
+
+export async function getBusStopsLocalzations(vehicles) {
+	const myBusStops = [];
+
+	const allBusStops = await getAllBusStations();
+	vehicles.forEach((vehicle) => {
+		console.log({vehicle, allBusStops})
+		let existsBusStop = allBusStops.find(busStop =>  busStop.vehicle_plate === vehicle.registration_plate);
+		if(existsBusStop) {
+			myBusStops.push(existsBusStop);
+		}
+	})
+
+	return myBusStops;
 }
