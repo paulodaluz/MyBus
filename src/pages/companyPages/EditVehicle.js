@@ -1,7 +1,7 @@
 import { Text, View, TextInput, StyleSheet, Alert, Switch, TouchableOpacity } from 'react-native';
 import React, { useState, useLayoutEffect } from 'react';
 
-import { purple, white, orange } from '../../styles/colors';
+import { purple, white, orange, darkGrey } from '../../styles/colors';
 import { editVehicle, getVehicle, getVehicleFunction } from '../../backend/vehicles/Vehicle';
 import { updatePlateVehicleCompany } from '../../backend/users/Company';
 
@@ -28,7 +28,7 @@ export default function EditVehicle({ navigation, route }) {
 	const toggleSwitchWheelchairSup = () => setThereIsWheelchairSupport(previousState => !previousState);
 	const toggleSwitchIsPublic = () => setIsPublic(previousState => !previousState);
 
-	const buttonColor = { false: '#343F4B', true: "#47525E" };
+	const buttonColor = { false: '#343F4B', true: darkGrey };
 
 	const updateVehicle = async () => {
 		const errors = await verifyInputs();

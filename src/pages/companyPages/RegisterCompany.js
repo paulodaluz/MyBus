@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Alert, TextInput, TouchableOpacity } from 'reac
 import { createSession } from '../../backend/Login';
 import { createCompanyBackend } from '../../backend/users/Company';
 import { isSecurityPassword, isValidCNPJ, isValidEmail } from '../../backend/utils/Utils';
-import { darkGrey, white } from "../../styles/colors";
+import { darkGrey, purple, white } from "../../styles/colors";
 import { Button } from "../../components/Button";
 
 export default function RegisterCompany({ navigation, route }) {
@@ -121,13 +121,13 @@ export default function RegisterCompany({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: white,
     alignItems: 'center',
   },
   registerBox: {
     width: "100%",
     height: "30%",
-    backgroundColor: "#8257E6",
+    backgroundColor: purple,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingTop: "22%",
@@ -135,12 +135,12 @@ const styles = StyleSheet.create({
     marginBottom: "5%"
   },
   centerTitle: {
-    color: '#FFFFFF',
+    color: white,
     fontSize: 50,
 		fontWeight: "bold",
   },
   subTitle: {
-    color: '#FFFFFF',
+    color: white,
     fontSize: 18,
     paddingTop: "2%",
     paddingRight: "32%"

@@ -4,7 +4,7 @@ import BusinessImage from '../assets/images/png/business-deal-cuate.png';
 import BusStopImage from '../assets/images/png/bustop-cuate.png';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { getSession, getUserOnFirebase } from '../backend/Login';
-import { darkGrey, purple, white } from '../styles/colors';
+import { darkGrey, grey, purple, white } from '../styles/colors';
 import { Button } from '../components/Button';
 
 export default function InitialPage({ navigation, route }) {
@@ -121,7 +121,7 @@ export default function InitialPage({ navigation, route }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: white,
   },
   header: {
     paddingTop: "10%",
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     fontSize: 80
   },
   subTitle: {
-    color: "#47525E",
+    color: darkGrey,
     paddingTop: "13%",
     paddingLeft: "2%",
     fontSize: 24
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
 	},
   message: {
     fontSize: 18,
-    color: "#8190A5",
+    color: grey,
     textAlign: "center",
     paddingTop: "8%",
     paddingBottom: "5%",
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   },
   activeDivider: {
     height: '100%',
-    backgroundColor: '#8190A5',
+    backgroundColor: grey,
     borderRadius: 5
   },
   imageHeader: {

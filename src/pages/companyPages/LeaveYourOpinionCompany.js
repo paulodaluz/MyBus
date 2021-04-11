@@ -28,7 +28,7 @@ export default function LeaveYourOpinionCompany({ navigation, route }) {
 			</View>
 
 			<View style={styles.feedbackRecipient}>
-				<View style={{...styles.buttonFeedbackApp, backgroundColor:'#FFFFFF'}}>
+				<View style={{...styles.buttonFeedbackApp, backgroundColor: white}}>
 
 					{/* <Image
 						style={{width: 30, height: 30}}
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 	textFeedbackApp: {
 		fontSize: 18,
 		textAlign: "center",
-		color: "#8190A5",
+		color: grey,
 		paddingTop: "6%"
 	},
 	body: {

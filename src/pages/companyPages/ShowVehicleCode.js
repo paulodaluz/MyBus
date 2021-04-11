@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Clipboard from 'expo-clipboard';
 
-import { purple, white, grey } from '../../styles/colors';
+import { purple, white, grey, darkGrey } from '../../styles/colors';
 
 export default function ShowVehicleCode({ navigation, route }) {
 	const { uid, vehicle } = route.params;
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		marginTop: "5%",
-    backgroundColor: "#47525E",
+    backgroundColor: darkGrey,
     borderRadius: 14,
     height: "22%",
     width: '85%',

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 import { getPassenger, updateUserAllInfos } from "../../backend/users/Passenger";
 import { isValidCPF } from "../../backend/utils/Utils";
-import { purple, white, grey } from "../../styles/colors";
+import { purple, white, grey, darkGrey } from "../../styles/colors";
 
 export default function EditProfileCompany({ navigation, route }) {
 	const { uid } = route.params;
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
 	},
   updateButton: {
     marginTop: 40,
-    backgroundColor: "#47525E",
+    backgroundColor: darkGrey,
     borderRadius: 14,
     height: "9%",
     width: '100%',

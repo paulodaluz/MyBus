@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from "react-native";
 import { removeSession } from '../../backend/Login';
+import { purple, white } from '../../styles/colors';
 
 export default function SettingsDriver({ navigation, route }) {
 	const { uid, registration_Plate } = route.params;
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
 	boxTitle: {
 		height: "18%",
 		width: "100%",
-		backgroundColor: "#8257E6",
+		backgroundColor: purple,
 		borderBottomLeftRadius: 30,
 		borderBottomRightRadius: 30,
 		paddingTop: "18%",
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 45,
-		color: "#FFFFFF",
+		color: white,
 		fontWeight: "bold",
 	},
 	allConfigOptions: {
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
 		marginTop: "12%"
 	},
 	configOption: {
-		backgroundColor: "#FFFFFF",
+		backgroundColor: white,
 		borderWidth: 1,
 		borderColor: "#976DD0",
 		paddingLeft: "5%",

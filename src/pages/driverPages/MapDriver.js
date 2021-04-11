@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions, Alert, Text, Modal, Image, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 import * as Location from 'expo-location'
-import { black, orange, purple, white } from '../../styles/colors';
+import { black, darkGrey, orange, purple, white } from '../../styles/colors';
 import { sendLocalizationToFirebase } from '../../backend/map/DriverMap';
 
 import placeholder from '../../assets/icons/png/placeholder.png';
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	},
 	buttonText: {
-		color: '#47525E',
+		color: darkGrey,
 		fontWeight: "bold",
 		fontSize: 12,
 		textAlign: "center"

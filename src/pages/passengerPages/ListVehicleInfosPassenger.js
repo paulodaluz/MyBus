@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { purple, white, orange, black } from '../../styles/colors';
+import { purple, white, orange, black, darkGrey } from '../../styles/colors';
 import MyBusIcon from '../../assets/icons/svg/my_bus_icon.svg';
 import { getVehicle, getVehicleFunction } from '../../backend/vehicles/Vehicle';
 
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
 	},
 	buttonGiveFeedback: {
 		marginTop: '6%',
-		backgroundColor: '#47525E',
+		backgroundColor: darkGrey,
 		borderRadius: 30,
 		height: "10%",
 		width: "50%",

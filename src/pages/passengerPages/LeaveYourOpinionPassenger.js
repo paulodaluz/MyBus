@@ -73,7 +73,7 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 			<View style={styles.feedbackRecipient}>
 				<TouchableOpacity
 						onPress={() => {setFeedbackRecipient('company'), cleanInputs()}}
-						style={ feedbackRecipient === 'company' ? {...styles.buttonFeedbackTransport, backgroundColor:'#E7E9ED'} : {...styles.buttonFeedbackTransport, backgroundColor: "#FFFFFF"} }>
+						style={ feedbackRecipient === 'company' ? {...styles.buttonFeedbackTransport, backgroundColor:'#E7E9ED'} : {...styles.buttonFeedbackTransport, backgroundColor: white}}>
 							{/* <Image
 								style={{width: 30, height: 30}}
 								source={MyBusIcon}
@@ -83,7 +83,7 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 
 				<TouchableOpacity
 						onPress={() => {setFeedbackRecipient('app'), cleanInputs()}}
-						style={ feedbackRecipient === 'app' ? {...styles.buttonFeedbackApp, backgroundColor:'#E7E9ED'} : {...styles.buttonFeedbackApp, backgroundColor: "#FFFFFF"}}>
+						style={ feedbackRecipient === 'app' ? {...styles.buttonFeedbackApp, backgroundColor:'#E7E9ED'} : {...styles.buttonFeedbackApp, backgroundColor: white}}>
 							{/* <Image
 								style={{width: 30, height: 30}}
 								source={TransportIcon}
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
 	textFeedbackTransport: {
 		fontSize: 18,
 		textAlign: "center",
-		color: "#8190A5",
+		color: grey,
 		paddingTop: "6%"
 	},
 	buttonFeedbackApp: {
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
 	textFeedbackApp: {
 		fontSize: 18,
 		textAlign: "center",
-		color: "#8190A5",
+		color: grey,
 		paddingTop: "6%"
 	},
 	body: {

@@ -4,6 +4,7 @@ import { Text, View, Button, TextInput, Alert, StyleSheet, Image, TouchableOpaci
 import { updateUserAllInfos, addNewPrivateVehicle } from '../../backend/users/Passenger';
 import QRCodePng from '../../assets/images/png/qr-code.png';
 import { getVehicle } from '../../backend/vehicles/Vehicle';
+import { grey, purple, white } from '../../styles/colors';
 
 export default function ChooseTypeOfVehicle({ navigation, route }) {
 		const { user } = route.params;
@@ -46,12 +47,12 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
             <View style={styles.typeOfVehicle}>
                 <TouchableOpacity
                     onPress={() => setTypeOfVehicleToList('public')}
-                    style={ typeOfVehicleToList === 'public' ? {...styles.publicButton, backgroundColor:'#E7E9ED'} : {...styles.publicButton, backgroundColor: "#FFFFFF"} }>
+                    style={ typeOfVehicleToList === 'public' ? {...styles.publicButton, backgroundColor:'#E7E9ED'} : {...styles.publicButton, backgroundColor: white} }>
                         <Text style={styles.textPublicButton}>Privado</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => setTypeOfVehicleToList('private')}
-                    style={ typeOfVehicleToList === 'private' ? {...styles.privateButton, backgroundColor:'#E7E9ED'} : {...styles.privateButton, backgroundColor: "#FFFFFF"}}>
+                    style={ typeOfVehicleToList === 'private' ? {...styles.privateButton, backgroundColor:'#E7E9ED'} : {...styles.privateButton, backgroundColor: white}}>
 												<Text style={styles.textPrivateButton}>Privado</Text>
                 </TouchableOpacity>
             </View>
@@ -96,21 +97,21 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: '#FFFFFF',
+		backgroundColor: white,
 		alignItems: 'center',
 		height: "100%"
 	},
 	titleBox: {
 		height: "38%",
 		width: "100%",
-		backgroundColor: "#8257E6",
+		backgroundColor: purple,
 		borderBottomLeftRadius: 30,
 		borderBottomRightRadius: 30,
 		marginBottom: 40,
 		paddingTop: "8%"
 	},
 	title: {
-		color: '#FFFFFF',
+		color: white,
 		fontSize: 42,
 		paddingTop: 50,
 		paddingLeft: 30,
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
 	},
 	textPublicButton: {
 		height: "100%",
-		color: "#8190A5",
+		color: grey,
 		fontSize: 19,
 		paddingTop: "6%"
 	},
@@ -139,13 +140,13 @@ const styles = StyleSheet.create({
 	},
 	textPrivateButton: {
 		height: "100%",
-		color: "#8190A5",
+		color: grey,
 		fontSize: 19,
 		paddingTop: "6%"
 	},
 	subtitle: {
 		fontSize: 18,
-		color: "#8190A5",
+		color: grey,
 		textAlign: "center",
 		paddingTop: "5%",
 		paddingBottom: "5%",
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
 		color: "#969FAA",
 	},
 	continueButton: {
-		backgroundColor: "#8257E6",
+		backgroundColor: purple,
 		borderRadius: 14,
 		height: "8%",
 		width: '85%',

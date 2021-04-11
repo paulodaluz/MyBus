@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
 	},
 	continueButton: {
 		alignItems: "center",
-		backgroundColor: "#8257E6",
+		backgroundColor: purple,
 		borderRadius: 14,
 		width: '82%',
 		height: "6%",

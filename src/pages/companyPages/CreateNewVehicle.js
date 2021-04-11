@@ -1,7 +1,7 @@
 import { Text, View, Button, TextInput, StyleSheet, Alert, Switch } from 'react-native';
 import React, { useState } from 'react';
 
-import { purple, white, orange } from '../../styles/colors';
+import { purple, white, orange, darkGrey } from '../../styles/colors';
 import { addFunctionsToVehicle, createNewVehicle } from '../../backend/vehicles/Vehicle';
 import { addNewVehicleInCompany } from '../../backend/users/Company';
 import { getAllFunctionsVehicles } from '../../service/VehicleFunctionsService';
@@ -25,7 +25,7 @@ export default function CreateNewVehicle({ navigation, route }) {
 	const toggleSwitchWheelchairSup = () => setThereIsWheelchairSupport(previousState => !previousState);
 	const toggleSwitchIsPublic = () => setIsPublic(previousState => !previousState);
 
-	const buttonColor = { false: '#343F4B', true: "#47525E" };
+	const buttonColor = { false: '#343F4B', true: darkGrey };
 
 	const createVehicle = async () => {
 		const errors = await verifyInputs();
