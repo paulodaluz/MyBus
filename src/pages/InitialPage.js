@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Button, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import BusinessImage from '../assets/images/png/business-deal-cuate.png';
 import BusStopImage from '../assets/images/png/bustop-cuate.png';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { getSession, getUserOnFirebase } from '../backend/Login';
-import { purple } from '../styles/colors';
+import { darkGrey, purple, white } from '../styles/colors';
+import { Button } from '../components/Button';
 
 export default function InitialPage({ navigation, route }) {
   const [typeUserPage, setTypeUserPage] = useState("passenger");
@@ -81,34 +82,39 @@ export default function InitialPage({ navigation, route }) {
           </Text>
 
           <View style={styles.loginButton}>
-            <Button
-              onPress={() => navigation.navigate('Login')}
-              title="Login"
-              color="#FFFFFF"
-            />
+						<Button
+							onPress={() => navigation.navigate('Login')}
+							textButton={'Login'}
+							style={styles.loginButton}
+							textColor={white}
+							backgroundColor={purple}
+						/>
           </View>
 
           <View style={styles.registerButton}>
-            <Button
-              onPress={() => typeUserPage === 'passenger' ? navigation.navigate('RegisterPassenger') : navigation.navigate('RegisterCompany')}
-              title="Cadastre-se"
-              color="#FFFFFF"
-            />
+						<Button
+							onPress={() => typeUserPage === 'passenger' ? navigation.navigate('RegisterPassenger') : navigation.navigate('RegisterCompany')}
+							textButton={'Cadastre-se'}
+							style={styles.registerButton}
+							textColor={white}
+							backgroundColor={darkGrey}
+						/>
+					</View>
 
 					<View style={typeUserPage === 'company' ? styles.driverLogin : null}>
             {
 							typeUserPage === 'company' ?
 							<Button
 								onPress={() => navigation.navigate('LoginDriver')}
-								title="Login do Motorista"
-								color="#FFFFFF"
+								textButton={'Login do Motorista'}
+								style={styles.driverLogin}
+								textColor={white}
+								backgroundColor={purple}
 							/>
 							:
 							null
 						}
           </View>
-
-					</View>
         </GestureRecognizer>
       </View>
 
@@ -151,30 +157,19 @@ const styles = StyleSheet.create({
     paddingLeft: "1%"
   },
   loginButton: {
-    marginTop: 20,
-    backgroundColor: purple,
-    borderRadius: 14,
-    height: "9%",
+    marginTop: '5%',
+    height: "10%",
     width: '85%',
-    paddingTop: "2%"
   },
   registerButton: {
-    marginTop: 20,
-    backgroundColor: "#47525E",
-    borderRadius: 14,
-    height: "9%",
+    marginTop: '5%',
+    height: "10%",
     width: '85%',
-    paddingTop: "2%",
-    alignItems: 'center',
   },
 	driverLogin: {
-		marginTop: '10%',
-    backgroundColor: purple,
-    borderRadius: 14,
-    height: "120%",
-    width: '100%',
-    paddingTop: "3%",
-    alignItems: 'center',
+		marginTop: '5%',
+    height: "10%",
+    width: '85%',
 	},
   message: {
     fontSize: 18,
