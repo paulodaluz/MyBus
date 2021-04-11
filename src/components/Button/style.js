@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
 		borderRadius: 14,
 	},
 	text: {
-		textAlign: "center",
+		textAlign: 'center',
 		color: white,
 		fontSize: 20,
   }

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Alert } from 'react-native';
 import { darkGrey, lightGray, purple, white } from '../styles/colors';
+import { Button } from '../components/Button';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function ForgotMyPassword({ navigation, route }) {
+export default function ForgotMyPassword({ navigation }) {
 
   const [email, setEmail] = useState("");
 
@@ -28,13 +30,15 @@ export default function ForgotMyPassword({ navigation, route }) {
 
       <View style={styles.forgotPasswordButton}>
         <Button
-            onPress={() => console.log()}
-            color="#FFFFFF"
-            title="Continuar"
+            onPress={() => Alert.alert('Função ainda indispovível')}
+            textButton={'Continuar'}
+            backgroundColor={darkGrey}
           />
       </View>
 
-    <Text style={styles.proceedToLoginText}>Deseja fazer o login? <Text style={styles.proceedLogin}>Entrar</Text></Text>
+		<TouchableOpacity onPress={() => navigation.navigate('Login')}>
+    	<Text style={styles.proceedToLoginText}>Deseja fazer o login? <Text style={styles.proceedLogin}>Entrar</Text></Text>
+		</TouchableOpacity>
 
     </View>
   );
@@ -67,28 +71,26 @@ const styles = StyleSheet.create({
     color: white,
     fontSize: 50,
     fontWeight: 'bold',
-    paddingTop: "30%",
-    paddingLeft: '5%',
+    paddingTop: "20%",
+    paddingLeft: '7%',
     paddingRight: '10%',
   },
   subTitle: {
     color: white,
     fontSize: 20,
     maxWidth: '90%',
-    paddingHorizontal: 30,
+    paddingHorizontal: '7.4%',
     paddingTop: 20,
   },
   forgotPasswordButton: {
-    marginTop: '20%',
-    backgroundColor: darkGrey,
-    borderRadius: 14,
+    marginTop: '14%',
     height: "8%",
     width: '85%',
-    paddingTop: "4%",
     marginBottom: "3%"
   },
   proceedToLoginText: {
-    color: "#8492A6"
+    color: "#8492A6",
+		marginTop: '2%'
   },
   proceedLogin: {
     color: 'black',

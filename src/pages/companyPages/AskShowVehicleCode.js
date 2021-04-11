@@ -1,5 +1,5 @@
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { purple, white, orange } from '../../styles/colors';
 
 export default function AskShowVehicleCode({ navigation, route }) {

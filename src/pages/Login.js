@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Alert, TextInput, TouchableOpacity } from 'react-native';
 import { createSession, getUserOnFirebase } from '../backend/Login';
 import { Button } from '../components/Button';
 import * as authService from '../service/AuthService';
 import { darkGrey, grey, lightGray, purple, white } from '../styles/colors';
 
-export default function Login({ navigation, route }) {
+export default function Login({ navigation }) {
 
-  const [email, setEmail] = useState("paulo.daluz@gmail.com");
-  // const [email, setEmail] = useState("presidencia@sudesttransp.com.br");
+  // const [email, setEmail] = useState("paulo.daluz@gmail.com");
+  const [email, setEmail] = useState("presidencia@sudesttransp.com.br");
   const [password, setPassword] = useState("123456");
 
   const login = async () => {
@@ -68,7 +68,9 @@ export default function Login({ navigation, route }) {
           />
       </View>
 
-    	<Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
+    	<TouchableOpacity onPress={() => navigation.navigate('ForgotMyPassword')}>
+				<Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
+			</TouchableOpacity>
     </View>
   );
 }
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
   subTitle: {
     color: white,
     fontSize: 20,
-    paddingHorizontal: 30,
+    paddingHorizontal: '7.4%',
     paddingTop: 20,
   },
   loginButton: {
@@ -119,6 +121,7 @@ const styles = StyleSheet.create({
     marginBottom: "3%"
   },
   forgotPasswordText: {
-    color: grey
+    color: grey,
+		marginTop: '2%'
   }
 });
