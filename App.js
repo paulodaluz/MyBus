@@ -40,11 +40,11 @@ export default function App({navigation}) {
   const Stack = createStackNavigator();
 
   return (
-    <NavigationContainer initialRouteName="AllPages">
+    <NavigationContainer initialRouteName="InitialPage">
       <StatusBar style="auto" />
 
       <Stack.Navigator>
-				<Stack.Screen name="AllPages" component={AllPages} initialParams={{ navigation }} />
+				{/* <Stack.Screen name="AllPages" component={AllPages} initialParams={{ navigation }} /> */}
 
         <Stack.Screen name="InitialPage" component={InitialPage} initialParams={{ navigation }} options={{headerShown: false, gestureEnabled: false}}/>
 

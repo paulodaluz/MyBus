@@ -7,7 +7,7 @@ import { getSession, getUserOnFirebase } from '../backend/Login';
 import { darkGrey, grey, purple, white } from '../styles/colors';
 import { Button } from '../components/Button';
 
-export default function InitialPage({ navigation, route }) {
+export default function InitialPage({ navigation }) {
   const [typeUserPage, setTypeUserPage] = useState("passenger");
 
   useEffect(() => {

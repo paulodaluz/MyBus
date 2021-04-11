@@ -1,4 +1,5 @@
 import { getAllLocalizationVehicles } from '../../service/MapLocalizationService';
+import { getAllVehicles } from '../../service/VehicleService';
 
 export async function getVehiclesLocalization(vehiclesPlate) {
 	const allLocalizations = await getAllLocalizationVehicles();
@@ -16,4 +17,20 @@ export async function getVehiclesLocalization(vehiclesPlate) {
 	})
 
 	return myVehicles;
+}
+
+export async function getVehiclesInfos(companyVehiclesPlate) {
+	let companyVehiclesInfos = [];
+
+	const allVehicles = await getAllVehicles();
+
+	companyVehiclesPlate.map((companyVehiclePlate) => {
+		let existsVehicle = allVehicles.find(vehicle => vehicle.registration_plate == companyVehiclePlate);
+
+		if(existsVehicle) {
+			companyVehiclesInfos.push(existsVehicle);
+		}
+	})
+
+	return companyVehiclesInfos;
 }

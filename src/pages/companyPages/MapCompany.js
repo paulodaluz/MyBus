@@ -19,7 +19,7 @@ export default function MapCompany({ navigation, route }) {
 	})
 
 	async function getLocalizationRealTime() {
-		let localizationWithVehicle = await getVehiclesLocalization(user.uid, vehiclesWithoutlocalization)
+		let localizationWithVehicle = await getVehiclesLocalization(vehiclesWithoutlocalization)
 		setCompleteVehicles(localizationWithVehicle);
 		// setTimeout(
 		// 	function() {
