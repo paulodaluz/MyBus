@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 import { getPassenger, updateUserAllInfos } from "../../backend/users/Passenger";
+import { isValidCPF } from "../../backend/utils/Utils";
 import { purple, white, grey } from "../../styles/colors";
 
 export default function EditProfileCompany({ navigation, route }) {
