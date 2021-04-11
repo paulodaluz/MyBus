@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Alert, TextInput } from 'react-native';
 import { createSession, getUserOnFirebase } from '../backend/Login';
+import { Button } from '../components/Button';
 import * as authService from '../service/AuthService';
+import { darkGrey, grey, purple, lightGray } from '../styles/colors';
 
 export default function Login({ navigation, route }) {
 
@@ -60,13 +62,14 @@ export default function Login({ navigation, route }) {
       <View style={styles.loginButton}>
         <Button
             onPress={login}
-            color="#FFFFFF"
-            title="Entrar"
+						textColor={'#FFFFFF'}
+            textButton={'Entrar'}
+						backgroundColor={darkGrey}
+						style={styles.loginButton}
           />
       </View>
 
-    <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
-
+    	<Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
     </View>
   );
 }
@@ -74,16 +77,16 @@ export default function Login({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f1f1f1',
+    backgroundColor: lightGray,
     alignItems: 'center'
   },
   welcomeBox: {
     height: "38%",
     width: "100%",
-    backgroundColor: "#8257E6",
+    backgroundColor: purple,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
-    marginBottom: 40
+    marginBottom: '10%'
   },
   inputButton: {
     height: "8%",
@@ -99,9 +102,9 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 50,
     fontWeight: 'bold',
-    paddingTop: "30%",
-    paddingLeft: 30,
-    paddingRight: 90,
+    paddingTop: "18%",
+    paddingLeft: '7%',
+    paddingRight: '18%',
   },
   subTitle: {
     color: '#FFFFFF',
@@ -110,15 +113,13 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   loginButton: {
-    marginTop: 20,
-    backgroundColor: "#47525E",
-    borderRadius: 14,
-    height: "8%",
+    marginTop: '5%',
+    height: "10%",
     width: '85%',
     paddingTop: "4%",
     marginBottom: "3%"
   },
   forgotPasswordText: {
-    color: "#8492A6"
+    color: grey
   }
 });
