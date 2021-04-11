@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Alert, TextInput } from 'react-native';
 import { createSession, getUserOnFirebase } from '../backend/Login';
 import { Button } from '../components/Button';
 import * as authService from '../service/AuthService';
-import { darkGrey, grey, purple, lightGray } from '../styles/colors';
+import { darkGrey, grey, lightGray, purple, white } from '../styles/colors';
 
 export default function Login({ navigation, route }) {
 
@@ -62,7 +62,6 @@ export default function Login({ navigation, route }) {
       <View style={styles.loginButton}>
         <Button
             onPress={login}
-						textColor={'#FFFFFF'}
             textButton={'Entrar'}
 						backgroundColor={darkGrey}
 						style={styles.loginButton}
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     paddingLeft: "5%",
   },
   centerTitle: {
-    color: '#FFFFFF',
+    color: white,
     fontSize: 50,
     fontWeight: 'bold',
     paddingTop: "18%",
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
     paddingRight: '18%',
   },
   subTitle: {
-    color: '#FFFFFF',
+    color: white,
     fontSize: 20,
     paddingHorizontal: 30,
     paddingTop: 20,

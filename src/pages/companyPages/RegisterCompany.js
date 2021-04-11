@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Alert, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Alert, TextInput, TouchableOpacity } from 'react-native';
 import { createSession } from '../../backend/Login';
 import { createCompanyBackend } from '../../backend/users/Company';
 import { isSecurityPassword, isValidCNPJ, isValidEmail } from '../../backend/utils/Utils';
-import { white } from "../../styles/colors";
+import { darkGrey, white } from "../../styles/colors";
+import { Button } from "../../components/Button";
 
 export default function RegisterCompany({ navigation, route }) {
   const [name, setName] = useState("Sudeste Transportes Coletivos");
@@ -98,8 +99,8 @@ export default function RegisterCompany({ navigation, route }) {
       <View style={styles.registerButton}>
         <Button
           onPress={createUser}
-          title="Pronto"
-					color={white}
+          textButton={'Pronto'}
+					backgroundColor={darkGrey}
           />
       </View>
 
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
   inputButton: {
     height: "7%",
     width: '80%',
-    marginTop: 15,
+    marginTop: '3.8%',
     borderWidth: 1,
     borderColor: '#8492A6',
     backgroundColor: 'transparent',
@@ -156,12 +157,9 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   registerButton: {
-    marginTop: 20,
-    backgroundColor: "#47525E",
-    borderRadius: 14,
-    height: "8%",
+    marginTop: '7%',
+    height: "7%",
     width: '85%',
-    paddingTop: "4%",
     marginBottom: "3%"
   },
   messagesToUser: {

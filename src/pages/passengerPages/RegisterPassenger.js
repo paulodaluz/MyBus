@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Alert, TextInput } from 'react-native';
 import { createSession } from '../../backend/Login';
 import { createPassengerBackend } from '../../backend/users/Passenger';
 import { isSecurityPassword } from '../../backend/utils/Utils';
+import { Button } from '../../components/Button';
+import { darkGrey, purple, white } from '../../styles/colors';
 
 export default function RegisterPassenger({ navigation, route }) {
 
@@ -86,8 +88,9 @@ export default function RegisterPassenger({ navigation, route }) {
       <View style={styles.registerButton}>
         <Button
           onPress={createUser}
-          color="#FFFFFF"
-          title="Pronto"
+          textColor={white}
+          textButton={'Pronto'}
+					backgroundColor={darkGrey}
           />
       </View>
 
@@ -107,19 +110,19 @@ export default function RegisterPassenger({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: white,
     alignItems: 'center',
   },
   registerBox: {
     height: "33%",
     width: "100%",
-    backgroundColor: "#8257E6",
+    backgroundColor: purple,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     marginBottom: 40
   },
   centerTitle: {
-    color: '#FFFFFF',
+    color: white,
     fontSize: 50,
     paddingTop: "24%",
     paddingLeft: 30,
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 20,
-    color: '#FFFFFF',
+    color: white,
     paddingTop: 15,
     paddingLeft: 30,
     paddingRight: 100,
@@ -145,12 +148,9 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   registerButton: {
-    marginTop: 20,
-    backgroundColor: "#47525E",
-    borderRadius: 14,
+    marginTop: '5%',
     height: "8%",
     width: '85%',
-    paddingTop: 12,
     marginBottom: "3%"
   },
   messagesToUser: {

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Alert, TextInput } from 'react-native';
 import { getVehicleFunction } from '../../backend/vehicles/Vehicle';
 import { driverLoginIsValid } from '../../backend/Login';
 import { getAllVehicles } from '../../service/VehicleService';
 import { getCompanyByRegistrationPlate } from '../../backend/users/Company';
+import { Button } from '../../components/Button';
+import { darkGrey, lightGray, purple, white } from '../../styles/colors';
 
 export default function LoginDriver({ navigation }) {
   const [registrationPlate, setRegistrationPlate] = useState("ISA6529");
@@ -79,8 +81,9 @@ export default function LoginDriver({ navigation }) {
       <View style={styles.loginButton}>
         <Button
             onPress={login}
-            color="#FFFFFF"
-            title="Entrar"
+            color={white}
+            backgroundColor={darkGrey}
+            textButton={'Entrar'}
           />
       </View>
 
@@ -91,13 +94,13 @@ export default function LoginDriver({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f1f1f1',
+    backgroundColor: lightGray,
     alignItems: 'center'
   },
   welcomeBox: {
     height: "38%",
     width: "100%",
-    backgroundColor: "#8257E6",
+    backgroundColor: purple,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     marginBottom: 40
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
   inputButton: {
     height: "8%",
     width: '85%',
-    marginTop: 15,
+    marginTop: '4%',
     borderWidth: 1,
     borderColor: '#8492A6',
     backgroundColor: 'transparent',
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
     paddingLeft: "5%",
   },
   centerTitle: {
-    color: '#FFFFFF',
+    color: white,
     fontSize: 50,
     fontWeight: 'bold',
     paddingTop: "30%",
@@ -121,18 +124,15 @@ const styles = StyleSheet.create({
     paddingRight: 90,
   },
   subTitle: {
-    color: '#FFFFFF',
+    color: white,
     fontSize: 20,
     paddingHorizontal: 30,
     paddingTop: 20,
   },
   loginButton: {
-    marginTop: 20,
-    backgroundColor: "#47525E",
-    borderRadius: 14,
-    height: "8%",
+    marginTop: '5%',
+    height: "9%",
     width: '85%',
     paddingTop: "4%",
-    marginBottom: "3%"
   }
 });

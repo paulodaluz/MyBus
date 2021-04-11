@@ -86,7 +86,6 @@ export default function InitialPage({ navigation, route }) {
 							onPress={() => navigation.navigate('Login')}
 							textButton={'Login'}
 							style={styles.loginButton}
-							textColor={white}
 							backgroundColor={purple}
 						/>
           </View>
@@ -96,7 +95,6 @@ export default function InitialPage({ navigation, route }) {
 							onPress={() => typeUserPage === 'passenger' ? navigation.navigate('RegisterPassenger') : navigation.navigate('RegisterCompany')}
 							textButton={'Cadastre-se'}
 							style={styles.registerButton}
-							textColor={white}
 							backgroundColor={darkGrey}
 						/>
 					</View>
@@ -108,7 +106,6 @@ export default function InitialPage({ navigation, route }) {
 								onPress={() => navigation.navigate('LoginDriver')}
 								textButton={'Login do Motorista'}
 								style={styles.driverLogin}
-								textColor={white}
 								backgroundColor={purple}
 							/>
 							:

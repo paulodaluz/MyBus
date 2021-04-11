@@ -5,11 +5,10 @@ import { styles } from './style'
 const Button = ({
 	onPress,
 	textButton,
-	backgroundColor,
-	textColor
+	backgroundColor
 }) => (
 	<TouchableOpacity onPress={onPress} style={{...styles.button, backgroundColor}}>
-		<Text style={{ ...styles.text, color: textColor }}>{textButton}</Text>
+		<Text style={{ ...styles.text }}>{textButton}</Text>
 	</TouchableOpacity>
 )
 
