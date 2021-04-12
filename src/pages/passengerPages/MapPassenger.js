@@ -99,18 +99,19 @@ export default function MapPassenger({ navigation, route }) {
 					: null
 				}
 			</MapView>
-			<View style={styles.buttons}>
+			<View style={styles.menu}>
+
+				<TouchableOpacity onPress={() => navigation.navigate('AddNewPrivateVehicle', { uid: user.uid })}
+					style={styles.addVehicleButton}>
+						<Text style={styles.buttonText}>Adicionar veículo privado</Text>
+				</TouchableOpacity>
 
 				<TouchableOpacity onPress={() => navigation.navigate('SettingsPassenger')}
 					style={styles.configButton}>
 						<Text style={styles.buttonText}>Configurações</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity onPress={() => navigation.navigate('AddNewPrivateVehicle', { uid: user.uid })}
-					style={styles.addVehicleButton}>
-						<Text style={styles.buttonText}>Adicionar veiculo privado</Text>
-				</TouchableOpacity>
-				</View>
+			</View>
 		</View>
 	);
 }
@@ -126,31 +127,35 @@ const styles = StyleSheet.create({
 		width: Dimensions.get('window').width,
 		height: "90%"
 	},
-	buttons: {
+	menu: {
+		width: '100%',
+		height: '10%',
+		backgroundColor: purple,
+		shadowOpacity: 100,
 		flexDirection: "row",
-    width: '100%',
-		height: "7%"
+		alignItems: "center",
+		paddingBottom: '4%'
   },
 	addVehicleButton: {
-		marginRight: "10%",
-		width: "60%",
-		height: "60%",
-		paddingTop: "2%",
+		width: "50%",
+		height: "100%",
 		alignItems: "center",
-		borderRadius: 30,
-		backgroundColor: purple,
+		flex: 1,
+		justifyContent: 'center',
+		paddingLeft: '3%'
 	},
 	configButton: {
-		width: "40%",
-		height: "60%",
+		width: "50%",
+		height: "100%",
 		alignItems: "center",
-		paddingTop: "2%",
-		borderRadius: 30,
-		backgroundColor: purple,
+		flex: 1,
+		justifyContent: 'center',
+		paddingRight: '3%'
 	},
 	buttonText: {
 		color: white,
 		fontWeight: "bold",
-		fontSize: 17
+		fontSize: 17,
+		textAlign: 'center'
 	}
 })
