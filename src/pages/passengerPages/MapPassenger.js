@@ -70,7 +70,7 @@ export default function MapPassenger({ navigation, route }) {
 				{
 					completeVehiclesInfos.map((vehicle, key) =>
 						<Marker
-						onPress={() => navigation.navigate('ListVehicleInfosPassenger', { registrationPlate: vehicle.vehicle.registration_plate, uid: user.uid })}
+							onPress={() => navigation.navigate('ListVehicleInfosPassenger', { registrationPlate: vehicle.registration_plate, uid: user.uid })}
 							key={key}
 							coordinate={{latitude: vehicle.latitude, longitude: vehicle.longitude}}
 							title={vehicle.name}
