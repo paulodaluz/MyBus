@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions, Alert, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Dimensions, Alert, Text, TouchableOpacity, Modal, Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 import * as Location from 'expo-location'
-import { purple, white } from '../../styles/colors';
+import { darkGrey, purple, white } from '../../styles/colors';
 import { getVehiclesLocalization } from '../../backend/map/CompanyMap';
 import { getMyVehicles } from '../../backend/vehicles/Vehicle';
 import { getBusStopsLocalzations } from '../../backend/map/PassengerMap';
+import { Button } from '../../components/Button';
+import MapImage from '../../assets/icons/png/map.png'
 
 export default function MapPassenger({ navigation, route }) {
 	const { user } = route.params;
@@ -13,6 +15,7 @@ export default function MapPassenger({ navigation, route }) {
 	const [myPosition, setMyposition] = useState(null);
 	const [busStops, setBusStops] = useState([]);
 	const [completeVehiclesInfos, setCompleteVehiclesInfos] = useState([]);
+	const [modalVisible, setModalVisible] = useState(true);
 
 	const [localicaoAtual, setLocalicaoAtual] = useState({
 		latitude: -28.2612,
@@ -81,6 +84,7 @@ export default function MapPassenger({ navigation, route }) {
 				{
 					busStops.map((busStop, key) =>
 						<Marker
+							onPress={() => setModalVisible(!modalVisible)}
 							key={key}
 							coordinate={{latitude: busStop.latitude, longitude: busStop.longitude}}
 							title={'Parada de Ônibus'}
@@ -112,6 +116,61 @@ export default function MapPassenger({ navigation, route }) {
 				</TouchableOpacity>
 
 			</View>
+
+			<Modal
+				animationType="slide"
+				transparent={true}
+				visible={modalVisible}
+				onRequestClose={() => {
+					Alert.alert("Modal has been closed.");
+					setModalVisible(!modalVisible);
+				}}
+			>
+				<View style={styles.containerModal}>
+					<View style={styles.containerTitleModal}>
+						<Image
+							style={{ height: 35, width: 35, marginRight: '3%'}}
+							source={MapImage}
+						/>
+						<Text style={styles.titleModal}>Próximos veículos neste ponto</Text>
+					</View>
+					<View style={styles.itemModal}>
+						<Text style={styles.textVehicleModal}>L01 - Vera Cruz - São Cristóvão</Text>
+						{/* <Image
+							style={{ height: 35, width: 35, marginRight: '3%'}}
+							source={icon_clock}
+						/> */}
+						<Text style={styles.textVehicleModal}>12 min</Text>
+					</View>
+					<View style={styles.divisor}></View>
+					<View style={styles.itemModal}>
+						<Text style={styles.textVehicleModal}>L12 - Santa Marta - São Cristóvão</Text>
+						{/* <Image
+							style={{ height: 35, width: 35, marginRight: '3%'}}
+							source={icon_clock}
+						/> */}
+						<Text style={styles.textVehicleModal}>15 min</Text>
+					</View>
+					<View style={styles.divisor}></View>
+					<View style={styles.itemModal}>
+						<Text style={styles.textVehicleModal}>L04 - Jerônimo Coelho - IMED</Text>
+						{/* <Image
+							style={{ height: 35, width: 35, marginRight: '3%'}}
+							source={icon_clock}
+						/> */}
+						<Text style={styles.textVehicleModal}>48 min</Text>
+					</View>
+					<View style={styles.divisor}></View>
+
+					<View style={styles.buttonModal}>
+						<Button
+							onPress={() => setModalVisible(!modalVisible)}
+							backgroundColor={darkGrey}
+							textButton={'Acompanhar no mapa!'}
+							/>
+					</View>
+				</View>
+			</Modal>
 		</View>
 	);
 }
@@ -157,5 +216,50 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		fontSize: 17,
 		textAlign: 'center'
-	}
+	},
+	containerTitleModal: {
+		flexDirection: 'row'
+	},
+	containerModal: {
+		width: "92%",
+		height: "34%",
+		backgroundColor: purple,
+		borderRadius: 30,
+		paddingTop: '3%',
+		paddingLeft: "8%",
+		paddingRight: "8%",
+		marginTop: '40%',
+		marginLeft: "4%",
+		marginRight: "4%",
+	},
+	titleModal: {
+		fontSize: 19,
+		fontWeight: 'bold',
+		color: white,
+		marginBottom: '8%',
+		marginTop: '3%'
+	},
+	itemModal: {
+		flexDirection: 'row',
+		width: "100%",
+	},
+	textVehicleModal: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		color: white,
+		marginRight: '2%'
+	},
+	divisor: {
+    height: 1,
+    backgroundColor: '#A39BBD',
+		marginTop: '4%',
+		marginBottom: '2%',
+	},
+	buttonModal: {
+		height: '20%',
+		width: '85%',
+		alignSelf: 'center',
+		marginTop: '8%'
+	},
+
 })
