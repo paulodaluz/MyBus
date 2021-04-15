@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Alert } from 'react-native';
-import { darkGrey, lightGray, purple, white } from '../styles/colors';
+import { black, darkGrey, lightGray, purple, white } from '../styles/colors';
 import { Button } from '../components/Button';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
 		marginTop: '2%'
   },
   proceedLogin: {
-    color: 'black',
+    color: black,
     textDecorationLine: 'underline'
   }
 });
