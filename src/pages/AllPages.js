@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Button, FlatList } from 'react-native';
+import { View, Button, FlatList } from 'react-native';
 
 export default function AllPages({ navigation, route }) {
   return (
@@ -31,6 +31,3 @@ export default function AllPages({ navigation, route }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-});

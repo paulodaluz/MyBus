@@ -96,8 +96,8 @@ export async function getMyVehicles(uid) {
 
 	const [allUsers, allCompanies] = await Promise.all([getAllUsers(), getAllCompanies()]);
 
-	const passenger = allUsers.find((user) => user.uid === uid);
-	const company = allCompanies.find((user) => user.uid === uid);
+	const passenger = allUsers.find((oneUser) => oneUser.uid === uid);
+	const company = allCompanies.find((oneCompany) => oneCompany.uid === uid);
 
 	if(passenger) {
 		user = passenger;
