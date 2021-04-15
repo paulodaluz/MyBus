@@ -1,15 +1,25 @@
-export function mountBodyToFirebase({typeOfVehicleListed, name, vehicleCode, bornDate, cpf}) {
+export function mountBodyToFirebase({ typeOfVehicleListed, name, vehicleCode, bornDate, cpf }) {
 	const infosToUpdate = {};
 
-	if(vehicleCode) Object.assign(infosToUpdate, {codes_private_vehicles: vehicleCode});
+	if (vehicleCode) {
+		Object.assign(infosToUpdate, { codes_private_vehicles: vehicleCode });
+	}
 
-	if(name) Object.assign(infosToUpdate, {name});
+	if (name) {
+		Object.assign(infosToUpdate, { name });
+	}
 
-	if(typeOfVehicleListed) Object.assign(infosToUpdate, {type_of_vehicle_listed: typeOfVehicleListed});
+	if (typeOfVehicleListed) {
+		Object.assign(infosToUpdate, { type_of_vehicle_listed: typeOfVehicleListed });
+	}
 
-	if(bornDate) Object.assign(infosToUpdate, {born_date: bornDate});
+	if (bornDate) {
+		Object.assign(infosToUpdate, { born_date: bornDate });
+	}
 
-	if(cpf) Object.assign(infosToUpdate, {cpf});
+	if (cpf) {
+		Object.assign(infosToUpdate, { cpf });
+	}
 
 	return infosToUpdate;
 }
@@ -29,27 +39,41 @@ export function isSecurityPassword(password) {
 }
 
 export function isValidCPF(cpf) {
-	if(!Number(cpf)) {
-    return false;
-  }
+	if (!Number(cpf)) {
+		return false;
+	}
 
 	let Soma = 0;
 	let Resto;
 
-	if (cpf == "00000000000") return false;
+	if (cpf == '00000000000') {
+		return false;
+	}
 
-	for (let i = 1; i <= 9; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
+	for (let i = 1; i <= 9; i++) {
+		Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
+	}
 	Resto = (Soma * 10) % 11;
 
-	if ((Resto == 10) || (Resto == 11)) Resto = 0;
-	if (Resto != parseInt(cpf.substring(9, 10))) return false;
+	if (Resto == 10 || Resto == 11) {
+		Resto = 0;
+	}
+	if (Resto != parseInt(cpf.substring(9, 10))) {
+		return false;
+	}
 
 	Soma = 0;
-	for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
+	for (let i = 1; i <= 10; i++) {
+		Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
+	}
 	Resto = (Soma * 10) % 11;
 
-	if ((Resto == 10) || (Resto == 11)) Resto = 0;
-	if (Resto != parseInt(cpf.substring(10, 11))) return false;
+	if (Resto == 10 || Resto == 11) {
+		Resto = 0;
+	}
+	if (Resto != parseInt(cpf.substring(10, 11))) {
+		return false;
+	}
 	return true;
 }
 
@@ -59,49 +83,55 @@ export function isValidEmail(email) {
 }
 
 export function isValidCNPJ(cnpj) {
-  if(!Number(cnpj)) {
-    return false;
-  }
+	if (!Number(cnpj)) {
+		return false;
+	}
 
-	cnpj = cnpj.replace(/[^\d]+/g,'');
+	cnpj = cnpj.replace(/[^\d]+/g, '');
 
-	if(cnpj == '') return false;
+	if (cnpj == '') {
+		return false;
+	}
 
 	if (cnpj.length != 14) {
 		return false;
 	}
 
-	if (cnpj == "00000000000000" ||
-			cnpj == "11111111111111" ||
-			cnpj == "22222222222222" ||
-			cnpj == "33333333333333" ||
-			cnpj == "44444444444444" ||
-			cnpj == "55555555555555" ||
-			cnpj == "66666666666666" ||
-			cnpj == "77777777777777" ||
-			cnpj == "88888888888888" ||
-			cnpj == "99999999999999") {
-				return false;
-			}
+	if (
+		cnpj == '00000000000000' ||
+		cnpj == '11111111111111' ||
+		cnpj == '22222222222222' ||
+		cnpj == '33333333333333' ||
+		cnpj == '44444444444444' ||
+		cnpj == '55555555555555' ||
+		cnpj == '66666666666666' ||
+		cnpj == '77777777777777' ||
+		cnpj == '88888888888888' ||
+		cnpj == '99999999999999'
+	) {
+		return false;
+	}
 
 	let tamanho = cnpj.length - 2;
-	let numeros = cnpj.substring(0,tamanho);
-	let  digitos = cnpj.substring(tamanho);
+	let numeros = cnpj.substring(0, tamanho);
+	let digitos = cnpj.substring(tamanho);
 	let soma = 0;
 	let pos = tamanho - 7;
 
 	for (let i = tamanho; i >= 1; i--) {
 		soma += numeros.charAt(tamanho - i) * pos--;
-		if (pos < 2)
-					pos = 9;
+		if (pos < 2) {
+			pos = 9;
+		}
 	}
 
-	let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-	if (resultado != digitos.charAt(0))
-			return false;
+	let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+	if (resultado != digitos.charAt(0)) {
+		return false;
+	}
 
 	tamanho = tamanho + 1;
-	numeros = cnpj.substring(0,tamanho);
+	numeros = cnpj.substring(0, tamanho);
 	soma = 0;
 	pos = tamanho - 7;
 
@@ -111,7 +141,7 @@ export function isValidCNPJ(cnpj) {
 			pos = 9;
 		}
 	}
-	resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+	resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
 	if (resultado != digitos.charAt(1)) {
 		return false;
 	}

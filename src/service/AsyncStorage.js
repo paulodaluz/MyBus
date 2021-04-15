@@ -25,4 +25,4 @@ export const removeStorage = async (key) => {
 		console.log(`AsyncStorage - removeStorage - ERROR = ${error}`);
 		return error;
 	}
-}
+};

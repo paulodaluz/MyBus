@@ -1,12 +1,15 @@
-import { db } from "../database/FirebaseConfiguration";
+import { db } from '../database/FirebaseConfiguration';
 
 export const saveFeedback = async (feedback) => {
-	return await db.collection("opinions_vehicle")
+	return await db
+		.collection('opinions_vehicle')
 		.add(feedback)
-		.then((result) => {return(result)})
+		.then((result) => {
+			return result;
+		})
 		.catch((error) => {
 			console.log(`CompanyFeedbackService - saveFeedback - ERROR = ${error}`);
-			return(error);
+			return error;
 		});
 };
 

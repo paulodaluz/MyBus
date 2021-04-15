@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { white } from "../../styles/colors";
+import { StyleSheet } from 'react-native';
+import { white } from '../../styles/colors';
 
 export const styles = StyleSheet.create({
 	button: {
@@ -11,5 +11,5 @@ export const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: white,
 		fontSize: 20,
-  }
-})
+	},
+});

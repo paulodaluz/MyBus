@@ -1,4 +1,4 @@
-import { db } from "../database/FirebaseConfiguration";
+import { db } from '../database/FirebaseConfiguration';
 
 export const getAllBusStations = async () => {
 	let busStations = [];
@@ -9,7 +9,6 @@ export const getAllBusStations = async () => {
 
 		busStation.id = doc.id;
 		busStations.push(busStation);
-
 	});
 
 	return busStations;

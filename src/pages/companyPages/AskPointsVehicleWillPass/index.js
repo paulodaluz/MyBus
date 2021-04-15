@@ -1,12 +1,11 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { purple, white, orange } from '../../../styles/colors';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './style';
 
 export default function AskShowVehicleCode({ navigation, route }) {
 	const { uid, vehicle } = route.params;
 
-	return(
+	return (
 		<View>
 			<View style={styles.boxTitle}>
 				<Text style={styles.title}>DIGITE AS INFORMAÇÕES DO VEICULO</Text>
@@ -17,22 +16,27 @@ export default function AskShowVehicleCode({ navigation, route }) {
 
 				<View style={styles.buttons}>
 					<View style={styles.button}>
-						<TouchableOpacity onPress={() => navigation.navigate("ShowVehicleCode", { uid, vehicle })}>
+						<TouchableOpacity
+							onPress={() => navigation.navigate('ShowVehicleCode', { uid, vehicle })}
+						>
 							<Text style={styles.buttonText}>Sim</Text>
 						</TouchableOpacity>
 					</View>
 
 					<View style={styles.button}>
-						<TouchableOpacity onPress={() => navigation.navigate("AskPointsVehicleWillPass", { uid, vehicle })}>
+						<TouchableOpacity
+							onPress={() => navigation.navigate('AskPointsVehicleWillPass', { uid, vehicle })}
+						>
 							<Text style={styles.buttonText}>Mais Tarde</Text>
-							</TouchableOpacity>
+						</TouchableOpacity>
 					</View>
 				</View>
 
-				<Text style={styles.observation}>O código e senha do veículo são utilizados pelo motorista para logar no aplicativo e compartilhar sua localização</Text>
-
+				<Text style={styles.observation}>
+					O código e senha do veículo são utilizados pelo motorista para logar no aplicativo e
+					compartilhar sua localização
+				</Text>
 			</View>
-
 		</View>
-	)
+	);
 }

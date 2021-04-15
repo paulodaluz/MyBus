@@ -1,46 +1,48 @@
-import { Text, View, TextInput, StyleSheet, Alert, Switch, TouchableOpacity } from 'react-native';
-import React, { useState, useLayoutEffect } from 'react';
-
-import { purple, white, orange, darkGrey } from '../../../styles/colors';
-import { editVehicle, getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
+import React, { useLayoutEffect, useState } from 'react';
+import { Alert, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { updatePlateVehicleCompany } from '../../../backend/users/Company';
+import { editVehicle, getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
+import { darkGrey } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function EditVehicle({ navigation, route }) {
 	const { uid, registration_Plate, backPage, params } = route.params;
 
-	const [vehicleId, setVehicleId] = useState("");
-	const [vehicleFunctionsId, setVehicleFunctionsId] = useState("");
+	const [vehicleId, setVehicleId] = useState('');
+	const [vehicleFunctionsId, setVehicleFunctionsId] = useState('');
 
 	const [thereIsBathroom, setThereIsBathroom] = useState(false);
 	const [thereIsAirConditioning, setThereIsAirConditioning] = useState(false);
 	const [thereIsWifi, setThereIsWifi] = useState(false);
 	const [thereIsWheelchairSupport, setThereIsWheelchairSupport] = useState(false);
 
-	const [name, setName] = useState("");
+	const [name, setName] = useState('');
 	const [isPublic, setIsPublic] = useState(false);
-	const [price, setPrice] = useState("");
-	const [registrationPlate, setRegistrationPlate] = useState("");
-	const [oldregistrationPlate, setOldRegistrationPlate] = useState("");
+	const [price, setPrice] = useState('');
+	const [registrationPlate, setRegistrationPlate] = useState('');
+	const [oldregistrationPlate, setOldRegistrationPlate] = useState('');
 
-	const toggleSwitchBathroom = () => setThereIsBathroom(previousState => !previousState);
-	const toggleSwitchAirC = () => setThereIsAirConditioning(previousState => !previousState);
-	const toggleSwitchWifi = () => setThereIsWifi(previousState => !previousState);
-	const toggleSwitchWheelchairSup = () => setThereIsWheelchairSupport(previousState => !previousState);
-	const toggleSwitchIsPublic = () => setIsPublic(previousState => !previousState);
+	const toggleSwitchBathroom = () => setThereIsBathroom((previousState) => !previousState);
+	const toggleSwitchAirC = () => setThereIsAirConditioning((previousState) => !previousState);
+	const toggleSwitchWifi = () => setThereIsWifi((previousState) => !previousState);
+	const toggleSwitchWheelchairSup = () =>
+		setThereIsWheelchairSupport((previousState) => !previousState);
+	const toggleSwitchIsPublic = () => setIsPublic((previousState) => !previousState);
 
 	const buttonColor = { false: darkGrey, true: darkGrey };
 
 	const updateVehicle = async () => {
 		const errors = await verifyInputs();
 
-		if(errors) return;
+		if (errors) {
+			return;
+		}
 
 		let vehicleInfos = {
 			registrationPlate,
 			name,
-			isPublic
-		}
+			isPublic,
+		};
 
 		let functionsVehicle = {
 			thereIsWifi,
@@ -48,35 +50,40 @@ export default function EditVehicle({ navigation, route }) {
 			thereIsBathroom,
 			thereIsWheelchairSupport,
 			price,
-			registrationPlate
-		}
+			registrationPlate,
+		};
 
-		const [updatedVehicle, ] = await Promise.all([
+		const [updatedVehicle] = await Promise.all([
 			editVehicle(vehicleId, vehicleInfos, vehicleFunctionsId, functionsVehicle),
-			updatePlateVehicleCompany(uid, oldregistrationPlate, registrationPlate)]);
+			updatePlateVehicleCompany(uid, oldregistrationPlate, registrationPlate),
+		]);
 
-		if((updatedVehicle && updatedVehicle.error)) {
-			return Alert.alert('Erro ao atualizar usuário.')
+		if (updatedVehicle && updatedVehicle.error) {
+			return Alert.alert('Erro ao atualizar usuário.');
 		}
-		if(backPage) {
-			const vehicleFunctions = await getVehicleFunction({registrationPlate});
+		if (backPage) {
+			const vehicleFunctions = await getVehicleFunction({ registrationPlate });
 			return navigation.navigate(backPage, { ...params, vehicleFunctions });
 		}
-		return navigation.navigate('ListVehicleInfosCompany', { registrationPlate: updatedVehicle.registration_plate });
-	}
+		return navigation.navigate('ListVehicleInfosCompany', {
+			registrationPlate: updatedVehicle.registration_plate,
+		});
+	};
 
 	const verifyInputs = async () => {
-		if(!name || !price || !registrationPlate) {
-			Alert.alert('Dados inválidos, verifique os campos e tente novamente!')
+		if (!name || !price || !registrationPlate) {
+			Alert.alert('Dados inválidos, verifique os campos e tente novamente!');
 			return 'Campos não preenchidos!';
 		}
 		return;
-	}
+	};
 
 	useLayoutEffect(() => {
 		const getVehicleData = async () => {
-			const [vehicle, vehicleFunctions] = await Promise.all([getVehicle({registrationPlate: registration_Plate}),
-				getVehicleFunction({registrationPlate: registration_Plate})]);
+			const [vehicle, vehicleFunctions] = await Promise.all([
+				getVehicle({ registrationPlate: registration_Plate }),
+				getVehicleFunction({ registrationPlate: registration_Plate }),
+			]);
 
 			setName(vehicle.name);
 			setVehicleId(vehicle.id);
@@ -90,12 +97,12 @@ export default function EditVehicle({ navigation, route }) {
 			setThereIsWifi(vehicleFunctions.wifi);
 			setThereIsAirConditioning(vehicleFunctions.air_conditioning);
 			setThereIsBathroom(vehicleFunctions.washrooms);
-		}
+		};
 
 		getVehicleData();
-	}, [])
+	}, []);
 
-	return(
+	return (
 		<View>
 			<View style={styles.boxTitle}>
 				<Text style={styles.title}>DIGITE AS INFORMAÇÕES DO VEICULO</Text>
@@ -109,7 +116,7 @@ export default function EditVehicle({ navigation, route }) {
 					value={name}
 					placeholder="Digite o nome"
 					keyboardType="default"
-      	/>
+				/>
 
 				<Text style={styles.inputName}>Valor do transporte</Text>
 				<TextInput
@@ -118,7 +125,7 @@ export default function EditVehicle({ navigation, route }) {
 					value={price}
 					placeholder="Digite o valor"
 					keyboardType="numeric"
-      	/>
+				/>
 
 				<Text style={styles.inputName}>Placa do Veículo</Text>
 				<TextInput
@@ -127,7 +134,7 @@ export default function EditVehicle({ navigation, route }) {
 					value={registrationPlate}
 					placeholder="Digite a placa"
 					keyboardType="default"
-      	/>
+				/>
 
 				<View>
 					<Text style={styles.selectResources}>Selecione os recursos disponíveis</Text>
@@ -137,7 +144,7 @@ export default function EditVehicle({ navigation, route }) {
 						<Switch
 							style={styles.buttonListedVehicles}
 							trackColor={buttonColor}
-							ios_backgroundColor='#E5E9F2'
+							ios_backgroundColor="#E5E9F2"
 							onValueChange={toggleSwitchBathroom}
 							value={thereIsBathroom}
 							tex
@@ -191,13 +198,11 @@ export default function EditVehicle({ navigation, route }) {
 							tex
 						/>
 					</View>
-
 				</View>
 				<TouchableOpacity style={styles.updateButton} onPress={() => updateVehicle()}>
-						<Text style={styles.textButton}>Atualizar</Text>
+					<Text style={styles.textButton}>Atualizar</Text>
 				</TouchableOpacity>
-
 			</View>
 		</View>
-	)
+	);
 }
