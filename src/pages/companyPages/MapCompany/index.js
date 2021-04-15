@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 import { purple, white } from '../../../styles/colors';
 import bus_icon from '../../../assets/images/png/bus_icon.png';
 import { getVehiclesInfos, getVehiclesLocalization } from '../../../backend/map/CompanyMap';
+import { styles } from './style';
 
 export default function MapCompany({ navigation, route }) {
 	const { user } = route.params;
@@ -69,47 +70,3 @@ export default function MapCompany({ navigation, route }) {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: white,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	mapStyle: {
-		width: Dimensions.get('window').width,
-		height: "90%"
-	},
-	menu: {
-		width: '100%',
-		height: '10%',
-		backgroundColor: purple,
-		shadowOpacity: 100,
-		flexDirection: "row",
-		alignItems: "center",
-		paddingBottom: '4%'
-  },
-	addVehicleButton: {
-		width: "50%",
-		height: "100%",
-		alignItems: "center",
-		flex: 1,
-		justifyContent: 'center',
-		paddingLeft: '3%'
-	},
-	configButton: {
-		width: "50%",
-		height: "100%",
-		alignItems: "center",
-		flex: 1,
-		justifyContent: 'center',
-		paddingRight: '3%'
-	},
-	buttonText: {
-		color: white,
-		fontWeight: "bold",
-		fontSize: 17,
-		textAlign: 'center'
-	}
-})
