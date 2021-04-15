@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import { getCompanyFeedbackBackend } from "../../../backend/feedbacks/CompanyFeedbacks";
-import { purple, white, black } from "../../../styles/colors";
+import React, { useEffect, useState } from 'react';
+import { FlatList, Text, View } from 'react-native';
+import { getCompanyFeedbackBackend } from '../../../backend/feedbacks/CompanyFeedbacks';
 import { styles } from './style';
 
 export default function ReceivedFeedbacks({ navigation, route }) {
@@ -9,17 +8,15 @@ export default function ReceivedFeedbacks({ navigation, route }) {
 	const [feedbacks, setFeedbacks] = useState([]);
 
 	useEffect(() => {
-
 		async function getFeedbacks() {
 			setFeedbacks(await getCompanyFeedbackBackend(uid));
 		}
 
 		getFeedbacks();
-
-  }, []);
+	}, []);
 
 	const renderItem = ({ item }) => (
-    <View style={styles.boxOpinion}>
+		<View style={styles.boxOpinion}>
 			<Text style={styles.titleNameOfVehiclee}>{item.vehicle_name}</Text>
 
 			<Text style={styles.nameOfItem}>Remetente</Text>
@@ -31,25 +28,20 @@ export default function ReceivedFeedbacks({ navigation, route }) {
 			<Text style={styles.nameOfItem}>Feedback:</Text>
 			<Text style={styles.valueOfItem}>{item.feedback}</Text>
 		</View>
-  );
+	);
 
 	return (
-    <View>
+		<View>
 			<View style={styles.boxTitle}>
-					<Text style={styles.title}>Feedbacks</Text>
-					<Text style={styles.secondTitle}>Recebidos</Text>
+				<Text style={styles.title}>Feedbacks</Text>
+				<Text style={styles.secondTitle}>Recebidos</Text>
 			</View>
-			{
-				feedbacks.length < 1 &&
+			{feedbacks.length < 1 && (
 				<Text style={styles.dontHaveFeedback}>Não há feedbacks até o momento!</Text>
-			}
+			)}
 			<View style={styles.body}>
-				<FlatList
-					data={feedbacks}
-					renderItem={renderItem}
-					keyExtractor={item => item.id}
-				/>
+				<FlatList data={feedbacks} renderItem={renderItem} keyExtractor={(item) => item.id} />
 			</View>
-    </View>
-  );
+		</View>
+	);
 }

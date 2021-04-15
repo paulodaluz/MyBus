@@ -1,34 +1,32 @@
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import { purple, white, orange, black } from '../../../styles/colors';
-import MyBusIcon from '../../../assets/icons/svg/my_bus_icon.svg';
+import React, { useEffect, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
 import { styles } from './style';
 
 export default function ListVehicleInfosCompany({ navigation, route }) {
 	const { registrationPlate, receivedVehicle } = route.params;
 
-	const [name, setName] = useState("");
-	const [status, setStatus] = useState("Operando normalmente");
-	const [idToPassangers, setIdToPassangers] = useState("");
-	const [plateId, setPlateId] = useState("");
-	const [password, setPassword] = useState("");
-	const [price, setPrice] = useState("");
+	const [name, setName] = useState('');
+	const [status, setStatus] = useState('Operando normalmente');
+	const [idToPassangers, setIdToPassangers] = useState('');
+	const [plateId, setPlateId] = useState('');
+	const [password, setPassword] = useState('');
+	const [price, setPrice] = useState('');
 
 	useEffect(() => {
 		const getVehicleData = async () => {
-
-			if(receivedVehicle) {
+			if (receivedVehicle) {
 				setName(receivedVehicle.name);
 				setIdToPassangers(receivedVehicle.id_to_passengers);
 				setPlateId(receivedVehicle.id_to_share_localization);
 				setPassword(receivedVehicle.password_to_share_localization);
 				setPrice(receivedVehicle.price);
 			}
-			if(!receivedVehicle) {
+			if (!receivedVehicle) {
 				const [vehicle, vehicleFunctions] = await Promise.all([
-					getVehicle({registrationPlate}),
-					getVehicleFunction({registrationPlate})]);
+					getVehicle({ registrationPlate }),
+					getVehicleFunction({ registrationPlate }),
+				]);
 
 				setName(vehicle.name);
 				setIdToPassangers(vehicle.id_to_passengers);
@@ -37,12 +35,12 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 
 				setPrice(vehicleFunctions.price_transport);
 			}
-		}
+		};
 
 		getVehicleData();
-	}, [])
+	}, []);
 
-	return(
+	return (
 		<View>
 			<View style={styles.header}>
 				{/* <Image
@@ -51,12 +49,10 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 					/> */}
 				<Text style={styles.infoNameTitle}>Nome do Veículo:</Text>
 				<Text style={styles.infoTitle}>{name}</Text>
-
 			</View>
 
 			<View style={styles.body}>
-
-				<View style={{paddingLeft: "8%"}}>
+				<View style={{ paddingLeft: '8%' }}>
 					<Text style={styles.info}>{name}</Text>
 
 					<Text style={styles.infoName}>Situação Atual</Text>
@@ -77,9 +73,9 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 				</View>
 
 				<TouchableOpacity style={styles.button} onPress={() => console.log()}>
-						<Text style={styles.textButton}>EDITAR</Text>
+					<Text style={styles.textButton}>EDITAR</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
-	)
+	);
 }

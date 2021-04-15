@@ -1,18 +1,21 @@
-import { db } from "../database/FirebaseConfiguration";
+import { db } from '../database/FirebaseConfiguration';
 
 export const saveVehicle = async (vehicle) => {
-	return await db.collection("vehicles")
+	return await db
+		.collection('vehicles')
 		.add(vehicle)
-		.then((result) => {return(result)})
+		.then((result) => {
+			return result;
+		})
 		.catch((error) => {
 			console.log(`VehicleService - saveVehicle - ERROR = ${error}`);
-			return(error);
+			return error;
 		});
 };
 
 export const updateVehicle = async (id, infosToUpdate) => {
 	return new Promise((resolve, reject) => {
-		db.collection("vehicles")
+		db.collection('vehicles')
 			.doc(id)
 			.update(infosToUpdate)
 			.then(() => resolve())
@@ -21,7 +24,7 @@ export const updateVehicle = async (id, infosToUpdate) => {
 				reject(error);
 			});
 	});
-}
+};
 
 export const getAllVehicles = async () => {
 	let vehicles = [];
@@ -36,14 +39,14 @@ export const getAllVehicles = async () => {
 };
 
 export const deleteVehicle = (id) => {
-  return new Promise((resolve, reject) => {
-    db.collection("vehicles")
-      .doc(id)
-      .delete()
-      .then(() => resolve())
-      .catch((erro) => {
+	return new Promise((resolve, reject) => {
+		db.collection('vehicles')
+			.doc(id)
+			.delete()
+			.then(() => resolve())
+			.catch((error) => {
 				console.log(`VehicleService - deleteVehicle - ERROR = ${error}`);
-				reject(erro);
+				reject(error);
 			});
-  });
+	});
 };

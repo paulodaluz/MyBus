@@ -1,27 +1,30 @@
-import { db } from "../database/FirebaseConfiguration";
+import { db } from '../database/FirebaseConfiguration';
 
 export const saveFunctionsVehicle = async (functionsVehicle) => {
-	return await db.collection("vehicle_functions")
+	return await db
+		.collection('vehicle_functions')
 		.add(functionsVehicle)
-		.then((result) => {return(result)})
+		.then((result) => {
+			return result;
+		})
 		.catch((error) => {
 			console.log(`VehicleFunctionsService - saveFunctionsVehicle - ERROR = ${error}`);
-			return(error);
+			return error;
 		});
 };
 
 export const updateFunctionsVehicle = async (id, functionsVehicle) => {
 	return new Promise((resolve, reject) => {
-		db.collection("vehicle_functions")
+		db.collection('vehicle_functions')
 			.doc(id)
 			.update(functionsVehicle)
-				.then(() => resolve())
-				.catch((error) => {
-					console.log(`VehicleFunctionsService - updateFunctionsVehicle - ERROR = ${error}`);
-					reject(error);
-				});
+			.then(() => resolve())
+			.catch((error) => {
+				console.log(`VehicleFunctionsService - updateFunctionsVehicle - ERROR = ${error}`);
+				reject(error);
+			});
 	});
-}
+};
 
 export const getAllFunctionsVehicles = async () => {
 	let functionsVehicles = [];
@@ -36,14 +39,14 @@ export const getAllFunctionsVehicles = async () => {
 };
 
 export const deleteVehicleFunctions = (id) => {
-  return new Promise((resolve, reject) => {
-    db.collection("vehicle_functions")
-      .doc(id)
-      .delete()
-      .then(() => resolve())
-      .catch((erro) => {
+	return new Promise((resolve, reject) => {
+		db.collection('vehicle_functions')
+			.doc(id)
+			.delete()
+			.then(() => resolve())
+			.catch((error) => {
 				console.log(`VehicleFunctionsService - deleteVehicleFunctions - ERROR = ${error}`);
-				reject(erro);
+				reject(error);
 			});
-  });
+	});
 };

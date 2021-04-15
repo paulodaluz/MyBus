@@ -38,48 +38,184 @@ import SettingsDriver from './pages/driverPages/SettingsDriver';
 const Stack = createStackNavigator();
 const headerShown = false;
 
-export default function App({navigation}) {
+export default function App({ navigation }) {
+	return (
+		<NavigationContainer initialRouteName="InitialPage">
+			<StatusBar style="auto" />
 
-  return (
-    <NavigationContainer initialRouteName="InitialPage">
-      <StatusBar style="auto" />
+			<Stack.Navigator>
+				<Stack.Screen
+					name="InitialPage"
+					component={InitialPage}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
+				<Stack.Screen
+					name="Login"
+					component={Login}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="ForgotMyPassword"
+					component={ForgotMyPassword}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
 
-      <Stack.Navigator>
+				<Stack.Screen
+					name="MapPassenger"
+					component={MapPassenger}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
+				<Stack.Screen
+					name="RegisterPassenger"
+					component={RegisterPassenger}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="ChooseTypeOfVehicle"
+					component={ChooseTypeOfVehicle}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
+				<Stack.Screen
+					name="SettingsPassenger"
+					component={SettingsPassenger}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="EditProfilePassenger"
+					component={EditProfilePassenger}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="AddNewPrivateVehicle"
+					component={AddNewPrivateVehicle}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="LeaveYourOpinionPassenger"
+					component={LeaveYourOpinionPassenger}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="ListMyLinkedVehicles"
+					component={ListMyLinkedVehicles}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="ListVehicleInfosPassenger"
+					component={ListVehicleInfosPassenger}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
 
-        <Stack.Screen name="InitialPage" component={InitialPage} initialParams={{ navigation }} options={{headerShown, gestureEnabled: false}}/>
-				<Stack.Screen name="Login" component={Login} initialParams={{ navigation }} options={{headerShown}}/>
-				<Stack.Screen name="ForgotMyPassword" component={ForgotMyPassword} initialParams={{ navigation }} options={{headerShown}}/>
+				<Stack.Screen
+					name="MapCompany"
+					component={MapCompany}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
+				<Stack.Screen
+					name="RegisterCompany"
+					component={RegisterCompany}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="SettingsCompany"
+					component={SettingsCompany}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="EditProfileCompany"
+					component={EditProfileCompany}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="LeaveYourOpinionCompany"
+					component={LeaveYourOpinionCompany}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="ReceivedFeedbacks"
+					component={ReceivedFeedbacks}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="CreateNewVehicle"
+					component={CreateNewVehicle}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="AskShowVehicleCode"
+					component={AskShowVehicleCode}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
+				<Stack.Screen
+					name="ShowVehicleCode"
+					component={ShowVehicleCode}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
+				<Stack.Screen
+					name="AskPointsVehicleWillPass"
+					component={AskPointsVehicleWillPass}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
+				<Stack.Screen
+					name="ChoicePointsVehicleWillPass"
+					component={ChoicePointsVehicleWillPass}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
+				<Stack.Screen
+					name="ListVehicleInfosCompany"
+					component={ListVehicleInfosCompany}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="EditVehicle"
+					component={EditVehicle}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
 
-				<Stack.Screen name="MapPassenger" component={MapPassenger} initialParams={{ navigation }} options={{headerShown, gestureEnabled: false}}/>
-        <Stack.Screen name="RegisterPassenger" component={RegisterPassenger} initialParams={{ navigation }} options={{headerShown}}/>
-				<Stack.Screen name="ChooseTypeOfVehicle" component={ChooseTypeOfVehicle} initialParams={{ navigation }} options={{headerShown, gestureEnabled: false}} />
-				<Stack.Screen name="SettingsPassenger" component={SettingsPassenger} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="EditProfilePassenger" component={EditProfilePassenger} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="AddNewPrivateVehicle" component={AddNewPrivateVehicle} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="LeaveYourOpinionPassenger" component={LeaveYourOpinionPassenger} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="ListMyLinkedVehicles" component={ListMyLinkedVehicles} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="ListVehicleInfosPassenger" component={ListVehicleInfosPassenger} initialParams={{ navigation }} options={{headerShown}} />
-
-				<Stack.Screen name="MapCompany" component={MapCompany} initialParams={{ navigation }} options={{headerShown, gestureEnabled: false}}/>
-        <Stack.Screen name="RegisterCompany" component={RegisterCompany} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="SettingsCompany" component={SettingsCompany} initialParams={{ navigation }} options={{headerShown}} />
-        <Stack.Screen name="EditProfileCompany" component={EditProfileCompany} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="LeaveYourOpinionCompany" component={LeaveYourOpinionCompany} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="ReceivedFeedbacks" component={ReceivedFeedbacks} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="CreateNewVehicle" component={CreateNewVehicle} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="AskShowVehicleCode" component={AskShowVehicleCode} initialParams={{ navigation }} options={{headerShown, gestureEnabled: false}} />
-				<Stack.Screen name="ShowVehicleCode" component={ShowVehicleCode} initialParams={{ navigation }} options={{headerShown, gestureEnabled: false}} />
-				<Stack.Screen name="AskPointsVehicleWillPass" component={AskPointsVehicleWillPass} initialParams={{ navigation }} options={{headerShown, gestureEnabled: false}} />
-				<Stack.Screen name="ChoicePointsVehicleWillPass" component={ChoicePointsVehicleWillPass} initialParams={{ navigation }} options={{headerShown, gestureEnabled: false}} />
-				<Stack.Screen name="ListVehicleInfosCompany" component={ListVehicleInfosCompany} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="EditVehicle" component={EditVehicle} initialParams={{ navigation }} options={{headerShown}} />
-
-				<Stack.Screen name="MapDriver" component={MapDriver} initialParams={{ navigation }} options={{headerShown, gestureEnabled: false}} />
-				<Stack.Screen name="LoginDriver" component={LoginDriver} initialParams={{ navigation }} options={{headerShown}} />
-				<Stack.Screen name="SettingsDriver" component={SettingsDriver} initialParams={{ navigation }} options={{headerShown}} />
-
-      </Stack.Navigator>
-
-    </NavigationContainer>
-  );
+				<Stack.Screen
+					name="MapDriver"
+					component={MapDriver}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
+				<Stack.Screen
+					name="LoginDriver"
+					component={LoginDriver}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+				<Stack.Screen
+					name="SettingsDriver"
+					component={SettingsDriver}
+					initialParams={{ navigation }}
+					options={{ headerShown }}
+				/>
+			</Stack.Navigator>
+		</NavigationContainer>
+	);
 }

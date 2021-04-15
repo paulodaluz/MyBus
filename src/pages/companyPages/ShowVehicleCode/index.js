@@ -1,18 +1,16 @@
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Clipboard from 'expo-clipboard';
-
-import { purple, white, grey, darkGrey } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function ShowVehicleCode({ navigation, route }) {
 	const { uid, vehicle } = route.params;
 
 	const copyToClipboard = (text) => {
-    Clipboard.setString(text);
-  }
+		Clipboard.setString(text);
+	};
 
-	return(
+	return (
 		<View>
 			<View style={styles.boxTitle}>
 				<Text style={styles.title}>INFORMAÇÕES DO VEICULO</Text>
@@ -29,11 +27,13 @@ export default function ShowVehicleCode({ navigation, route }) {
 					<Text style={styles.inputText}>{vehicle.password}</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AskPointsVehicleWillPass', { uid, vehicle })}>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={() => navigation.navigate('AskPointsVehicleWillPass', { uid, vehicle })}
+				>
 					<Text style={styles.buttonText}>Continuar</Text>
 				</TouchableOpacity>
 			</View>
-
 		</View>
-	)
+	);
 }

@@ -1,27 +1,26 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Button, Alert } from "react-native";
-import { saveAppFeedbackBackend } from "../../../backend/feedbacks/MyBusFeedbacks";
-import { purple, white, grey } from "../../../styles/colors";
-import MyBusIcon from '../../../assets/icons/svg/my_bus_icon.svg';
+import React, { useState } from 'react';
+import { Alert, Button, Text, TextInput, View } from 'react-native';
+import { saveAppFeedbackBackend } from '../../../backend/feedbacks/MyBusFeedbacks';
+import { white } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function LeaveYourOpinionCompany({ navigation, route }) {
 	const { uid } = route.params;
 
-	const [feedback, setFeedback] = useState("");
+	const [feedback, setFeedback] = useState('');
 
 	const saveFeedbackApp = async () => {
-		if(!feedback) {
+		if (!feedback) {
 			return Alert.alert('Dados inválidos, verifique-os e tente novamente!');
 		}
 
 		await saveAppFeedbackBackend(uid, feedback);
 
-		setFeedback("");
+		setFeedback('');
 		return Alert.alert('Feedback registrado!');
 	};
 
-  return (
+	return (
 		<View>
 			<View style={styles.boxTitle}>
 				<Text style={styles.title}>Deixe sua opinião</Text>
@@ -29,8 +28,7 @@ export default function LeaveYourOpinionCompany({ navigation, route }) {
 			</View>
 
 			<View style={styles.feedbackRecipient}>
-				<View style={{...styles.buttonFeedbackApp, backgroundColor: white}}>
-
+				<View style={{ ...styles.buttonFeedbackApp, backgroundColor: white }}>
 					{/* <Image
 						style={{width: 30, height: 30}}
 						source={MyBusIcon}
@@ -44,22 +42,19 @@ export default function LeaveYourOpinionCompany({ navigation, route }) {
 				<TextInput
 					style={styles.inputButtonFeedback}
 					placeholder="Digite seu feedback"
-					textContentType='name'
+					textContentType="name"
 					value={feedback}
-					onChangeText={text => setFeedback(text)}
+					onChangeText={(text) => setFeedback(text)}
 				/>
 
 				<View style={styles.sendButton}>
-					<Button
-						onPress={() => saveFeedbackApp()}
-						title="Enviar"
-						color={white}
-					/>
-      	</View>
+					<Button onPress={() => saveFeedbackApp()} title="Enviar" color={white} />
+				</View>
 
-				<Text style={styles.message}>Agradecemos seu Feedback. Estamos em constantes melhorias!</Text>
-
+				<Text style={styles.message}>
+					Agradecemos seu Feedback. Estamos em constantes melhorias!
+				</Text>
 			</View>
 		</View>
-	)
+	);
 }
