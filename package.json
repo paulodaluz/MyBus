@@ -8,10 +8,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+		"lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.15.1",
+		"@react-native-async-storage/async-storage": "^1.15.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
@@ -32,12 +33,20 @@
     "yarn": "^1.22.10"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0",
+		"@babel/core": "~7.9.0",
+		"@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
     "@react-native-community/eslint-config": "^2.0.0",
-    "eslint": "^7.24.0"
+    "eslint": "^7.24.0",
+    "husky": "^6.0.0"
   },
   "private": true,
   "engines": {
     "node": "14.16.0"
-  }
+  },
+	"husky": {
+		"hooks": {
+			"pre-commit": "commitlint -E HUSKY_GIT_PARAMS"
+		}
+	}
 }
