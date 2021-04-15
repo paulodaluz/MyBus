@@ -26,7 +26,7 @@ export default function CreateNewVehicle({ navigation, route }) {
 	const toggleSwitchWheelchairSup = () => setThereIsWheelchairSupport(previousState => !previousState);
 	const toggleSwitchIsPublic = () => setIsPublic(previousState => !previousState);
 
-	const buttonColor = { false: '#343F4B', true: darkGrey };
+	const buttonColor = { false: darkGrey, true: darkGrey };
 
 	const createVehicle = async () => {
 		const errors = await verifyInputs();

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { lightGray, purple, white } from "../../../styles/colors";
+import { grey, lightGray, purple, white } from "../../../styles/colors";
 
 export const styles = StyleSheet.create({
 	container: {
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     width: '85%',
     marginTop: '4%',
     borderWidth: 1,
-    borderColor: '#8492A6',
+    borderColor: grey,
     backgroundColor: 'transparent',
     paddingHorizontal: 40,
     paddingLeft: "5%",

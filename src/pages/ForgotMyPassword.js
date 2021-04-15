@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Alert } from 'react-native';
-import { black, darkGrey, lightGray, purple, white } from '../styles/colors';
+import { black, darkGrey, grey, lightGray, purple, white } from '../styles/colors';
 import { Button } from '../components/Button';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     width: '85%',
     marginTop: '20%',
     borderWidth: 1,
-    borderColor: '#8492A6',
+    borderColor: grey,
     backgroundColor: 'transparent',
     paddingHorizontal: 40,
     paddingLeft: "5%",

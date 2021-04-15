@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
 	},
 	containerVehicleCode: {
 		borderWidth: 1,
-		borderColor: '#8492A6',
+		borderColor: grey,
 		backgroundColor: "transparent",
 		width: "90%",
 		height: 60,
@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
 	scanQrCode: {
 		textDecorationLine: "underline",
 		fontWeight: "bold",
-		color: "#969FAA",
+		color: grey,
 	},
 	continueButton: {
 		alignItems: "center",
@@ -85,6 +85,6 @@ export const styles = StyleSheet.create({
 		paddingRight: "13%",
 		textAlign: "center",
 		fontSize: 20,
-		color: '#969FAA',
+		color: grey,
 	},
 });
