@@ -1,13 +1,12 @@
 import * as Location from 'expo-location';
 import * as firebase from 'firebase';
 import React, { useEffect, useState } from 'react';
-import { Alert, Image, Modal, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Modal, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import MapImage from '../../../assets/icons/png/map.png';
 import { getBusStopsLocalzations } from '../../../backend/map/PassengerMap';
 import { getMyVehicles } from '../../../backend/vehicles/Vehicle';
-import { Button } from '../../../components/Button';
-import { darkGrey } from '../../../styles/colors';
+import { Menu } from '../../../components/Menu';
+import { NextVehicleOnThisPoint } from './NextVehicleOnThisPoint';
 import { styles } from './style';
 
 export default function MapPassenger({ navigation, route }) {
@@ -83,10 +82,10 @@ export default function MapPassenger({ navigation, route }) {
 	};
 
 	useEffect(() => {
-		getMyPosition();
 		getVehiclesInfos();
 		getBusStops();
 		getAllLocalizationVehicles();
+		getMyPosition();
 	}, []);
 
 	return (
@@ -133,72 +132,22 @@ export default function MapPassenger({ navigation, route }) {
 				) : null}
 			</MapView>
 
-			<View style={styles.menu}>
-				<TouchableOpacity
-					onPress={() => navigation.navigate('AddNewPrivateVehicle', { uid: user.uid })}
-					style={styles.addVehicleButton}
-				>
-					<Text style={styles.buttonText}>Adicionar veículo privado</Text>
-				</TouchableOpacity>
-
-				<TouchableOpacity
-					onPress={() => navigation.navigate('SettingsPassenger')}
-					style={styles.configButton}
-				>
-					<Text style={styles.buttonText}>Configurações</Text>
-				</TouchableOpacity>
-			</View>
+			<Menu
+				onPressFirstButton={() => navigation.navigate('AddNewPrivateVehicle', { uid: user.uid })}
+				textFirstButton={'Adicionar veículo privado'}
+				onPressSecondButton={() => navigation.navigate('SettingsPassenger')}
+				textSecondButton={'Configurações'}
+			/>
 
 			<Modal
 				animationType="slide"
 				transparent={true}
 				visible={modalVisible}
 				onRequestClose={() => {
-					Alert.alert('Modal has been closed.');
 					setModalVisible(!modalVisible);
 				}}
 			>
-				<View style={styles.containerModal}>
-					<View style={styles.containerTitleModal}>
-						<Image style={{ height: 35, width: 35, marginRight: '3%' }} source={MapImage} />
-						<Text style={styles.titleModal}>Próximos veículos neste ponto</Text>
-					</View>
-					<View style={styles.itemModal}>
-						<Text style={styles.textVehicleModal}>L01 - Vera Cruz - São Cristóvão</Text>
-						{/* <Image
-							style={{ height: 35, width: 35, marginRight: '3%'}}
-							source={icon_clock}
-						/> */}
-						<Text style={styles.textVehicleModal}>12 min</Text>
-					</View>
-					<View style={styles.divisor} />
-					<View style={styles.itemModal}>
-						<Text style={styles.textVehicleModal}>L12 - Santa Marta - São Cristóvão</Text>
-						{/* <Image
-							style={{ height: 35, width: 35, marginRight: '3%'}}
-							source={icon_clock}
-						/> */}
-						<Text style={styles.textVehicleModal}>15 min</Text>
-					</View>
-					<View style={styles.divisor} />
-					<View style={styles.itemModal}>
-						<Text style={styles.textVehicleModal}>L04 - Jerônimo Coelho - IMED</Text>
-						{/* <Image
-							style={{ height: 35, width: 35, marginRight: '3%'}}
-							source={icon_clock}
-						/> */}
-						<Text style={styles.textVehicleModal}>48 min</Text>
-					</View>
-					<View style={styles.divisor} />
-
-					<View style={styles.buttonModal}>
-						<Button
-							onPress={() => setModalVisible(!modalVisible)}
-							backgroundColor={darkGrey}
-							textButton={'Acompanhar no mapa!'}
-						/>
-					</View>
-				</View>
+				<NextVehicleOnThisPoint openOnMap={() => setModalVisible(!modalVisible)} />
 			</Modal>
 		</View>
 	);

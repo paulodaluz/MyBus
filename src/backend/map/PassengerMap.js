@@ -8,18 +8,20 @@ export async function getVehiclesInfos(companyVehiclesPlate) {
 	const allVehicles = await getAllVehicles();
 
 	companyVehiclesPlate.map((companyVehiclePlate) => {
-		let existsVehicle = allVehicles.find(vehicle => vehicle.registration_plate == companyVehiclePlate);
+		let existsVehicle = allVehicles.find(
+			(vehicle) => vehicle.registration_plate == companyVehiclePlate
+		);
 
-		if(existsVehicle) {
+		if (existsVehicle) {
 			companyVehiclesInfos.push(existsVehicle);
 		}
-	})
+	});
 
 	return companyVehiclesInfos;
 }
 
 export async function getVehiclesLocalization(userUid, vehicles) {
-	if(!vehicles.length) {
+	if (!vehicles.length) {
 		return [];
 	}
 
@@ -28,18 +30,18 @@ export async function getVehiclesLocalization(userUid, vehicles) {
 	const realtimeInfos = await getLocalizationVehicles(userUid);
 
 	vehicles.map((vehicle) => {
-		let realtimeInfosVehicle = realtimeInfos[vehicle.registration_plate]
+		let realtimeInfosVehicle = realtimeInfos[vehicle.registration_plate];
 
 		let oneVehicle = vehicle;
 
 		oneVehicle.coordinate = {
 			latitude: realtimeInfosVehicle.latitude,
-			longitude: realtimeInfosVehicle.longitude
-		}
+			longitude: realtimeInfosVehicle.longitude,
+		};
 		oneVehicle.status = realtimeInfosVehicle.status;
 
 		completeVehicles.push(oneVehicle);
-	})
+	});
 
 	return completeVehicles;
 }
@@ -49,12 +51,13 @@ export async function getBusStopsLocalzations(vehicles) {
 
 	const allBusStops = await getAllBusStations();
 	vehicles.forEach((vehicle) => {
-		console.log({vehicle, allBusStops})
-		let existsBusStop = allBusStops.find(busStop =>  busStop.vehicle_plate === vehicle.registration_plate);
-		if(existsBusStop) {
+		let existsBusStop = allBusStops.find(
+			(busStop) => busStop.vehicle_plate === vehicle.registration_plate
+		);
+		if (existsBusStop) {
 			myBusStops.push(existsBusStop);
 		}
-	})
+	});
 
 	return myBusStops;
 }
