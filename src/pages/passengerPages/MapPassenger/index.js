@@ -1,9 +1,9 @@
 import * as Location from 'expo-location';
+import * as firebase from 'firebase';
 import React, { useEffect, useState } from 'react';
 import { Alert, Image, Modal, Text, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import MapImage from '../../../assets/icons/png/map.png';
-import { getVehiclesLocalization } from '../../../backend/map/CompanyMap';
 import { getBusStopsLocalzations } from '../../../backend/map/PassengerMap';
 import { getMyVehicles } from '../../../backend/vehicles/Vehicle';
 import { Button } from '../../../components/Button';
@@ -15,15 +15,18 @@ export default function MapPassenger({ navigation, route }) {
 
 	const [myPosition, setMyposition] = useState(null);
 	const [busStops, setBusStops] = useState([]);
-	const [completeVehiclesInfos, setCompleteVehiclesInfos] = useState([]);
+
+	const [realTimeVehicles, setRealTimeVehicles] = useState([]);
+	const [vehiclesByFirestore, setVehiclesByFirestore] = useState([]);
+
 	const [modalVisible, setModalVisible] = useState(false);
 
-	const [localicaoAtual, setLocalicaoAtual] = useState({
+	const initialLocalization = {
 		latitude: -28.2612,
 		longitude: -52.4083,
 		latitudeDelta: 0.05,
 		longitudeDelta: 0.05,
-	});
+	};
 
 	const getMyPosition = async () => {
 		let { status } = await Location.requestPermissionsAsync();
@@ -41,59 +44,59 @@ export default function MapPassenger({ navigation, route }) {
 	};
 
 	const getVehiclesInfos = async () => {
-		const myVehicles = await getMyVehicles(user.uid);
-		const vehicleLocalizations = await getVehiclesLocalization(user.codes_private_vehicles);
-		joinVehicleInfos(myVehicles, vehicleLocalizations);
-	};
-
-	const joinVehicleInfos = (vehicles, vehiclesLocalizations) => {
-		let completeVehiclesInfosUser = [];
-
-		vehiclesLocalizations.forEach((vehicleLocalization) => {
-			let localization = vehicles.find(
-				(vehicle) => vehicle.registration_plate === vehicleLocalization.registration_plate
-			);
-			const userVehicle = Object.assign(localization, vehicleLocalization);
-			completeVehiclesInfosUser.push(userVehicle);
-		});
-
-		setCompleteVehiclesInfos(completeVehiclesInfosUser);
+		const vehiclesFirestore = await getMyVehicles(user.uid);
+		setVehiclesByFirestore(vehiclesFirestore);
 	};
 
 	const getBusStops = async () => {
-		setBusStops(await getBusStopsLocalzations(completeVehiclesInfos));
+		const busStopsLocalzations = await getBusStopsLocalzations(vehiclesByFirestore);
+		setBusStops(busStopsLocalzations);
+	};
+
+	const getAllLocalizationVehicles = async () => {
+		firebase
+			.database()
+			.ref('/real_time_database')
+			.on('value', (snapchot) => {
+				let allLocalizations = snapchot.val();
+				if (allLocalizations) {
+					buildDadosVehicles(allLocalizations, user.codes_private_vehicles);
+				}
+			});
+	};
+
+	const buildDadosVehicles = async (allLocalizations, vehiclesPlate) => {
+		const myVehicles = [];
+
+		vehiclesPlate.forEach((vehiclePlate) => {
+			for (let index in allLocalizations) {
+				if (allLocalizations[index][vehiclePlate]) {
+					let vehicle = {
+						registration_plate: vehiclePlate,
+						...allLocalizations[index][vehiclePlate],
+					};
+					myVehicles.push(vehicle);
+				}
+			}
+		});
+		setRealTimeVehicles(myVehicles);
 	};
 
 	useEffect(() => {
 		getMyPosition();
 		getVehiclesInfos();
 		getBusStops();
+		getAllLocalizationVehicles();
 	}, []);
 
 	return (
 		<View style={styles.container}>
 			<MapView
-				onPress={(e) => {
-					console.log(e.nativeEvent.coordinate);
-				}}
 				style={styles.mapStyle}
-				initialRegion={localicaoAtual}
-				region={localicaoAtual}
+				initialRegion={initialLocalization}
+				region={initialLocalization}
 			>
-				{completeVehiclesInfos.map((vehicle, key) => (
-					<Marker
-						onPress={() =>
-							navigation.navigate('ListVehicleInfosPassenger', {
-								registrationPlate: vehicle.registration_plate,
-								uid: user.uid,
-							})
-						}
-						key={key}
-						coordinate={{ latitude: vehicle.latitude, longitude: vehicle.longitude }}
-						title={vehicle.name}
-						// image={}
-					/>
-				))}
+				{/* Lista paradas de onibus no mapa */}
 				{busStops.map((busStop, key) => (
 					<Marker
 						onPress={() => setModalVisible(!modalVisible)}
@@ -104,6 +107,23 @@ export default function MapPassenger({ navigation, route }) {
 					/>
 				))}
 
+				{/* Lista veiculos no mapa */}
+				{realTimeVehicles.map((vehicle, key) => (
+					<Marker
+						onPress={() =>
+							navigation.navigate('ListVehicleInfosPassenger', {
+								registrationPlate: vehicle.registration_plate,
+								uid: user.uid,
+							})
+						}
+						key={key}
+						coordinate={{ latitude: vehicle.latitude, longitude: vehicle.longitude }}
+						title={vehicle.registration_plate}
+						// image={}
+					/>
+				))}
+
+				{/* Pega minha posição no mapa */}
 				{myPosition ? (
 					<Marker
 						coordinate={myPosition}
@@ -112,6 +132,7 @@ export default function MapPassenger({ navigation, route }) {
 					/>
 				) : null}
 			</MapView>
+
 			<View style={styles.menu}>
 				<TouchableOpacity
 					onPress={() => navigation.navigate('AddNewPrivateVehicle', { uid: user.uid })}
