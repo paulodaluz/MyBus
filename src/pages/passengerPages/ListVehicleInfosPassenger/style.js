@@ -95,7 +95,7 @@ export const styles = StyleSheet.create({
 		width: 40,
 		marginRight: '2%',
 	},
-	toiletPaperImg: {
+	toiletImg: {
 		height: 40,
 		width: 40,
 		marginRight: '2%',

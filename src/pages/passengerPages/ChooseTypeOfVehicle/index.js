@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { Alert, Button, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import QRCodePng from '../../../assets/images/png/qr-code.png';
+import QRCodeIcon from '../../../assets/icons/png/qr_code.png';
 import { addNewPrivateVehicle, updateUserAllInfos } from '../../../backend/users/Passenger';
 import { getVehicle } from '../../../backend/vehicles/Vehicle';
 import { white } from '../../../styles/colors';
@@ -85,7 +85,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 						/>
 					</View>
 					<View style={styles.arroundScanQrCode}>
-						<Image style={styles.qrCodePng} source={QRCodePng} />
+						<Image style={styles.qrCodePng} source={QRCodeIcon} />
 						<Text style={styles.scanQrCode}>Escanear QR-CODE</Text>
 					</View>
 				</View>

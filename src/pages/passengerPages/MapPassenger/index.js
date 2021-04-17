@@ -1,8 +1,11 @@
 import * as Location from 'expo-location';
 import * as firebase from 'firebase';
 import React, { useEffect, useState } from 'react';
-import { Alert, Modal, View } from 'react-native';
+import { Alert, Image, Modal, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
+import bus_stop from '../../../assets/icons/png/map/bus_stop.png';
+import passenger_marker from '../../../assets/icons/png/map/passenger_marker.png';
 import { getBusStopsLocalzations } from '../../../backend/map/PassengerMap';
 import { getMyVehicles } from '../../../backend/vehicles/Vehicle';
 import { Menu } from '../../../components/Menu';
@@ -23,8 +26,8 @@ export default function MapPassenger({ navigation, route }) {
 	const initialLocalization = {
 		latitude: -28.2612,
 		longitude: -52.4083,
-		latitudeDelta: 0.05,
-		longitudeDelta: 0.05,
+		latitudeDelta: 0.15,
+		longitudeDelta: 0.15,
 	};
 
 	const getMyPosition = async () => {
@@ -102,8 +105,9 @@ export default function MapPassenger({ navigation, route }) {
 						key={key}
 						coordinate={{ latitude: busStop.latitude, longitude: busStop.longitude }}
 						title={'Parada de Ônibus'}
-						// image={}
-					/>
+					>
+						<Image source={bus_stop} style={{ height: 40, width: 40 }} />
+					</Marker>
 				))}
 
 				{/* Lista veiculos no mapa */}
@@ -117,18 +121,17 @@ export default function MapPassenger({ navigation, route }) {
 						}
 						key={key}
 						coordinate={{ latitude: vehicle.latitude, longitude: vehicle.longitude }}
-						title={vehicle.registration_plate}
-						// image={}
-					/>
+						title={'Veículo'}
+					>
+						<Image source={bus_icon} style={{ height: 30, width: 30 }} />
+					</Marker>
 				))}
 
 				{/* Pega minha posição no mapa */}
 				{myPosition ? (
-					<Marker
-						coordinate={myPosition}
-						title={'Onde eu estou!'}
-						// image={}
-					/>
+					<Marker coordinate={myPosition} title={'Minha localização!'}>
+						<Image source={passenger_marker} style={{ height: 50, width: 50 }} />
+					</Marker>
 				) : null}
 			</MapView>
 

@@ -2,15 +2,15 @@ import * as Location from 'expo-location';
 import React, { useEffect, useState } from 'react';
 import { Alert, Image, Modal, Text, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import air_conditioner from '../../../assets/icons/png/air_conditioner.png';
 import cross_button from '../../../assets/icons/png/cross_button.png';
+import air_conditioner from '../../../assets/icons/png/functions/air_conditioner.png';
+import price from '../../../assets/icons/png/functions/price.png';
+import toilet from '../../../assets/icons/png/functions/toilet.png';
+import wheelchair from '../../../assets/icons/png/functions/wheelchair.png';
+import wifi from '../../../assets/icons/png/functions/wifi.png';
 import map from '../../../assets/icons/png/map.png';
-import price from '../../../assets/icons/png/price.png';
+import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
 import settings from '../../../assets/icons/png/settings.png';
-import toilet_paper from '../../../assets/icons/png/toilet_paper.png';
-import wheelchair from '../../../assets/icons/png/wheelchair.png';
-import wifi from '../../../assets/icons/png/wifi.png';
-import bus_icon from '../../../assets/images/png/bus_icon.png';
 import { sendLocalizationToFirebase } from '../../../backend/map/DriverMap';
 import { styles } from './style';
 
@@ -139,7 +139,7 @@ export default function MapDriver({ navigation, route }) {
 									<Image style={styles.wheelchairImg} source={wheelchair} />
 								) : null}
 								{vehicleFunctions.washrooms ? (
-									<Image style={styles.toiletPaperImg} source={toilet_paper} />
+									<Image style={styles.toiletPaperImg} source={toilet} />
 								) : null}
 								{vehicleFunctions.air_conditioning ? (
 									<Image style={styles.airConditioningImg} source={air_conditioner} />

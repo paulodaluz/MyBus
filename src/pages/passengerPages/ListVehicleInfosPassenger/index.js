@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import air_conditioner from '../../../assets/icons/png/air_conditioner.png';
-import priceImg from '../../../assets/icons/png/price.png';
-import toilet_paper from '../../../assets/icons/png/toilet_paper.png';
-import wheelchair from '../../../assets/icons/png/wheelchair.png';
-import wifi from '../../../assets/icons/png/wifi.png';
+import air_conditioner from '../../../assets/icons/png/functions/air_conditioner.png';
+import priceImg from '../../../assets/icons/png/functions/price.png';
+import toilet from '../../../assets/icons/png/functions/toilet.png';
+import wheelchair from '../../../assets/icons/png/functions/wheelchair.png';
+import wifi from '../../../assets/icons/png/functions/wifi.png';
 import { getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
 import { styles } from './style';
 
@@ -86,7 +86,7 @@ export default function ListVehicleInfosPassenger({ navigation, route }) {
 						{thereIsWheelchairSupport ? (
 							<Image style={styles.wheelchairImg} source={wheelchair} />
 						) : null}
-						{thereIsBathroom ? <Image style={styles.toiletPaperImg} source={toilet_paper} /> : null}
+						{thereIsBathroom ? <Image style={styles.toiletImg} source={toilet} /> : null}
 						{thereIsAirConditioning ? (
 							<Image style={styles.airConditioningImg} source={air_conditioner} />
 						) : null}
