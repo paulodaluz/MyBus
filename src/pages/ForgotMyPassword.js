@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button } from '../components/Button';
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { WideButton } from '../components/WideButton';
 import { black, darkGrey, grey, lightGray, purple, white } from '../styles/colors';
 
 export default function ForgotMyPassword({ navigation }) {
@@ -24,7 +23,7 @@ export default function ForgotMyPassword({ navigation }) {
 			/>
 
 			<View style={styles.forgotPasswordButton}>
-				<Button
+				<WideButton
 					onPress={() => Alert.alert('Função ainda indispovível')}
 					textButton={'Continuar'}
 					backgroundColor={darkGrey}

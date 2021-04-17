@@ -3,7 +3,7 @@ import { Alert, Text, TextInput, View } from 'react-native';
 import { driverLoginIsValid } from '../../../backend/Login';
 import { getCompanyByRegistrationPlate } from '../../../backend/users/Company';
 import { getVehicleFunction } from '../../../backend/vehicles/Vehicle';
-import { Button } from '../../../components/Button';
+import { WideButton } from '../../../components/WideButton';
 import { getAllVehicles } from '../../../service/VehicleService';
 import { darkGrey, white } from '../../../styles/colors';
 import { styles } from './style';
@@ -81,7 +81,12 @@ export default function LoginDriver({ navigation }) {
 			/>
 
 			<View style={styles.loginButton}>
-				<Button onPress={login} color={white} backgroundColor={darkGrey} textButton={'Entrar'} />
+				<WideButton
+					onPress={login}
+					color={white}
+					backgroundColor={darkGrey}
+					textButton={'Entrar'}
+				/>
 			</View>
 		</View>
 	);

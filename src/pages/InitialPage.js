@@ -4,7 +4,7 @@ import GestureRecognizer from 'react-native-swipe-gestures';
 import BusinessImage from '../assets/images/png/business-deal-cuate.png';
 import BusStopImage from '../assets/images/png/bustop-cuate.png';
 import { getSession, getUserOnFirebase } from '../backend/Login';
-import { Button } from '../components/Button';
+import { WideButton } from '../components/WideButton';
 import { darkGrey, grey, purple, white } from '../styles/colors';
 
 export default function InitialPage({ navigation }) {
@@ -74,7 +74,7 @@ export default function InitialPage({ navigation }) {
 					<Text style={styles.message}>Para continuar faça seu Login ou Cadastre-se</Text>
 
 					<View style={styles.loginButton}>
-						<Button
+						<WideButton
 							onPress={() => navigation.navigate('Login')}
 							textButton={'Login'}
 							style={styles.loginButton}
@@ -83,7 +83,7 @@ export default function InitialPage({ navigation }) {
 					</View>
 
 					<View style={styles.registerButton}>
-						<Button
+						<WideButton
 							onPress={() =>
 								typeUserPage === 'passenger'
 									? navigation.navigate('RegisterPassenger')
@@ -97,7 +97,7 @@ export default function InitialPage({ navigation }) {
 
 					<View style={typeUserPage === 'company' ? styles.driverLogin : null}>
 						{typeUserPage === 'company' ? (
-							<Button
+							<WideButton
 								onPress={() => navigation.navigate('LoginDriver')}
 								textButton={'Login do Motorista'}
 								style={styles.driverLogin}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Text, View, Alert, TextInput, TouchableOpacity } from 'react-native';
+import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { createSession } from '../../../backend/Login';
 import { createCompanyBackend } from '../../../backend/users/Company';
 import { isSecurityPassword, isValidCNPJ, isValidEmail } from '../../../backend/utils/Utils';
+import { WideButton } from '../../../components/WideButton';
 import { darkGrey } from '../../../styles/colors';
-import { Button } from '../../../components/Button';
 import { styles } from './style';
 
 export default function RegisterCompany({ navigation, route }) {
@@ -96,7 +96,7 @@ export default function RegisterCompany({ navigation, route }) {
 			/>
 
 			<View style={styles.registerButton}>
-				<Button onPress={createUser} textButton={'Pronto'} backgroundColor={darkGrey} />
+				<WideButton onPress={createUser} textButton={'Pronto'} backgroundColor={darkGrey} />
 			</View>
 
 			<View style={styles.messagesToUser}>

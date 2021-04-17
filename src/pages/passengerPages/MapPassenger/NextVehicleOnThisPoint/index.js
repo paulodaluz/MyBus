@@ -1,8 +1,8 @@
 import React from 'react';
 import { FlatList, Image, Text, View } from 'react-native';
 import MapImage from '../../../../assets/icons/png/map.png';
-import { Button } from '../../../../components/Button';
 import { Divisor } from '../../../../components/Divisor';
+import { WideButton } from '../../../../components/WideButton';
 import { darkGrey } from '../../../../styles/colors';
 import { styles } from './style';
 
@@ -39,7 +39,11 @@ const NextVehicleOnThisPoint = ({ openOnMap }) => (
 		</View>
 
 		<View style={styles.button}>
-			<Button onPress={openOnMap} backgroundColor={darkGrey} textButton={'Acompanhar no mapa!'} />
+			<WideButton
+				onPress={openOnMap}
+				backgroundColor={darkGrey}
+				textButton={'Acompanhar no mapa!'}
+			/>
 		</View>
 	</View>
 );

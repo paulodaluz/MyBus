@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { createSession, getUserOnFirebase } from '../backend/Login';
-import { Button } from '../components/Button';
+import { WideButton } from '../components/WideButton';
 import * as authService from '../service/AuthService';
 import { darkGrey, grey, lightGray, purple, white } from '../styles/colors';
 
 export default function Login({ navigation }) {
-	const [email, setEmail] = useState('paulo.daluz@gmail.com');
-	// const [email, setEmail] = useState('presidencia@sudesttransp.com.br');
+	// const [email, setEmail] = useState('paulo.daluz@gmail.com');
+	const [email, setEmail] = useState('presidencia@sudesttransp.com.br');
 	const [password, setPassword] = useState('123456');
 
 	const login = async () => {
@@ -55,7 +55,7 @@ export default function Login({ navigation }) {
 			/>
 
 			<View style={styles.loginButton}>
-				<Button
+				<WideButton
 					onPress={login}
 					textButton={'Entrar'}
 					backgroundColor={darkGrey}

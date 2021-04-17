@@ -3,7 +3,7 @@ import { Alert, Text, TextInput, View } from 'react-native';
 import { createSession } from '../../../backend/Login';
 import { createPassengerBackend } from '../../../backend/users/Passenger';
 import { isSecurityPassword, isValidEmail } from '../../../backend/utils/Utils';
-import { Button } from '../../../components/Button';
+import { WideButton } from '../../../components/WideButton';
 import { darkGrey, white } from '../../../styles/colors';
 import { styles } from './style';
 
@@ -83,7 +83,7 @@ export default function RegisterPassenger({ navigation, route }) {
 			/>
 
 			<View style={styles.registerButton}>
-				<Button
+				<WideButton
 					onPress={createUser}
 					textColor={white}
 					textButton={'Pronto'}
