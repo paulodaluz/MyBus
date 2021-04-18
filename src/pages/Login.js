@@ -6,8 +6,8 @@ import * as authService from '../service/AuthService';
 import { darkGrey, grey, lightGray, purple, white } from '../styles/colors';
 
 export default function Login({ navigation }) {
-	// const [email, setEmail] = useState('paulo.daluz@gmail.com');
-	const [email, setEmail] = useState('presidencia@sudesttransp.com.br');
+	const [email, setEmail] = useState('paulo.daluz@gmail.com');
+	// const [email, setEmail] = useState('presidencia@sudesttransp.com.br');
 	const [password, setPassword] = useState('123456');
 
 	const login = async () => {
