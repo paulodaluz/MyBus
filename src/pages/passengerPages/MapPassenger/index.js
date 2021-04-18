@@ -117,6 +117,7 @@ export default function MapPassenger({ navigation, route }) {
 							navigation.navigate('ListVehicleInfosPassenger', {
 								registrationPlate: vehicle.registration_plate,
 								uid: user.uid,
+								status: vehicle.status,
 							})
 						}
 						key={key}

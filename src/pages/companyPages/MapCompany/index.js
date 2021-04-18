@@ -61,7 +61,7 @@ export default function MapCompany({ navigation, route }) {
 				{realTimeVehicles.map((vehicle, key) => (
 					<Marker
 						onPress={() =>
-							navigation.navigate('ListVehicleInfosPassenger', {
+							navigation.navigate('ListVehicleInfosCompany', {
 								registrationPlate: vehicle.registration_plate,
 								uid: user.uid,
 								status: vehicle.status,

@@ -7,8 +7,7 @@ import { white } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function LeaveYourOpinionPassenger({ navigation, route }) {
-	const { uid } = route.params;
-	const { vehicleRegistration } = route.params;
+	const { uid, vehicleRegistration } = route.params;
 
 	const [feedbackRecipient, setFeedbackRecipient] = useState('company');
 	const [vehicleName, setVehicleName] = useState('');
