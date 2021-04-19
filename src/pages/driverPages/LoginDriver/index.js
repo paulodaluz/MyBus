@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Text, TextInput, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { driverLoginIsValid } from '../../../backend/Login';
 import { getCompanyByRegistrationPlate } from '../../../backend/users/Company';
 import { getVehicleFunction } from '../../../backend/vehicles/Vehicle';
+import { Header } from '../../../components/Header';
+import { Input } from '../../../components/Input';
 import { WideButton } from '../../../components/WideButton';
 import { getAllVehicles } from '../../../service/VehicleService';
 import { darkGrey, white } from '../../../styles/colors';
@@ -24,8 +26,8 @@ export default function LoginDriver({ navigation }) {
 		if (loggedDriver) {
 			const myVehicle = getMyVehicle(allVehicles, registrationPlate);
 			const [myCompany, vehicleFunctions] = await Promise.all([
-				getMyCompany(registrationPlate),
-				getFunctionsFromVehicle(registrationPlate),
+				getCompanyByRegistrationPlate({ registrationPlate }),
+				getVehicleFunction({ registrationPlate }),
 			]);
 
 			return navigation.navigate('MapDriver', {
@@ -34,6 +36,7 @@ export default function LoginDriver({ navigation }) {
 				vehicleFunctions,
 			});
 		}
+
 		return Alert.alert('Dados inválidos!');
 	};
 
@@ -41,17 +44,11 @@ export default function LoginDriver({ navigation }) {
 		return vehicles.find((vehicle) => vehicle.registration_plate === myRegistrationPlate);
 	};
 
-	const getMyCompany = async (myRegistrationPlate) => {
-		return await getCompanyByRegistrationPlate({ registrationPlate: myRegistrationPlate });
-	};
-
-	const getFunctionsFromVehicle = async (myRegistrationPlate) => {
-		return await getVehicleFunction({ registrationPlate: myRegistrationPlate });
-	};
-
 	useEffect(() => {
 		async function getAllVehiclesData() {
-			await setAllVehicles(await getAllVehicles());
+			const allVehiclesFromDatabase = await getAllVehicles();
+
+			setAllVehicles(allVehiclesFromDatabase);
 		}
 
 		getAllVehiclesData();
@@ -59,28 +56,29 @@ export default function LoginDriver({ navigation }) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.welcomeBox}>
-				<Text style={styles.centerTitle}>Bem-vindo de volta!</Text>
-
-				<Text style={styles.subTitle}>Faça seu login para começar</Text>
+			<View style={styles.header}>
+				<Header title={'Bem-vindo\nde volta!'} subtitle={'Faça seu login para começar'} />
 			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Placa do veículo"
-				value={registrationPlate}
-				onChangeText={(text) => setRegistrationPlate(text)}
-			/>
+			<View style={styles.input}>
+				<Input
+					placeholder="Placa do veículo"
+					value={registrationPlate}
+					onChangeText={(text) => setRegistrationPlate(text)}
+				/>
+			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Senha"
-				value={password}
-				secureTextEntry={true}
-				onChangeText={(text) => setPassword(text)}
-			/>
+			<View style={styles.input}>
+				<Input
+					placeholder="Senha"
+					textContentType="password"
+					secureTextEntry={true}
+					value={password}
+					onChangeText={(text) => setPassword(text)}
+				/>
+			</View>
 
-			<View style={styles.loginButton}>
+			<View style={styles.button}>
 				<WideButton
 					onPress={login}
 					color={white}
