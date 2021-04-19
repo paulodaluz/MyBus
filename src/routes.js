@@ -1,39 +1,35 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-
-import InitialPage from './pages/InitialPage';
-import Login from './pages/Login';
-import ForgotMyPassword from './pages/ForgotMyPassword';
-
-import MapPassenger from './pages/passengerPages/MapPassenger';
-import RegisterPassenger from './pages/passengerPages/RegisterPassenger';
-import ChooseTypeOfVehicle from './pages/passengerPages/ChooseTypeOfVehicle';
-import SettingsPassenger from './pages/passengerPages/SettingsPassenger';
-import EditProfilePassenger from './pages/passengerPages/EditProfilePassenger';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import ForgotMyPassword from './pages/commonPages/ForgotMyPassword';
+import InitialPage from './pages/commonPages/InitialPage';
+import Login from './pages/commonPages/Login';
+import AskPointsVehicleWillPass from './pages/companyPages/AskPointsVehicleWillPass';
+import AskShowVehicleCode from './pages/companyPages/AskShowVehicleCode';
+import ChoicePointsVehicleWillPass from './pages/companyPages/ChoicePointsVehicleWillPass';
+import CreateNewVehicle from './pages/companyPages/CreateNewVehicle';
+import EditProfileCompany from './pages/companyPages/EditProfileCompany';
+import EditVehicle from './pages/companyPages/EditVehicle';
+import LeaveYourOpinionCompany from './pages/companyPages/LeaveYourOpinionCompany';
+import ListVehicleInfosCompany from './pages/companyPages/ListVehicleInfosCompany';
+import MapCompany from './pages/companyPages/MapCompany';
+import ReceivedFeedbacks from './pages/companyPages/ReceivedFeedbacks';
+import RegisterCompany from './pages/companyPages/RegisterCompany';
+import SettingsCompany from './pages/companyPages/SettingsCompany';
+import ShowVehicleCode from './pages/companyPages/ShowVehicleCode';
+import LoginDriver from './pages/driverPages/LoginDriver';
+import MapDriver from './pages/driverPages/MapDriver';
+import SettingsDriver from './pages/driverPages/SettingsDriver';
 import AddNewPrivateVehicle from './pages/passengerPages/AddNewPrivateVehicle';
+import ChooseTypeOfVehicle from './pages/passengerPages/ChooseTypeOfVehicle';
+import EditProfilePassenger from './pages/passengerPages/EditProfilePassenger';
 import LeaveYourOpinionPassenger from './pages/passengerPages/LeaveYourOpinionPassenger';
 import ListMyLinkedVehicles from './pages/passengerPages/ListMyLinkedVehicles';
 import ListVehicleInfosPassenger from './pages/passengerPages/ListVehicleInfosPassenger';
-
-import MapCompany from './pages/companyPages/MapCompany';
-import RegisterCompany from './pages/companyPages/RegisterCompany';
-import SettingsCompany from './pages/companyPages/SettingsCompany';
-import EditProfileCompany from './pages/companyPages/EditProfileCompany';
-import LeaveYourOpinionCompany from './pages/companyPages/LeaveYourOpinionCompany';
-import ReceivedFeedbacks from './pages/companyPages/ReceivedFeedbacks';
-import CreateNewVehicle from './pages/companyPages/CreateNewVehicle';
-import AskShowVehicleCode from './pages/companyPages/AskShowVehicleCode';
-import ShowVehicleCode from './pages/companyPages/ShowVehicleCode';
-import AskPointsVehicleWillPass from './pages/companyPages/AskPointsVehicleWillPass';
-import ChoicePointsVehicleWillPass from './pages/companyPages/ChoicePointsVehicleWillPass';
-import ListVehicleInfosCompany from './pages/companyPages/ListVehicleInfosCompany';
-import EditVehicle from './pages/companyPages/EditVehicle';
-
-import MapDriver from './pages/driverPages/MapDriver';
-import LoginDriver from './pages/driverPages/LoginDriver';
-import SettingsDriver from './pages/driverPages/SettingsDriver';
+import MapPassenger from './pages/passengerPages/MapPassenger';
+import RegisterPassenger from './pages/passengerPages/RegisterPassenger';
+import SettingsPassenger from './pages/passengerPages/SettingsPassenger';
 
 const Stack = createStackNavigator();
 const headerShown = false;

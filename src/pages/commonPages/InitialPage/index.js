@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
-import BusinessImage from '../assets/images/png/business-deal-cuate.png';
-import BusStopImage from '../assets/images/png/bustop-cuate.png';
-import { getSession, getUserOnFirebase } from '../backend/Login';
-import { WideButton } from '../components/WideButton';
-import { darkGrey, grey, purple, white } from '../styles/colors';
+import BusinessImage from '../../../assets/images/png/business-deal-cuate.png';
+import BusStopImage from '../../../assets/images/png/bustop-cuate.png';
+import { getSession, getUserOnFirebase } from '../../../backend/Login';
+import { WideButton } from '../../../components/WideButton';
+import { darkGrey, purple } from '../../../styles/colors';
+import { styles } from './style';
 
 export default function InitialPage({ navigation }) {
 	const [typeUserPage, setTypeUserPage] = useState('passenger');
@@ -110,88 +111,3 @@ export default function InitialPage({ navigation }) {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		backgroundColor: white,
-	},
-	header: {
-		paddingTop: '10%',
-		width: '100%',
-		height: '32%',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	titles: {
-		flexDirection: 'row',
-		paddingLeft: '4%',
-	},
-	mainTitle: {
-		color: '#343F4B',
-		fontWeight: 'bold',
-		fontSize: 80,
-	},
-	subTitle: {
-		color: darkGrey,
-		paddingTop: '13%',
-		paddingLeft: '2%',
-		fontSize: 24,
-	},
-	loginButton: {
-		marginTop: '5%',
-		height: '10%',
-		width: '85%',
-	},
-	registerButton: {
-		marginTop: '5%',
-		height: '10%',
-		width: '85%',
-	},
-	driverLogin: {
-		marginTop: '5%',
-		height: '10%',
-		width: '85%',
-	},
-	message: {
-		fontSize: 18,
-		color: grey,
-		textAlign: 'center',
-		paddingTop: '8%',
-		paddingBottom: '5%',
-		paddingLeft: '15%',
-		paddingRight: '10%',
-	},
-	bodyPage: {
-		height: '70%',
-		alignItems: 'center',
-	},
-	containerDivider: {
-		paddingVertical: 10,
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	divider: {
-		width: '100%',
-		height: 5,
-		backgroundColor: '#dfdfdf',
-	},
-	activeDivider: {
-		height: '100%',
-		backgroundColor: grey,
-		borderRadius: 5,
-	},
-	imageHeader: {
-		resizeMode: 'contain',
-	},
-	gestureContainer: {
-		width: '100%',
-		height: '90%',
-		display: 'flex',
-		alignItems: 'center',
-	},
-	loginDriver: {
-		height: '90%',
-	},
-});
