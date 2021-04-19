@@ -2,17 +2,17 @@ import { saveFeedback } from '../../service/MyBusFeedback';
 import { getUserOnFirebase } from '../Login';
 
 export async function saveAppFeedbackBackend(uid, feedback) {
-    let opinion = { feedback };
+	let opinion = { feedback };
 
-		const user = await getUserOnFirebase(uid);
+	const user = await getUserOnFirebase(uid);
 
-    opinion.email = user.email;
+	opinion.email = user.email;
 
-		if(user.name) {
-			opinion.name = user.name;
-		}
+	if (user.name) {
+		opinion.name = user.name;
+	}
 
-    await saveFeedback(opinion);
+	await saveFeedback(opinion);
 
-    return ({ response: "Feedback Registrado com Sucesso!" });
+	return { response: 'Feedback Registrado com Sucesso!' };
 }
