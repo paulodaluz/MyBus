@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { grey, purple, white } from '../../../styles/colors';
+import { grey, white } from '../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
@@ -7,45 +7,20 @@ export const styles = StyleSheet.create({
 		backgroundColor: white,
 		alignItems: 'center',
 	},
-	registerBox: {
-		height: '33%',
+	header: {
+		height: '28%',
+		marginBottom: '10%',
 		width: '100%',
-		backgroundColor: purple,
-		borderBottomLeftRadius: 30,
-		borderBottomRightRadius: 30,
-		marginBottom: 40,
-	},
-	centerTitle: {
-		color: white,
-		fontSize: 50,
-		paddingTop: '24%',
-		paddingLeft: 30,
-		paddingRight: 90,
-		fontWeight: 'bold',
-	},
-	subTitle: {
-		fontSize: 20,
-		color: white,
-		paddingTop: 15,
-		paddingLeft: 30,
-		paddingRight: 100,
 	},
 	inputButton: {
 		height: '8%',
 		width: '85%',
-		marginTop: 15,
-		borderWidth: 1,
-		borderColor: grey,
-		backgroundColor: 'transparent',
-		paddingHorizontal: 40,
-		paddingLeft: '5%',
-		fontSize: 16,
+		marginTop: '4%',
 	},
 	registerButton: {
 		marginTop: '5%',
 		height: '8%',
 		width: '85%',
-		marginBottom: '3%',
 	},
 	messagesToUser: {
 		paddingLeft: '15%',

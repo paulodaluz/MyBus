@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { Alert, Text, TextInput, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { createSession } from '../../../backend/Login';
 import { createPassengerBackend } from '../../../backend/users/Passenger';
 import { isSecurityPassword, isValidEmail } from '../../../backend/utils/Utils';
+import { Header } from '../../../components/Header';
+import { Input } from '../../../components/Input';
 import { WideButton } from '../../../components/WideButton';
 import { darkGrey, white } from '../../../styles/colors';
+import { Footer } from './Footer';
 import { styles } from './style';
 
 export default function RegisterPassenger({ navigation, route }) {
-	const [name, setName] = useState('Paulo Ricardo da Luz Júnior');
-	const [email, setEmail] = useState('paulo.daluz@gmail.com');
-	const [password, setPassword] = useState('123456');
-	const [confirmPassword, setConfirmPassword] = useState('123456');
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 
 	const createUser = async () => {
 		if (!email || !password || !confirmPassword) {
@@ -44,43 +47,45 @@ export default function RegisterPassenger({ navigation, route }) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.registerBox}>
-				<Text style={styles.centerTitle}>Cadastre-se</Text>
-
-				<Text style={styles.subTitle}>Para criar sua conta preencha os campos abaixo</Text>
+			<View style={styles.header}>
+				<Header title={'Cadastre-se'} subtitle={'Para criar sua conta preencha os campos abaixo'} />
 			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Nome completo"
-				textContentType="name"
-				value={name}
-				onChangeText={(text) => setName(text)}
-			/>
+			<View style={styles.inputButton}>
+				<Input
+					placeholder="Nome completo"
+					textContentType="name"
+					value={name}
+					onChangeText={(text) => setName(text)}
+				/>
+			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Email"
-				textContentType="emailAddress"
-				value={email}
-				onChangeText={(text) => setEmail(text)}
-			/>
+			<View style={styles.inputButton}>
+				<Input
+					placeholder="Email"
+					textContentType="emailAddress"
+					value={email}
+					onChangeText={(text) => setEmail(text)}
+				/>
+			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Senha"
-				secureTextEntry={true}
-				value={password}
-				onChangeText={(text) => setPassword(text)}
-			/>
+			<View style={styles.inputButton}>
+				<Input
+					placeholder="Senha"
+					secureTextEntry={true}
+					value={password}
+					onChangeText={(text) => setPassword(text)}
+				/>
+			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Confirme sua senha"
-				secureTextEntry={true}
-				value={confirmPassword}
-				onChangeText={(text) => setConfirmPassword(text)}
-			/>
+			<View style={styles.inputButton}>
+				<Input
+					placeholder="Confirme sua senha"
+					secureTextEntry={true}
+					value={confirmPassword}
+					onChangeText={(text) => setConfirmPassword(text)}
+				/>
+			</View>
 
 			<View style={styles.registerButton}>
 				<WideButton
@@ -91,16 +96,7 @@ export default function RegisterPassenger({ navigation, route }) {
 				/>
 			</View>
 
-			<View style={styles.messagesToUser}>
-				<Text style={styles.messageCreatingYourAccount}>
-					Criando sua conta você concorda com nossos{' '}
-					<Text style={styles.termsOfUse}>Termos de Uso</Text>
-				</Text>
-
-				<Text style={styles.doYouHaveAccount}>
-					Você já tem uma conta? <Text style={styles.getIn}>Entrar</Text>
-				</Text>
-			</View>
+			<Footer onPress={() => navigation.navigate('Login')} />
 		</View>
 	);
 }
