@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { grey, white } from '../../../styles/colors';
+import { white } from '../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
@@ -21,27 +21,5 @@ export const styles = StyleSheet.create({
 		marginTop: '5%',
 		height: '8%',
 		width: '85%',
-	},
-	messagesToUser: {
-		paddingLeft: '15%',
-		paddingRight: '15%',
-		marginTop: '3%',
-	},
-	messageCreatingYourAccount: {
-		color: grey,
-		textAlign: 'center',
-	},
-	doYouHaveAccount: {
-		color: grey,
-		textAlign: 'center',
-		marginTop: '5%',
-	},
-	termsOfUse: {
-		textDecorationLine: 'underline',
-		fontWeight: 'bold',
-	},
-	getIn: {
-		textDecorationLine: 'underline',
-		fontWeight: 'bold',
 	},
 });
