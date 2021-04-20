@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { createSession } from '../../../backend/Login';
 import { createCompanyBackend } from '../../../backend/users/Company';
 import { isSecurityPassword, isValidCNPJ, isValidEmail } from '../../../backend/utils/Utils';
+import { Footer } from '../../../components/FooterRegister';
+import { Header } from '../../../components/Header';
+import { Input } from '../../../components/Input';
 import { WideButton } from '../../../components/WideButton';
 import { darkGrey } from '../../../styles/colors';
 import { styles } from './style';
 
-export default function RegisterCompany({ navigation, route }) {
-	const [name, setName] = useState('Sudeste Transportes Coletivos');
-	const [cnpj, setCnpj] = useState('10000178000196');
-	const [email, setEmail] = useState('presidencia@sudesttransp.com.br');
-	const [password, setPassword] = useState('123456');
-	const [confirmPassword, setConfirmPassword] = useState('123456');
+export default function RegisterCompany({ navigation }) {
+	const [name, setName] = useState('');
+
+	const [cnpj, setCnpj] = useState('');
+	const [email, setEmail] = useState('');
+
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 
 	const createUser = async () => {
 		if (!email || !password || !confirmPassword || !name || !cnpj) {
@@ -49,68 +54,64 @@ export default function RegisterCompany({ navigation, route }) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.registerBox}>
-				<Text style={styles.centerTitle}>Cadastre-se</Text>
-
-				<Text style={styles.subTitle}>Para criar sua conta preencha os campos abaixo</Text>
+			<View style={styles.header}>
+				<Header title={'Cadastre-se'} subtitle={'Para criar sua conta preencha os campos abaixo'} />
 			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Nome da empresa"
-				textContentType="name"
-				value={name}
-				onChangeText={(text) => setName(text)}
-			/>
+			<View style={styles.input}>
+				<Input
+					style={styles.inputButton}
+					placeholder="Nome da empresa"
+					textContentType="name"
+					value={name}
+					onChangeText={(text) => setName(text)}
+				/>
+			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="CNPJ"
-				keyboardType="number-pad"
-				value={cnpj}
-				onChangeText={(text) => setCnpj(text)}
-			/>
+			<View style={styles.input}>
+				<Input
+					style={styles.inputButton}
+					placeholder="CNPJ"
+					keyboardType="number-pad"
+					value={cnpj}
+					onChangeText={(text) => setCnpj(text)}
+				/>
+			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Email"
-				textContentType="emailAddress"
-				value={email}
-				onChangeText={(text) => setEmail(text)}
-			/>
+			<View style={styles.input}>
+				<Input
+					style={styles.inputButton}
+					placeholder="Email"
+					textContentType="emailAddress"
+					value={email}
+					onChangeText={(text) => setEmail(text)}
+				/>
+			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Senha"
-				secureTextEntry={true}
-				value={password}
-				onChangeText={(text) => setPassword(text)}
-			/>
+			<View style={styles.input}>
+				<Input
+					style={styles.inputButton}
+					placeholder="Senha"
+					secureTextEntry={true}
+					value={password}
+					onChangeText={(text) => setPassword(text)}
+				/>
+			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Confirme sua senha"
-				secureTextEntry={true}
-				value={confirmPassword}
-				onChangeText={(text) => setConfirmPassword(text)}
-			/>
+			<View style={styles.input}>
+				<Input
+					placeholder="Confirme sua senha"
+					secureTextEntry={true}
+					value={confirmPassword}
+					onChangeText={(text) => setConfirmPassword(text)}
+				/>
+			</View>
 
-			<View style={styles.registerButton}>
+			<View style={styles.button}>
 				<WideButton onPress={createUser} textButton={'Pronto'} backgroundColor={darkGrey} />
 			</View>
 
-			<View style={styles.messagesToUser}>
-				<Text style={styles.messageCreatingYourAccount}>
-					Criando sua conta você concorda com nossos{' '}
-					<Text style={styles.termsOfUse}>Termos de Uso</Text>
-				</Text>
-
-				<TouchableOpacity onPress={() => navigation.navigate('Login')}>
-					<Text style={styles.doYouHaveAccount}>
-						Você já tem uma conta? <Text style={styles.getIn}>Entrar</Text>
-					</Text>
-				</TouchableOpacity>
-			</View>
+			<Footer onPress={() => navigation.navigate('Login')} />
 		</View>
 	);
 }

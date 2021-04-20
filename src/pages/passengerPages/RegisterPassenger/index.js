@@ -3,11 +3,11 @@ import { Alert, View } from 'react-native';
 import { createSession } from '../../../backend/Login';
 import { createPassengerBackend } from '../../../backend/users/Passenger';
 import { isSecurityPassword, isValidEmail } from '../../../backend/utils/Utils';
+import { Footer } from '../../../components/FooterRegister';
 import { Header } from '../../../components/Header';
 import { Input } from '../../../components/Input';
 import { WideButton } from '../../../components/WideButton';
 import { darkGrey, white } from '../../../styles/colors';
-import { Footer } from './Footer';
 import { styles } from './style';
 
 export default function RegisterPassenger({ navigation, route }) {
