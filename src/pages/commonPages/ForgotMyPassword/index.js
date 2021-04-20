@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, View } from 'react-native';
+import { Header } from '../../../components/Header';
+import { Input } from '../../../components/Input';
 import { WideButton } from '../../../components/WideButton';
 import { darkGrey } from '../../../styles/colors';
+import { Footer } from './Footer';
 import { styles } from './style';
 
 export default function ForgotMyPassword({ navigation }) {
@@ -9,19 +12,21 @@ export default function ForgotMyPassword({ navigation }) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.welcomeBox}>
-				<Text style={styles.centerTitle}>Esqueceu sua senha?</Text>
-
-				<Text style={styles.subTitle}>Digite seu e-mail, que lhe enviaremos uma nova senha</Text>
+			<View style={styles.header}>
+				<Header
+					title={'Esqueceu sua senha?'}
+					subtitle={'Digite seu e-mail, que lhe enviaremos uma nova senha'}
+				/>
 			</View>
 
-			<TextInput
-				style={styles.inputButton}
-				placeholder="Email"
-				value={email}
-				textContentType="emailAddress"
-				onChangeText={(text) => setEmail(text)}
-			/>
+			<View style={styles.input}>
+				<Input
+					placeholder="Email"
+					value={email}
+					textContentType="emailAddress"
+					onChangeText={(text) => setEmail(text)}
+				/>
+			</View>
 
 			<View style={styles.forgotPasswordButton}>
 				<WideButton
@@ -31,11 +36,7 @@ export default function ForgotMyPassword({ navigation }) {
 				/>
 			</View>
 
-			<TouchableOpacity onPress={() => navigation.navigate('Login')}>
-				<Text style={styles.proceedToLoginText}>
-					Deseja fazer o login? <Text style={styles.proceedLogin}>Entrar</Text>
-				</Text>
-			</TouchableOpacity>
+			<Footer />
 		</View>
 	);
 }
