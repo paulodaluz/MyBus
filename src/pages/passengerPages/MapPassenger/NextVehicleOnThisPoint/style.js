@@ -34,11 +34,23 @@ export const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		width: '100%',
 	},
-	textVehicle: {
+	containerVehicleTime: {
+		flexDirection: 'row',
+	},
+	vehicleName: {
 		fontSize: 16,
 		fontWeight: 'bold',
 		color: white,
-		marginRight: '2%',
+	},
+	clockIcon: {
+		height: 20,
+		width: 20,
+		marginRight: '8%',
+	},
+	timeVehicle: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		color: white,
 	},
 	button: {
 		height: '20%',

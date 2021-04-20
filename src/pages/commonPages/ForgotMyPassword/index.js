@@ -36,7 +36,7 @@ export default function ForgotMyPassword({ navigation }) {
 				/>
 			</View>
 
-			<Footer />
+			<Footer onPress={() => navigation.navigate('Login')} />
 		</View>
 	);
 }

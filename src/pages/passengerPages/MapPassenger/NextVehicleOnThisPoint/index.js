@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, Image, Text, View } from 'react-native';
+import clock_icon from '../../../../assets/icons/png/clock_icon.png';
 import MapImage from '../../../../assets/icons/png/map.png';
 import { Divisor } from '../../../../components/Divisor';
 import { WideButton } from '../../../../components/WideButton';
@@ -9,18 +10,19 @@ import { styles } from './style';
 const renderItem = ({ item }) => (
 	<View>
 		<View style={styles.item}>
-			<Text style={styles.textVehicle}>{item.vehicleName}</Text>
-			{/* <Image
-						style={}
-						source={icon_clock}
-					/> */}
-			<Text style={styles.textVehicle}>{item.vehicleTime} min</Text>
+			<Text style={styles.vehicleName}>{item.name}</Text>
+
+			<View style={styles.containerVehicleTime}>
+				<Image style={styles.clockIcon} source={clock_icon} />
+
+				<Text style={styles.timeVehicle}>12 min</Text>
+			</View>
 		</View>
 		<Divisor />
 	</View>
 );
 
-const NextVehicleOnThisPoint = ({ openOnMap }) => (
+const NextVehicleOnThisPoint = ({ openOnMap, vehiclesOnThisPoint }) => (
 	<View style={styles.container}>
 		<View style={styles.containerTitle}>
 			<Image style={styles.iconTitle} source={MapImage} />
@@ -29,10 +31,7 @@ const NextVehicleOnThisPoint = ({ openOnMap }) => (
 
 		<View style={styles.body}>
 			<FlatList
-				data={[
-					{ id: '1', vehicleName: 'L01 - Vera Cruz - São Cristóvão', vehicleTime: 12 },
-					{ id: '2', vehicleName: 'L07 - Hipica - Planaltina', vehicleTime: 18 },
-				]}
+				data={vehiclesOnThisPoint}
 				renderItem={renderItem}
 				keyExtractor={(item) => item.id}
 			/>

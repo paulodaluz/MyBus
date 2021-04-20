@@ -22,6 +22,7 @@ export default function MapPassenger({ navigation, route }) {
 	const [vehiclesByFirestore, setVehiclesByFirestore] = useState([]);
 
 	const [modalVisible, setModalVisible] = useState(false);
+	const [vehiclesOnThisPoint, setVehiclesOnThisPoint] = useState(false);
 
 	const initialLocalization = {
 		latitude: -28.2612,
@@ -84,6 +85,17 @@ export default function MapPassenger({ navigation, route }) {
 		setRealTimeVehicles(myVehicles);
 	};
 
+	const getNextVehiclesInThisPoint = (busStop) => {
+		setModalVisible(!modalVisible);
+
+		const vehiclesInThisPoint = vehiclesByFirestore.filter(
+			(vehicle) => vehicle.registration_plate === busStop.vehicle_plate
+		);
+		console.log({ vehiclesInThisPoint });
+
+		setVehiclesOnThisPoint(vehiclesInThisPoint);
+	};
+
 	useEffect(() => {
 		getVehiclesInfos();
 		getBusStops();
@@ -101,7 +113,7 @@ export default function MapPassenger({ navigation, route }) {
 				{/* Lista paradas de onibus no mapa */}
 				{busStops.map((busStop, key) => (
 					<Marker
-						onPress={() => setModalVisible(!modalVisible)}
+						onPress={() => getNextVehiclesInThisPoint(busStop)}
 						key={key}
 						coordinate={{ latitude: busStop.latitude, longitude: busStop.longitude }}
 						title={'Parada de Ônibus'}
@@ -151,7 +163,10 @@ export default function MapPassenger({ navigation, route }) {
 					setModalVisible(!modalVisible);
 				}}
 			>
-				<NextVehicleOnThisPoint openOnMap={() => setModalVisible(!modalVisible)} />
+				<NextVehicleOnThisPoint
+					openOnMap={() => setModalVisible(!modalVisible)}
+					vehiclesOnThisPoint={vehiclesOnThisPoint}
+				/>
 			</Modal>
 		</View>
 	);
