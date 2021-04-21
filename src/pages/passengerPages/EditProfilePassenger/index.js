@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, Text, TextInput, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import { getPassenger, updateUserAllInfos } from '../../../backend/users/Passenger';
 import { isValidCPF } from '../../../backend/utils/Utils';
-import { white } from '../../../styles/colors';
+import { Header } from '../../../components/Header';
+import { Input } from '../../../components/Input';
+import { WideButton } from '../../../components/WideButton';
+import { darkGrey } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function EditProfileCompany({ navigation, route }) {
@@ -11,7 +14,7 @@ export default function EditProfileCompany({ navigation, route }) {
 	const [name, setName] = useState('');
 	const [cpf, setCpf] = useState('');
 	const [email, setEmail] = useState('');
-	const [password] = useState('******');
+	const password = '******';
 	const [bornDate, setBornDate] = useState('');
 
 	const [id, setId] = useState('');
@@ -21,9 +24,7 @@ export default function EditProfileCompany({ navigation, route }) {
 			const user = await getPassenger(uid);
 
 			setId(user.id);
-
 			setName(user.name);
-
 			setEmail(user.email);
 
 			if (user.cpf) {
@@ -36,7 +37,7 @@ export default function EditProfileCompany({ navigation, route }) {
 		}
 
 		getData();
-	}, []);
+	}, [uid]);
 
 	const updateUser = async () => {
 		if (cpf) {
@@ -52,53 +53,64 @@ export default function EditProfileCompany({ navigation, route }) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>Editar Perfil</Text>
+			<View style={styles.header}>
+				<Header title={'Editar Perfil'} />
 			</View>
 
 			<View style={styles.body}>
-				<Text style={styles.nameOfInput}>Nome:</Text>
-				<TextInput
-					style={styles.inputButton}
-					placeholder="Nome completo"
-					textContentType="name"
-					value={name}
-					onChangeText={(text) => setName(text)}
-				/>
-
-				<Text style={styles.nameOfInput}>CPF:</Text>
-				<TextInput
-					style={styles.inputButton}
-					placeholder="CPF"
-					keyboardType="number-pad"
-					value={cpf}
-					onChangeText={(text) => setCpf(text)}
-				/>
-
-				<Text style={styles.nameOfInput}>Email:</Text>
+				<Text style={styles.fieldName}>Nome:</Text>
 				<View style={styles.inputButton}>
-					<Text style={styles.unmutableInput}>{email}</Text>
+					<Input
+						style={styles.inputButton}
+						placeholder="Nome completo"
+						textContentType="name"
+						value={name}
+						onChangeText={(text) => setName(text)}
+					/>
 				</View>
 
-				<Text style={styles.nameOfInput}>Senha:</Text>
-				<TextInput
-					style={styles.inputButton}
-					placeholder="Senha"
-					secureTextEntry={true}
-					value={password}
-				/>
+				<Text style={styles.fieldName}>CPF:</Text>
+				<View style={styles.inputButton}>
+					<Input
+						style={styles.inputButton}
+						placeholder="CPF"
+						keyboardType="number-pad"
+						value={cpf}
+						onChangeText={(text) => setCpf(text)}
+					/>
+				</View>
 
-				<Text style={styles.nameOfInput}>Data de Nascimento:</Text>
-				<TextInput
-					style={styles.inputButton}
-					placeholder="Data de Nascimento"
-					value={bornDate}
-					keyboardType="number-pad"
-					onChangeText={(date) => setBornDate(date)}
-				/>
+				<Text style={styles.fieldName}>Email:</Text>
+				<View style={styles.unmutableInput}>
+					<Text style={styles.unmutableInputText}>{email}</Text>
+				</View>
+
+				<Text style={styles.fieldName}>Senha:</Text>
+				<View style={styles.inputButton}>
+					<Input
+						style={styles.inputButton}
+						placeholder="Senha"
+						secureTextEntry={true}
+						value={password}
+					/>
+				</View>
+
+				<Text style={styles.fieldName}>Data de Nascimento:</Text>
+				<View style={styles.inputButton}>
+					<Input
+						placeholder="Data de Nascimento"
+						value={bornDate}
+						keyboardType="number-pad"
+						onChangeText={(date) => setBornDate(date)}
+					/>
+				</View>
 
 				<View style={styles.updateButton}>
-					<Button onPress={() => updateUser()} color={white} title="Atualizar" />
+					<WideButton
+						onPress={() => updateUser()}
+						backgroundColor={darkGrey}
+						textButton="Atualizar"
+					/>
 				</View>
 			</View>
 		</View>

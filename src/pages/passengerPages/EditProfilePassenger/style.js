@@ -1,56 +1,44 @@
 import { StyleSheet } from 'react-native';
-import { darkGrey, grey, purple, white } from '../../../styles/colors';
+import { grey } from '../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
 		display: 'flex',
 	},
-	boxTitle: {
-		backgroundColor: purple,
-		height: '16%',
+	header: {
+		height: '18%',
 		width: '100%',
-		borderBottomLeftRadius: 30,
-		borderBottomRightRadius: 30,
-	},
-	title: {
-		paddingTop: '15%',
-		paddingLeft: '8%',
-		fontWeight: 'bold',
-		color: white,
-		fontSize: 50,
 	},
 	body: {
-		paddingTop: '8%',
+		paddingTop: '2%',
 		paddingRight: '10%',
 		paddingLeft: '10%',
 	},
-	nameOfInput: {
+	fieldName: {
 		color: grey,
 		fontSize: 16,
 		paddingTop: '6%',
+		paddingBottom: '1%',
 	},
 	inputButton: {
+		height: '9%',
+		width: '100%',
+	},
+	unmutableInput: {
 		height: '9%',
 		width: '100%',
 		borderWidth: 1,
 		borderColor: grey,
 		backgroundColor: 'transparent',
-		paddingHorizontal: 40,
 		paddingLeft: '5%',
-		fontSize: 16,
 	},
-	unmutableInput: {
-		paddingTop: '7%',
+	unmutableInputText: {
+		paddingTop: '6%',
 		fontSize: 17,
 		color: grey,
 	},
 	updateButton: {
-		marginTop: 40,
-		backgroundColor: darkGrey,
-		borderRadius: 14,
 		height: '9%',
-		width: '100%',
-		paddingTop: '4%',
-		marginBottom: '3%',
+		marginTop: '10%',
 	},
 });
