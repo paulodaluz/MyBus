@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Alert, Button, Image, Text, TextInput, View } from 'react-native';
-import QRCodeIcon from '../../../assets/icons/png/qr_code.png';
+import { Alert, Text, View } from 'react-native';
 import { addNewPrivateVehicle } from '../../../backend/users/Passenger';
 import { getVehicle } from '../../../backend/vehicles/Vehicle';
-import { white } from '../../../styles/colors';
+import { Input } from '../../../components/Input';
+import { QRCode } from '../../../components/QRCode';
+import { WideButton } from '../../../components/WideButton';
+import { purple } from '../../../styles/colors';
+import { Header } from './Header';
 import { styles } from './style';
 
-export default function AddNewPrivateVehicle({ navigation, route }) {
+export default function AddNewPrivateVehicle({ route }) {
 	const { uid } = route.params;
 	const [vehicleCode, setVehicleCode] = useState('');
 
@@ -27,43 +30,32 @@ export default function AddNewPrivateVehicle({ navigation, route }) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>Adicionar novo Veículo</Text>
-				<Text style={styles.subTitle}>
-					Adicione o código de um novo veículo para ver suas informações
-				</Text>
-			</View>
+			<Header />
 
 			<View style={styles.body}>
-				<Text style={styles.paragraph}>
+				<Text style={styles.message}>
 					Veículos Privados, que necessitam de um códdigo de acesso
 				</Text>
 
-				<View style={styles.inputVehicleCodeCountainer}>
-					<View style={styles.containerVehicleCode}>
-						<TextInput
+				<View style={styles.containerInputCode}>
+					<View style={styles.inputText}>
+						<Input
 							placeholder="Código de seu Veículo"
-							style={
-								vehicleCode.length > 0
-									? { ...styles.inputVehicleCode, fontSize: 40, textAlign: 'center' }
-									: { ...styles.inputVehicleCode, fontSize: 18 }
-							}
 							value={vehicleCode}
 							onChangeText={(text) => setVehicleCode(text)}
 						/>
 					</View>
 
-					<View style={styles.arroundScanQrCode}>
-						<Image style={styles.qrCodePng} source={QRCodeIcon} />
-						<Text style={styles.scanQrCode}>Escanear QR-CODE</Text>
+					<View style={styles.qrcode}>
+						<QRCode />
 					</View>
 				</View>
 
-				<View style={styles.continueButton}>
-					<Button onPress={addNewVehicle} color={white} title="Continuar" />
+				<View style={styles.button}>
+					<WideButton onPress={addNewVehicle} textButton={'Continuar'} backgroundColor={purple} />
 				</View>
 
-				<Text style={styles.observation}>
+				<Text style={styles.message}>
 					Para visualizar o novo veículo você deve listar os veículos privados!
 				</Text>
 			</View>
