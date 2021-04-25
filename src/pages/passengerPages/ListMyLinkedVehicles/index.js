@@ -1,10 +1,12 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { removePrivateVehicle } from '../../../backend/users/Passenger';
 import { getMyVehicles } from '../../../backend/vehicles/Vehicle';
+import { Header } from './Header';
+import { BoxWithInfoVehicles } from './List';
 import { styles } from './style';
 
-export default function ListMyLinkedVehicles({ navigation, route }) {
+export default function ListMyLinkedVehicles({ route }) {
 	const { uid } = route.params;
 
 	const [vehicles, setVehicles] = useState([]);
@@ -23,34 +25,20 @@ export default function ListMyLinkedVehicles({ navigation, route }) {
 	}, []);
 
 	const renderVehicle = ({ item }) => (
-		<View style={styles.box}>
-			<Text style={styles.infoName}>Nome do Veículo:</Text>
-			<Text style={styles.info}>{item.name}</Text>
-			<Text style={styles.infoName}>Código para Passageiros:</Text>
-			<Text style={styles.info}>{item.id_to_passengers}</Text>
-			<Text style={styles.infoName}>Situação Atual:</Text>
-			<Text style={styles.info}>{'Operando Normalmente'}</Text>
-
-			<View style={styles.vehicleFunctions}>
-				<Text style={styles.price} />
-			</View>
-			<View style={styles.containerDivider}>
-				<View style={styles.divider} />
-			</View>
-
-			<TouchableOpacity onPress={() => removeVehicle(item)} style={styles.removeButton}>
-				<Text style={styles.buttonText}>Remover</Text>
-			</TouchableOpacity>
-		</View>
+		<BoxWithInfoVehicles item={item} onPress={() => removeVehicle(item)} />
 	);
 
 	return (
 		<View>
-			<View style={styles.header}>
-				<Text style={styles.title}>Meus Veículos Privados</Text>
-			</View>
+			<Header />
+
 			<View style={styles.body}>
-				<FlatList data={vehicles} renderItem={renderVehicle} keyExtractor={(item) => item.id} />
+				<FlatList
+					showsVerticalScrollIndicator={false}
+					data={vehicles}
+					renderItem={renderVehicle}
+					keyExtractor={(item) => item.id}
+				/>
 			</View>
 		</View>
 	);
