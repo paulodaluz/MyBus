@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Alert, Button, Text, TextInput, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import { saveAppFeedbackBackend } from '../../../backend/feedbacks/MyBusFeedbacks';
-import { white } from '../../../styles/colors';
+import { Header } from '../../../components/Header';
+import { Input } from '../../../components/Input';
+import { WideButton } from '../../../components/WideButton';
+import { purple } from '../../../styles/colors';
+import { RangeAppMyBus } from './RangeAppMyBus';
 import { styles } from './style';
 
-export default function LeaveYourOpinionCompany({ navigation, route }) {
+export default function LeaveYourOpinionCompany({ route }) {
 	const { uid } = route.params;
 
 	const [feedback, setFeedback] = useState('');
@@ -21,34 +25,31 @@ export default function LeaveYourOpinionCompany({ navigation, route }) {
 	};
 
 	return (
-		<View>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>Deixe sua opinião</Text>
-				<Text style={styles.subTitle}>Deixe-nos seu feedback!</Text>
+		<View style={styles.container}>
+			<View style={styles.header}>
+				<Header title={'Deixe sua\nopinião'} subtitle={'Deixe-nos seu feedback!'} />
 			</View>
 
-			<View style={styles.feedbackRecipient}>
-				<View style={{ ...styles.buttonFeedbackApp, backgroundColor: white }}>
-					{/* <Image
-						style={{width: 30, height: 30}}
-						source={MyBusIcon}
-					/> */}
-					<Text style={styles.textFeedbackApp}>Applicativo MyBus</Text>
-				</View>
-			</View>
+			<RangeAppMyBus />
 
 			<View style={styles.body}>
 				<Text style={styles.fieldName}>Feedback:</Text>
-				<TextInput
-					style={styles.inputButtonFeedback}
-					placeholder="Digite seu feedback"
-					textContentType="name"
-					value={feedback}
-					onChangeText={(text) => setFeedback(text)}
-				/>
+
+				<View style={styles.inputButtonFeedback}>
+					<Input
+						placeholder="Digite seu feedback"
+						textContentType="name"
+						value={feedback}
+						onChangeText={(text) => setFeedback(text)}
+					/>
+				</View>
 
 				<View style={styles.sendButton}>
-					<Button onPress={() => saveFeedbackApp()} title="Enviar" color={white} />
+					<WideButton
+						onPress={() => saveFeedbackApp()}
+						textButton={'Enviar'}
+						backgroundColor={purple}
+					/>
 				</View>
 
 				<Text style={styles.message}>
