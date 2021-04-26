@@ -4,10 +4,10 @@ import { saveCompanyFeedbackBackend } from '../../../backend/feedbacks/CompanyFe
 import { saveAppFeedbackBackend } from '../../../backend/feedbacks/MyBusFeedbacks';
 import { getVehicle } from '../../../backend/vehicles/Vehicle';
 import { Header } from '../../../components/Header';
-import { Input } from '../../../components/Input';
 import { WideButton } from '../../../components/WideButton';
 import { purple } from '../../../styles/colors';
 import { DynamicButton } from './DynamicButton';
+import { DynamicInputs } from './DynamicInputs';
 import { styles } from './style';
 
 export default function LeaveYourOpinionPassenger({ navigation, route }) {
@@ -69,7 +69,7 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 	return (
 		<View>
 			<View style={styles.header}>
-				<Header title={'Deixe sua opinião'} subtitle={'Escolha para quem é o seu feedback!'} />
+				<Header title={'Deixe sua\nopinião'} subtitle={'Escolha para quem é o seu feedback!'} />
 			</View>
 
 			<DynamicButton
@@ -83,37 +83,13 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 			/>
 
 			<View style={styles.body}>
-				{feedbackRecipient === 'company' && (
-					<View style={styles.hideBusNameButton}>
-						<Text style={styles.fieldName}>Nome do Veículo:</Text>
-						<View style={styles.inputButtonTransport}>
-							<Input
-								placeholder="Digite o nome do transporte"
-								textContentType="name"
-								value={vehicleName}
-								onChangeText={(text) => setVehicleName(text)}
-							/>
-						</View>
-					</View>
-				)}
-
-				<Text style={styles.fieldName}>Feedback:</Text>
-				<View style={styles.inputButtonFeedback}>
-					<Input
-						placeholder="Digite seu feedback"
-						textContentType="name"
-						value={feedback}
-						onChangeText={(text) => setFeedback(text)}
-					/>
-				</View>
-
-				{/* <DynamicInputs
+				<DynamicInputs
 					vehicleNameValue={vehicleName}
 					onChangeTextVehicleName={(text) => setVehicleName(text)}
 					feedbackValue={feedback}
 					onChangeTextFeedback={(text) => setFeedback(text)}
 					feedbackRecipient={feedbackRecipient}
-				/> */}
+				/>
 
 				<View style={styles.button}>
 					<WideButton

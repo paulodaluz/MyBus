@@ -11,11 +11,12 @@ const DynamicInputs = ({
 	feedbackRecipient,
 }) => {
 	return (
-		<View style={styles.body}>
+		<View style={styles.container}>
 			{feedbackRecipient === 'company' && (
-				<View style={styles.hideBusNameButton}>
+				<View style={styles.hideBusNameInput}>
 					<Text style={styles.fieldName}>Nome do Veículo:</Text>
-					<View style={styles.inputButtonTransport}>
+
+					<View style={styles.inputTransportName}>
 						<Input
 							placeholder="Digite o nome do transporte"
 							textContentType="name"
@@ -26,8 +27,9 @@ const DynamicInputs = ({
 				</View>
 			)}
 
-			<Text style={styles.fieldName}>Feedback:</Text>
-			<View style={styles.inputButtonFeedback}>
+			<Text style={{ ...styles.fieldName, ...styles.inputSpacing }}>Feedback:</Text>
+
+			<View style={styles.inputFeedback}>
 				<Input
 					placeholder="Digite seu feedback"
 					textContentType="name"

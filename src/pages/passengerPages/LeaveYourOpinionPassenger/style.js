@@ -6,30 +6,8 @@ export const styles = StyleSheet.create({
 		height: '29%',
 	},
 	body: {
-		paddingTop: '2%',
 		height: '60%',
 		alignItems: 'center',
-	},
-	hideBusNameButton: {
-		height: '20%',
-		width: '100%',
-	},
-	fieldName: {
-		color: grey,
-		fontWeight: 'bold',
-		alignSelf: 'flex-start',
-		paddingLeft: '5%',
-		paddingTop: '2%',
-	},
-	inputButtonTransport: {
-		height: '45%',
-		width: '90%',
-		marginLeft: '5%',
-	},
-	inputButtonFeedback: {
-		height: '30%',
-		width: '90%',
-		fontSize: 20,
 	},
 	button: {
 		marginTop: '8%',
@@ -40,6 +18,7 @@ export const styles = StyleSheet.create({
 	message: {
 		fontSize: 18,
 		color: grey,
+		marginTop: '2%',
 		textAlign: 'center',
 	},
 });
