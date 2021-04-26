@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { grey } from '../../../styles/colors';
+import { grey, white } from '../../../styles/colors';
 
 export const styles = StyleSheet.create({
+	container: {
+		backgroundColor: white,
+	},
 	header: {
 		height: '29%',
 	},

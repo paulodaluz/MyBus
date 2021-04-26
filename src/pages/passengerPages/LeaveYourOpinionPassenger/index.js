@@ -67,7 +67,7 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 	}, [feedbackRecipient]);
 
 	return (
-		<View>
+		<View style={styles.container}>
 			<View style={styles.header}>
 				<Header title={'Deixe sua\nopinião'} subtitle={'Escolha para quem é o seu feedback!'} />
 			</View>
