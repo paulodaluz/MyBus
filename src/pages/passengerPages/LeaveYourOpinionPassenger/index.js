@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import { saveCompanyFeedbackBackend } from '../../../backend/feedbacks/CompanyFeedbacks';
 import { saveAppFeedbackBackend } from '../../../backend/feedbacks/MyBusFeedbacks';
 import { getVehicle } from '../../../backend/vehicles/Vehicle';
-import { white } from '../../../styles/colors';
+import { Header } from '../../../components/Header';
+import { WideButton } from '../../../components/WideButton';
+import { purple } from '../../../styles/colors';
+import { DynamicButton } from './DynamicButton';
+import { DynamicInputs } from './DynamicInputs';
 import { styles } from './style';
 
 export default function LeaveYourOpinionPassenger({ navigation, route }) {
@@ -59,76 +63,40 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 		getInfosOfVehicle();
 	}, []);
 
+	useEffect(() => {
+		cleanInputs();
+	}, [feedbackRecipient]);
+
 	return (
-		<View>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>Deixe sua opinião</Text>
-				<Text style={styles.subTitle}>Escolha para quem é o seu feedback!</Text>
+		<View style={styles.container}>
+			<View style={styles.header}>
+				<Header title={'Deixe sua\nopinião'} subtitle={'Escolha para quem é o seu feedback!'} />
 			</View>
 
-			<View style={styles.feedbackRecipient}>
-				<TouchableOpacity
-					onPress={() => {
-						setFeedbackRecipient('company'), cleanInputs();
-					}}
-					style={
-						feedbackRecipient === 'company'
-							? { ...styles.buttonFeedbackTransport, backgroundColor: '#E7E9ED' }
-							: { ...styles.buttonFeedbackTransport, backgroundColor: white }
-					}
-				>
-					{/* <Image
-								style={{width: 30, height: 30}}
-								source={MyBusIcon}
-							/> */}
-					<Text style={styles.textFeedbackTransport}>Transporte</Text>
-				</TouchableOpacity>
-
-				<TouchableOpacity
-					onPress={() => {
-						setFeedbackRecipient('app'), cleanInputs();
-					}}
-					style={
-						feedbackRecipient === 'app'
-							? { ...styles.buttonFeedbackApp, backgroundColor: '#E7E9ED' }
-							: { ...styles.buttonFeedbackApp, backgroundColor: white }
-					}
-				>
-					{/* <Image
-								style={{width: 30, height: 30}}
-								source={TransportIcon}
-							/> */}
-					<Text style={styles.textFeedbackApp}>Applicativo MyBus</Text>
-				</TouchableOpacity>
-			</View>
+			<DynamicButton
+				onPressFirstButton={() => {
+					setFeedbackRecipient('company');
+				}}
+				onPressSecondButton={() => {
+					setFeedbackRecipient('app');
+				}}
+				feedbackRecipient={feedbackRecipient}
+			/>
 
 			<View style={styles.body}>
-				{feedbackRecipient === 'company' && (
-					<View style={styles.hideBusNameButton}>
-						<Text style={styles.fieldName}>Nome do Veículo:</Text>
-						<TextInput
-							style={styles.inputButtonTransport}
-							placeholder="Digite o nome do transporte"
-							textContentType="name"
-							value={vehicleName}
-							onChangeText={(text) => setVehicleName(text)}
-						/>
-					</View>
-				)}
-				<Text style={styles.fieldName}>Feedback:</Text>
-				<TextInput
-					style={styles.inputButtonFeedback}
-					placeholder="Digite seu feedback"
-					textContentType="name"
-					value={feedback}
-					onChangeText={(text) => setFeedback(text)}
+				<DynamicInputs
+					vehicleNameValue={vehicleName}
+					onChangeTextVehicleName={(text) => setVehicleName(text)}
+					feedbackValue={feedback}
+					onChangeTextFeedback={(text) => setFeedback(text)}
+					feedbackRecipient={feedbackRecipient}
 				/>
 
-				<View style={styles.sendButton}>
-					<Button
+				<View style={styles.button}>
+					<WideButton
 						onPress={feedbackRecipient === 'company' ? saveFeedbackTransport : saveFeedbackApp}
-						title="Enviar"
-						color={white}
+						textButton="Enviar"
+						backgroundColor={purple}
 					/>
 				</View>
 
