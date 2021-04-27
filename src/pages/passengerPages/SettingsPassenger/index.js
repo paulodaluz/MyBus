@@ -1,9 +1,12 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { Linking, Switch, Text, TouchableOpacity, View } from 'react-native';
+import { Linking, View } from 'react-native';
 import { getSession, removeSession } from '../../../backend/Login';
+import { OptionConfig } from '../../../components/OptionConfig';
+import { ButtonSwitchConfig } from './ButtonSwitchConfig';
+import { Header } from './Header';
 import { styles } from './style';
 
-export default function SettingsPassenger({ navigation, route }) {
+export default function SettingsPassenger({ navigation }) {
 	const [uid, setUid] = useState('');
 
 	const [isEnabled, setIsEnabled] = useState(false);
@@ -14,81 +17,56 @@ export default function SettingsPassenger({ navigation, route }) {
 		navigation.navigate('InitialPage');
 	};
 
-	useLayoutEffect(() => {
-		const getSessionFromStorange = async () => {
-			setUid(await getSession());
-		};
+	const getSessionFromStorange = async () => {
+		setUid(await getSession());
+	};
 
+	useLayoutEffect(() => {
 		getSessionFromStorange();
 	});
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>Configurações</Text>
-			</View>
+			<Header />
 
-			<View style={styles.allConfigOptions}>
-				<View style={styles.groupOfCategories}>
-					<View style={styles.configOption}>
-						<Text style={styles.nameOfConfig}>Apenas veículos privados</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={{ false: '#D7DEDA', true: '#D7DEDA' }}
-							thumbColor="#13E36F"
-							ios_backgroundColor="#D7DEDA"
-							onValueChange={toggleSwitch}
-							value={isEnabled}
-							tex
-						/>
-					</View>
+			<View style={styles.listOfOptions}>
+				<View style={styles.groupedCategories}>
+					<ButtonSwitchConfig value={isEnabled} onValueChange={toggleSwitch} />
 
-					<TouchableOpacity
-						style={styles.configOption}
+					<OptionConfig
+						textButton={'Adicionar novo veículo privado'}
 						onPress={() => navigation.navigate('AddNewPrivateVehicle', { uid })}
-					>
-						<Text style={styles.nameOfConfig}>Adicionar novo veículo privado</Text>
-					</TouchableOpacity>
+					/>
 
-					<TouchableOpacity
-						style={styles.configOption}
+					<OptionConfig
+						textButton={'Remover veículo privado'}
 						onPress={() => navigation.navigate('ListMyLinkedVehicles', { uid })}
-					>
-						<Text style={styles.nameOfConfig}>Remover veículo privado</Text>
-					</TouchableOpacity>
+					/>
 				</View>
 
-				<View style={styles.groupOfCategories}>
-					<TouchableOpacity
-						style={styles.configOption}
+				<View style={styles.groupedCategories}>
+					<OptionConfig
+						textButton={'Editar Perfil'}
 						onPress={() => navigation.navigate('EditProfilePassenger', { uid })}
-					>
-						<Text style={styles.nameOfConfig}>Editar Perfil</Text>
-					</TouchableOpacity>
+					/>
 				</View>
 
-				<View style={styles.groupOfCategories}>
-					<TouchableOpacity
-						style={styles.configOption}
+				<View style={styles.groupedCategories}>
+					<OptionConfig
+						textButton={'Deixe sua opinião'}
 						onPress={() => navigation.navigate('LeaveYourOpinionPassenger', { uid })}
-					>
-						<Text style={styles.nameOfConfig}>Deixe sua opinião</Text>
-					</TouchableOpacity>
+					/>
 				</View>
 
-				<View style={styles.groupOfCategories}>
-					<TouchableOpacity
-						style={styles.configOption}
+				<View style={styles.groupedCategories}>
+					<OptionConfig
+						textButton={'Entre em contato conosco'}
 						onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone=55540808')}
-					>
-						<Text style={styles.nameOfConfig}>Entre em contato conosco</Text>
-					</TouchableOpacity>
+					/>
 				</View>
 
-				<View style={styles.groupOfCategories}>
-					<TouchableOpacity style={styles.configOption} onPress={() => logout()}>
-						<Text style={styles.nameOfConfig}>Sair da conta</Text>
-					</TouchableOpacity>
+				<View style={styles.groupedCategories}>
+					<OptionConfig textButton={'Sair da conta'} onPress={() => logout()} />
 				</View>
 			</View>
 		</View>
