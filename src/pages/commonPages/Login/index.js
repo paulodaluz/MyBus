@@ -9,8 +9,8 @@ import { darkGrey } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function Login({ navigation }) {
-	const [email, setEmail] = useState('paulo.daluz@gmail.com');
-	// const [email, setEmail] = useState('presidencia@sudesttransp.com.br');
+	// const [email, setEmail] = useState('paulo.daluz@gmail.com');
+	const [email, setEmail] = useState('presidencia@sudesttransp.com.br');
 	const [password, setPassword] = useState('123456');
 
 	const login = async () => {

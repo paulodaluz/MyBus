@@ -32,6 +32,7 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 
 		if (vehicleRegistration) {
 			await saveCompanyFeedbackBackend(uid, vehicle, null, feedback);
+			cleanInputs();
 			return Alert.alert('Feedback registrado!');
 		}
 
@@ -41,7 +42,7 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 		return Alert.alert('Feedback registrado!');
 	};
 
-	const cleanInputs = async () => {
+	const cleanInputs = () => {
 		setFeedback('');
 		setVehicleName('');
 	};
