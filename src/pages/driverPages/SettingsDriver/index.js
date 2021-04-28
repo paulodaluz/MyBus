@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Linking } from 'react-native';
+import { Linking, View } from 'react-native';
 import { removeSession } from '../../../backend/Login';
+import { Header } from '../../../components/Header';
+import { OptionConfig } from '../../../components/OptionConfig';
 import { styles } from './style';
 
 export default function SettingsDriver({ navigation, route }) {
@@ -13,23 +15,21 @@ export default function SettingsDriver({ navigation, route }) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>Configurações</Text>
+			<View style={styles.header}>
+				<Header title={'Configurações'} />
 			</View>
 
-			<View style={styles.allConfigOptions}>
-				<View style={styles.groupOfCategories}>
-					<TouchableOpacity
-						style={styles.configOption}
+			<View style={styles.listOfOptions}>
+				<View style={styles.groupedCategories}>
+					<OptionConfig
+						textButton={'Feedbacks recebidos'}
 						onPress={() => navigation.navigate('ReceivedFeedbacks', { uid })}
-					>
-						<Text style={styles.nameOfConfig}>Feedbacks recebidos</Text>
-					</TouchableOpacity>
+					/>
 				</View>
 
-				<View style={styles.groupOfCategories}>
-					<TouchableOpacity
-						style={styles.configOption}
+				<View style={styles.groupedCategories}>
+					<OptionConfig
+						textButton={'Editar informações do veículo'}
 						onPress={() =>
 							navigation.navigate('EditVehicle', {
 								uid,
@@ -38,31 +38,23 @@ export default function SettingsDriver({ navigation, route }) {
 								params: { uid, registration_Plate },
 							})
 						}
-					>
-						<Text style={styles.nameOfConfig}>Editar informações do veículo</Text>
-					</TouchableOpacity>
+					/>
 				</View>
 
-				<View style={styles.groupOfCategories}>
-					<TouchableOpacity
-						style={styles.configOption}
+				<View style={styles.groupedCategories}>
+					<OptionConfig
+						textButton={'Deixe sua opinião'}
 						onPress={() => navigation.navigate('LeaveYourOpinionCompany', { uid })}
-					>
-						<Text style={styles.nameOfConfig}>Deixe sua opinião</Text>
-					</TouchableOpacity>
+					/>
 
-					<TouchableOpacity
-						style={styles.configOption}
+					<OptionConfig
+						textButton={'Entre em contato conosco'}
 						onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone=55540808')}
-					>
-						<Text style={styles.nameOfConfig}>Entre em contato conosco</Text>
-					</TouchableOpacity>
+					/>
 				</View>
 
-				<View style={styles.groupOfCategories}>
-					<TouchableOpacity style={styles.configOption} onPress={() => logout()}>
-						<Text style={styles.nameOfConfig}>Sair da conta</Text>
-					</TouchableOpacity>
+				<View style={styles.groupedCategories}>
+					<OptionConfig textButton={'Sair da conta'} onPress={() => logout()} />
 				</View>
 			</View>
 		</View>
