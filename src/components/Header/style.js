@@ -23,4 +23,9 @@ export const styles = StyleSheet.create({
 		fontSize: 20,
 		paddingTop: '5%',
 	},
+	singleTitle: {
+		fontSize: 45,
+		color: white,
+		fontWeight: 'bold',
+	},
 });
