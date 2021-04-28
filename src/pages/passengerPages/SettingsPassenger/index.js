@@ -1,9 +1,9 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { Linking, View } from 'react-native';
 import { getSession, removeSession } from '../../../backend/Login';
+import { Header } from '../../../components/Header';
 import { OptionConfig } from '../../../components/OptionConfig';
 import { ButtonSwitchConfig } from './ButtonSwitchConfig';
-import { Header } from './Header';
 import { styles } from './style';
 
 export default function SettingsPassenger({ navigation }) {
@@ -27,7 +27,9 @@ export default function SettingsPassenger({ navigation }) {
 
 	return (
 		<View style={styles.container}>
-			<Header />
+			<View style={styles.header}>
+				<Header title={'Configurações'} />
+			</View>
 
 			<View style={styles.listOfOptions}>
 				<View style={styles.groupedCategories}>
