@@ -36,10 +36,16 @@ const headerShown = false;
 
 export default function App({ navigation }) {
 	return (
-		<NavigationContainer initialRouteName="InitialPage">
+		<NavigationContainer initialRouteName="ChoicePointsVehicleWillPass">
 			<StatusBar style="auto" />
 
 			<Stack.Navigator>
+				<Stack.Screen
+					name="ChoicePointsVehicleWillPass"
+					component={ChoicePointsVehicleWillPass}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
 				<Stack.Screen
 					name="InitialPage"
 					component={InitialPage}
@@ -174,12 +180,7 @@ export default function App({ navigation }) {
 					initialParams={{ navigation }}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
-				<Stack.Screen
-					name="ChoicePointsVehicleWillPass"
-					component={ChoicePointsVehicleWillPass}
-					initialParams={{ navigation }}
-					options={{ headerShown, gestureEnabled: false }}
-				/>
+
 				<Stack.Screen
 					name="ListVehicleInfosCompany"
 					component={ListVehicleInfosCompany}
