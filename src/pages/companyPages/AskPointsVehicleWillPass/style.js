@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
 	},
 	body: {
 		width: '92%',
-		height: '40%',
+		height: '36%',
 		backgroundColor: purple,
 		borderRadius: 30,
 		paddingTop: '10%',
@@ -35,6 +35,7 @@ export const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		textAlign: 'center',
 		fontSize: 24,
+		textTransform: 'uppercase',
 		paddingLeft: '8%',
 		paddingRight: '8%',
 		marginBottom: '2%',
@@ -42,7 +43,7 @@ export const styles = StyleSheet.create({
 	buttons: {
 		flexDirection: 'row',
 		marginLeft: '5%',
-		height: '50%',
+		height: '56%',
 		width: '100%',
 		marginBottom: '1%',
 	},
