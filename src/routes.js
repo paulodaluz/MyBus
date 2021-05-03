@@ -36,16 +36,11 @@ const headerShown = false;
 
 export default function App({ navigation }) {
 	return (
-		<NavigationContainer initialRouteName="ChoicePointsVehicleWillPass">
+		<NavigationContainer initialRouteName="InitialPage">
 			<StatusBar style="auto" />
 
 			<Stack.Navigator>
-				<Stack.Screen
-					name="ChoicePointsVehicleWillPass"
-					component={ChoicePointsVehicleWillPass}
-					initialParams={{ navigation }}
-					options={{ headerShown, gestureEnabled: false }}
-				/>
+				{/* Passenger Routes */}
 				<Stack.Screen
 					name="InitialPage"
 					component={InitialPage}
@@ -120,6 +115,7 @@ export default function App({ navigation }) {
 					options={{ headerShown }}
 				/>
 
+				{/* Company Routes */}
 				<Stack.Screen
 					name="MapCompany"
 					component={MapCompany}
@@ -180,7 +176,12 @@ export default function App({ navigation }) {
 					initialParams={{ navigation }}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
-
+				<Stack.Screen
+					name="ChoicePointsVehicleWillPass"
+					component={ChoicePointsVehicleWillPass}
+					initialParams={{ navigation }}
+					options={{ headerShown, gestureEnabled: false }}
+				/>
 				<Stack.Screen
 					name="ListVehicleInfosCompany"
 					component={ListVehicleInfosCompany}
@@ -194,6 +195,7 @@ export default function App({ navigation }) {
 					options={{ headerShown }}
 				/>
 
+				{/* Driver Routes */}
 				<Stack.Screen
 					name="MapDriver"
 					component={MapDriver}
