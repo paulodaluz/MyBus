@@ -1,5 +1,8 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
+import { MiddleButton } from '../../../components/MiddleButton';
+import { orange } from '../../../styles/colors';
+import { Header } from './Header';
 import { styles } from './style';
 
 export default function AskPointsVehicleWillPass({ navigation, route }) {
@@ -7,32 +10,28 @@ export default function AskPointsVehicleWillPass({ navigation, route }) {
 
 	return (
 		<View>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>INFORMAÇÕES DO VEICULO</Text>
-			</View>
+			<Header title={'INFORMAÇÕES DO\nVEICULO'} />
 
 			<View style={styles.body}>
-				<Text style={styles.question}>
-					deseja selecionar os pontos por onde o veiculo ira passar?
-				</Text>
+				<Text style={styles.subtitle}>DESEJA SELECIONAR ONDE O VEÍCULO IRÁ PASSAR?</Text>
 
 				<View style={styles.buttons}>
 					<View style={styles.button}>
-						<TouchableOpacity
+						<MiddleButton
 							onPress={() => navigation.navigate('ChoicePointsVehicleWillPass', { uid, vehicle })}
-						>
-							<Text style={styles.buttonText}>Sim</Text>
-						</TouchableOpacity>
+							textButton={'Sim'}
+							backgroundColor={orange}
+						/>
 					</View>
 
 					<View style={styles.button}>
-						<TouchableOpacity
+						<MiddleButton
 							onPress={() =>
 								navigation.navigate('ListVehicleInfosCompany', { uid, receivedVehicle: vehicle })
 							}
-						>
-							<Text style={styles.buttonText}>Mais Tarde</Text>
-						</TouchableOpacity>
+							textButton={'Mais Tarde'}
+							backgroundColor={orange}
+						/>
 					</View>
 				</View>
 			</View>
