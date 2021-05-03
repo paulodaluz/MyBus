@@ -1,5 +1,8 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
+import { MiddleButton } from '../../../components/MiddleButton';
+import { orange } from '../../../styles/colors';
+import { Header } from './Header';
 import { styles } from './style';
 
 export default function AskShowVehicleCode({ navigation, route }) {
@@ -7,28 +10,26 @@ export default function AskShowVehicleCode({ navigation, route }) {
 
 	return (
 		<View>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>DIGITE AS INFORMAÇÕES DO VEICULO</Text>
-			</View>
+			<Header title={'DIGITE AS INFORMAÇÕES\nDO VEICULO'} />
 
 			<View style={styles.body}>
-				<Text style={styles.question}>DESEJA VISUALIZAR O CÓDIGO DO VEÍCULO?</Text>
+				<Text style={styles.subtitle}>DESEJA VISUALIZAR O CÓDIGO DO VEÍCULO?</Text>
 
 				<View style={styles.buttons}>
 					<View style={styles.button}>
-						<TouchableOpacity
+						<MiddleButton
 							onPress={() => navigation.navigate('ShowVehicleCode', { uid, vehicle })}
-						>
-							<Text style={styles.buttonText}>Sim</Text>
-						</TouchableOpacity>
+							textButton={'Sim'}
+							backgroundColor={orange}
+						/>
 					</View>
 
 					<View style={styles.button}>
-						<TouchableOpacity
+						<MiddleButton
 							onPress={() => navigation.navigate('AskPointsVehicleWillPass', { uid, vehicle })}
-						>
-							<Text style={styles.buttonText}>Mais Tarde</Text>
-						</TouchableOpacity>
+							textButton={'Mais Tarde'}
+							backgroundColor={orange}
+						/>
 					</View>
 				</View>
 
