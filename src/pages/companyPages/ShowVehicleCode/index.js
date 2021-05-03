@@ -1,6 +1,10 @@
-import { Text, View, TouchableOpacity } from 'react-native';
-import React from 'react';
 import Clipboard from 'expo-clipboard';
+import React from 'react';
+import { Text, View } from 'react-native';
+import { WideButton } from '../../../components/WideButton';
+import { darkGrey } from '../../../styles/colors';
+import { Header } from './Header';
+import { InformationField } from './InformationField';
 import { styles } from './style';
 
 export default function ShowVehicleCode({ navigation, route }) {
@@ -12,27 +16,30 @@ export default function ShowVehicleCode({ navigation, route }) {
 
 	return (
 		<View>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>INFORMAÇÕES DO VEICULO</Text>
-			</View>
+			<Header title={'INFORMAÇÕES DO\nVEICULO'} />
 
 			<View style={styles.body}>
 				<Text style={styles.subTitle}>DADOS PARA CONTROLE DO VEÍCULO</Text>
 
-				<TouchableOpacity style={styles.input} onPress={() => copyToClipboard(vehicle.plateId)}>
-					<Text style={styles.inputText}>{vehicle.plateId}</Text>
-				</TouchableOpacity>
+				<InformationField
+					fieldName={'LOGIN:'}
+					info={vehicle.registration_plate}
+					onPress={() => copyToClipboard(vehicle.registration_plate)}
+				/>
 
-				<TouchableOpacity style={styles.input} onPress={() => copyToClipboard(vehicle.password)}>
-					<Text style={styles.inputText}>{vehicle.password}</Text>
-				</TouchableOpacity>
+				<InformationField
+					fieldName={'SENHA:'}
+					info={vehicle.password_to_share_localization}
+					onPress={() => copyToClipboard(vehicle.password_to_share_localization)}
+				/>
 
-				<TouchableOpacity
-					style={styles.button}
-					onPress={() => navigation.navigate('AskPointsVehicleWillPass', { uid, vehicle })}
-				>
-					<Text style={styles.buttonText}>Continuar</Text>
-				</TouchableOpacity>
+				<View style={styles.button}>
+					<WideButton
+						onPress={() => navigation.navigate('AskPointsVehicleWillPass', { uid, vehicle })}
+						textButton={'Continuar'}
+						backgroundColor={darkGrey}
+					/>
+				</View>
 			</View>
 		</View>
 	);
