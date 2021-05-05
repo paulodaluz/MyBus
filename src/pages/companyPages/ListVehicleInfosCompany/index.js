@@ -1,80 +1,99 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
+import cross_button from '../../../assets/icons/png/cross_button.png';
 import { getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
+import { Divisor } from '../../../components/Divisor';
+import { FunctionBarOfVehicle } from '../../../components/FunctionBarOfVehicle';
+import { MiddleButton } from '../../../components/MiddleButton';
+import { orange } from '../../../styles/colors';
+import { Header } from './Header';
+import { ListInfos } from './ListOfInfos';
 import { styles } from './style';
 
 export default function ListVehicleInfosCompany({ navigation, route }) {
-	const { registrationPlate, receivedVehicle } = route.params;
+	const { registrationPlate, receivedVehicle, status = 'Operando normalmente' } = route.params;
 
 	const [name, setName] = useState('');
-	const [status, setStatus] = useState('Operando normalmente');
 	const [idToPassangers, setIdToPassangers] = useState('');
 	const [plateId, setPlateId] = useState('');
 	const [password, setPassword] = useState('');
 	const [price, setPrice] = useState('');
 
+	const getVehicleData = async () => {
+		if (receivedVehicle) {
+			setName(receivedVehicle.name);
+			setIdToPassangers(receivedVehicle.id_to_passengers);
+			setPlateId(receivedVehicle.id_to_share_localization);
+			setPassword(receivedVehicle.password_to_share_localization);
+			setPrice(receivedVehicle.price);
+
+			return;
+		}
+
+		const [vehicle, vehicleFunctions] = await Promise.all([
+			getVehicle({ registrationPlate }),
+			getVehicleFunction({ registrationPlate }),
+		]);
+
+		setName(vehicle.name);
+		setIdToPassangers(vehicle.id_to_passengers);
+		setPlateId(vehicle.id_to_share_localization);
+		setPassword(vehicle.password_to_share_localization);
+
+		setPrice(vehicleFunctions.price_transport);
+	};
+
 	useEffect(() => {
-		const getVehicleData = async () => {
-			if (receivedVehicle) {
-				setName(receivedVehicle.name);
-				setIdToPassangers(receivedVehicle.id_to_passengers);
-				setPlateId(receivedVehicle.id_to_share_localization);
-				setPassword(receivedVehicle.password_to_share_localization);
-				setPrice(receivedVehicle.price);
-			}
-			if (!receivedVehicle) {
-				const [vehicle, vehicleFunctions] = await Promise.all([
-					getVehicle({ registrationPlate }),
-					getVehicleFunction({ registrationPlate }),
-				]);
-
-				setName(vehicle.name);
-				setIdToPassangers(vehicle.id_to_passengers);
-				setPlateId(vehicle.id_to_share_localization);
-				setPassword(vehicle.password_to_share_localization);
-
-				setPrice(vehicleFunctions.price_transport);
-			}
-		};
-
 		getVehicleData();
 	}, []);
 
+	// TODOS:
+	/*
+		Refatorar a função acima
+		Ajustar o component FunctionBarOfVehicle que está tudo fixo
+		Botar o icone do Ônibus do lado do titulo de ListInfos
+		Botar o icone do Ônibus do lado do titulo desta página(achar um verdinho como no MVApp)
+		Ajustar botão editar
+	*/
 	return (
 		<View>
-			<View style={styles.header}>
-				{/* <Image
-						style={{width: 30, height: 30}}
-						source={MyBusIcon}
-					/> */}
-				<Text style={styles.infoNameTitle}>Nome do Veículo:</Text>
-				<Text style={styles.infoTitle}>{name}</Text>
-			</View>
+			<Header vehicleName={name} />
 
 			<View style={styles.body}>
-				<View style={{ paddingLeft: '8%' }}>
-					<Text style={styles.info}>{name}</Text>
+				<TouchableOpacity
+					style={styles.closeButtonContainer}
+					onPress={() => navigation.navigate('MapCompany')}
+				>
+					<Image style={styles.crossIcon} source={cross_button} />
+				</TouchableOpacity>
 
-					<Text style={styles.infoName}>Situação Atual</Text>
-					<Text style={styles.info}>{status}</Text>
+				<View>
+					<ListInfos
+						name={name}
+						status={status}
+						idToPassangers={idToPassangers}
+						plateId={plateId}
+						password={password}
+					/>
 
-					<Text style={styles.infoName}>Código do Veículo</Text>
-					<Text style={styles.info}>{idToPassangers}</Text>
+					<FunctionBarOfVehicle
+						thereIsWifi={true}
+						thereIsWheelchairSupport={true}
+						thereIsBathroom={true}
+						thereIsAirConditioning={true}
+						price={price}
+					/>
 
-					<Text style={styles.infoName}>Usuário do Motorista</Text>
-					<Text style={styles.info}>{plateId}</Text>
-
-					<Text style={styles.infoName}>Senha do Motorista</Text>
-					<Text style={styles.info}>{password}</Text>
-
-					<View style={styles.vehicleFunctions}>
-						<Text style={styles.price}>{price}</Text>
-					</View>
+					<Divisor />
 				</View>
 
-				<TouchableOpacity style={styles.button} onPress={() => console.log()}>
-					<Text style={styles.textButton}>EDITAR</Text>
-				</TouchableOpacity>
+				<View style={styles.button}>
+					<MiddleButton
+						onPress={() => console.log()}
+						textButton={'EDITAR'}
+						backgroundColor={orange}
+					/>
+				</View>
 			</View>
 		</View>
 	);
