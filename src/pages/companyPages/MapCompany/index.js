@@ -1,5 +1,5 @@
 import * as firebase from 'firebase';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Image, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
@@ -47,9 +47,11 @@ export default function MapCompany({ navigation, route }) {
 		setRealTimeVehicles(myVehicles);
 	};
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		getAllLocalizationVehicles();
 	}, []);
+
+	useEffect(() => {}, [realTimeVehicles]);
 
 	return (
 		<View>

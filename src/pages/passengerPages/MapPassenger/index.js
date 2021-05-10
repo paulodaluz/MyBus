@@ -1,6 +1,6 @@
 import * as Location from 'expo-location';
 import * as firebase from 'firebase';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Image, Modal, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
@@ -96,12 +96,14 @@ export default function MapPassenger({ navigation, route }) {
 		setVehiclesOnThisPoint(vehiclesInThisPoint);
 	};
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		getVehiclesInfos();
 		getBusStops();
 		getAllLocalizationVehicles();
 		getMyPosition();
 	}, []);
+
+	useEffect(() => {}, [myPosition, realTimeVehicles, busStops]);
 
 	return (
 		<View style={styles.container}>

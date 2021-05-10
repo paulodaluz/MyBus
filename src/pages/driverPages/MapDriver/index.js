@@ -1,6 +1,6 @@
 import * as Location from 'expo-location';
 import * as firebase from 'firebase';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Image, Modal, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import placeholder_icon from '../../../assets/icons/png/map/placeholder.png';
@@ -69,11 +69,12 @@ export default function MapDriver({ navigation, route }) {
 		});
 	};
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		getMyPosition();
 		sendMyLocalizationToFirebase();
 	}, []);
-	// }, [myPosition]);
+
+	useEffect(() => {}, [myPosition]);
 
 	return (
 		<View style={styles.container}>
