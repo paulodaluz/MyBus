@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { View } from 'react-native';
 import { getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
 import { Divisor } from '../../../components/Divisor';
@@ -21,30 +21,30 @@ export default function ListVehicleInfosPassenger({ navigation, route }) {
 	const [thereIsWifi, setThereIsWifi] = useState(false);
 	const [thereIsWheelchairSupport, setThereIsWheelchairSupport] = useState(false);
 
-	useEffect(() => {
-		const getVehicleData = async () => {
-			if (receivedVehicle) {
-				setName(receivedVehicle.name);
-				setIdToPassangers(receivedVehicle.id_to_passengers);
-				setPrice(receivedVehicle.price);
-			}
-			if (!receivedVehicle) {
-				const [vehicle, vehicleFunctions] = await Promise.all([
-					getVehicle({ registrationPlate }),
-					getVehicleFunction({ registrationPlate }),
-				]);
+	const getVehicleData = async () => {
+		if (receivedVehicle) {
+			setName(receivedVehicle.name);
+			setIdToPassangers(receivedVehicle.id_to_passengers);
+			setPrice(receivedVehicle.price);
+		}
+		if (!receivedVehicle) {
+			const [vehicle, vehicleFunctions] = await Promise.all([
+				getVehicle({ registrationPlate }),
+				getVehicleFunction({ registrationPlate }),
+			]);
 
-				setName(vehicle.name);
-				setIdToPassangers(vehicle.id_to_passengers);
+			setName(vehicle.name);
+			setIdToPassangers(vehicle.id_to_passengers);
 
-				setPrice(vehicleFunctions.price_transport);
-				setThereIsBathroom(vehicleFunctions.washrooms);
-				setThereIsAirConditioning(vehicleFunctions.air_conditioning);
-				setThereIsWifi(vehicleFunctions.wifi);
-				setThereIsWheelchairSupport(vehicleFunctions.suport_wheelchair);
-			}
-		};
+			setPrice(vehicleFunctions.price_transport);
+			setThereIsBathroom(vehicleFunctions.washrooms);
+			setThereIsAirConditioning(vehicleFunctions.air_conditioning);
+			setThereIsWifi(vehicleFunctions.wifi);
+			setThereIsWheelchairSupport(vehicleFunctions.suport_wheelchair);
+		}
+	};
 
+	useLayoutEffect(() => {
 		getVehicleData();
 	}, []);
 

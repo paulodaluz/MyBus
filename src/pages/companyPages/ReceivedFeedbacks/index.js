@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { getCompanyFeedbackBackend } from '../../../backend/feedbacks/CompanyFeedbacks';
 import { FeedbackContainer } from './FeedbackContainer';
@@ -10,11 +10,11 @@ export default function ReceivedFeedbacks({ route }) {
 
 	const [feedbacks, setFeedbacks] = useState([]);
 
-	useEffect(() => {
-		async function getFeedbacks() {
-			setFeedbacks(await getCompanyFeedbackBackend(uid));
-		}
+	const getFeedbacks = async () => {
+		setFeedbacks(await getCompanyFeedbackBackend(uid));
+	};
 
+	useLayoutEffect(() => {
 		getFeedbacks();
 	}, []);
 
