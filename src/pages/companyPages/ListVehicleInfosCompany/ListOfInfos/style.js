@@ -5,6 +5,14 @@ export const styles = StyleSheet.create({
 	container: {
 		paddingHorizontal: '8%',
 	},
+	header: {
+		flexDirection: 'row',
+	},
+	busIcon: {
+		width: 34,
+		height: 34,
+		marginRight: 5,
+	},
 	info: {
 		fontSize: 28,
 		color: white,

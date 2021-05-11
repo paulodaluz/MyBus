@@ -53,12 +53,12 @@ export default function EditVehicle({ navigation, route }) {
 			registrationPlate,
 		};
 
-		const [updatedVehicle] = await Promise.all([
+		const [updatedVehicle, updatedVehiclePlate] = await Promise.all([
 			editVehicle(vehicleId, vehicleInfos, vehicleFunctionsId, functionsVehicle),
 			updatePlateVehicleCompany(uid, oldregistrationPlate, registrationPlate),
 		]);
 
-		if (updatedVehicle && updatedVehicle.error) {
+		if (updatedVehiclePlate && updatedVehiclePlate.error) {
 			return Alert.alert('Erro ao atualizar usuário.');
 		}
 		if (backPage) {
@@ -66,7 +66,8 @@ export default function EditVehicle({ navigation, route }) {
 			return navigation.navigate(backPage, { ...params, vehicleFunctions });
 		}
 		return navigation.navigate('ListVehicleInfosCompany', {
-			registrationPlate: updatedVehicle.registration_plate,
+			uid,
+			registrationPlate: updatedVehicle.response.registration_plate,
 		});
 	};
 
@@ -78,27 +79,26 @@ export default function EditVehicle({ navigation, route }) {
 		return;
 	};
 
+	const getVehicleData = async () => {
+		const [vehicle, vehicleFunctions] = await Promise.all([
+			getVehicle({ registrationPlate: registration_Plate }),
+			getVehicleFunction({ registrationPlate: registration_Plate }),
+		]);
+
+		setName(vehicle.name);
+		setVehicleId(vehicle.id);
+		setIsPublic(vehicle.is_public);
+		setRegistrationPlate(vehicle.registration_plate);
+		setOldRegistrationPlate(vehicle.registration_plate);
+		setPrice(vehicleFunctions.price_transport);
+		setVehicleFunctionsId(vehicleFunctions.id);
+		setThereIsWheelchairSupport(vehicleFunctions.suport_wheelchair);
+		setThereIsWifi(vehicleFunctions.wifi);
+		setThereIsAirConditioning(vehicleFunctions.air_conditioning);
+		setThereIsBathroom(vehicleFunctions.washrooms);
+	};
+
 	useLayoutEffect(() => {
-		const getVehicleData = async () => {
-			const [vehicle, vehicleFunctions] = await Promise.all([
-				getVehicle({ registrationPlate: registration_Plate }),
-				getVehicleFunction({ registrationPlate: registration_Plate }),
-			]);
-
-			setName(vehicle.name);
-			setVehicleId(vehicle.id);
-			setIsPublic(vehicle.is_public);
-			setRegistrationPlate(vehicle.registration_plate);
-			setOldRegistrationPlate(vehicle.registration_plate);
-
-			setPrice(vehicleFunctions.price_transport);
-			setVehicleFunctionsId(vehicleFunctions.id);
-			setThereIsWheelchairSupport(vehicleFunctions.suport_wheelchair);
-			setThereIsWifi(vehicleFunctions.wifi);
-			setThereIsAirConditioning(vehicleFunctions.air_conditioning);
-			setThereIsBathroom(vehicleFunctions.washrooms);
-		};
-
 		getVehicleData();
 	}, []);
 

@@ -9,7 +9,9 @@ export const styles = StyleSheet.create({
 		borderBottomRightRadius: 30,
 		borderBottomLeftRadius: 30,
 		paddingTop: '14%',
-		paddingLeft: '6%',
+		paddingHorizontal: '6%',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
 	},
 	infoNameTitle: {
 		color: white,
@@ -20,5 +22,9 @@ export const styles = StyleSheet.create({
 		color: white,
 		fontSize: 28,
 		fontWeight: 'bold',
+	},
+	busIcon: {
+		width: 50,
+		height: 50,
 	},
 });

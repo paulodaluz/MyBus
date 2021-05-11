@@ -1,11 +1,13 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
+import busIcon from '../../../../assets/icons/png/map/bus_icon.png';
 import { styles } from './style';
 
 const ListInfos = ({ name, status, idToPassangers, plateId, password }) => {
 	return (
 		<View style={styles.container}>
-			<View>
+			<View style={styles.header}>
+				<Image source={busIcon} style={styles.busIcon} />
 				<Text style={styles.info}>{name}</Text>
 			</View>
 
