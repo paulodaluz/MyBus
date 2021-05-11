@@ -6,12 +6,17 @@ export const styles = StyleSheet.create({
 		backgroundColor: purple,
 		borderRadius: 30,
 		marginTop: '10%',
-		height: '62%',
+		height: 490,
 		paddingTop: '8%',
 		width: '95%',
 		alignSelf: 'center',
 	},
 	buttonsContainer: {
-		height: '34%',
+		alignItems: 'center',
+	},
+	button: {
+		height: '28%',
+		width: '54%',
+		margin: '2%',
 	},
 });

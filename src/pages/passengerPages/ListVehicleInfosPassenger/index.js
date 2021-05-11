@@ -66,22 +66,26 @@ export default function ListVehicleInfosPassenger({ navigation, route }) {
 				<Divisor />
 
 				<View style={styles.buttonsContainer}>
-					<MiddleButton
-						onPress={() =>
-							navigation.navigate('LeaveYourOpinionPassenger', {
-								uid,
-								vehicleRegistration: registrationPlate,
-							})
-						}
-						textButton={'Dar um feedback'}
-						backgroundColor={darkGrey}
-					/>
+					<View style={styles.button}>
+						<MiddleButton
+							onPress={() =>
+								navigation.navigate('LeaveYourOpinionPassenger', {
+									uid,
+									vehicleRegistration: registrationPlate,
+								})
+							}
+							textButton={'Dar um feedback'}
+							backgroundColor={darkGrey}
+						/>
+					</View>
 
-					<MiddleButton
-						onPress={() => navigation.goBack()}
-						textButton={'Ver no mapa'}
-						backgroundColor={orange}
-					/>
+					<View style={styles.button}>
+						<MiddleButton
+							onPress={() => navigation.goBack()}
+							textButton={'Ver no mapa'}
+							backgroundColor={orange}
+						/>
+					</View>
 				</View>
 			</View>
 		</View>
