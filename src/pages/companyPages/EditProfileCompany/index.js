@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import { getCompany, updateAllInfosOfCompany } from '../../../backend/users/Company';
+import { Header } from '../../../components/Header';
+import { Input } from '../../../components/Input';
+import { WideButton } from '../../../components/WideButton';
+import { darkGrey } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function EditProfileCompany({ navigation, route }) {
@@ -13,21 +17,14 @@ export default function EditProfileCompany({ navigation, route }) {
 
 	const [id, setId] = useState('');
 
-	useEffect(() => {
-		async function getData() {
-			const user = await getCompany(uid);
+	async function getData() {
+		const user = await getCompany(uid);
 
-			setId(user.id);
-
-			setName(user.name);
-
-			setEmail(user.email);
-
-			setCnpj(user.cnpj);
-		}
-
-		getData();
-	}, []);
+		setId(user.id);
+		setName(user.name);
+		setEmail(user.email);
+		setCnpj(user.cnpj);
+	}
 
 	const updateUser = async () => {
 		await updateAllInfosOfCompany(id, name, cnpj);
@@ -35,46 +32,53 @@ export default function EditProfileCompany({ navigation, route }) {
 		return navigation.navigate('SettingsCompany', { uid });
 	};
 
+	useLayoutEffect(() => {
+		getData();
+	}, []);
+
 	return (
-		<View style={styles.container}>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>Editar Perfil</Text>
+		<View>
+			<View style={styles.header}>
+				<Header title={'Editar Perfil'} />
 			</View>
 
 			<View style={styles.body}>
-				<Text style={styles.nameOfInput}>Nome da empresa:</Text>
-				<TextInput
-					style={styles.inputButton}
-					placeholder="Nome completo"
-					textContentType="name"
-					value={name}
-					onChangeText={(text) => setName(text)}
-				/>
-
-				<Text style={styles.nameOfInput}>CNPJ:</Text>
-				<TextInput
-					style={styles.inputButton}
-					placeholder="CNPJ"
-					keyboardType="number-pad"
-					value={cnpj}
-					onChangeText={(text) => setCnpj(text)}
-				/>
-
-				<Text style={styles.nameOfInput}>Email:</Text>
-				<View style={styles.inputButton}>
-					<Text style={styles.unmutableInput}>{email}</Text>
+				<Text style={styles.inputName}>Nome da empresa:</Text>
+				<View style={styles.input}>
+					<Input
+						value={name}
+						onChangeText={(text) => setName(text)}
+						placeholder="Nome completo"
+						textContentType="name"
+					/>
 				</View>
 
-				<Text style={styles.nameOfInput}>Senha:</Text>
-				<TextInput
-					style={styles.inputButton}
-					placeholder="Senha"
-					secureTextEntry={true}
-					value={password}
-				/>
+				<Text style={styles.inputName}>CNPJ:</Text>
+				<View style={styles.input}>
+					<Input
+						placeholder="CNPJ"
+						keyboardType="number-pad"
+						value={cnpj}
+						onChangeText={(text) => setCnpj(text)}
+					/>
+				</View>
 
-				<View style={styles.updateButton}>
-					<Button onPress={() => updateUser()} color={white} title="Atualizar" />
+				<Text style={styles.inputName}>Email:</Text>
+				<View style={styles.inputButton}>
+					<Text style={styles.inputName}>{email}</Text>
+				</View>
+
+				<Text style={styles.inputName}>Senha:</Text>
+				<View style={styles.input}>
+					<Input placeholder="Senha" secureTextEntry={true} value={password} />
+				</View>
+
+				<View style={styles.button}>
+					<WideButton
+						onPress={() => updateUser()}
+						textButton={'Atualizar'}
+						backgroundColor={darkGrey}
+					/>
 				</View>
 			</View>
 		</View>

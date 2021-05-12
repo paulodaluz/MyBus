@@ -65,6 +65,7 @@ export default function ChoicePointsVehicleWillPass({ navigation, route }) {
 					/>
 				))}
 			</MapView>
+
 			<View style={styles.button}>
 				<Button onPress={saveBustations} textButton={'FINALIZAR'} backgroundColor={purple} />
 			</View>
