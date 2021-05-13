@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { grey, purple, white } from '../../../styles/colors';
+import { grey, white } from '../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
@@ -7,108 +7,59 @@ export const styles = StyleSheet.create({
 		alignItems: 'center',
 		height: '100%',
 	},
-	titleBox: {
+	header: {
 		height: '38%',
 		width: '100%',
-		backgroundColor: purple,
-		borderBottomLeftRadius: 30,
-		borderBottomRightRadius: 30,
 		marginBottom: 40,
-		paddingTop: '8%',
 	},
-	title: {
-		color: white,
-		fontSize: 42,
-		paddingTop: 50,
-		paddingLeft: 30,
-		paddingRight: 90,
-		fontWeight: 'bold',
-	},
-	typeOfVehicle: {
-		display: 'flex',
-		flexDirection: 'row',
-		width: '100%',
-		height: '6%',
-	},
-	publicButton: {
-		width: '50%',
-		alignItems: 'center',
-	},
-	textPublicButton: {
-		height: '100%',
-		color: grey,
-		fontSize: 19,
-		paddingTop: '6%',
-	},
-	privateButton: {
-		width: '50%',
-		alignItems: 'center',
-	},
-	textPrivateButton: {
-		height: '100%',
-		color: grey,
-		fontSize: 19,
-		paddingTop: '6%',
-	},
-	subtitle: {
+	description: {
 		fontSize: 18,
 		color: grey,
 		textAlign: 'center',
-		paddingTop: '5%',
-		paddingBottom: '5%',
-		paddingLeft: '10%',
-		paddingRight: '10%',
+		paddingVertical: '5%',
+		paddingHorizontal: '10%',
 	},
 	privateContainer: {
 		width: '100%',
 		alignItems: 'center',
 	},
-	containerVehicleCode: {
-		borderWidth: 1,
-		borderColor: grey,
-		backgroundColor: 'transparent',
+	containerInput: {
 		width: '80%',
 		height: 60,
+		borderColor: grey,
+		borderWidth: 1,
 	},
 	inputVehicleCode: {
 		height: '100%',
-		paddingLeft: '2%',
+		textAlign: 'center',
 	},
-	arroundScanQrCode: {
+	containerScanQRCode: {
+		width: '80%',
 		marginTop: '2%',
 		flexDirection: 'row',
-		width: '80%',
 	},
-	qrCodePng: {
-		display: 'flex',
+	QRCodeIcon: {
 		width: 15,
 		height: 15,
-		maxWidth: 15,
-		marginRight: '1%',
 	},
-	scanQrCode: {
-		textDecorationLine: 'underline',
-		fontWeight: 'bold',
+	QRCodeText: {
 		color: grey,
+		fontWeight: 'bold',
+		textDecorationLine: 'underline',
+		marginLeft: '1%',
 	},
-	continueButton: {
-		backgroundColor: purple,
-		borderRadius: 14,
-		height: '8%',
-		width: '85%',
-		padding: '4%',
-		marginBottom: '3%',
-	},
-	observation: {
+	message: {
+		fontSize: 15,
 		color: grey,
 		textAlign: 'center',
-		fontSize: 15,
-		paddingTop: '2%',
-		paddingLeft: '19%',
-		paddingRight: '19%',
 	},
-	emphasisWord: {
+	spotlightWord: {
 		textDecorationLine: 'underline',
 		fontWeight: 'bold',
+	},
+	button: {
+		height: '8%',
+		width: '85%',
+		margin: '10%',
 	},
 });
