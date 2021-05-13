@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Image, Text, View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import BusinessImage from '../../../assets/images/png/business-deal-cuate.png';
@@ -11,19 +11,19 @@ import { styles } from './style';
 export default function InitialPage({ navigation }) {
 	const [typeUserPage, setTypeUserPage] = useState('passenger');
 
-	useEffect(() => {
-		async function checkIfHasSession() {
-			const uidUser = await getSession();
+	async function checkIfHasSession() {
+		const uidUser = await getSession();
 
-			if (uidUser) {
-				const user = await getUserOnFirebase(uidUser);
-				if (user.isPassenger) {
-					return navigation.navigate('MapPassenger', { user });
-				}
-				return navigation.navigate('MapCompany', { user });
+		if (uidUser) {
+			const user = await getUserOnFirebase(uidUser);
+			if (user.isPassenger) {
+				return navigation.navigate('MapPassenger', { user });
 			}
+			return navigation.navigate('MapCompany', { user });
 		}
+	}
 
+	useLayoutEffect(() => {
 		checkIfHasSession();
 	}, []);
 
@@ -31,12 +31,9 @@ export default function InitialPage({ navigation }) {
 		<View style={styles.container}>
 			<View style={styles.header}>
 				{typeUserPage === 'passenger' ? (
-					<Image style={{ ...styles.imageHeader, width: '94%' }} source={BusStopImage} />
+					<Image style={styles.imageHeader} source={BusStopImage} />
 				) : (
-					<Image
-						style={{ ...styles.imageHeader, width: '94%', padding: 10 }}
-						source={BusinessImage}
-					/>
+					<Image style={{ ...styles.imageHeader, padding: 10 }} source={BusinessImage} />
 				)}
 			</View>
 
@@ -66,24 +63,24 @@ export default function InitialPage({ navigation }) {
 				</View>
 			</View>
 
-			<View style={styles.bodyPage}>
+			<View style={styles.body}>
 				<GestureRecognizer
 					style={styles.gestureContainer}
-					onSwipeLeft={(state) => setTypeUserPage('company')}
-					onSwipeRight={(state) => setTypeUserPage('passenger')}
+					onSwipeLeft={() => setTypeUserPage('company')}
+					onSwipeRight={() => setTypeUserPage('passenger')}
 				>
-					<Text style={styles.message}>Para continuar faça seu Login ou Cadastre-se</Text>
+					<Text style={styles.message}>Para continuar faça seu Login ou{'\n'}Cadastre-se</Text>
 
-					<View style={styles.loginButton}>
+					<View style={styles.button}>
 						<WideButton
 							onPress={() => navigation.navigate('Login')}
 							textButton={'Login'}
-							style={styles.loginButton}
+							style={styles.button}
 							backgroundColor={purple}
 						/>
 					</View>
 
-					<View style={styles.registerButton}>
+					<View style={styles.button}>
 						<WideButton
 							onPress={() =>
 								typeUserPage === 'passenger'
@@ -91,17 +88,17 @@ export default function InitialPage({ navigation }) {
 									: navigation.navigate('RegisterCompany')
 							}
 							textButton={'Cadastre-se'}
-							style={styles.registerButton}
+							style={styles.button}
 							backgroundColor={darkGrey}
 						/>
 					</View>
 
-					<View style={typeUserPage === 'company' ? styles.driverLogin : null}>
+					<View style={typeUserPage === 'company' ? styles.button : null}>
 						{typeUserPage === 'company' ? (
 							<WideButton
 								onPress={() => navigation.navigate('LoginDriver')}
 								textButton={'Login do Motorista'}
-								style={styles.driverLogin}
+								style={styles.button}
 								backgroundColor={purple}
 							/>
 						) : null}

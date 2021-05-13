@@ -6,64 +6,46 @@ export const styles = StyleSheet.create({
 		backgroundColor: white,
 	},
 	header: {
-		paddingTop: '10%',
 		width: '100%',
 		height: '32%',
-		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
+		paddingTop: '10%',
 	},
 	titles: {
 		flexDirection: 'row',
 		paddingLeft: '4%',
 	},
 	mainTitle: {
+		fontSize: 80,
 		color: '#343F4B',
 		fontWeight: 'bold',
-		fontSize: 80,
 	},
 	subTitle: {
+		fontSize: 24,
 		color: darkGrey,
 		paddingTop: '13%',
 		paddingLeft: '2%',
-		fontSize: 24,
-	},
-	loginButton: {
-		marginTop: '5%',
-		height: '10%',
-		width: '85%',
-	},
-	registerButton: {
-		marginTop: '5%',
-		height: '10%',
-		width: '85%',
-	},
-	driverLogin: {
-		marginTop: '5%',
-		height: '10%',
-		width: '85%',
 	},
 	message: {
 		fontSize: 18,
 		color: grey,
 		textAlign: 'center',
-		paddingTop: '8%',
-		paddingBottom: '5%',
-		paddingLeft: '15%',
-		paddingRight: '10%',
+		paddingVertical: '6%',
 	},
-	bodyPage: {
+	button: {
+		marginTop: '5%',
+		height: '10%',
+		width: '85%',
+	},
+	body: {
 		height: '70%',
-		alignItems: 'center',
 	},
 	containerDivider: {
 		paddingVertical: 10,
 		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
 	},
 	divider: {
-		width: '100%',
 		height: 5,
 		backgroundColor: '#dfdfdf',
 	},
@@ -73,6 +55,7 @@ export const styles = StyleSheet.create({
 		borderRadius: 5,
 	},
 	imageHeader: {
+		width: '94%',
 		resizeMode: 'contain',
 	},
 	gestureContainer: {
@@ -80,8 +63,5 @@ export const styles = StyleSheet.create({
 		height: '90%',
 		display: 'flex',
 		alignItems: 'center',
-	},
-	loginDriver: {
-		height: '90%',
 	},
 });
