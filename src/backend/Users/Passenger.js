@@ -28,9 +28,7 @@ export async function createPassengerBackend(email, password, name) {
 		return { error };
 	});
 
-	user.id = registeredOnFirestoreUser._delegate._key.path.segments.find(
-		(segment) => segment !== 'passengers'
-	);
+	user.id = registeredAuthenticationUser.user.uid;
 
 	if (registeredOnFirestoreUser.error) {
 		return registeredOnFirestoreUser;

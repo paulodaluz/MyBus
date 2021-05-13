@@ -20,9 +20,7 @@ export async function createCompanyBackend(email, password, name, cnpj) {
 		return { error };
 	});
 
-	company.id = registeredOnFirestoreUser._delegate._key.path.segments.find(
-		(segment) => segment !== 'companies'
-	);
+	company.id = registeredAuthenticationUser.user.uid;
 
 	if (registeredOnFirestoreUser.error) {
 		return registeredOnFirestoreUser;
