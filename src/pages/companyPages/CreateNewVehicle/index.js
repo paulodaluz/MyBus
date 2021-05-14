@@ -1,35 +1,37 @@
 import React, { useState } from 'react';
-import { Alert, Button, Switch, Text, TextInput, View } from 'react-native';
+import { Alert, Text, TextInput, View } from 'react-native';
 import { addNewVehicleInCompany } from '../../../backend/users/Company';
 import { addFunctionsToVehicle, createNewVehicle } from '../../../backend/vehicles/Vehicle';
+import { MiddleButton } from '../../../components/MiddleButton';
+import { SwitchFunction } from '../../../components/SwitchFunction';
 import { getAllFunctionsVehicles } from '../../../service/VehicleFunctionsService';
-import { darkGrey, white } from '../../../styles/colors';
+import { orange } from '../../../styles/colors';
+import { Header } from './Header';
 import { styles } from './style';
 
 export default function CreateNewVehicle({ navigation, route }) {
 	const { uid } = route.params;
-
-	const [thereIsBathroom, setThereIsBathroom] = useState(false);
-	const [thereIsAirConditioning, setThereIsAirConditioning] = useState(false);
-	const [thereIsWifi, setThereIsWifi] = useState(false);
-	const [thereIsWheelchairSupport, setThereIsWheelchairSupport] = useState(false);
 
 	const [name, setName] = useState('');
 	const [isPublic, setIsPublic] = useState(false);
 	const [price, setPrice] = useState('');
 	const [registrationPlate, setRegistrationPlate] = useState('');
 
+	const [thereIsBathroom, setThereIsBathroom] = useState(false);
+	const [thereIsAirConditioning, setThereIsAirConditioning] = useState(false);
+	const [thereIsWifi, setThereIsWifi] = useState(false);
+	const [thereIsWheelchairSupport, setThereIsWheelchairSupport] = useState(false);
+
 	const toggleSwitchBathroom = () => setThereIsBathroom((previousState) => !previousState);
-	const toggleSwitchAirC = () => setThereIsAirConditioning((previousState) => !previousState);
 	const toggleSwitchWifi = () => setThereIsWifi((previousState) => !previousState);
+	const toggleSwitchIsPublic = () => setIsPublic((previousState) => !previousState);
+	const toggleSwitchAirConditioning = () =>
+		setThereIsAirConditioning((previousState) => !previousState);
 	const toggleSwitchWheelchairSup = () =>
 		setThereIsWheelchairSupport((previousState) => !previousState);
-	const toggleSwitchIsPublic = () => setIsPublic((previousState) => !previousState);
-
-	const buttonColor = { false: darkGrey, true: darkGrey };
 
 	const createVehicle = async () => {
-		const errors = await verifyInputs();
+		const errors = verifyInputs();
 
 		if (errors === 'Usuário já existe') {
 			return;
@@ -84,14 +86,11 @@ export default function CreateNewVehicle({ navigation, route }) {
 			Alert.alert('Usuário já existe');
 			return 'Usuário já existe';
 		}
-		return;
 	};
 
 	return (
 		<View>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>DIGITE AS INFORMAÇÕES DO VEICULO</Text>
-			</View>
+			<Header title={'DIGITE AS INFORMAÇÕES\nDO VEICULO'} />
 
 			<View style={styles.body}>
 				<Text style={styles.inputName}>Nome do veiculo</Text>
@@ -122,71 +121,55 @@ export default function CreateNewVehicle({ navigation, route }) {
 				/>
 
 				<View>
-					<Text style={styles.selectResources}>Selecione os recursos disponíveis</Text>
+					<Text style={styles.text}>Selecione os recursos disponíveis</Text>
 
-					<View style={styles.optionFuntionOfVehicle}>
-						<Text style={styles.functionOfVehicle}>Banheiro</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={buttonColor}
-							ios_backgroundColor="#E5E9F2"
-							onValueChange={toggleSwitchBathroom}
+					<View style={styles.switch}>
+						<SwitchFunction
+							text={'Banheiro'}
 							value={thereIsBathroom}
-							tex
+							onValueChange={toggleSwitchBathroom}
 						/>
 					</View>
 
-					<View style={styles.optionFuntionOfVehicle}>
-						<Text style={styles.functionOfVehicle}>ar condicionado</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={buttonColor}
-							ios_backgroundColor="#E5E9F2"
-							onValueChange={toggleSwitchAirC}
+					<View style={styles.switch}>
+						<SwitchFunction
+							text={'ar condicionado'}
 							value={thereIsAirConditioning}
-							tex
+							onValueChange={toggleSwitchAirConditioning}
 						/>
 					</View>
 
-					<View style={styles.optionFuntionOfVehicle}>
-						<Text style={styles.functionOfVehicle}>internet</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={buttonColor}
-							ios_backgroundColor="#E5E9F2"
-							onValueChange={toggleSwitchWifi}
+					<View style={styles.switch}>
+						<SwitchFunction
+							text={'internet'}
 							value={thereIsWifi}
-							tex
+							onValueChange={toggleSwitchWifi}
 						/>
 					</View>
 
-					<View style={styles.optionFuntionOfVehicle}>
-						<Text style={styles.functionOfVehicle}>suporte para cadeirantes</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={buttonColor}
-							ios_backgroundColor="#E5E9F2"
-							onValueChange={toggleSwitchWheelchairSup}
+					<View style={styles.switch}>
+						<SwitchFunction
+							text={'suporte para cadeirantes'}
 							value={thereIsWheelchairSupport}
-							tex
+							onValueChange={toggleSwitchWheelchairSup}
 						/>
 					</View>
 
-					<View style={styles.optionFuntionOfVehicle}>
-						<Text style={styles.functionOfVehicle}>veiculo público</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={buttonColor}
-							ios_backgroundColor="#E5E9F2"
-							onValueChange={toggleSwitchIsPublic}
+					<View style={styles.switch}>
+						<SwitchFunction
+							text={'veículo público'}
 							value={isPublic}
-							tex
+							onValueChange={toggleSwitchIsPublic}
 						/>
 					</View>
 				</View>
 
 				<View style={styles.registerButton}>
-					<Button onPress={() => createVehicle()} title="Cadastrar" color={white} />
+					<MiddleButton
+						onPress={() => createVehicle()}
+						textButton="Cadastrar"
+						backgroundColor={orange}
+					/>
 				</View>
 			</View>
 		</View>
