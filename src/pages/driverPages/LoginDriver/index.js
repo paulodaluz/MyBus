@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { driverLoginIsValid } from '../../../backend/Login';
 import { getCompanyByRegistrationPlate } from '../../../backend/users/Company';
@@ -44,13 +44,13 @@ export default function LoginDriver({ navigation }) {
 		return vehicles.find((vehicle) => vehicle.registration_plate === myRegistrationPlate);
 	};
 
-	useEffect(() => {
-		async function getAllVehiclesData() {
-			const allVehiclesFromDatabase = await getAllVehicles();
+	const getAllVehiclesData = async () => {
+		const allVehiclesFromDatabase = await getAllVehicles();
 
-			setAllVehicles(allVehiclesFromDatabase);
-		}
+		setAllVehicles(allVehiclesFromDatabase);
+	};
 
+	useLayoutEffect(() => {
 		getAllVehiclesData();
 	}, []);
 
