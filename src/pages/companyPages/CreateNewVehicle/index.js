@@ -31,7 +31,7 @@ export default function CreateNewVehicle({ navigation, route }) {
 		setThereIsWheelchairSupport((previousState) => !previousState);
 
 	const createVehicle = async () => {
-		const errors = verifyInputs();
+		const errors = await verifyInputs();
 
 		if (errors === 'Usuário já existe') {
 			return;

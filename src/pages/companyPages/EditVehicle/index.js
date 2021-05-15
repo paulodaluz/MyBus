@@ -1,8 +1,11 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { Alert, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TextInput, View } from 'react-native';
 import { updatePlateVehicleCompany } from '../../../backend/users/Company';
 import { editVehicle, getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
-import { darkGrey } from '../../../styles/colors';
+import { MiddleButton } from '../../../components/MiddleButton';
+import { SwitchFunction } from '../../../components/SwitchFunction';
+import { orange } from '../../../styles/colors';
+import { Header } from './Header';
 import { styles } from './style';
 
 export default function EditVehicle({ navigation, route }) {
@@ -23,13 +26,12 @@ export default function EditVehicle({ navigation, route }) {
 	const [oldregistrationPlate, setOldRegistrationPlate] = useState('');
 
 	const toggleSwitchBathroom = () => setThereIsBathroom((previousState) => !previousState);
-	const toggleSwitchAirC = () => setThereIsAirConditioning((previousState) => !previousState);
 	const toggleSwitchWifi = () => setThereIsWifi((previousState) => !previousState);
+	const toggleSwitchIsPublic = () => setIsPublic((previousState) => !previousState);
 	const toggleSwitchWheelchairSup = () =>
 		setThereIsWheelchairSupport((previousState) => !previousState);
-	const toggleSwitchIsPublic = () => setIsPublic((previousState) => !previousState);
-
-	const buttonColor = { false: darkGrey, true: darkGrey };
+	const toggleSwitchAirConditioning = () =>
+		setThereIsAirConditioning((previousState) => !previousState);
 
 	const updateVehicle = async () => {
 		const errors = await verifyInputs();
@@ -76,7 +78,6 @@ export default function EditVehicle({ navigation, route }) {
 			Alert.alert('Dados inválidos, verifique os campos e tente novamente!');
 			return 'Campos não preenchidos!';
 		}
-		return;
 	};
 
 	const getVehicleData = async () => {
@@ -104,9 +105,7 @@ export default function EditVehicle({ navigation, route }) {
 
 	return (
 		<View>
-			<View style={styles.boxTitle}>
-				<Text style={styles.title}>DIGITE AS INFORMAÇÕES DO VEICULO</Text>
-			</View>
+			<Header title={'DIGITE AS INFORMAÇÕES\nDO VEICULO'} />
 
 			<View style={styles.body}>
 				<Text style={styles.inputName}>Nome do veiculo</Text>
@@ -137,71 +136,56 @@ export default function EditVehicle({ navigation, route }) {
 				/>
 
 				<View>
-					<Text style={styles.selectResources}>Selecione os recursos disponíveis</Text>
+					<Text style={styles.text}>Selecione os recursos disponíveis</Text>
 
-					<View style={styles.optionFuntionOfVehicle}>
-						<Text style={styles.functionOfVehicle}>Banheiro</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={buttonColor}
-							ios_backgroundColor="#E5E9F2"
-							onValueChange={toggleSwitchBathroom}
+					<View style={styles.switch}>
+						<SwitchFunction
+							text={'Banheiro'}
 							value={thereIsBathroom}
-							tex
+							onValueChange={toggleSwitchBathroom}
 						/>
 					</View>
 
-					<View style={styles.optionFuntionOfVehicle}>
-						<Text style={styles.functionOfVehicle}>ar condicionado</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={buttonColor}
-							ios_backgroundColor="#E5E9F2"
-							onValueChange={toggleSwitchAirC}
+					<View style={styles.switch}>
+						<SwitchFunction
+							text={'ar condicionado'}
 							value={thereIsAirConditioning}
-							tex
+							onValueChange={toggleSwitchAirConditioning}
 						/>
 					</View>
 
-					<View style={styles.optionFuntionOfVehicle}>
-						<Text style={styles.functionOfVehicle}>internet</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={buttonColor}
-							ios_backgroundColor="#E5E9F2"
-							onValueChange={toggleSwitchWifi}
+					<View style={styles.switch}>
+						<SwitchFunction
+							text={'internet'}
 							value={thereIsWifi}
-							tex
+							onValueChange={toggleSwitchWifi}
 						/>
 					</View>
 
-					<View style={styles.optionFuntionOfVehicle}>
-						<Text style={styles.functionOfVehicle}>suporte para cadeirantes</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={buttonColor}
-							ios_backgroundColor="#E5E9F2"
-							onValueChange={toggleSwitchWheelchairSup}
+					<View style={styles.switch}>
+						<SwitchFunction
+							text={'suporte para cadeirantes'}
 							value={thereIsWheelchairSupport}
-							tex
+							onValueChange={toggleSwitchWheelchairSup}
 						/>
 					</View>
 
-					<View style={styles.optionFuntionOfVehicle}>
-						<Text style={styles.functionOfVehicle}>veiculo público</Text>
-						<Switch
-							style={styles.buttonListedVehicles}
-							trackColor={buttonColor}
-							ios_backgroundColor="#E5E9F2"
-							onValueChange={toggleSwitchIsPublic}
+					<View style={styles.switch}>
+						<SwitchFunction
+							text={'veículo público'}
 							value={isPublic}
-							tex
+							onValueChange={toggleSwitchIsPublic}
 						/>
 					</View>
 				</View>
-				<TouchableOpacity style={styles.updateButton} onPress={() => updateVehicle()}>
-					<Text style={styles.textButton}>Atualizar</Text>
-				</TouchableOpacity>
+
+				<View style={styles.updateButton}>
+					<MiddleButton
+						onPress={() => updateVehicle()}
+						textButton="Atualizar"
+						backgroundColor={orange}
+					/>
+				</View>
 			</View>
 		</View>
 	);
