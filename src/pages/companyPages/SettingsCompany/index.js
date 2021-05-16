@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { Linking, View } from 'react-native';
+import { Linking, ScrollView, View } from 'react-native';
 import { getSession, removeSession } from '../../../backend/Login';
 import { Header } from '../../../components/Header';
 import { OptionConfig } from '../../../components/OptionConfig';
@@ -27,49 +27,51 @@ export default function SettingsCompany({ navigation }) {
 				<Header title={'Configurações'} />
 			</View>
 
-			<View style={styles.listOfOptions}>
-				<View style={styles.groupedCategories}>
-					<OptionConfig
-						textButton={'Cadastrar novo veículo'}
-						onPress={() => navigation.navigate('CreateNewVehicle', { uid })}
-					/>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<View style={styles.listOfOptions}>
+					<View style={styles.groupedCategories}>
+						<OptionConfig
+							textButton={'Cadastrar novo veículo'}
+							onPress={() => navigation.navigate('CreateNewVehicle', { uid })}
+						/>
 
-					<OptionConfig
-						textButton={'Deletar veículo'}
-						onPress={() => navigation.navigate('ListMyLinkedVehicles', { uid })}
-					/>
+						<OptionConfig
+							textButton={'Deletar veículo'}
+							onPress={() => navigation.navigate('ListMyLinkedVehicles', { uid })}
+						/>
+					</View>
+
+					<View style={styles.groupedCategories}>
+						<OptionConfig
+							textButton={'Feedbacks recebidos'}
+							onPress={() => navigation.navigate('ReceivedFeedbacks', { uid })}
+						/>
+					</View>
+
+					<View style={styles.groupedCategories}>
+						<OptionConfig
+							textButton={'Editar perfil'}
+							onPress={() => navigation.navigate('EditProfileCompany', { uid })}
+						/>
+					</View>
+
+					<View style={styles.groupedCategories}>
+						<OptionConfig
+							textButton={'Deixe sua opinião'}
+							onPress={() => navigation.navigate('LeaveYourOpinionCompany', { uid })}
+						/>
+
+						<OptionConfig
+							textButton={'Entre em contato conosco'}
+							onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone=55540808')}
+						/>
+					</View>
+
+					<View style={styles.groupedCategories}>
+						<OptionConfig textButton={'Sair da conta'} onPress={() => logout()} />
+					</View>
 				</View>
-
-				<View style={styles.groupedCategories}>
-					<OptionConfig
-						textButton={'Feedbacks recebidos'}
-						onPress={() => navigation.navigate('ReceivedFeedbacks', { uid })}
-					/>
-				</View>
-
-				<View style={styles.groupedCategories}>
-					<OptionConfig
-						textButton={'Editar perfil'}
-						onPress={() => navigation.navigate('EditProfileCompany', { uid })}
-					/>
-				</View>
-
-				<View style={styles.groupedCategories}>
-					<OptionConfig
-						textButton={'Deixe sua opinião'}
-						onPress={() => navigation.navigate('LeaveYourOpinionCompany', { uid })}
-					/>
-
-					<OptionConfig
-						textButton={'Entre em contato conosco'}
-						onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone=55540808')}
-					/>
-				</View>
-
-				<View style={styles.groupedCategories}>
-					<OptionConfig textButton={'Sair da conta'} onPress={() => logout()} />
-				</View>
-			</View>
+			</ScrollView>
 		</View>
 	);
 }
