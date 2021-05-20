@@ -29,4 +29,16 @@ export const styles = StyleSheet.create({
 		fontSize: 28,
 		fontWeight: 'bold',
 	},
+	reminderContainer: {
+		marginTop: '8%',
+		flexDirection: 'row',
+	},
+	textReminder: {
+		color: white,
+		fontSize: 24,
+		fontWeight: 'bold',
+	},
+	switchButton: {
+		marginRight: '2%',
+	},
 });

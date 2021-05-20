@@ -1,9 +1,12 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Switch, Text, View } from 'react-native';
 import bus_icon from '../../../../assets/icons/png/map/bus_icon.png';
+import { darkGrey } from '../../../../styles/colors';
 import { styles } from './style';
 
-const InfosVehicle = ({ name, status, idToPassangers }) => {
+const buttonColor = { false: 'black', true: darkGrey };
+
+const InfosVehicle = ({ name, status, idToPassangers, valueReminder, onChangeValueReminder }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.nameVehicles}>
@@ -16,6 +19,18 @@ const InfosVehicle = ({ name, status, idToPassangers }) => {
 
 			<Text style={styles.infoName}>Código do Veículo</Text>
 			<Text style={styles.info}>{idToPassangers}</Text>
+
+			<View style={styles.reminderContainer}>
+				<Switch
+					style={styles.switchButton}
+					trackColor={buttonColor}
+					ios_backgroundColor="#E5E9F2"
+					value={valueReminder}
+					onValueChange={onChangeValueReminder}
+				/>
+
+				<Text style={styles.textReminder}>Adicionar Lembrete</Text>
+			</View>
 		</View>
 	);
 };
