@@ -43,7 +43,8 @@ export const styles = StyleSheet.create({
 	},
 	updateButton: {
 		width: '60%',
-		height: '8%',
+		height: '15%',
 		alignSelf: 'center',
+		marginTop: '6%',
 	},
 });

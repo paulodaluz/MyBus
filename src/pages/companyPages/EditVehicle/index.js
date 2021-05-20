@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { Alert, Text, TextInput, View } from 'react-native';
+import { Alert, ScrollView, Text, TextInput, View } from 'react-native';
 import { updatePlateVehicleCompany } from '../../../backend/users/Company';
 import { editVehicle, getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
 import { MiddleButton } from '../../../components/MiddleButton';
@@ -108,84 +108,86 @@ export default function EditVehicle({ navigation, route }) {
 			<Header title={'DIGITE AS INFORMAÇÕES\nDO VEICULO'} />
 
 			<View style={styles.body}>
-				<Text style={styles.inputName}>Nome do veiculo</Text>
-				<TextInput
-					style={styles.input}
-					onChangeText={(text) => setName(text)}
-					value={name}
-					placeholder="Digite o nome"
-					keyboardType="default"
-				/>
-
-				<Text style={styles.inputName}>Valor do transporte</Text>
-				<TextInput
-					style={styles.input}
-					onChangeText={(text) => setPrice(text)}
-					value={price}
-					placeholder="Digite o valor"
-					keyboardType="numeric"
-				/>
-
-				<Text style={styles.inputName}>Placa do Veículo</Text>
-				<TextInput
-					style={styles.input}
-					onChangeText={(text) => setRegistrationPlate(text)}
-					value={registrationPlate}
-					placeholder="Digite a placa"
-					keyboardType="default"
-				/>
-
-				<View>
-					<Text style={styles.text}>Selecione os recursos disponíveis</Text>
-
-					<View style={styles.switch}>
-						<SwitchFunction
-							text={'Banheiro'}
-							value={thereIsBathroom}
-							onValueChange={toggleSwitchBathroom}
-						/>
-					</View>
-
-					<View style={styles.switch}>
-						<SwitchFunction
-							text={'ar condicionado'}
-							value={thereIsAirConditioning}
-							onValueChange={toggleSwitchAirConditioning}
-						/>
-					</View>
-
-					<View style={styles.switch}>
-						<SwitchFunction
-							text={'internet'}
-							value={thereIsWifi}
-							onValueChange={toggleSwitchWifi}
-						/>
-					</View>
-
-					<View style={styles.switch}>
-						<SwitchFunction
-							text={'suporte para cadeirantes'}
-							value={thereIsWheelchairSupport}
-							onValueChange={toggleSwitchWheelchairSup}
-						/>
-					</View>
-
-					<View style={styles.switch}>
-						<SwitchFunction
-							text={'veículo público'}
-							value={isPublic}
-							onValueChange={toggleSwitchIsPublic}
-						/>
-					</View>
-				</View>
-
-				<View style={styles.updateButton}>
-					<MiddleButton
-						onPress={() => updateVehicle()}
-						textButton="Atualizar"
-						backgroundColor={orange}
+				<ScrollView showsVerticalScrollIndicator={false}>
+					<Text style={styles.inputName}>Nome do veiculo</Text>
+					<TextInput
+						style={styles.input}
+						onChangeText={(text) => setName(text)}
+						value={name}
+						placeholder="Digite o nome"
+						keyboardType="default"
 					/>
-				</View>
+
+					<Text style={styles.inputName}>Valor do transporte</Text>
+					<TextInput
+						style={styles.input}
+						onChangeText={(text) => setPrice(text)}
+						value={price}
+						placeholder="Digite o valor"
+						keyboardType="numeric"
+					/>
+
+					<Text style={styles.inputName}>Placa do Veículo</Text>
+					<TextInput
+						style={styles.input}
+						onChangeText={(text) => setRegistrationPlate(text)}
+						value={registrationPlate}
+						placeholder="Digite a placa"
+						keyboardType="default"
+					/>
+
+					<View>
+						<Text style={styles.text}>Selecione os recursos disponíveis</Text>
+
+						<View style={styles.switch}>
+							<SwitchFunction
+								text={'Banheiro'}
+								value={thereIsBathroom}
+								onValueChange={toggleSwitchBathroom}
+							/>
+						</View>
+
+						<View style={styles.switch}>
+							<SwitchFunction
+								text={'ar condicionado'}
+								value={thereIsAirConditioning}
+								onValueChange={toggleSwitchAirConditioning}
+							/>
+						</View>
+
+						<View style={styles.switch}>
+							<SwitchFunction
+								text={'internet'}
+								value={thereIsWifi}
+								onValueChange={toggleSwitchWifi}
+							/>
+						</View>
+
+						<View style={styles.switch}>
+							<SwitchFunction
+								text={'suporte para cadeirantes'}
+								value={thereIsWheelchairSupport}
+								onValueChange={toggleSwitchWheelchairSup}
+							/>
+						</View>
+
+						{/* <View style={styles.switch}>
+							<SwitchFunction
+								text={'veículo público'}
+								value={isPublic}
+								onValueChange={toggleSwitchIsPublic}
+							/>
+						</View> */}
+					</View>
+
+					<View style={styles.updateButton}>
+						<MiddleButton
+							onPress={() => updateVehicle()}
+							textButton="Atualizar"
+							backgroundColor={orange}
+						/>
+					</View>
+				</ScrollView>
 			</View>
 		</View>
 	);
