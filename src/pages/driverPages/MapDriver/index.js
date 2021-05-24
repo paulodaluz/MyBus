@@ -43,18 +43,15 @@ export default function MapDriver({ navigation, route }) {
 
 	const sendMyLocalizationToFirebase = async () => {
 		if (sharingLocalization && myPosition != null) {
-			setVehicleStatus('Operando normalmente');
-
 			await firebase
 				.database()
 				.ref(`/real_time_database/${company.uid}/${vehicle.registration_plate}`)
 				.set({
 					latitude: myPosition.latitude,
 					longitude: myPosition.longitude,
-					status: vehicleStatus,
+					status: 'Operando Normalmente',
 				});
 		}
-		setVehicleStatus('Inativo');
 	};
 
 	const updateInfosVehicle = async () => {
@@ -74,7 +71,9 @@ export default function MapDriver({ navigation, route }) {
 		sendMyLocalizationToFirebase();
 	}, []);
 
-	useEffect(() => {}, [myPosition]);
+	useEffect(() => {
+		sendMyLocalizationToFirebase();
+	}, [myPosition]);
 
 	return (
 		<View style={styles.container}>
