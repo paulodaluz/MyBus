@@ -61,7 +61,7 @@ Exemplo:
 feat: adicionando API para cadastro de investidores
 ```
 
-### Escopo (Scopes)
+### Escopo (scopes)
 
 O escopo do commit é uma parte opcional, curta e de fácil compreensão. É nela que iremos dizer qual parte do código foi modificada, como indicar que fizemos alterações apenas na camada de Client de um microsserviço.
 
@@ -71,7 +71,7 @@ Exemplo:
 refactor(InvestidorService): modificando regra para cálculo de juros
 ```
 
-### Corpo (Body)
+### Corpo (body)
 
 O corpo do commit é também opcional. Nele, pode-se realizar uma descrição mais detalhada do commit, indicar razões para a realização dele e consequências que ele pode vir a causar, além de alguma outra observação que seja pertinente.
 
