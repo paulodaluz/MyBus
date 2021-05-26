@@ -4,12 +4,17 @@ export async function getBusStopsLocalzations(vehicles) {
 	const myBusStops = [];
 
 	const allBusStops = await getAllBusStations();
-	vehicles.forEach((vehicle) => {
+
+	vehicles.map((vehicle) => {
 		let existsBusStop = allBusStops.find(
-			(busStop) => busStop.vehicle_plate === vehicle.registration_plate
+			(busStop) => busStop.vehiclePlate === vehicle.registration_plate
 		);
+
 		if (existsBusStop) {
-			myBusStops.push(existsBusStop);
+			existsBusStop.busPoints.forEach((busStop) => {
+				busStop.vehicle_plate = existsBusStop.vehiclePlate;
+				myBusStops.push(busStop);
+			});
 		}
 	});
 

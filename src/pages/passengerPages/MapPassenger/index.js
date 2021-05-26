@@ -49,6 +49,7 @@ export default function MapPassenger({ navigation, route }) {
 	const getVehiclesInfos = async () => {
 		const vehiclesFirestore = await getMyVehicles(user.uid);
 		setVehiclesByFirestore(vehiclesFirestore);
+		getBusStops();
 	};
 
 	const getBusStops = async () => {
@@ -98,12 +99,12 @@ export default function MapPassenger({ navigation, route }) {
 
 	useLayoutEffect(() => {
 		getVehiclesInfos();
-		getBusStops();
 		getAllLocalizationVehicles();
 		getMyPosition();
+		getBusStops();
 	}, []);
 
-	useEffect(() => {}, [myPosition, realTimeVehicles, busStops]);
+	useEffect(() => {}, [busStops, myPosition, realTimeVehicles]);
 
 	return (
 		<View style={styles.container}>
