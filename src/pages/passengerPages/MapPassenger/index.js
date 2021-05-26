@@ -7,6 +7,7 @@ import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
 import bus_stop from '../../../assets/icons/png/map/bus_stop.png';
 import passenger_marker from '../../../assets/icons/png/map/passenger_marker.png';
 import { getBusStopsLocalzations } from '../../../backend/map/PassengerMap';
+import { calculateTime } from '../../../backend/utils/Utils';
 import { getMyVehicles } from '../../../backend/vehicles/Vehicle';
 import { Menu } from '../../../components/Menu';
 import { NextVehicleOnThisPoint } from './NextVehicleOnThisPoint';
@@ -23,6 +24,8 @@ export default function MapPassenger({ navigation, route }) {
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [vehiclesOnThisPoint, setVehiclesOnThisPoint] = useState(false);
+
+	const [timeToArriveVehicle, setTimeToArriveVehicle] = useState(0);
 
 	const initialLocalization = {
 		latitude: -28.2612,
@@ -89,10 +92,22 @@ export default function MapPassenger({ navigation, route }) {
 	const getNextVehiclesInThisPoint = (busStop) => {
 		setModalVisible(!modalVisible);
 
-		const vehiclesInThisPoint = vehiclesByFirestore.filter(
+		const vehiclesInThisPoint = vehiclesByFirestore.find(
 			(vehicle) => vehicle.registration_plate === busStop.vehicle_plate
 		);
-		console.log({ vehiclesInThisPoint });
+
+		const localizationVehicle = realTimeVehicles.find(
+			(realTimeVehicle) => realTimeVehicle.registration_plate === busStop.vehicle_plate
+		);
+
+		const time = calculateTime(
+			busStop.latitude,
+			busStop.longitude,
+			localizationVehicle.latitude,
+			localizationVehicle.longitude
+		);
+
+		setTimeToArriveVehicle(time);
 
 		setVehiclesOnThisPoint(vehiclesInThisPoint);
 	};
@@ -104,7 +119,7 @@ export default function MapPassenger({ navigation, route }) {
 		getBusStops();
 	}, []);
 
-	useEffect(() => {}, [busStops, myPosition, realTimeVehicles]);
+	useEffect(() => {}, [myPosition, realTimeVehicles, busStops, timeToArriveVehicle]);
 
 	return (
 		<View style={styles.container}>
@@ -169,6 +184,7 @@ export default function MapPassenger({ navigation, route }) {
 				<NextVehicleOnThisPoint
 					openOnMap={() => setModalVisible(!modalVisible)}
 					vehiclesOnThisPoint={vehiclesOnThisPoint}
+					time={timeToArriveVehicle}
 				/>
 			</Modal>
 		</View>

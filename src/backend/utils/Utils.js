@@ -78,7 +78,8 @@ export function isValidCPF(cpf) {
 }
 
 export function isValidEmail(email) {
-	const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+	const regex =
+		/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 	return regex.test(email);
 }
 
@@ -147,4 +148,41 @@ export function isValidCNPJ(cnpj) {
 	}
 
 	return true;
+}
+
+export function calculateTime(lat1, lon1, lat2, lon2) {
+	let dist;
+
+	const unit = 'K';
+	if (lat1 == lat2 && lon1 == lon2) {
+		return 0;
+	} else {
+		var radlat1 = (Math.PI * lat1) / 180;
+		var radlat2 = (Math.PI * lat2) / 180;
+		var theta = lon1 - lon2;
+		var radtheta = (Math.PI * theta) / 180;
+		dist =
+			Math.sin(radlat1) * Math.sin(radlat2) +
+			Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = (dist * 180) / Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit == 'K') {
+			dist = dist * 1.609344;
+		}
+		if (unit == 'N') {
+			dist = dist * 0.8684;
+		}
+	}
+
+	const distancia = dist;
+
+	const secondsTime = Number(distancia.toFixed(2)) / 26;
+
+	const minutsTime = secondsTime * 60;
+
+	return Math.floor(minutsTime);
 }
