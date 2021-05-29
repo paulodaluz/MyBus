@@ -16,7 +16,7 @@ export default function ShowVehicleCode({ navigation, route }) {
 
 	return (
 		<View>
-			<Header title={'INFORMAÇÕES DO\nVEICULO'} />
+			<Header title={'INFORMAÇÕES DO\nVEÍCULO'} />
 
 			<View style={styles.body}>
 				<Text style={styles.subTitle}>DADOS PARA CONTROLE DO VEÍCULO</Text>

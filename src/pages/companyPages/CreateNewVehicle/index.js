@@ -90,10 +90,10 @@ export default function CreateNewVehicle({ navigation, route }) {
 
 	return (
 		<View>
-			<Header title={'DIGITE AS INFORMAÇÕES\nDO VEICULO'} />
+			<Header title={'DIGITE AS INFORMAÇÕES\nDO VEÍCULO'} />
 
 			<View style={styles.body}>
-				<Text style={styles.inputName}>Nome do veiculo</Text>
+				<Text style={styles.inputName}>Nome do veículo</Text>
 				<TextInput
 					style={styles.input}
 					onChangeText={(text) => setName(text)}

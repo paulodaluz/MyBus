@@ -10,7 +10,7 @@ export default function AskShowVehicleCode({ navigation, route }) {
 
 	return (
 		<View>
-			<Header title={'INFORMAÇÕES DO\nVEICULO'} />
+			<Header title={'INFORMAÇÕES DO\nVEÍCULO'} />
 
 			<View style={styles.body}>
 				<Text style={styles.subtitle}>DESEJA VISUALIZAR O CÓDIGO DO VEÍCULO?</Text>
