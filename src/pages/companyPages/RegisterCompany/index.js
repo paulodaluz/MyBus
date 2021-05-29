@@ -49,7 +49,7 @@ export default function RegisterCompany({ navigation }) {
 		}
 
 		await createSession(companyCreated.response.uid);
-		return navigation.navigate('MapCompany', { company: companyCreated.response });
+		return navigation.navigate('MapCompany', { user: companyCreated.response });
 	};
 
 	return (

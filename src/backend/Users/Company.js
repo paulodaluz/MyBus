@@ -2,7 +2,8 @@ import * as authService from '../../service/AuthService';
 import { getAllCompanies, saveCompany, updateCompany } from '../../service/CompanyService';
 
 export async function createCompanyBackend(email, password, name, cnpj) {
-	let company = { email, name, cnpj };
+	let linked_vehicles = [];
+	let company = { email, name, cnpj, linked_vehicles };
 
 	const registeredAuthenticationUser = await authService
 		.register(email, password)
