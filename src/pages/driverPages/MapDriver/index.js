@@ -15,7 +15,7 @@ export default function MapDriver({ navigation, route }) {
 	const [myPosition, setMyposition] = useState(null);
 
 	const [sharingLocalization, setSharingLocalization] = useState(false);
-	const [vehicleStatus, setVehicleStatus] = useState(null);
+	const [vehicleStatus, setVehicleStatus] = useState('Operando Normalmente');
 
 	const [modalVisible, setModalVisible] = useState(false);
 

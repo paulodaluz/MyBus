@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { black, orange, purple, white } from '../../../../styles/colors';
+import { black, purple, white } from '../../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
@@ -38,19 +38,9 @@ export const styles = StyleSheet.create({
 		fontSize: 28,
 		fontWeight: 'bold',
 	},
-	buttonEditVehicle: {
-		backgroundColor: orange,
-		borderRadius: 30,
-		height: '10%',
-		width: '50%',
-		alignItems: 'center',
+	button: {
+		height: '18%',
+		width: '54%',
 		alignSelf: 'center',
-		marginTop: '10%',
-	},
-	textButtonEditVehicle: {
-		color: white,
-		fontWeight: 'bold',
-		paddingTop: '5%',
-		fontSize: 34,
 	},
 });

@@ -4,6 +4,8 @@ import cross_button from '../../../../assets/icons/png/cross_button.png';
 import bus_icon from '../../../../assets/icons/png/map/bus_icon.png';
 import { Divisor } from '../../../../components/Divisor';
 import { FunctionBarOfVehicle } from '../../../../components/FunctionBarOfVehicle';
+import { MiddleButton } from '../../../../components/MiddleButton';
+import { orange } from '../../../../styles/colors';
 import { styles } from './style';
 
 const ShowVehicle = ({
@@ -45,9 +47,13 @@ const ShowVehicle = ({
 
 		<Divisor />
 
-		<TouchableOpacity style={styles.buttonEditVehicle} onPress={onPressUpdateVehiclesInfo}>
-			<Text style={styles.textButtonEditVehicle}>EDITAR</Text>
-		</TouchableOpacity>
+		<View style={styles.button}>
+			<MiddleButton
+				onPress={onPressUpdateVehiclesInfo}
+				textButton={'EDITAR'}
+				backgroundColor={orange}
+			/>
+		</View>
 	</View>
 );
 
