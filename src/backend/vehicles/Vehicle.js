@@ -7,7 +7,8 @@ import {
 	updateFunctionsVehicle
 } from '../../service/VehicleFunctionsService';
 import {
-	deleteVehicle, getAllVehicles,
+	deleteVehicle,
+	getAllVehicles,
 	saveVehicle,
 	updateVehicle
 } from '../../service/VehicleService';
@@ -118,11 +119,11 @@ export async function getMyVehicles(uid) {
 	const passenger = allUsers.find((oneUser) => oneUser.uid === uid);
 	const company = allCompanies.find((oneCompany) => oneCompany.uid === uid);
 
-	if (passenger) {
+	if (passenger && Object.keys(passenger).length) {
 		user = passenger;
 	}
 
-	if (company) {
+	if (company && Object.keys(company).length) {
 		user = company;
 	}
 
@@ -146,14 +147,12 @@ export async function getMyVehicles(uid) {
 	}
 
 	userVehicles = user.linked_vehicles.filter((vehicleCode) => {
-		return allVehicles.filter(
-			(userVehicle) => userVehicle.id_to_share_localization === vehicleCode
-		);
+		return allVehicles.filter((userVehicle) => userVehicle.registration_plate === vehicleCode);
 	});
 
 	userVehicles.forEach((vehicleCode) => {
 		allVehicles.forEach((vehicle) => {
-			if (vehicle.id_to_share_localization === vehicleCode) {
+			if (vehicle.registration_plate === vehicleCode) {
 				myVehicles.push(vehicle);
 			}
 		});

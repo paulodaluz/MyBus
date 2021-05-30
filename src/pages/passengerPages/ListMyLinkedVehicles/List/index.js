@@ -13,6 +13,7 @@ const BoxWithInfoVehicles = ({ item, onPress }) => {
 			<Text style={styles.infoName}>Código do Veículo:</Text>
 			<Text style={styles.info}>{item.id_to_passengers}</Text>
 			<Text style={styles.infoName}>Situação Atual:</Text>
+			<Text style={styles.info}>Operando Normalmente</Text>
 
 			<Divisor />
 

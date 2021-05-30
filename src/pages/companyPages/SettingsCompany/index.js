@@ -36,7 +36,7 @@ export default function SettingsCompany({ navigation }) {
 						/>
 
 						<OptionConfig
-							textButton={'Deletar veículo'}
+							textButton={'Listar veículos'}
 							onPress={() => navigation.navigate('ListMyLinkedVehicles', { uid })}
 						/>
 					</View>
