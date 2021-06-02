@@ -74,7 +74,7 @@ export async function getVehicle({ registrationPlate = '', name = '', idToPassen
 	}
 
 	if (idToPassengers) {
-		return allVehicles.find((vehicle) => vehicle.id_to_passagers === idToPassengers);
+		return allVehicles.find((vehicle) => vehicle.id_to_passengers === idToPassengers);
 	}
 
 	return allVehicles.find((vehicle) => vehicle.name.toLowerCase().includes(name.toLowerCase()));
@@ -132,12 +132,15 @@ export async function getMyVehicles(uid) {
 	// passenger
 	if (user.isPassenger) {
 		userVehicles = user.codes_private_vehicles.filter((vehicleCode) => {
-			return allVehicles.filter((userVehicle) => userVehicle.id_to_passagers === vehicleCode);
+			return allVehicles.filter((userVehicle) => userVehicle.id_to_passengers === vehicleCode);
 		});
 
 		userVehicles.forEach((vehicleCode) => {
 			allVehicles.forEach((vehicle) => {
-				if (vehicle.id_to_passagers === vehicleCode || vehicle.registration_plate === vehicleCode) {
+				if (
+					vehicle.id_to_passengers === vehicleCode ||
+					vehicle.registration_plate === vehicleCode
+				) {
 					myVehicles.push(vehicle);
 				}
 			});
