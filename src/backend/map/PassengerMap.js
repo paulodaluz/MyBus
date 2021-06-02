@@ -7,7 +7,7 @@ export async function getBusStopsLocalzations(vehicles) {
 
 	vehicles.map((vehicle) => {
 		let existsBusStop = allBusStops.find(
-			(busStop) => busStop.vehiclePlate === vehicle.registration_plate
+			(busStop) => busStop.registration_plate === vehicle.registration_plate
 		);
 
 		if (existsBusStop) {

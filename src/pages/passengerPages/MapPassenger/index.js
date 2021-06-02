@@ -52,11 +52,8 @@ export default function MapPassenger({ navigation, route }) {
 	const getVehiclesInfos = async () => {
 		const vehiclesFirestore = await getMyVehicles(user.uid);
 		setVehiclesByFirestore(vehiclesFirestore);
-		getBusStops();
-	};
 
-	const getBusStops = async () => {
-		const busStopsLocalzations = await getBusStopsLocalzations(vehiclesByFirestore);
+		const busStopsLocalzations = await getBusStopsLocalzations(vehiclesFirestore);
 		setBusStops(busStopsLocalzations);
 	};
 
@@ -116,7 +113,7 @@ export default function MapPassenger({ navigation, route }) {
 		getVehiclesInfos();
 		getAllLocalizationVehicles();
 		getMyPosition();
-		getBusStops();
+		// getBusStops();
 	}, []);
 
 	useEffect(() => {}, [myPosition, realTimeVehicles, busStops, timeToArriveVehicle]);
