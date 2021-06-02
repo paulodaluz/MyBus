@@ -27,10 +27,11 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 			if (!vehicle || vehicle.is_public === true) {
 				return Alert.alert('Código do veículo inálido!');
 			}
+			user.codes_private_vehicles = [vehicle.registration_plate];
 
 			await Promise.all([
-				await updateUserAllInfos(user.id, null, null, null, typeOfVehicleToList),
-				await addNewPrivateVehicle(user.uid, vehicleCode),
+				updateUserAllInfos(user.id, null, null, null, typeOfVehicleToList),
+				addNewPrivateVehicle(user.uid, vehicle.registration_plate),
 			]);
 		}
 
