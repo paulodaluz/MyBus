@@ -28,10 +28,10 @@ export default function MapPassenger({ navigation, route }) {
 	const [timeToArriveVehicle, setTimeToArriveVehicle] = useState(0);
 
 	const initialLocalization = {
-		latitude: -28.2612,
-		longitude: -52.4083,
-		latitudeDelta: 0.15,
-		longitudeDelta: 0.15,
+		latitude: -28.266279824325082,
+		longitude: -52.416200595066597,
+		latitudeDelta: 0.02,
+		longitudeDelta: 0.02,
 	};
 
 	const getMyPosition = async () => {
