@@ -113,7 +113,6 @@ export default function MapPassenger({ navigation, route }) {
 		getVehiclesInfos();
 		getAllLocalizationVehicles();
 		getMyPosition();
-		// getBusStops();
 	}, []);
 
 	useEffect(() => {}, [myPosition, realTimeVehicles, busStops, timeToArriveVehicle]);

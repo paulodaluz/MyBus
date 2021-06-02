@@ -180,7 +180,7 @@ export function calculateTime(lat1, lon1, lat2, lon2) {
 
 	const distancia = dist;
 
-	const secondsTime = Number(distancia.toFixed(2)) / 26;
+	const secondsTime = Number(distancia.toFixed(2)) / 15;
 
 	const minutsTime = secondsTime * 60;
 

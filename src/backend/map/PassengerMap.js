@@ -12,7 +12,7 @@ export async function getBusStopsLocalzations(vehicles) {
 
 		if (existsBusStop) {
 			existsBusStop.busPoints.forEach((busStop) => {
-				busStop.vehicle_plate = existsBusStop.vehiclePlate;
+				busStop.vehicle_plate = existsBusStop.registration_plate;
 				myBusStops.push(busStop);
 			});
 		}
