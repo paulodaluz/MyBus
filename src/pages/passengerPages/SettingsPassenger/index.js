@@ -9,7 +9,7 @@ import { styles } from './style';
 export default function SettingsPassenger({ navigation }) {
 	const [uid, setUid] = useState('');
 
-	const [isEnabled, setIsEnabled] = useState(false);
+	const [isEnabled, setIsEnabled] = useState(true);
 	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
 	const logout = async () => {
@@ -42,14 +42,14 @@ export default function SettingsPassenger({ navigation }) {
 						/>
 
 						<OptionConfig
-							textButton={'Remover veículo privado'}
+							textButton={'Listar meus veículos privados'}
 							onPress={() => navigation.navigate('ListMyLinkedVehicles', { uid })}
 						/>
 					</View>
 
 					<View style={styles.groupedCategories}>
 						<OptionConfig
-							textButton={'Editar Perfil'}
+							textButton={'Editar perfil'}
 							onPress={() => navigation.navigate('EditProfilePassenger', { uid })}
 						/>
 					</View>
