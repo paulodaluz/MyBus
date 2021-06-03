@@ -18,7 +18,7 @@ export default function AddNewPrivateVehicle({ route }) {
 		if (!vehicle || vehicle.is_public === true) {
 			return Alert.alert('Código do veículo inálido!');
 		}
-		await addNewPrivateVehicle(uid, vehicleCode);
+		await addNewPrivateVehicle(uid, vehicle.registration_plate);
 
 		Alert.alert('Veículo adicionado com sucesso! Para visualizar volte ao mapa!');
 		return cleanInputs();
