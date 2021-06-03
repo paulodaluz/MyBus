@@ -24,5 +24,8 @@ export const styles = StyleSheet.create({
 		fontSize: 28,
 		fontWeight: 'bold',
 	},
-	clockIcon: { height: 40, width: 40 },
+	busIcon: {
+		height: 60,
+		width: 60,
+	},
 });

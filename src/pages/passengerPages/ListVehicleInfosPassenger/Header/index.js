@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import clock_icon from '../../../../assets/icons/png/clock_icon.png';
+import GreenBusIcon from '../../../../assets/icons/png/green_bus_icon.png';
 import { styles } from './style';
 
 const Header = ({ name, time }) => {
@@ -11,8 +11,7 @@ const Header = ({ name, time }) => {
 				<Text style={styles.infoTitle}>{name}</Text>
 			</View>
 			<View>
-				<Image style={styles.clockIcon} source={clock_icon} />
-				<Text style={styles.infoNameTitle}>12 min</Text>
+				<Image style={styles.busIcon} source={GreenBusIcon} />
 			</View>
 		</View>
 	);
