@@ -30,7 +30,7 @@ const DynamicButton = ({ onPressFirstButton, onPressSecondButton, feedbackRecipi
 			>
 				<Image style={styles.iconByButton} source={AppIcon} />
 
-				<Text style={styles.textDynamicButton}>Applicativo MyBus</Text>
+				<Text style={styles.textDynamicButton}>Aplicativo MyBus</Text>
 			</TouchableOpacity>
 		</View>
 	);

@@ -9,7 +9,7 @@ const RangeAppMyBus = () => {
 			<View style={styles.buttonFeedbackApp}>
 				<Image style={styles.iconByButton} source={AppIcon} />
 
-				<Text style={styles.textFeedbackApp}>Applicativo MyBus</Text>
+				<Text style={styles.textFeedbackApp}>Aplicativo MyBus</Text>
 			</View>
 		</View>
 	);
