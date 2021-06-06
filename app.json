@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/bus_icon.png",
         "backgroundColor": "#F1F1F1"
-      }
+      },
+      "package": "com.paulodaluz.brazil.mybus"
     },
     "web": {
       "favicon": "./assets/bus_icon.png"
