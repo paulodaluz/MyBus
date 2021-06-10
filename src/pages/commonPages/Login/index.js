@@ -9,9 +9,9 @@ import { darkGrey } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function Login({ navigation }) {
-	const [email, setEmail] = useState('paulo.daluzjr@gmail.com');
+	const [email, setEmail] = useState('');
 	// const [email, setEmail] = useState('bustur@email.com');
-	const [password, setPassword] = useState('Teste123');
+	const [password, setPassword] = useState('');
 
 	const login = async () => {
 		if (!email || !password) {
@@ -19,6 +19,10 @@ export default function Login({ navigation }) {
 		}
 
 		const loggedUser = await authService.login(email, password);
+
+		if (loggedUser.message) {
+			return Alert.alert('Erro ao logar, verifique os dados e tente novamente!');
+		}
 
 		const user = await getUserOnFirebase(loggedUser.user.uid);
 

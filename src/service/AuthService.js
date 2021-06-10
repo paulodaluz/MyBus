@@ -14,14 +14,12 @@ export const register = (email, password) => {
 };
 
 export const login = (email, password) => {
-	return new Promise((resolve, reject) => {
-		firebase
-			.auth()
-			.signInWithEmailAndPassword(email, password)
-			.then((retorno) => resolve(retorno))
-			.catch((error) => {
-				console.log(`AuthService - login - ERROR = ${error}`);
-				reject(error);
-			});
-	});
+	return firebase
+		.auth()
+		.signInWithEmailAndPassword(email, password)
+		.then((retorno) => retorno)
+		.catch((error) => {
+			console.log(`AuthService - login - ERROR = ${error}`);
+			return error;
+		});
 };
