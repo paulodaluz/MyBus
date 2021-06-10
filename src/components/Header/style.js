@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
 		borderBottomLeftRadius: 30,
 		borderBottomRightRadius: 30,
 		marginBottom: '10%',
-		paddingTop: '18%',
+		paddingTop: '14%',
 		paddingHorizontal: '7.5%',
 	},
 	title: {

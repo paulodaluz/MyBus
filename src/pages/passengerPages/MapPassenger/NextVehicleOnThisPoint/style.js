@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
 	},
 	containerTitle: {
 		flexDirection: 'row',
+		width: '90%',
 	},
 	iconTitle: {
 		height: 35,

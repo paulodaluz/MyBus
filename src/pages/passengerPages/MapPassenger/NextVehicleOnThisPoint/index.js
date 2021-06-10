@@ -30,11 +30,7 @@ const NextVehicleOnThisPoint = ({ openOnMap, vehiclesOnThisPoint, time }) => (
 		</View>
 
 		<View style={styles.button}>
-			<WideButton
-				onPress={openOnMap}
-				backgroundColor={darkGrey}
-				textButton={'Acompanhar no mapa!'}
-			/>
+			<WideButton onPress={openOnMap} backgroundColor={darkGrey} textButton={'Voltar ao mapa!'} />
 		</View>
 	</View>
 );

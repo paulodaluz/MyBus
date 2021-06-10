@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
 		paddingLeft: '4%',
 	},
 	mainTitle: {
-		fontSize: 80,
+		fontSize: 70,
 		color: '#343F4B',
 		fontWeight: 'bold',
 	},
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
 		paddingVertical: '6%',
 	},
 	button: {
-		marginTop: '5%',
+		marginTop: '2%',
 		height: '10%',
 		width: '85%',
 	},

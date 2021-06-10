@@ -130,7 +130,7 @@ export default function ListVehicleInfosPassenger({ navigation, route }) {
 					<View style={styles.button}>
 						<MiddleButton
 							onPress={() => navigation.goBack()}
-							textButton={'Ver no mapa'}
+							textButton={'Voltar ao mapa'}
 							backgroundColor={orange}
 						/>
 					</View>
