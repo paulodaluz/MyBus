@@ -77,7 +77,7 @@ export default function MapDriver({ navigation, route }) {
 
 	return (
 		<View style={styles.container}>
-			<MapView.Marker
+			<MapView
 				style={styles.mapStyle}
 				initialRegion={initialLocalization}
 				region={initialLocalization}
@@ -103,7 +103,7 @@ export default function MapDriver({ navigation, route }) {
 						<Image style={styles.placeholderIcon} source={placeholder_icon} />
 					</Marker>
 				) : null}
-			</MapView.Marker>
+			</MapView>
 
 			<Menu
 				onPressShareLocalizationButton={() => setSharingLocalization(!sharingLocalization)}

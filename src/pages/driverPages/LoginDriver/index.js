@@ -11,8 +11,8 @@ import { darkGrey, white } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function LoginDriver({ navigation }) {
-	const [registrationPlate, setRegistrationPlate] = useState('IBMC2789');
-	const [password, setPassword] = useState('3P01HX90J');
+	const [registrationPlate, setRegistrationPlate] = useState('');
+	const [password, setPassword] = useState('');
 
 	const [allVehicles, setAllVehicles] = useState([]);
 
