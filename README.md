@@ -1,8 +1,9 @@
+# 💻 Projeto
+
 <p align="center">
 	<img src="https://user-images.githubusercontent.com/47355769/127005491-5c1809b3-7b05-4a1c-bb4e-b56f483a7780.PNG" alt="Logo MyBus" width="300" height="650" align="center">
 </p>
 
-# 💻 Projeto
 
 Esse projeto foi desenvolvido como Trabalho de Conclusão de Curso(TCC) para a Faculdade IMED Passo Fundo. Com este projeto me foi proporcionado não apenas aprender mas também botar em prática conceitos sobre o React Native, como iniciar um projeto utilizando Expo, Firebase, gerenciamento das rotas no aplicativo, AsyncStorange para manipulação dos dados na memória, boas práticas, componentização, comportamentos diferentes para diferentes SOs e trabalhar com diferentes tamanhos de telas e imagens/icons.
 
@@ -39,12 +40,18 @@ As principais tecnologias utilizadas foram:
  - Baixe o Expo Go em seu dispositivo mobile
 
 
-
 ## 🚀 Getting started
 Para startar o projeto você pode digitar o comando `npm start` ou `yarn start` no diretório do projeto.
 
 Após isso ele irá abrir uma aba no seu navegador padrão com um QRCode, basta apenas escanear com seu smartphone que você poderá acessar o App.
 
+
+## 📖 Docs
+Para mais informações, tem os links abaixo:
+ - [Exemplos de uso](https://www.notion.so/Exemplo-de-Uso-ebe67d5658044c398be18c543c7ee719).
+ - [Fluxograma no drawio](https://github.com/paulodaluz/MyBus/blob/main/documentation/Fluxo/Fluxo.drawio).
+ - [Database do drawio](https://github.com/paulodaluz/MyBus/blob/main/documentation/Database/Database%20MyBus.drawio).
+ - [Padrões de Commit](https://github.com/paulodaluz/MyBus/blob/main/documentation/Padr%C3%B5es%20de%20Commit/Padro%CC%83es%20de%20Commit.md).
 
 ## 📜 Licença
 Esse projeto está sob a licença GNU Affero General Public License v3.0. Veja o arquivo [LICENSE](https://github.com/paulodaluz/MyBus/blob/main/LICENSE) para mais detalhes.
