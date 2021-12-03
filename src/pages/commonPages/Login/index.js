@@ -9,9 +9,9 @@ import { darkGrey } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function Login({ navigation }) {
-	const [email, setEmail] = useState('');
-	// const [email, setEmail] = useState('bustur@email.com');
-	const [password, setPassword] = useState('');
+	// const [email, setEmail] = useState('');
+	const [email, setEmail] = useState('admin@admin.com');
+	const [password, setPassword] = useState('Senha123@');
 
 	const login = async () => {
 		if (!email || !password) {

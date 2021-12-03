@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Alert, Text, View } from 'react-native';
-import { saveAppFeedbackBackend } from '../../../backend/feedbacks/MyBusFeedbacks';
 import { Header } from '../../../components/Header';
 import { Input } from '../../../components/Input';
 import { WideButton } from '../../../components/WideButton';
@@ -18,9 +17,12 @@ export default function LeaveYourOpinionCompany({ route }) {
 			return Alert.alert('Dados inválidos, verifique-os e tente novamente!');
 		}
 
-		await saveAppFeedbackBackend(uid, feedback);
+		const user = await getUserOnFirebase(uid);
+
+		await registerAppFeedback(user.name, user.email, feedback);
 
 		setFeedback('');
+
 		return Alert.alert('Feedback registrado!');
 	};
 
