@@ -1,10 +1,11 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { saveCompanyFeedbackBackend } from '../../../backend/feedbacks/CompanyFeedbacks';
-import { saveAppFeedbackBackend } from '../../../backend/feedbacks/MyBusFeedbacks';
+import { getUserOnFirebase } from '../../../backend/Login';
 import { getVehicle } from '../../../backend/vehicles/Vehicle';
 import { Header } from '../../../components/Header';
 import { WideButton } from '../../../components/WideButton';
+import { registerAppFeedback } from '../../../service/FeedbackService';
 import { purple } from '../../../styles/colors';
 import { DynamicButton } from './DynamicButton';
 import { DynamicInputs } from './DynamicInputs';
@@ -23,7 +24,9 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 			return Alert.alert('Dados inválidos, verifique-os e tente novamente!');
 		}
 
-		await saveAppFeedbackBackend(uid, feedback);
+		const user = await getUserOnFirebase(uid);
+
+		await registerAppFeedback(user.name, user.email, feedback);
 
 		cleanInputs();
 		return Alert.alert('Feedback registrado!');
