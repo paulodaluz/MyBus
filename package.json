@@ -16,6 +16,7 @@
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
+    "axios": "^0.24.0",
     "expo": "~40.0.0",
     "expo-clipboard": "~1.0.1",
     "expo-notifications": "~0.8.2",
@@ -36,7 +37,8 @@
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "@react-native-community/eslint-config": "^2.0.0",
-    "eslint": "^7.24.0"
+    "eslint": "^7.24.0",
+    "react-native-dotenv": "^3.3.0"
   },
   "private": true,
   "engines": {
