@@ -12,3 +12,16 @@ export const registerAppFeedback = async (nameSender, emailSender, feedback) => 
 
 	return;
 }
+
+export const registerVehicleFeedback = async (nameSender, emailSender, feedback, vehicleName, vehicleRegistrationPlate = '') => {
+	const body = { nameSender, emailSender, feedback, vehicleName, vehicleRegistrationPlate };
+
+	await axios.post(`${process.env.URL_BACKEND}/my-bus/v1/feedback/vehicle`, body)
+		.catch(function (error) {
+			console.log(`[FeedbackService] - registerVehicleFeedback - ERROR = ${error}`);
+
+			throw error;
+		});
+
+	return;
+}
