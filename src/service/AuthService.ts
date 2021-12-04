@@ -1,6 +1,6 @@
 import { firebase } from '../database/FirebaseConfiguration';
 
-export const register = (email, password) => {
+export const register = (email: string, password: string): Promise<any> => {
 	return new Promise((resolve, reject) => {
 		firebase
 			.auth()
@@ -13,13 +13,13 @@ export const register = (email, password) => {
 	});
 };
 
-export const login = (email, password) => {
+export const login = async (email: string, password: string): Promise<any> => {
 	return firebase
 		.auth()
 		.signInWithEmailAndPassword(email, password)
 		.then((retorno) => retorno)
 		.catch((error) => {
 			console.log(`AuthService - login - ERROR = ${error}`);
-			return error;
+			throw error;
 		});
 };

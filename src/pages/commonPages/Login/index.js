@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
-import { createSession, getUserOnFirebase } from '../../../backend/Login';
+import { createSession } from '../../../backend/Login';
 import { Header } from '../../../components/Header';
 import { Input } from '../../../components/Input';
 import { WideButton } from '../../../components/WideButton';
 import * as authService from '../../../service/AuthService';
+import { getUser } from '../../../service/UserService';
 import { darkGrey } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function Login({ navigation }) {
-	// const [email, setEmail] = useState('');
 	const [email, setEmail] = useState('admin@admin.com');
 	const [password, setPassword] = useState('Senha123@');
 
@@ -20,17 +20,15 @@ export default function Login({ navigation }) {
 
 		const loggedUser = await authService.login(email, password);
 
-		if (loggedUser.message) {
-			return Alert.alert('Erro ao logar, verifique os dados e tente novamente!');
-		}
-
-		const user = await getUserOnFirebase(loggedUser.user.uid);
+		const user = await getUser(loggedUser.user.uid);
 
 		if (user) {
 			createSession(user.uid);
+
 			if (user.isPassenger) {
 				return navigation.navigate('MapPassenger', { user });
 			}
+
 			return navigation.navigate('MapCompany', { user });
 		}
 

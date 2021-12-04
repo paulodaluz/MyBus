@@ -64,7 +64,7 @@ export default function MapPassenger({ navigation, route }) {
 			.on('value', (snapchot) => {
 				let allLocalizations = snapchot.val();
 				if (allLocalizations) {
-					buildDadosVehicles(allLocalizations, user.codes_private_vehicles);
+					buildDadosVehicles(allLocalizations, user.linkedVehicles);
 				}
 			});
 	};
