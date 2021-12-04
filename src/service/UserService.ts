@@ -5,9 +5,10 @@ export const registerUser = async (
 	name: string,
 	isPassenger: boolean,
 	uid: string,
+	linkedVehicles: Array<string>,
 	cnpj?: string
 ) => {
-	const body = { email, name, isPassenger, uid };
+	const body = { email, name, isPassenger, uid, linkedVehicles };
 
 	if (cnpj) Object.assign(body, { cnpj });
 

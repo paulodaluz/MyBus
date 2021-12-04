@@ -1,39 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Image, Text, TextInput, View } from 'react-native';
+import { Image, Text, TextInput, View } from 'react-native';
 import QRCodeIcon from '../../../assets/icons/png/qr_code.png';
-import { addNewPrivateVehicle, updateUserAllInfos } from '../../../backend/users/Passenger';
-import { getVehicle } from '../../../backend/vehicles/Vehicle';
+import { createSession } from '../../../backend/Login';
 import { WideButton } from '../../../components/WideButton';
+import * as authService from '../../../service/AuthService';
+import { registerUser } from '../../../service/UserService';
 import { purple } from '../../../styles/colors';
 import { Header } from './Header';
 import { styles } from './style';
 import { SwitchCase } from './SwitchCase';
 
 export default function ChooseTypeOfVehicle({ navigation, route }) {
-	const { user } = route.params;
+	const { name, email, password } = route.params;
 
 	const [vehicleCode, setVehicleCode] = useState('');
 	const [typeOfVehicleToList, setTypeOfVehicleToList] = useState('public');
 	const [subtitleMessage, setSubtitleMessage] = useState('');
 
 	const changeTypeOfVehicle = async () => {
-		if (typeOfVehicleToList === 'public') {
-			await updateUserAllInfos(user.id, null, null, null, typeOfVehicleToList);
-		}
+		let linkedVehicles = [];
 
 		if (typeOfVehicleToList === 'private') {
-			const vehicle = await getVehicle({ idToPassengers: vehicleCode });
-
-			if (!vehicle || vehicle.is_public === true) {
-				return Alert.alert('Código do veículo inálido!');
-			}
-			user.codes_private_vehicles = [vehicle.registration_plate];
-
-			await Promise.all([
-				updateUserAllInfos(user.id, null, null, null, typeOfVehicleToList),
-				addNewPrivateVehicle(user.uid, vehicle.registration_plate),
-			]);
+			//TODO VERIFICAR SE VEICULO EXISTE
+			linkedVehicles.push(vehicleCode);
 		}
+
+		const registeredAuthenticationUser = await authService
+			.register(email, password)
+			.catch((error) => {
+				throw error;
+			});
+
+		const uid = registeredAuthenticationUser.user.uid;
+
+		await registerUser(email, name, true, uid, [vehicleCode]);
+
+		await createSession(uid);
+
+		const user = { uid, email, name, linkedVehicles: [vehicleCode] };
 
 		return navigation.navigate('MapPassenger', { user });
 	};

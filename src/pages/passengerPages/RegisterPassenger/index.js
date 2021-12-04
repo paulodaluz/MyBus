@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
-import { createSession } from '../../../backend/Login';
-import { createPassengerBackend } from '../../../backend/users/Passenger';
 import { isSecurityPassword, isValidEmail } from '../../../backend/utils/Utils';
 import { Footer } from '../../../components/FooterRegister';
 import { Header } from '../../../components/Header';
@@ -35,14 +33,7 @@ export default function RegisterPassenger({ navigation }) {
 			);
 		}
 
-		const userCreated = await createPassengerBackend(email, password, name);
-
-		if (userCreated.error) {
-			return Alert.alert('Erro ao criar o usuário');
-		}
-
-		await createSession(userCreated.response.uid);
-		return navigation.navigate('ChooseTypeOfVehicle', { user: userCreated.response });
+		return navigation.navigate('ChooseTypeOfVehicle', { name, email, password });
 	};
 
 	return (
