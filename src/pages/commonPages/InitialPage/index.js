@@ -3,8 +3,9 @@ import { Image, Text, View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import BusinessImage from '../../../assets/images/png/business-deal-cuate.png';
 import BusStopImage from '../../../assets/images/png/bustop-cuate.png';
-import { getSession, getUserOnFirebase } from '../../../backend/Login';
+import { getSession } from '../../../backend/Login';
 import { WideButton } from '../../../components/WideButton';
+import { getUser } from '../../../service/UserService';
 import { darkGrey, purple } from '../../../styles/colors';
 import { styles } from './style';
 
@@ -15,7 +16,8 @@ export default function InitialPage({ navigation }) {
 		const uidUser = await getSession();
 
 		if (uidUser) {
-			const user = await getUserOnFirebase(uidUser);
+			const user = await getUser(uidUser);
+
 			if (user.isPassenger) {
 				return navigation.navigate('MapPassenger', { user });
 			}
