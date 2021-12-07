@@ -3,13 +3,11 @@ import * as firebase from 'firebase';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Image, Modal, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
 import bus_stop from '../../../assets/icons/png/map/bus_stop.png';
 import passenger_marker from '../../../assets/icons/png/map/passenger_marker.png';
-import { getBusStopsLocalzations } from '../../../backend/map/PassengerMap';
 import { calculateTime } from '../../../backend/utils/Utils';
-import { getMyVehicles } from '../../../backend/vehicles/Vehicle';
 import { Menu } from '../../../components/Menu';
+import { getVehiclesInfos } from '../../../service/VehicleService';
 import { NextVehicleOnThisPoint } from './NextVehicleOnThisPoint';
 import { styles } from './style';
 
@@ -20,7 +18,7 @@ export default function MapPassenger({ navigation, route }) {
 	const [busStops, setBusStops] = useState([]);
 
 	const [realTimeVehicles, setRealTimeVehicles] = useState([]);
-	const [vehiclesByFirestore, setVehiclesByFirestore] = useState([]);
+	const [vehiclesFromUser, setVehiclesFromUser] = useState([]);
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [vehiclesOnThisPoint, setVehiclesOnThisPoint] = useState(false);
@@ -49,12 +47,19 @@ export default function MapPassenger({ navigation, route }) {
 		}
 	};
 
-	const getVehiclesInfos = async () => {
-		const vehiclesFirestore = await getMyVehicles(user.uid);
-		setVehiclesByFirestore(vehiclesFirestore);
+	const getVehiclesData = async () => {
+		const vehicles = await getVehiclesInfos(user.linkedVehicles);
+		setVehiclesFromUser(vehicles);
 
-		const busStopsLocalzations = await getBusStopsLocalzations(vehiclesFirestore);
-		setBusStops(busStopsLocalzations);
+		const busStations = [];
+
+		vehicles.forEach((vehicle) => {
+			vehicle.busStations.forEach((station) => {
+				Object.assign(station, { registrationPlate: vehicle.registrationPlate });
+				busStations.push(station);
+			});
+		});
+		setBusStops(busStations);
 	};
 
 	const getAllLocalizationVehicles = async () => {
@@ -110,12 +115,12 @@ export default function MapPassenger({ navigation, route }) {
 	};
 
 	useLayoutEffect(() => {
-		getVehiclesInfos();
-		getAllLocalizationVehicles();
+		getVehiclesData();
+		// getAllLocalizationVehicles();
 		getMyPosition();
 	}, []);
 
-	useEffect(() => {}, [myPosition, realTimeVehicles, busStops, timeToArriveVehicle]);
+	useEffect(() => {}, [myPosition, busStops]);
 
 	return (
 		<View style={styles.container}>
@@ -137,7 +142,7 @@ export default function MapPassenger({ navigation, route }) {
 				))}
 
 				{/* Lista veiculos no mapa */}
-				{realTimeVehicles.map((vehicle, key) => (
+				{/* {realTimeVehicles.map((vehicle, key) => (
 					<Marker
 						onPress={() =>
 							navigation.navigate('ListVehicleInfosPassenger', {
@@ -152,7 +157,7 @@ export default function MapPassenger({ navigation, route }) {
 					>
 						<Image source={bus_icon} style={{ height: 30, width: 30 }} />
 					</Marker>
-				))}
+				))} */}
 
 				{/* Pega minha posição no mapa */}
 				{myPosition ? (

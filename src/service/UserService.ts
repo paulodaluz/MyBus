@@ -18,7 +18,7 @@ export const registerUser = async (
 	await axios
 		.post(`${process.env.URL_BACKEND}/my-bus/v1/feedback/app`, body)
 		.catch(function (error: any) {
-			console.log(`[UserService] - registerAppFeedback - ERROR = ${error}`);
+			console.log(`[UserService] - registerUser - ERROR = ${error}`);
 
 			throw error;
 		});
