@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Image, Modal, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
 import bus_stop from '../../../assets/icons/png/map/bus_stop.png';
 import passenger_marker from '../../../assets/icons/png/map/passenger_marker.png';
 import { calculateTime } from '../../../backend/utils/Utils';
@@ -62,7 +63,7 @@ export default function MapPassenger({ navigation, route }) {
 		setBusStops(busStations);
 	};
 
-	const getAllLocalizationVehicles = async () => {
+	const getRealtimeLocalizationVehicles = async () => {
 		firebase
 			.database()
 			.ref('/real_time_database')
@@ -94,29 +95,35 @@ export default function MapPassenger({ navigation, route }) {
 	const getNextVehiclesInThisPoint = (busStop) => {
 		setModalVisible(!modalVisible);
 
-		const vehiclesInThisPoint = vehiclesByFirestore.find(
-			(vehicle) => vehicle.registration_plate === busStop.vehicle_plate
+		const vehiclesInThisPoint = vehiclesFromUser.find(
+			(vehicle) => vehicle.registrationPlate === busStop.registrationPlate
 		);
 
 		const localizationVehicle = realTimeVehicles.find(
 			(realTimeVehicle) => realTimeVehicle.registration_plate === busStop.vehicle_plate
 		);
 
-		const time = calculateTime(
-			busStop.latitude,
-			busStop.longitude,
-			localizationVehicle.latitude,
-			localizationVehicle.longitude
-		);
+		if (localizationVehicle) {
+			const time = calculateTime(
+				busStop.latitude,
+				busStop.longitude,
+				localizationVehicle.latitude,
+				localizationVehicle.longitude
+			);
 
-		setTimeToArriveVehicle(time);
+			setTimeToArriveVehicle(time);
+		}
+
+		if (!localizationVehicle) {
+			setTimeToArriveVehicle(0);
+		}
 
 		setVehiclesOnThisPoint(vehiclesInThisPoint);
 	};
 
 	useLayoutEffect(() => {
 		getVehiclesData();
-		// getAllLocalizationVehicles();
+		getRealtimeLocalizationVehicles();
 		getMyPosition();
 	}, []);
 
@@ -142,7 +149,7 @@ export default function MapPassenger({ navigation, route }) {
 				))}
 
 				{/* Lista veiculos no mapa */}
-				{/* {realTimeVehicles.map((vehicle, key) => (
+				{realTimeVehicles.map((vehicle, key) => (
 					<Marker
 						onPress={() =>
 							navigation.navigate('ListVehicleInfosPassenger', {
@@ -157,7 +164,7 @@ export default function MapPassenger({ navigation, route }) {
 					>
 						<Image source={bus_icon} style={{ height: 30, width: 30 }} />
 					</Marker>
-				))} */}
+				))}
 
 				{/* Pega minha posição no mapa */}
 				{myPosition ? (
