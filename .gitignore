@@ -14,3 +14,14 @@ yarn.lock
 
 # macOS
 .DS_Store
+
+
+
+.env
+.env.*
+!.env.example
+
+serviceAccount*.json
+*-firebase-adminsdk-*.json
+google-services-private.json
+.firebaserc
