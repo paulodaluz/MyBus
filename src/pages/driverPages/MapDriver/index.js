@@ -1,5 +1,5 @@
 import * as Location from 'expo-location';
-import * as firebase from 'firebase';
+import { firebase } from '../../../database/FirebaseConfiguration';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Image, Modal, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
