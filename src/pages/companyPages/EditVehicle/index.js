@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { Alert, ScrollView, Text, TextInput, View } from 'react-native';
-import { updatePlateVehicleCompany } from '../../../backend/users/Company';
+import { updatePlateVehicleCompany } from '../../../backend/Users/Company';
 import { editVehicle, getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
 import { MiddleButton } from '../../../components/MiddleButton';
 import { SwitchFunction } from '../../../components/SwitchFunction';

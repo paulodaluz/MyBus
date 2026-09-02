@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, Text, View } from 'react-native';
-import { addNewPrivateVehicle } from '../../../backend/users/Passenger';
+import { addNewPrivateVehicle } from '../../../backend/Users/Passenger';
 import { getVehicle } from '../../../backend/vehicles/Vehicle';
 import { Input } from '../../../components/Input';
 import { QRCode } from '../../../components/QRCode';

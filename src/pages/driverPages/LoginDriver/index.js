@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { driverLoginIsValid } from '../../../backend/Login';
-import { getCompanyByRegistrationPlate } from '../../../backend/users/Company';
+import { getCompanyByRegistrationPlate } from '../../../backend/Users/Company';
 import { getVehicleFunction } from '../../../backend/vehicles/Vehicle';
 import { Header } from '../../../components/Header';
 import { Input } from '../../../components/Input';

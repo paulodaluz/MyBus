@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, Text, TextInput, View } from 'react-native';
-import { addNewVehicleInCompany } from '../../../backend/users/Company';
+import { addNewVehicleInCompany } from '../../../backend/Users/Company';
 import { addFunctionsToVehicle, createNewVehicle } from '../../../backend/vehicles/Vehicle';
 import { MiddleButton } from '../../../components/MiddleButton';
 import { SwitchFunction } from '../../../components/SwitchFunction';

@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { Text, View } from 'react-native';
-import { getCompany, updateAllInfosOfCompany } from '../../../backend/users/Company';
+import { getCompany, updateAllInfosOfCompany } from '../../../backend/Users/Company';
 import { Header } from '../../../components/Header';
 import { Input } from '../../../components/Input';
 import { WideButton } from '../../../components/WideButton';

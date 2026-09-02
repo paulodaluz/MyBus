@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Image, Text, TextInput, View } from 'react-native';
 import QRCodeIcon from '../../../assets/icons/png/qr_code.png';
-import { addNewPrivateVehicle, updateUserAllInfos } from '../../../backend/users/Passenger';
+import { addNewPrivateVehicle, updateUserAllInfos } from '../../../backend/Users/Passenger';
 import { getVehicle } from '../../../backend/vehicles/Vehicle';
 import { WideButton } from '../../../components/WideButton';
 import { purple } from '../../../styles/colors';

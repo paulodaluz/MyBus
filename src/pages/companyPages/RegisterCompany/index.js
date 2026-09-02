@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { createSession } from '../../../backend/Login';
-import { createCompanyBackend } from '../../../backend/users/Company';
+import { createCompanyBackend } from '../../../backend/Users/Company';
 import { isSecurityPassword, isValidCNPJ, isValidEmail } from '../../../backend/utils/Utils';
 import { Footer } from '../../../components/FooterRegister';
 import { Header } from '../../../components/Header';

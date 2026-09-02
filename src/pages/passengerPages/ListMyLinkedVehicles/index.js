@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { removePrivateVehicle } from '../../../backend/users/Passenger';
+import { removePrivateVehicle } from '../../../backend/Users/Passenger';
 import { getMyVehicles } from '../../../backend/vehicles/Vehicle';
 import { Header } from '../../../components/Header';
 import { BoxWithInfoVehicles } from './List';

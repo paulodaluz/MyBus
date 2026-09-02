@@ -1,6 +1,6 @@
 import { loadStorage, removeStorage, saveStorage } from '../service/AsyncStorage';
-import { getCompany } from './users/Company';
-import { getPassenger } from './users/Passenger';
+import { getCompany } from './Users/Company';
+import { getPassenger } from './Users/Passenger';
 
 export async function getUserOnFirebase(uid) {
 	const passenger = await getPassenger(uid);

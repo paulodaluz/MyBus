@@ -12,7 +12,7 @@ import {
 	saveVehicle,
 	updateVehicle
 } from '../../service/VehicleService';
-import { removeVehicleInCompany } from '../users/Company';
+import { removeVehicleInCompany } from '../Users/Company';
 import { generateRandomPassword, mountBodyToFirebase } from '../utils/Utils';
 
 export async function createNewVehicle(vehicleInfos) {

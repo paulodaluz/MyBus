@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import { firebase } from '../database/FirebaseConfiguration';
 const databaseName = 'real_time_database';
 
 export const registerRealTimeLocalVehicle = (accessDatabase, infosVehicle) => {

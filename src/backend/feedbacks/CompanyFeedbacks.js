@@ -1,6 +1,6 @@
 import { getAllFeedbacks, saveFeedback } from '../../service/CompanyFeedbackService';
-import { getCompany } from '../users/Company';
-import { getPassenger } from '../users/Passenger';
+import { getCompany } from '../Users/Company';
+import { getPassenger } from '../Users/Passenger';
 import { getVehicle } from '../vehicles/Vehicle';
 
 export async function saveCompanyFeedbackBackend(uid, vehicle = '', vehicleName, feedback) {

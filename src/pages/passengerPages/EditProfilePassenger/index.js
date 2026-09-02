@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
-import { getPassenger, updateUserAllInfos } from '../../../backend/users/Passenger';
+import { getPassenger, updateUserAllInfos } from '../../../backend/Users/Passenger';
 import { isValidCPF } from '../../../backend/utils/Utils';
 import { Header } from '../../../components/Header';
 import { Input } from '../../../components/Input';
