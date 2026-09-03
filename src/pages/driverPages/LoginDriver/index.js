@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { driverLoginIsValid } from '../../../backend/Login';
 import { getCompanyByRegistrationPlate } from '../../../backend/Users/Company';
@@ -21,7 +21,7 @@ export default function LoginDriver({ navigation }) {
 			return Alert.alert('Usuário ou senha inválida!');
 		}
 
-		const loggedDriver = driverLoginIsValid(registrationPlate, password, allVehicles);
+		const loggedDriver = await driverLoginIsValid(registrationPlate, password, allVehicles);
 
 		if (loggedDriver) {
 			const myVehicle = getMyVehicle(allVehicles, registrationPlate);

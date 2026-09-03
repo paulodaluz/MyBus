@@ -4,13 +4,13 @@ import {
 	deleteVehicleFunctions,
 	getAllFunctionsVehicles,
 	saveFunctionsVehicle,
-	updateFunctionsVehicle
+	updateFunctionsVehicle,
 } from '../../service/VehicleFunctionsService';
 import {
 	deleteVehicle,
 	getAllVehicles,
 	saveVehicle,
-	updateVehicle
+	updateVehicle,
 } from '../../service/VehicleService';
 import { removeVehicleInCompany } from '../Users/Company';
 import { generateRandomPassword, mountBodyToFirebase } from '../utils/Utils';
