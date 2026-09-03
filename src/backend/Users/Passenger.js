@@ -5,7 +5,7 @@ import { deleteVehicleFromAllDatabases, deleteVehicleFromUser } from '../vehicle
 import { getCompany } from './Company';
 
 export async function createPassengerBackend(email, password, name) {
-	let user = { email, name };
+	let user = { email, name, codes_private_vehicles: [] };
 
 	const registeredAuthenticationUser = await authService
 		.register(email, password)
@@ -24,6 +24,7 @@ export async function createPassengerBackend(email, password, name) {
 		name,
 		uid: registeredAuthenticationUser.user.uid,
 		isPassenger: true,
+		codes_private_vehicles: [],
 	}).catch((error) => {
 		return { error };
 	});
