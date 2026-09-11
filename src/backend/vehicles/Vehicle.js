@@ -176,13 +176,11 @@ export async function deleteVehicleFromAllDatabases(
 	]);
 
 	// remover da tabela do usuário passageiro
-	allUsers.map(async (user) => {
-		const isThereCodeToRemove = user.codes_private_vehicles.includes(idToPassengersToRemove);
-
-		if (isThereCodeToRemove) {
-			await deleteVehicleFromUser(user, idToPassengersToRemove);
-		}
-	});
+	await Promise.all(
+		allUsers
+			.filter((user) => user.codes_private_vehicles.includes(idToPassengersToRemove))
+			.map((user) => deleteVehicleFromUser(user, idToPassengersToRemove))
+	);
 
 	// remover o veiculo da tabela da empresa
 	await removeVehicleInCompany(completeUser.uid, vehiclePlateToRemove);
