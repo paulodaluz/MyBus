@@ -1,0 +1,4 @@
+. "$(dirname "$0")/node-version.sh"
+
+npm run precommit
+npm run test:coverage -- --runInBand
