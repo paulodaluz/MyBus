@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { saveNewBusStation } from '../../../service/BusStationsService';
@@ -34,13 +34,13 @@ export default function ChoicePointsVehicleWillPass({ navigation, route }) {
 		setBusPoints(newBusStations);
 	};
 
-	const saveBustations = () => {
+	const saveBustations = async () => {
 		const busStations = {
 			busPoints,
 			registration_plate: vehicle.registration_plate,
 		};
 
-		saveNewBusStation(busStations);
+		await saveNewBusStation(busStations);
 		navigation.navigate('ListVehicleInfosCompany', { uid, receivedVehicle: vehicle });
 	};
 
