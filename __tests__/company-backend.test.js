@@ -138,5 +138,15 @@ describe('Company backend', () => {
 		expect(mockUpdateCompany).toHaveBeenCalledWith('company-doc', {
 			linked_vehicles: ['OTHER', 'NEW'],
 		});
+
+		const companyWithoutVehicles = { uid: 'company-2', id: 'company-2' };
+		mockGetAllCompanies.mockResolvedValueOnce([companyWithoutVehicles]);
+		mockUpdateCompany.mockResolvedValueOnce(undefined);
+		await expect(updatePlateVehicleCompany('company-2', 'OLD', 'new')).resolves.toEqual({
+			response: 'Veiculo atualizado com sucesso!',
+		});
+		expect(mockUpdateCompany).toHaveBeenCalledWith('company-2', {
+			linked_vehicles: ['NEW'],
+		});
 	});
 });

@@ -46,8 +46,14 @@ describe('Utils', () => {
 
 	test('validates CPF numbers', () => {
 		expect(isValidCPF('52998224725')).toBe(true);
+		expect(isValidCPF('10000000108')).toBe(true);
+		expect(isValidCPF('10000000280')).toBe(true);
 		expect(isValidCPF('52998224724')).toBe(false);
+		expect(isValidCPF('52998224726')).toBe(false);
 		expect(isValidCPF('00000000000')).toBe(false);
+		expect(isValidCPF('11111111111')).toBe(false);
+		expect(isValidCPF('52998224735')).toBe(false);
+		expect(isValidCPF('00000001830')).toBe(true);
 		expect(isValidCPF('not-a-cpf')).toBe(false);
 	});
 
@@ -57,11 +63,17 @@ describe('Utils', () => {
 	});
 
 	test('validates CNPJ numbers with and without punctuation', () => {
-		// The current implementation accepts only numeric CNPJ input before stripping punctuation.
-		expect(isValidCNPJ('04.252.011/0001-10')).toBe(false);
+		expect(isValidCNPJ('04.252.011/0001-10')).toBe(true);
 		expect(isValidCNPJ('04252011000110')).toBe(true);
 		expect(isValidCNPJ('04.252.011/0001-11')).toBe(false);
+		expect(isValidCNPJ('04252011000120')).toBe(false);
+		expect(isValidCNPJ('00000000000604')).toBe(true);
+		expect(isValidCNPJ('00000000001830')).toBe(true);
 		expect(isValidCNPJ('00000000000000')).toBe(false);
+		for (let digit = 1; digit <= 9; digit += 1) {
+			expect(isValidCNPJ(String(digit).repeat(14))).toBe(false);
+		}
+		expect(isValidCNPJ('---')).toBe(false);
 		expect(isValidCNPJ('123')).toBe(false);
 		expect(isValidCNPJ('not-a-cnpj')).toBe(false);
 	});
@@ -69,5 +81,13 @@ describe('Utils', () => {
 	test('calculates travel time and returns zero for equal coordinates', () => {
 		expect(calculateTime(-23.55, -46.63, -23.55, -46.63)).toBe(0);
 		expect(calculateTime(-23.55, -46.63, -23.56, -46.64)).toBeGreaterThan(0);
+
+		jest.spyOn(Math, 'sin').mockReturnValue(1);
+		jest.spyOn(Math, 'cos').mockReturnValue(1);
+		jest.spyOn(Math, 'acos').mockReturnValue(0);
+		expect(calculateTime(1, 2, 3, 4)).toBe(0);
+		Math.sin.mockRestore();
+		Math.cos.mockRestore();
+		Math.acos.mockRestore();
 	});
 });

@@ -57,7 +57,7 @@ describe('Feedback and map backends', () => {
 		mockGetPassenger.mockResolvedValueOnce({ email: 'anonymous@example.com' });
 		mockGetVehicle.mockResolvedValueOnce({ name: 'Express', registration_plate: 'XYZ-999' });
 		mockSaveCompanyFeedback.mockResolvedValueOnce(undefined);
-		await saveCompanyFeedbackBackend('passenger-2', '', 'Express', 'Fast');
+		await saveCompanyFeedbackBackend('passenger-2', undefined, 'Express', 'Fast');
 		expect(mockGetVehicle).toHaveBeenCalledWith({ name: 'Express' });
 		expect(mockSaveCompanyFeedback).toHaveBeenCalledWith({
 			email_sender: 'anonymous@example.com',

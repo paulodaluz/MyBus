@@ -14,6 +14,7 @@ jest.mock('../src/backend/Users/Passenger', () => ({ getPassenger: mockGetPassen
 jest.mock('../src/backend/Users/Company', () => ({ getCompany: mockGetCompany }));
 
 const {
+	driverLoginIsValid,
 	getSession,
 	getUserOnFirebase,
 	removeSession,
@@ -75,6 +76,14 @@ describe('Login backend', () => {
 		mockGetPassenger.mockResolvedValueOnce(undefined);
 		mockGetCompany.mockResolvedValueOnce(undefined);
 		await expect(getUserOnFirebase('missing')).resolves.toBeUndefined();
+	});
+
+	test('validates a driver against the vehicle plate and password', async () => {
+		const vehicles = [{ registration_plate: 'ABC-123', password_to_share_localization: 'SECRET' }];
+
+		await expect(driverLoginIsValid('ABC-123', 'SECRET', vehicles)).resolves.toBe(true);
+		await expect(driverLoginIsValid('ABC-123', 'wrong', vehicles)).resolves.toBe(false);
+		await expect(driverLoginIsValid('MISSING', 'SECRET', vehicles)).resolves.toBe(false);
 	});
 
 	test('creates, reads and removes a session', async () => {

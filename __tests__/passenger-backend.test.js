@@ -42,7 +42,7 @@ describe('Passenger backend', () => {
 		);
 	});
 
-	test('creates a passenger and handles registration errors', async () => {
+	test('creates a passenger with an empty vehicle list (#12)', async () => {
 		mockRegister.mockResolvedValueOnce({ user: { uid: 'passenger-1' } });
 		mockSaveUser.mockResolvedValueOnce({ id: 'passenger-doc' });
 		await expect(

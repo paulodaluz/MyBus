@@ -152,6 +152,8 @@ describe('Vehicle backend', () => {
 		await expect(getVehicleFunction({ registrationPlate: 'ABC-123' })).resolves.toBe(functions);
 		mockGetAllFunctionsVehicles.mockResolvedValueOnce([]);
 		await expect(getVehicleFunction({ registrationPlate: 'ABC-123' })).resolves.toBeUndefined();
+		mockGetAllFunctionsVehicles.mockResolvedValueOnce([functions]);
+		await expect(getVehicleFunction({})).resolves.toBeUndefined();
 
 		const error = new Error('functions failed');
 		mockGetAllFunctionsVehicles.mockRejectedValueOnce(error);
@@ -161,16 +163,29 @@ describe('Vehicle backend', () => {
 	test('lists vehicles linked to passengers and companies', async () => {
 		const passenger = { uid: 'passenger-1', isPassenger: true, codes_private_vehicles: ['#ABC'] };
 		const passengerVehicle = { id_to_passengers: '#ABC', registration_plate: 'ABC-123' };
+		const passengerPlateVehicle = { id_to_passengers: '#OTHER', registration_plate: '#ABC' };
+		const unrelatedPassengerVehicle = {
+			id_to_passengers: '#DIFFERENT',
+			registration_plate: 'OTHER-1',
+		};
 		mockGetAllUsers.mockResolvedValueOnce([passenger]);
 		mockGetAllCompanies.mockResolvedValueOnce([]);
-		mockGetAllVehicles.mockResolvedValueOnce([passengerVehicle]);
-		await expect(getMyVehicles('passenger-1')).resolves.toEqual([passengerVehicle]);
+		mockGetAllVehicles.mockResolvedValueOnce([
+			passengerVehicle,
+			passengerPlateVehicle,
+			unrelatedPassengerVehicle,
+		]);
+		await expect(getMyVehicles('passenger-1')).resolves.toEqual([
+			passengerVehicle,
+			passengerPlateVehicle,
+		]);
 
 		const company = { uid: 'company-1', linked_vehicles: ['XYZ-999'] };
 		const companyVehicle = { registration_plate: 'XYZ-999' };
+		const unrelatedCompanyVehicle = { registration_plate: 'OTHER-1' };
 		mockGetAllUsers.mockResolvedValueOnce([]);
 		mockGetAllCompanies.mockResolvedValueOnce([company]);
-		mockGetAllVehicles.mockResolvedValueOnce([companyVehicle]);
+		mockGetAllVehicles.mockResolvedValueOnce([companyVehicle, unrelatedCompanyVehicle]);
 		await expect(getMyVehicles('company-1')).resolves.toEqual([companyVehicle]);
 	});
 
@@ -204,5 +219,49 @@ describe('Vehicle backend', () => {
 		await expect(
 			deleteVehicleFromUser({ id: 'passenger-doc', codes_private_vehicles: ['#ABC'] }, '#ABC')
 		).resolves.toBe(error);
+	});
+
+	test('waits for every passenger cleanup before deleting the vehicle', async () => {
+		const completeUser = { uid: 'company-1' };
+		const users = [
+			{ id: 'passenger-1', codes_private_vehicles: ['#ABC'] },
+			{ id: 'passenger-2', codes_private_vehicles: ['#ABC'] },
+		];
+		const passengerUpdates = [];
+		let releasePassengerUpdates;
+		const passengerUpdatesFinished = new Promise((resolve) => {
+			releasePassengerUpdates = resolve;
+		});
+
+		mockGetAllFunctionsVehicles.mockResolvedValueOnce([
+			{ id: 'functions-doc', registration_plate: 'ABC-123' },
+		]);
+		mockGetAllVehicles.mockResolvedValueOnce([
+			{ id: 'vehicle-doc', registration_plate: 'ABC-123' },
+		]);
+		mockGetAllUsers.mockResolvedValueOnce(users);
+		mockUpdateUser.mockImplementationOnce(async () => {
+			passengerUpdates.push('passenger-1');
+			await passengerUpdatesFinished;
+		});
+		mockUpdateUser.mockImplementationOnce(async () => {
+			passengerUpdates.push('passenger-2');
+			await passengerUpdatesFinished;
+		});
+		mockRemoveVehicleInCompany.mockResolvedValueOnce(undefined);
+		mockDeleteVehicleFunctions.mockResolvedValueOnce(undefined);
+		mockDeleteVehicle.mockResolvedValueOnce(undefined);
+
+		const deletion = deleteVehicleFromAllDatabases(completeUser, '#ABC', 'ABC-123');
+		await new Promise((resolve) => setImmediate(resolve));
+
+		expect(passengerUpdates).toEqual(['passenger-1', 'passenger-2']);
+		expect(mockRemoveVehicleInCompany).not.toHaveBeenCalled();
+		expect(mockDeleteVehicle).not.toHaveBeenCalled();
+
+		releasePassengerUpdates();
+		await expect(deletion).resolves.toEqual({ response: 'Veículo Removido com Sucesso.' });
+		expect(mockRemoveVehicleInCompany).toHaveBeenCalledWith('company-1', 'ABC-123');
+		expect(mockDeleteVehicle).toHaveBeenCalledWith('vehicle-doc');
 	});
 });

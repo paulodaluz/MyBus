@@ -233,4 +233,15 @@ describe('Firebase-backed services', () => {
 		await expect(getSpecificVehicle('company-1', 'ABC-123')).resolves.toEqual(location);
 		expect(mockRealtime.ref).toHaveBeenCalledWith('/real_time_database/company-1/ABC-123');
 	});
+
+	test('handles empty realtime localization snapshots', async () => {
+		mockOn.mockImplementationOnce((event, callback) => callback({ val: () => undefined }));
+		await expect(getLocalizationVehicles('company-1')).resolves.toBeUndefined();
+
+		mockOn.mockImplementationOnce((event, callback) => callback({ val: () => ({ company: {} }) }));
+		await expect(getAllLocalizationVehicles()).resolves.toEqual({ company: {} });
+
+		mockOn.mockImplementationOnce((event, callback) => callback({ val: () => undefined }));
+		await expect(getSpecificVehicle('company-1', 'MISSING')).resolves.toBeUndefined();
+	});
 });
