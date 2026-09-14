@@ -27,7 +27,7 @@ export default function Login({ navigation }) {
 		const user = await getUserOnFirebase(loggedUser.user.uid);
 
 		if (user) {
-			createSession(user.uid);
+			await createSession(user.uid);
 			if (user.isPassenger) {
 				return navigation.navigate('MapPassenger', { user });
 			}

@@ -11,21 +11,25 @@ import { styles } from './style';
 export default function InitialPage({ navigation }) {
 	const [typeUserPage, setTypeUserPage] = useState('passenger');
 
-	async function checkIfHasSession() {
-		const uidUser = await getSession();
-
-		if (uidUser) {
-			const user = await getUserOnFirebase(uidUser);
-			if (user.isPassenger) {
-				return navigation.navigate('MapPassenger', { user });
-			}
-			return navigation.navigate('MapCompany', { user });
-		}
-	}
-
 	useLayoutEffect(() => {
+		async function checkIfHasSession() {
+			const uidUser = await getSession();
+
+			if (uidUser) {
+				const user = await getUserOnFirebase(uidUser);
+				if (!user) {
+					return;
+				}
+
+				if (user.isPassenger) {
+					return navigation.navigate('MapPassenger', { user });
+				}
+				return navigation.navigate('MapCompany', { user });
+			}
+		}
+
 		checkIfHasSession();
-	}, []);
+	}, [navigation]);
 
 	return (
 		<View style={styles.container}>

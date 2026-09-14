@@ -46,7 +46,7 @@ export function isValidCPF(cpf) {
 	let Soma = 0;
 	let Resto;
 
-	if (cpf == '00000000000') {
+	if (/^(\d)\1{10}$/.test(cpf)) {
 		return false;
 	}
 
@@ -84,10 +84,6 @@ export function isValidEmail(email) {
 }
 
 export function isValidCNPJ(cnpj) {
-	if (!Number(cnpj)) {
-		return false;
-	}
-
 	cnpj = cnpj.replace(/[^\d]+/g, '');
 
 	if (cnpj == '') {
@@ -153,7 +149,6 @@ export function isValidCNPJ(cnpj) {
 export function calculateTime(lat1, lon1, lat2, lon2) {
 	let dist;
 
-	const unit = 'K';
 	if (lat1 == lat2 && lon1 == lon2) {
 		return 0;
 	} else {
@@ -170,12 +165,7 @@ export function calculateTime(lat1, lon1, lat2, lon2) {
 		dist = Math.acos(dist);
 		dist = (dist * 180) / Math.PI;
 		dist = dist * 60 * 1.1515;
-		if (unit == 'K') {
-			dist = dist * 1.609344;
-		}
-		if (unit == 'N') {
-			dist = dist * 0.8684;
-		}
+		dist = dist * 1.609344;
 	}
 
 	const distancia = dist;

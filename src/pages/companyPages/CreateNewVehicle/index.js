@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Alert, Text, TextInput, View } from 'react-native';
 import { addNewVehicleInCompany } from '../../../backend/Users/Company';
 import { addFunctionsToVehicle, createNewVehicle } from '../../../backend/vehicles/Vehicle';
@@ -33,7 +33,7 @@ export default function CreateNewVehicle({ navigation, route }) {
 	const createVehicle = async () => {
 		const errors = await verifyInputs();
 
-		if (errors === 'Usuário já existe') {
+		if (errors) {
 			return;
 		}
 
@@ -58,7 +58,7 @@ export default function CreateNewVehicle({ navigation, route }) {
 		]);
 
 		if (
-			(createVehicle && createdVehicle.error) ||
+			(createdVehicle && createdVehicle.error) ||
 			(vehicleFunctionsAdded && vehicleFunctionsAdded.error) ||
 			(vehicleAddedInCompany && vehicleAddedInCompany.error)
 		) {
@@ -77,6 +77,11 @@ export default function CreateNewVehicle({ navigation, route }) {
 		const allFunctionsVehicles = await getAllFunctionsVehicles().catch((error) => {
 			return { error };
 		});
+
+		if (allFunctionsVehicles && allFunctionsVehicles.error) {
+			Alert.alert('Erro ao verificar os veículos cadastrados.');
+			return 'Erro ao verificar os veículos cadastrados.';
+		}
 
 		const alreadyExists = allFunctionsVehicles.find(
 			(vehicleFunctions) => vehicleFunctions.registration_plate === registrationPlate.toUpperCase()
