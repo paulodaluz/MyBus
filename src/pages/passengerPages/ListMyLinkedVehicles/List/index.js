@@ -25,4 +25,3 @@ const BoxWithInfoVehicles = ({ item, onPress }) => {
 };
 
 export { BoxWithInfoVehicles };
-

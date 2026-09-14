@@ -37,4 +37,3 @@ const DynamicButton = ({ onPressFirstButton, onPressSecondButton, feedbackRecipi
 };
 
 export { DynamicButton };
-

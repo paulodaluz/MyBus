@@ -21,4 +21,3 @@ const ButtonSwitchConfig = ({ value, onValueChange }) => {
 };
 
 export { ButtonSwitchConfig };
-

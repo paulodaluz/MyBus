@@ -9,4 +9,3 @@ const WideButton = ({ onPress, textButton, backgroundColor }) => (
 );
 
 export { WideButton };
-

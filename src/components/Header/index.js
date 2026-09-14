@@ -21,4 +21,3 @@ const Header = ({ title, subtitle = '' }) => {
 };
 
 export { Header };
-

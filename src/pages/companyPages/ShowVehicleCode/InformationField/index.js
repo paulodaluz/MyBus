@@ -15,4 +15,3 @@ const InformationField = ({ fieldName, info, onPress }) => {
 };
 
 export { InformationField };
-

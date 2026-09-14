@@ -27,4 +27,3 @@ const ListInfos = ({ name, status, idToPassangers, plateId, password }) => {
 };
 
 export { ListInfos };
-

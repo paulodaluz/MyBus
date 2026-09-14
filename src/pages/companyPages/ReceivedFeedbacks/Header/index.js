@@ -12,4 +12,3 @@ const Header = () => {
 };
 
 export { Header };
-

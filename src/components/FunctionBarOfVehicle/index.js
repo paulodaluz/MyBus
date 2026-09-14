@@ -38,4 +38,3 @@ const FunctionBarOfVehicle = ({
 };
 
 export { FunctionBarOfVehicle };
-

@@ -20,4 +20,3 @@ const Footer = ({ onPress }) => {
 };
 
 export { Footer };
-

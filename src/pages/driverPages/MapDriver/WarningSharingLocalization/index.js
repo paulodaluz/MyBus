@@ -9,4 +9,3 @@ const WarningSharingLocalization = () => (
 );
 
 export { WarningSharingLocalization };
-

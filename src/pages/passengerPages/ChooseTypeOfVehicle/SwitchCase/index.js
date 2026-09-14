@@ -32,4 +32,3 @@ const SwitchCase = ({ typeOfVehicleToList, onPressFirstSwitch, onPressSecondSwit
 };
 
 export { SwitchCase };
-

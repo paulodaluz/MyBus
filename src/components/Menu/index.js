@@ -15,4 +15,3 @@ const Menu = ({ onPressFirstButton, textFirstButton, onPressSecondButton, textSe
 );
 
 export { Menu };
-

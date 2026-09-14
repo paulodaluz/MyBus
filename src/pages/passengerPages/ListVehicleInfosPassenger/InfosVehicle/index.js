@@ -36,4 +36,3 @@ const InfosVehicle = ({ name, status, idToPassangers, valueReminder, onChangeVal
 };
 
 export { InfosVehicle };
-

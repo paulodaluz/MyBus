@@ -36,4 +36,3 @@ const NextVehicleOnThisPoint = ({ openOnMap, vehiclesOnThisPoint, time }) => (
 );
 
 export { NextVehicleOnThisPoint };
-

@@ -21,4 +21,3 @@ const SwitchFunction = ({ text, value, onValueChange }) => {
 };
 
 export { SwitchFunction };
-

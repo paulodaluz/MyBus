@@ -11,4 +11,3 @@ const Header = ({ title }) => {
 };
 
 export { Header };
-

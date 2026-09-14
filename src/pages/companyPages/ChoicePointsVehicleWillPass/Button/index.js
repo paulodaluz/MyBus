@@ -9,4 +9,3 @@ const Button = ({ onPress, textButton, backgroundColor }) => (
 );
 
 export { Button };
-

@@ -30,4 +30,3 @@ const Menu = ({ onPressShareLocalizationButton, onPressConfigButton, onPressShow
 );
 
 export { Menu };
-

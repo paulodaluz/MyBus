@@ -11,4 +11,3 @@ const OptionConfig = ({ textButton, onPress }) => {
 };
 
 export { OptionConfig };
-

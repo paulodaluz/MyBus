@@ -9,4 +9,3 @@ const MiddleButton = ({ onPress, textButton, backgroundColor }) => (
 );
 
 export { MiddleButton };
-

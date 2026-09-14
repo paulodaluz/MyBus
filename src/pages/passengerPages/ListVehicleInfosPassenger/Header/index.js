@@ -18,4 +18,3 @@ const Header = ({ name, time }) => {
 };
 
 export { Header };
-

@@ -20,4 +20,3 @@ const FeedbackContainer = ({ feedback }) => {
 };
 
 export { FeedbackContainer };
-

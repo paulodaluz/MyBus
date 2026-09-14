@@ -17,4 +17,3 @@ const Header = ({ vehicleName }) => {
 };
 
 export { Header };
-
