@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';

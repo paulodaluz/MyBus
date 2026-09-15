@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { getPassenger, updateUserAllInfos } from '../../../backend/Users/Passenger';
 import { isValidCPF } from '../../../backend/utils/Utils';

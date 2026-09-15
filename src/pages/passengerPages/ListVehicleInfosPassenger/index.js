@@ -1,6 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { View } from 'react-native';
 import { getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
 import { Divisor } from '../../../components/Divisor';
@@ -26,9 +25,7 @@ export default function ListVehicleInfosPassenger({ navigation, route }) {
 	const [activateReminder, setActivateReminder] = useState(false);
 	const toggleSwitchReminder = () => setActivateReminder((previousState) => !previousState);
 
-	const [timeForVehicleToArrive, setTimeForVehicleToArrive] = useState(12);
-
-	const getVehicleData = async () => {
+	const getVehicleData = useCallback(async () => {
 		if (receivedVehicle) {
 			setName(receivedVehicle.name);
 			setIdToPassangers(receivedVehicle.id_to_passengers);
@@ -49,44 +46,30 @@ export default function ListVehicleInfosPassenger({ navigation, route }) {
 			setThereIsWifi(vehicleFunctions.wifi);
 			setThereIsWheelchairSupport(vehicleFunctions.suport_wheelchair);
 		}
-	};
-
-	const getStatusNotification = async () => {
-		const activateReminderStorange = await AsyncStorage.getItem('@mybus:notification');
-
-		if (activateReminderStorange) {
-			setActivateReminder(true);
-		}
-	};
-
-	const activateReminderVehicle = async () => {
-		// const activateReminderStorange = await AsyncStorage.getItem('@mybus:notification');
-
-		// if (activateReminder === true && activateReminderStorange !== 'true') {
-		if (activateReminder === true) {
-			await Notifications.scheduleNotificationAsync({
-				content: {
-					title: 'Olá, seu veículo está chegando!',
-					body: 'Seu veículo está chegando a estação! Cuidado para não parder ele!',
-					sound: true,
-					priority: Notifications.AndroidNotificationPriority.HIGH,
-				},
-				trigger: {
-					seconds: timeForVehicleToArrive < 1 ? timeForVehicleToArrive * 60 : 60,
-					repeats: false,
-				},
-			});
-
-			// await AsyncStorage.setItem('@mybus:notification', JSON.stringify(true));
-		}
-	};
+	}, [receivedVehicle, registrationPlate]);
 
 	useLayoutEffect(() => {
 		getVehicleData();
-		// getStatusNotification();
-	}, []);
+	}, [getVehicleData]);
 
 	useEffect(() => {
+		async function activateReminderVehicle() {
+			if (activateReminder) {
+				await Notifications.scheduleNotificationAsync({
+					content: {
+						title: 'Olá, seu veículo está chegando!',
+						body: 'Seu veículo está chegando a estação! Cuidado para não parder ele!',
+						sound: true,
+						priority: Notifications.AndroidNotificationPriority.HIGH,
+					},
+					trigger: {
+						seconds: 60,
+						repeats: false,
+					},
+				});
+			}
+		}
+
 		activateReminderVehicle();
 	}, [activateReminder]);
 

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Linking, ScrollView, View } from 'react-native';
 import { getSession, removeSession } from '../../../backend/Login';
 import { Header } from '../../../components/Header';

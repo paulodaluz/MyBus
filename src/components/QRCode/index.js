@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image, Text, View } from 'react-native';
 import QRCodeIcon from '../../assets/icons/png/qr_code.png';
 import { styles } from './style';

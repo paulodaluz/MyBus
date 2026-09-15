@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
 import ForgotMyPassword from './pages/commonPages/ForgotMyPassword';
 import InitialPage from './pages/commonPages/InitialPage';
 import Login from './pages/commonPages/Login';

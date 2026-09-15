@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import cross_button from '../../../assets/icons/png/cross_button.png';
 import { getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
@@ -24,7 +24,7 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 	const [thereIsWheelchairSupport, setThereIsWheelchairSupport] = useState(false);
 	const [price, setPrice] = useState('');
 
-	const getVehicleData = async () => {
+	const getVehicleData = useCallback(async () => {
 		if (receivedVehicle) {
 			setName(receivedVehicle.name);
 			setIdToPassangers(receivedVehicle.id_to_passengers);
@@ -59,11 +59,11 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 		setThereIsWifi(vehicleFunctions.wifi);
 		setThereIsWheelchairSupport(vehicleFunctions.suport_wheelchair);
 		setPrice(vehicleFunctions.price_transport);
-	};
+	}, [receivedVehicle, registrationPlate]);
 
 	useLayoutEffect(() => {
 		getVehicleData();
-	}, []);
+	}, [getVehicleData]);
 
 	return (
 		<View>

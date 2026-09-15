@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image, Text, View } from 'react-native';
 import GreenBusIcon from '../../../../assets/icons/png/green_bus_icon.png';
 import { styles } from './style';

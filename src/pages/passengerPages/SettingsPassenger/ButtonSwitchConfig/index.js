@@ -1,4 +1,3 @@
-import React from 'react';
 import { Switch, Text, View } from 'react-native';
 import { darkGrey, lightGray } from '../../../../styles/colors';
 import { styles } from './style';

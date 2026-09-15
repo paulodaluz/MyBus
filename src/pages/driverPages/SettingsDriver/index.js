@@ -1,4 +1,3 @@
-import React from 'react';
 import { Linking, ScrollView, View } from 'react-native';
 import { removeSession } from '../../../backend/Login';
 import { Header } from '../../../components/Header';

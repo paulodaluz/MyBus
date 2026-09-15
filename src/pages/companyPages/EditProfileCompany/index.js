@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { getCompany, updateAllInfosOfCompany } from '../../../backend/Users/Company';
 import { Header } from '../../../components/Header';
@@ -17,14 +17,14 @@ export default function EditProfileCompany({ navigation, route }) {
 
 	const [id, setId] = useState('');
 
-	async function getData() {
+	const getData = useCallback(async () => {
 		const user = await getCompany(uid);
 
 		setId(user.id);
 		setName(user.name);
 		setEmail(user.email);
 		setCnpj(user.cnpj);
-	}
+	}, [uid]);
 
 	const updateUser = async () => {
 		await updateAllInfosOfCompany(id, name, cnpj);
@@ -34,7 +34,7 @@ export default function EditProfileCompany({ navigation, route }) {
 
 	useLayoutEffect(() => {
 		getData();
-	}, []);
+	}, [getData]);
 
 	return (
 		<View>

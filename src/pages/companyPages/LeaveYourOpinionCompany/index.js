@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { saveAppFeedbackBackend } from '../../../backend/feedbacks/MyBusFeedbacks';
 import { Header } from '../../../components/Header';

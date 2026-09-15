@@ -1,4 +1,3 @@
-import React from 'react';
 import { Text, View } from 'react-native';
 import { Divisor } from '../../../../components/Divisor';
 import { MiddleButton } from '../../../../components/MiddleButton';

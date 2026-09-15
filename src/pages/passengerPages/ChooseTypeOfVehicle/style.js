@@ -33,6 +33,12 @@ export const styles = StyleSheet.create({
 		height: '100%',
 		textAlign: 'center',
 	},
+	filledVehicleCode: {
+		fontSize: 40,
+	},
+	emptyVehicleCode: {
+		fontSize: 18,
+	},
 	containerScanQRCode: {
 		width: '80%',
 		marginTop: '2%',

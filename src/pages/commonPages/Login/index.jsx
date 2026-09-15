@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { createSession, getUserOnFirebase } from '../../../backend/Login';
 import { Header } from '../../../components/Header';

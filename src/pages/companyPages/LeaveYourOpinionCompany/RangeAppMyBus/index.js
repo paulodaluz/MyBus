@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image, Text, View } from 'react-native';
 import AppIcon from '../../../../assets/icons/png/appIcon.png';
 import { styles } from './style';

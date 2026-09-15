@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { saveCompanyFeedbackBackend } from '../../../backend/feedbacks/CompanyFeedbacks';
 import { saveAppFeedbackBackend } from '../../../backend/feedbacks/MyBusFeedbacks';
@@ -51,20 +51,21 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 		setVehicleName('');
 	};
 
-	const getInfosOfVehicle = async () => {
+	const getInfosOfVehicle = useCallback(async () => {
 		if (vehicleRegistration) {
 			let vehicleFromDB = await getVehicle({ registrationPlate: vehicleRegistration });
 			setVehicleName(vehicleFromDB.name);
 			setVehicle(vehicleFromDB);
 		}
-	};
+	}, [vehicleRegistration]);
 
 	useLayoutEffect(() => {
 		getInfosOfVehicle();
-	}, []);
+	}, [getInfosOfVehicle]);
 
 	useEffect(() => {
-		cleanInputs();
+		setFeedback('');
+		setVehicleName('');
 	}, [feedbackRecipient]);
 
 	return (

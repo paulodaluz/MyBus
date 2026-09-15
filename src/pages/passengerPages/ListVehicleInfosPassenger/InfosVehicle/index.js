@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image, Switch, Text, View } from 'react-native';
 import bus_icon from '../../../../assets/icons/png/map/bus_icon.png';
 import { darkGrey } from '../../../../styles/colors';

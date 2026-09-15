@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Image, Text, TextInput, View } from 'react-native';
 import QRCodeIcon from '../../../assets/icons/png/qr_code.png';
 import { addNewPrivateVehicle, updateUserAllInfos } from '../../../backend/Users/Passenger';
@@ -43,9 +43,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 			return setSubtitleMessage('Veículos Públicos que estão a disposição a todos os cidadãos');
 		}
 
-		if (typeOfVehicleToList === 'private') {
-			return setSubtitleMessage('Veículos Privados, necessitam de um código de acesso');
-		}
+		return setSubtitleMessage('Veículos Privados, necessitam de um código de acesso');
 	}, [typeOfVehicleToList]);
 
 	return (
@@ -69,8 +67,8 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 							placeholder="Código do seu Veículo"
 							style={
 								vehicleCode.length > 0
-									? { ...styles.inputVehicleCode, fontSize: 40 }
-									: { ...styles.inputVehicleCode, fontSize: 18 }
+									? [styles.inputVehicleCode, styles.filledVehicleCode]
+									: [styles.inputVehicleCode, styles.emptyVehicleCode]
 							}
 							value={vehicleCode}
 							onChangeText={(text) => setVehicleCode(text)}
@@ -84,7 +82,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 				</View>
 			)}
 
-			<View style={{ ...styles.button }}>
+			<View style={styles.button}>
 				<WideButton
 					onPress={changeTypeOfVehicle}
 					textButton={'Continuar'}

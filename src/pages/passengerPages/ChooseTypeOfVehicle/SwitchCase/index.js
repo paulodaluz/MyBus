@@ -1,6 +1,4 @@
-import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { white } from '../../../../styles/colors';
 import { styles } from './style';
 
 const SwitchCase = ({ typeOfVehicleToList, onPressFirstSwitch, onPressSecondSwitch }) => {
@@ -10,8 +8,8 @@ const SwitchCase = ({ typeOfVehicleToList, onPressFirstSwitch, onPressSecondSwit
 				onPress={onPressFirstSwitch}
 				style={
 					typeOfVehicleToList === 'public'
-						? { ...styles.button, backgroundColor: '#E7E9ED' }
-						: { ...styles.button, backgroundColor: white }
+						? [styles.button, styles.selectedButton]
+						: [styles.button, styles.unselectedButton]
 				}
 			>
 				<Text style={styles.textButton}>Público</Text>
@@ -21,8 +19,8 @@ const SwitchCase = ({ typeOfVehicleToList, onPressFirstSwitch, onPressSecondSwit
 				onPress={onPressSecondSwitch}
 				style={
 					typeOfVehicleToList === 'private'
-						? { ...styles.button, backgroundColor: '#E7E9ED' }
-						: { ...styles.button, backgroundColor: white }
+						? [styles.button, styles.selectedButton]
+						: [styles.button, styles.unselectedButton]
 				}
 			>
 				<Text style={styles.textButton}>Privado</Text>

@@ -1,6 +1,6 @@
 import * as Location from 'expo-location';
 import { firebase } from '../../../database/FirebaseConfiguration';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { Alert, Image, Modal, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
@@ -34,7 +34,7 @@ export default function MapPassenger({ navigation, route }) {
 		longitudeDelta: 0.02,
 	};
 
-	const getMyPosition = async () => {
+	const getMyPosition = useCallback(async () => {
 		let { status } = await Location.requestPermissionsAsync();
 
 		if (status !== 'granted') {
@@ -47,29 +47,17 @@ export default function MapPassenger({ navigation, route }) {
 					Alert.alert('Erro ao acessar o GPS!');
 				});
 		}
-	};
+	}, []);
 
-	const getVehiclesInfos = async () => {
+	const getVehiclesInfos = useCallback(async () => {
 		const vehiclesFirestore = await getMyVehicles(user.uid);
 		setVehiclesByFirestore(vehiclesFirestore);
 
 		const busStopsLocalzations = await getBusStopsLocalzations(vehiclesFirestore);
 		setBusStops(busStopsLocalzations);
-	};
+	}, [user.uid]);
 
-	const getAllLocalizationVehicles = async () => {
-		firebase
-			.database()
-			.ref('/real_time_database')
-			.on('value', (snapchot) => {
-				let allLocalizations = snapchot.val();
-				if (allLocalizations) {
-					buildDadosVehicles(allLocalizations, user.codes_private_vehicles);
-				}
-			});
-	};
-
-	const buildDadosVehicles = async (allLocalizations, vehiclesPlate) => {
+	const buildDadosVehicles = useCallback(async (allLocalizations, vehiclesPlate) => {
 		const myVehicles = [];
 
 		vehiclesPlate.forEach((vehiclePlate) => {
@@ -84,7 +72,19 @@ export default function MapPassenger({ navigation, route }) {
 			}
 		});
 		setRealTimeVehicles(myVehicles);
-	};
+	}, []);
+
+	const getAllLocalizationVehicles = useCallback(async () => {
+		firebase
+			.database()
+			.ref('/real_time_database')
+			.on('value', (snapchot) => {
+				let allLocalizations = snapchot.val();
+				if (allLocalizations) {
+					buildDadosVehicles(allLocalizations, user.codes_private_vehicles);
+				}
+			});
+	}, [buildDadosVehicles, user.codes_private_vehicles]);
 
 	const getNextVehiclesInThisPoint = (busStop) => {
 		setModalVisible(!modalVisible);
@@ -113,9 +113,7 @@ export default function MapPassenger({ navigation, route }) {
 		getVehiclesInfos();
 		getAllLocalizationVehicles();
 		getMyPosition();
-	}, []);
-
-	useEffect(() => {}, [myPosition, realTimeVehicles, busStops, timeToArriveVehicle]);
+	}, [getAllLocalizationVehicles, getMyPosition, getVehiclesInfos]);
 
 	return (
 		<View style={styles.container}>
@@ -132,7 +130,7 @@ export default function MapPassenger({ navigation, route }) {
 						coordinate={{ latitude: busStop.latitude, longitude: busStop.longitude }}
 						title={'Parada de Ônibus'}
 					>
-						<Image source={bus_stop} style={{ height: 40, width: 40 }} />
+						<Image source={bus_stop} style={styles.busStopIcon} />
 					</Marker>
 				))}
 
@@ -150,14 +148,14 @@ export default function MapPassenger({ navigation, route }) {
 						coordinate={{ latitude: vehicle.latitude, longitude: vehicle.longitude }}
 						title={'Veículo'}
 					>
-						<Image source={bus_icon} style={{ height: 30, width: 30 }} />
+						<Image source={bus_icon} style={styles.busIcon} />
 					</Marker>
 				))}
 
 				{/* Pega minha posição no mapa */}
 				{myPosition ? (
 					<Marker coordinate={myPosition} title={'Minha localização!'}>
-						<Image source={passenger_marker} style={{ height: 50, width: 50 }} />
+						<Image source={passenger_marker} style={styles.passengerIcon} />
 					</Marker>
 				) : null}
 			</MapView>

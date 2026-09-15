@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { createSession } from '../../../backend/Login';
 import { createCompanyBackend } from '../../../backend/Users/Company';

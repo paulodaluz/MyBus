@@ -1,5 +1,5 @@
 import { firebase } from '../../../database/FirebaseConfiguration';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { Image, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
@@ -18,19 +18,7 @@ export default function MapCompany({ navigation, route }) {
 		longitudeDelta: 0.15,
 	};
 
-	const getAllLocalizationVehicles = async () => {
-		firebase
-			.database()
-			.ref('/real_time_database')
-			.on('value', (snapchot) => {
-				let allLocalizations = snapchot.val();
-				if (allLocalizations) {
-					buildDadosVehicles(allLocalizations, user.linked_vehicles);
-				}
-			});
-	};
-
-	const buildDadosVehicles = async (allLocalizations, vehiclesPlate) => {
+	const buildDadosVehicles = useCallback(async (allLocalizations, vehiclesPlate) => {
 		const myVehicles = [];
 
 		vehiclesPlate.forEach((vehiclePlate) => {
@@ -45,13 +33,23 @@ export default function MapCompany({ navigation, route }) {
 			}
 		});
 		setRealTimeVehicles(myVehicles);
-	};
+	}, []);
+
+	const getAllLocalizationVehicles = useCallback(async () => {
+		firebase
+			.database()
+			.ref('/real_time_database')
+			.on('value', (snapchot) => {
+				let allLocalizations = snapchot.val();
+				if (allLocalizations) {
+					buildDadosVehicles(allLocalizations, user.linked_vehicles);
+				}
+			});
+	}, [buildDadosVehicles, user.linked_vehicles]);
 
 	useLayoutEffect(() => {
 		getAllLocalizationVehicles();
-	}, []);
-
-	useEffect(() => {}, [realTimeVehicles]);
+	}, [getAllLocalizationVehicles]);
 
 	return (
 		<View>
@@ -73,7 +71,7 @@ export default function MapCompany({ navigation, route }) {
 						coordinate={{ latitude: vehicle.latitude, longitude: vehicle.longitude }}
 						title={vehicle.registration_plate}
 					>
-						<Image source={bus_icon} style={{ height: 20, width: 20 }} />
+						<Image source={bus_icon} style={styles.busIcon} />
 					</Marker>
 				))}
 			</MapView>

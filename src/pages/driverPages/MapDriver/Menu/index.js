@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import map from '../../../../assets/icons/png/map.png';
 import bus_icon from '../../../../assets/icons/png/map/bus_icon.png';

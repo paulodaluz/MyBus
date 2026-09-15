@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert, Linking, TouchableOpacity } from 'react-native';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 
@@ -423,15 +422,24 @@ describe('company regressions', () => {
 	});
 
 	test('renders feedback empty and populated states', async () => {
-		mockGetCompanyFeedback.mockResolvedValueOnce([]);
-		const empty = render(<ReceivedFeedbacks route={route({ uid: 'c' })} />);
-		await waitFor(() => expect(empty.getByText('Não há feedbacks até o momento!')).toBeTruthy());
+		jest.useFakeTimers();
 
-		mockGetCompanyFeedback.mockResolvedValueOnce([
-			{ id: 'f1', name_sender: 'Ana', feedback: 'Good' },
-		]);
-		const populated = render(<ReceivedFeedbacks route={route({ uid: 'c' })} />);
-		await waitFor(() => expect(populated.getByText('Good')).toBeTruthy());
+		try {
+			mockGetCompanyFeedback.mockResolvedValueOnce([]);
+			const empty = render(<ReceivedFeedbacks route={route({ uid: 'c' })} />);
+			await waitFor(() => expect(empty.getByText('Não há feedbacks até o momento!')).toBeTruthy());
+			empty.unmount();
+
+			mockGetCompanyFeedback.mockResolvedValueOnce([
+				{ id: 'f1', name_sender: 'Ana', feedback: 'Good' },
+			]);
+			const populated = render(<ReceivedFeedbacks route={route({ uid: 'c' })} />);
+			await waitFor(() => expect(populated.getByText('Good')).toBeTruthy());
+			await act(async () => jest.runOnlyPendingTimers());
+			populated.unmount();
+		} finally {
+			jest.useRealTimers();
+		}
 	});
 
 	test('navigates company settings and logs out', async () => {

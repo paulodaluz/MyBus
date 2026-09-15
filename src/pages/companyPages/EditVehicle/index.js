@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { Alert, ScrollView, Text, TextInput, View } from 'react-native';
 import { updatePlateVehicleCompany } from '../../../backend/Users/Company';
 import { editVehicle, getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
@@ -27,7 +27,7 @@ export default function EditVehicle({ navigation, route }) {
 
 	const toggleSwitchBathroom = () => setThereIsBathroom((previousState) => !previousState);
 	const toggleSwitchWifi = () => setThereIsWifi((previousState) => !previousState);
-	const toggleSwitchIsPublic = () => setIsPublic((previousState) => !previousState);
+	//const toggleSwitchIsPublic = () => setIsPublic((previousState) => !previousState);
 	const toggleSwitchWheelchairSup = () =>
 		setThereIsWheelchairSupport((previousState) => !previousState);
 	const toggleSwitchAirConditioning = () =>
@@ -80,7 +80,7 @@ export default function EditVehicle({ navigation, route }) {
 		}
 	};
 
-	const getVehicleData = async () => {
+	const getVehicleData = useCallback(async () => {
 		const [vehicle, vehicleFunctions] = await Promise.all([
 			getVehicle({ registrationPlate: registration_Plate }),
 			getVehicleFunction({ registrationPlate: registration_Plate }),
@@ -97,11 +97,11 @@ export default function EditVehicle({ navigation, route }) {
 		setThereIsWifi(vehicleFunctions.wifi);
 		setThereIsAirConditioning(vehicleFunctions.air_conditioning);
 		setThereIsBathroom(vehicleFunctions.washrooms);
-	};
+	}, [registration_Plate]);
 
 	useLayoutEffect(() => {
 		getVehicleData();
-	}, []);
+	}, [getVehicleData]);
 
 	return (
 		<View>

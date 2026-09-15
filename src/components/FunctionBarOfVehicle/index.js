@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image, Text, View } from 'react-native';
 import air_conditioner from '../../assets/icons/png/functions/air_conditioner.png';
 import priceImg from '../../assets/icons/png/functions/price.png';

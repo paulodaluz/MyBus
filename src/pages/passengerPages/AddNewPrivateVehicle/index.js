@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { addNewPrivateVehicle } from '../../../backend/Users/Passenger';
 import { getVehicle } from '../../../backend/vehicles/Vehicle';

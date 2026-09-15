@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image, Text, View } from 'react-native';
 import clock_icon from '../../../../assets/icons/png/clock_icon.png';
 import MapImage from '../../../../assets/icons/png/map.png';

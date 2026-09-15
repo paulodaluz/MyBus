@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert, Linking, Modal } from 'react-native';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 
@@ -65,7 +64,6 @@ jest.mock('../src/database/FirebaseConfiguration', () => ({
 	firebase: { database: () => ({ ref: mockDatabaseRef }) },
 }));
 jest.mock('react-native-maps', () => {
-	const ReactNative = require('react');
 	const { View } = require('react-native');
 	const MapView = ({ children }) => <View testID="map-view">{children}</View>;
 	const Marker = ({ children, onPress, title }) => (

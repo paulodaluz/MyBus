@@ -1,6 +1,6 @@
 import * as Location from 'expo-location';
 import { firebase } from '../../../database/FirebaseConfiguration';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Image, Modal, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import placeholder_icon from '../../../assets/icons/png/map/placeholder.png';
@@ -15,7 +15,7 @@ export default function MapDriver({ navigation, route }) {
 	const [myPosition, setMyposition] = useState(null);
 
 	const [sharingLocalization, setSharingLocalization] = useState(false);
-	const [vehicleStatus, setVehicleStatus] = useState('Operando Normalmente');
+	const vehicleStatus = 'Operando Normalmente';
 
 	const [modalVisible, setModalVisible] = useState(false);
 
@@ -26,7 +26,7 @@ export default function MapDriver({ navigation, route }) {
 		longitudeDelta: 0.15,
 	};
 
-	const getMyPosition = async () => {
+	const getMyPosition = useCallback(async () => {
 		let { status } = await Location.requestPermissionsAsync();
 
 		if (status !== 'granted') {
@@ -39,9 +39,9 @@ export default function MapDriver({ navigation, route }) {
 					Alert.alert('Erro ao acessar o GPS!');
 				});
 		}
-	};
+	}, []);
 
-	const sendMyLocalizationToFirebase = async () => {
+	const sendMyLocalizationToFirebase = useCallback(async () => {
 		if (sharingLocalization && myPosition != null) {
 			await firebase
 				.database()
@@ -52,7 +52,7 @@ export default function MapDriver({ navigation, route }) {
 					status: 'Operando Normalmente',
 				});
 		}
-	};
+	}, [company.uid, myPosition, sharingLocalization, vehicle.registration_plate]);
 
 	const updateInfosVehicle = async () => {
 		if (modalVisible) {
@@ -68,12 +68,11 @@ export default function MapDriver({ navigation, route }) {
 
 	useLayoutEffect(() => {
 		getMyPosition();
-		sendMyLocalizationToFirebase();
-	}, []);
+	}, [getMyPosition]);
 
 	useEffect(() => {
 		sendMyLocalizationToFirebase();
-	}, [myPosition]);
+	}, [sendMyLocalizationToFirebase]);
 
 	return (
 		<View style={styles.container}>

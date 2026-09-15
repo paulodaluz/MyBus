@@ -1,5 +1,4 @@
 import Clipboard from 'expo-clipboard';
-import React from 'react';
 import { Text, View } from 'react-native';
 import { WideButton } from '../../../components/WideButton';
 import { darkGrey } from '../../../styles/colors';

@@ -58,6 +58,15 @@ export const styles = StyleSheet.create({
 		width: '94%',
 		resizeMode: 'contain',
 	},
+	businessImage: {
+		padding: 10,
+	},
+	passengerDivider: {
+		right: '50%',
+	},
+	companyDivider: {
+		left: '50%',
+	},
 	gestureContainer: {
 		width: '100%',
 		height: '90%',

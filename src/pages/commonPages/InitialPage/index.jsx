@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Image, Text, View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import BusinessImage from '../../../assets/images/png/business-deal-cuate.png';
@@ -37,7 +37,7 @@ export default function InitialPage({ navigation }) {
 				{typeUserPage === 'passenger' ? (
 					<Image style={styles.imageHeader} source={BusStopImage} />
 				) : (
-					<Image style={{ ...styles.imageHeader, padding: 10 }} source={BusinessImage} />
+					<Image style={[styles.imageHeader, styles.businessImage]} source={BusinessImage} />
 				)}
 			</View>
 
@@ -60,8 +60,8 @@ export default function InitialPage({ navigation }) {
 					<View
 						style={
 							typeUserPage === 'passenger'
-								? { ...styles.activeDivider, right: '50%' }
-								: { ...styles.activeDivider, left: '50%' }
+								? [styles.activeDivider, styles.passengerDivider]
+								: [styles.activeDivider, styles.companyDivider]
 						}
 					/>
 				</View>

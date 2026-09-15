@@ -1,4 +1,3 @@
-import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { Divisor } from '../src/components/Divisor';
 import { Footer as RegisterFooter } from '../src/components/FooterRegister';

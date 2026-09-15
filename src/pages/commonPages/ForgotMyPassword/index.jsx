@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Header } from '../../../components/Header';
 import { Input } from '../../../components/Input';

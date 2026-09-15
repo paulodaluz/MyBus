@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { removePrivateVehicle } from '../../../backend/Users/Passenger';
 import { getMyVehicles } from '../../../backend/vehicles/Vehicle';
@@ -16,13 +16,13 @@ export default function ListMyLinkedVehicles({ route }) {
 		await getVehicleData();
 	};
 
-	const getVehicleData = async () => {
+	const getVehicleData = useCallback(async () => {
 		setVehicles(await getMyVehicles(uid));
-	};
+	}, [uid]);
 
 	useLayoutEffect(() => {
 		getVehicleData();
-	}, []);
+	}, [getVehicleData]);
 
 	const renderVehicle = ({ item }) => (
 		<BoxWithInfoVehicles item={item} onPress={() => removeVehicle(item)} />

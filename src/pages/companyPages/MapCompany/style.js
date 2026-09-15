@@ -5,4 +5,8 @@ export const styles = StyleSheet.create({
 		width: Dimensions.get('window').width,
 		height: '90%',
 	},
+	busIcon: {
+		height: 20,
+		width: 20,
+	},
 });
