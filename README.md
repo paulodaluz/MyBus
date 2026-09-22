@@ -36,12 +36,14 @@ As principais tecnologias utilizadas foram:
 
 ## 🛠️ Configurando o ambiente
 
-- Use a versão 14.16.0 do nodeJS
-- Clone o repositório
-- Execute o comando `npm install --global expo-cli`
-- Instale as dependências com `npm install` ou `yarn install`
-- Adicione a configuração do seu database(firebase) no arquivo `FirebaseConfiguration.js` dentro da pasta `src/database`
-- Baixe o Expo Go em seu dispositivo mobile
+- Use Node.js 24.20.0 (`. .husky/node-version.sh` no ambiente local).
+- Instale as dependências do projeto e use a CLI local (`npx expo`).
+- Copie `.env.example` para `.env` e preencha os valores do aplicativo Web do seu projeto Firebase.
+- Configure `EXPO_PUBLIC_FIREBASE_API_KEY`, `AUTH_DOMAIN`, `DATABASE_URL`, `PROJECT_ID` e `APP_ID` (sempre com o prefixo `EXPO_PUBLIC_FIREBASE_`). Os demais campos estão no exemplo.
+- Habilite Email/Password no Firebase Authentication e configure Firestore e Realtime Database no mesmo projeto.
+- Reinicie o Metro após modificar o ambiente. Sem configuração, o aplicativo mostra os campos ausentes e não inicia os serviços.
+- Variáveis `EXPO_PUBLIC_*` são incorporadas ao aplicativo: nunca use credenciais administrativas ou chaves de service account. O `.env` não deve ser commitado.
+- Use contas de teste em ambiente separado; os formulários não têm dados pessoais pré-preenchidos.
 
 ## 🚀 Getting started
 

@@ -7,6 +7,8 @@ jest.mock('../src/routes', () => {
 	return { __esModule: true, default: () => ReactRuntime.createElement(NativeView) };
 });
 
+jest.mock('../src/database/FirebaseConfiguration', () => ({ configurationError: null }));
+
 const App = require('../App').default;
 
 describe('application entry point', () => {
@@ -14,4 +16,12 @@ describe('application entry point', () => {
 		const view = render(<App />);
 		expect(view.UNSAFE_getByType(View)).toBeTruthy();
 	});
+});
+
+test('explains missing Firebase configuration before showing routes', () => {
+	const configuration = require('../src/database/FirebaseConfiguration');
+	configuration.configurationError = 'Configuração Firebase ausente';
+	const view = render(<App />);
+	expect(view.getByRole('alert').props.children).toBe('Configuração Firebase ausente');
+	configuration.configurationError = null;
 });

@@ -13,8 +13,18 @@ const firebaseConfig = {
 	appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
-const firebaseApp = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
+const requiredFields = ['apiKey', 'authDomain', 'databaseURL', 'projectId', 'appId'];
+const missingFields = requiredFields.filter((field) => !firebaseConfig[field]?.trim());
+const configurationError = missingFields.length
+	? `Configuração Firebase ausente: ${missingFields.join(
+			', '
+	  )}. Preencha o arquivo .env conforme .env.example e reinicie o aplicativo.`
+	: null;
+const firebaseApp = configurationError
+	? null
+	: firebase.apps.length
+	? firebase.app()
+	: firebase.initializeApp(firebaseConfig);
+const db = firebaseApp ? firebaseApp.firestore() : null;
 
-const db = firebaseApp.firestore();
-
-export { db, firebase };
+export { db, firebase, configurationError };

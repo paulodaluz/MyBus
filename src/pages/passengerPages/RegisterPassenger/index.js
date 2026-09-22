@@ -11,10 +11,10 @@ import { darkGrey, white } from '../../../styles/colors';
 import { styles } from './style';
 
 export default function RegisterPassenger({ navigation }) {
-	const [name, setName] = useState('Paulo Ricardo da Luz');
-	const [email, setEmail] = useState('paulo.daluzjr@gmail.com');
-	const [password, setPassword] = useState('Teste123');
-	const [confirmPassword, setConfirmPassword] = useState('Teste123');
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 
 	const createUser = async () => {
 		if (!email || !password || !confirmPassword) {

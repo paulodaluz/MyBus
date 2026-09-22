@@ -21,6 +21,20 @@ const loadFirebaseConfiguration = (apps) => {
 };
 
 describe('Firebase configuration', () => {
+	const fields = ['API_KEY', 'AUTH_DOMAIN', 'DATABASE_URL', 'PROJECT_ID', 'APP_ID'];
+	beforeEach(() => {
+		fields.forEach((field) => {
+			process.env[`EXPO_PUBLIC_FIREBASE_${field}`] = 'test-fixture';
+		});
+	});
+	test('does not initialize Firebase with missing or blank configuration', () => {
+		delete process.env.EXPO_PUBLIC_FIREBASE_API_KEY;
+		process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID = ' ';
+		const { configuration, firebase } = loadFirebaseConfiguration([]);
+		expect(configuration.configurationError).toContain('apiKey, projectId');
+		expect(configuration.db).toBeNull();
+		expect(firebase.initializeApp).not.toHaveBeenCalled();
+	});
 	afterEach(() => {
 		jest.dontMock('firebase/compat/app');
 		jest.dontMock('firebase/compat/auth');
@@ -31,7 +45,7 @@ describe('Firebase configuration', () => {
 	test('initializes Firebase once when no app exists', () => {
 		const { configuration, firebase, initializedApp } = loadFirebaseConfiguration([]);
 		expect(firebase.initializeApp).toHaveBeenCalledWith(
-			expect.objectContaining({ projectId: undefined })
+			expect.objectContaining({ projectId: 'test-fixture' })
 		);
 		expect(configuration.db).toEqual({ name: 'initialized-db' });
 		expect(configuration.firebase).toBe(firebase);

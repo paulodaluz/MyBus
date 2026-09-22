@@ -167,6 +167,9 @@ describe('authentication and bootstrap regressions', () => {
 	test('validates and creates a passenger account', async () => {
 		const nav = navigation();
 		const view = render(<RegisterPassenger navigation={nav} />);
+		for (const field of ['Nome completo', 'Email', 'Senha', 'Confirme sua senha']) {
+			expect(view.getByPlaceholderText(field).props.value).toBe('');
+		}
 		fireEvent.changeText(view.getByPlaceholderText('Nome completo'), 'Passenger');
 		fireEvent.changeText(view.getByPlaceholderText('Email'), '');
 		fireEvent.press(view.getByText('Pronto'));
