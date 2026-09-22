@@ -49,11 +49,17 @@ jest.mock('../src/backend/Login', () => ({
 	getSession: mockGetSession,
 }));
 jest.mock('expo-location', () => ({
-	requestPermissionsAsync: mockRequestPermissions,
+	requestForegroundPermissionsAsync: mockRequestPermissions,
 	getCurrentPositionAsync: mockGetCurrentPosition,
 }));
 jest.mock('expo-notifications', () => ({
 	AndroidNotificationPriority: { HIGH: 'high' },
+	AndroidImportance: { DEFAULT: 3 },
+	SchedulableTriggerInputTypes: { TIME_INTERVAL: 'timeInterval' },
+	setNotificationHandler: jest.fn(),
+	setNotificationChannelAsync: jest.fn(),
+	getPermissionsAsync: jest.fn(async () => ({ status: 'granted' })),
+	cancelScheduledNotificationAsync: jest.fn(async () => {}),
 	scheduleNotificationAsync: mockScheduleNotification,
 }));
 jest.mock('@react-native-async-storage/async-storage', () => ({
@@ -286,7 +292,7 @@ describe('passenger regressions', () => {
 		await waitFor(() =>
 			expect(mockScheduleNotification).toHaveBeenCalledWith(
 				expect.objectContaining({
-					trigger: { seconds: 60, repeats: false },
+					trigger: { type: 'timeInterval', seconds: 60, repeats: false, channelId: 'reminders' },
 				})
 			)
 		);
@@ -305,6 +311,11 @@ describe('passenger regressions', () => {
 			/>
 		);
 		await waitFor(() => expect(receivedView.getAllByText('Received').length).toBeGreaterThan(0));
+		mockScheduleNotification.mockRejectedValueOnce(new Error('permission failed'));
+		await act(async () => fireEvent(receivedView.getByRole('switch'), 'valueChange', true));
+		expect(alert).toHaveBeenCalledWith(
+			'Não foi possível configurar o lembrete. Verifique as permissões e tente novamente.'
+		);
 	});
 
 	test('handles passenger map permission branches, markers and menu navigation', async () => {

@@ -28,7 +28,7 @@ const InfosVehicle = ({ name, status, idToPassangers, valueReminder, onChangeVal
 					onValueChange={onChangeValueReminder}
 				/>
 
-				<Text style={styles.textReminder}>Adicionar Lembrete</Text>
+				<Text style={styles.textReminder}>Lembrar em 1 minuto</Text>
 			</View>
 		</View>
 	);

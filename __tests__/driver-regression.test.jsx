@@ -23,7 +23,7 @@ jest.mock('../src/backend/vehicles/Vehicle', () => ({
 	getVehicleFunction: mockGetVehicleFunction,
 }));
 jest.mock('expo-location', () => ({
-	requestPermissionsAsync: mockRequestPermissions,
+	requestForegroundPermissionsAsync: mockRequestPermissions,
 	getCurrentPositionAsync: mockGetCurrentPosition,
 }));
 jest.mock('../src/database/FirebaseConfiguration', () => ({

@@ -10,6 +10,7 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 }));
 jest.mock('expo-notifications', () => ({
 	AndroidNotificationPriority: { HIGH: 'high' },
+	setNotificationHandler: jest.fn(),
 	scheduleNotificationAsync: jest.fn(),
 }));
 jest.mock('react-native-maps', () => ({

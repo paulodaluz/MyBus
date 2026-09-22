@@ -1,7 +1,7 @@
 import { Screen } from '../../../components/commonComponents/Screen';
-import * as Notifications from 'expo-notifications';
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { View } from 'react-native';
+import { useVehicleReminder } from '../../../hooks/useVehicleReminder';
+import { useCallback, useLayoutEffect, useState } from 'react';
+import { Alert, View } from 'react-native';
 import { getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
 import { Divisor } from '../../../components/Divisor';
 import { FunctionBarOfVehicle } from '../../../components/FunctionBarOfVehicle';
@@ -53,26 +53,13 @@ export default function ListVehicleInfosPassenger({ navigation, route }) {
 		getVehicleData();
 	}, [getVehicleData]);
 
-	useEffect(() => {
-		async function activateReminderVehicle() {
-			if (activateReminder) {
-				await Notifications.scheduleNotificationAsync({
-					content: {
-						title: 'Olá, seu veículo está chegando!',
-						body: 'Seu veículo está chegando a estação! Cuidado para não parder ele!',
-						sound: true,
-						priority: Notifications.AndroidNotificationPriority.HIGH,
-					},
-					trigger: {
-						seconds: 60,
-						repeats: false,
-					},
-				});
-			}
-		}
-
-		activateReminderVehicle();
-	}, [activateReminder]);
+	const reminderError = useCallback(() => {
+		setActivateReminder(false);
+		Alert.alert(
+			'Não foi possível configurar o lembrete. Verifique as permissões e tente novamente.'
+		);
+	}, []);
+	useVehicleReminder(activateReminder, reminderError);
 
 	return (
 		<Screen>

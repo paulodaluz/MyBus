@@ -22,10 +22,21 @@
         "foregroundImage": "./assets/bus_icon.png",
         "backgroundColor": "#F1F1F1"
       },
-      "package": "com.paulodaluz.brazil.mybus"
+      "package": "com.paulodaluz.brazil.mybus",
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "POST_NOTIFICATIONS"],
+      "softwareKeyboardLayoutMode": "resize"
     },
     "web": {
       "favicon": "./assets/bus_icon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Permitir que o MyBus use sua localiza\u00e7\u00e3o enquanto o aplicativo est\u00e1 aberto."
+        }
+      ],
+      "expo-notifications"
+    ]
   }
 }

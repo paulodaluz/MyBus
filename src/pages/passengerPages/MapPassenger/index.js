@@ -36,7 +36,7 @@ export default function MapPassenger({ navigation, route }) {
 	};
 
 	const getMyPosition = useCallback(async () => {
-		let { status } = await Location.requestPermissionsAsync();
+		let { status } = await Location.requestForegroundPermissionsAsync();
 
 		if (status !== 'granted') {
 			Alert.alert('Permissão de acesso a localização negado!');
