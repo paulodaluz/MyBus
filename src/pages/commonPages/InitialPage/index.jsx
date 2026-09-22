@@ -1,6 +1,6 @@
 import { Screen } from '../../../components/commonComponents/Screen';
 import { useLayoutEffect, useState } from 'react';
-import { Alert, Image, Text, View } from 'react-native';
+import { Alert, Image, Text, useWindowDimensions, View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import BusinessImage from '../../../assets/images/png/business-deal-cuate.png';
 import BusStopImage from '../../../assets/images/png/bustop-cuate.png';
@@ -9,8 +9,23 @@ import { WideButton } from '../../../components/WideButton';
 import { darkGrey, purple } from '../../../styles/colors';
 import { styles } from './style';
 
+export function getWelcomeLayout(windowHeight, windowWidth) {
+	const isCompact = windowHeight < 600 || windowWidth < 360;
+	return {
+		gap: isCompact ? 4 : 12,
+		imageHeight: Math.min(windowHeight * (isCompact ? 0.19 : 0.25), 300),
+		headerPaddingTop: Math.min(windowWidth * 0.1, windowHeight * 0.03),
+		titleFontSize: Math.min(70, windowWidth * 0.155),
+		subtitleFontSize: Math.min(24, windowWidth * 0.055),
+		dividerPaddingVertical: isCompact ? 4 : 10,
+		messagePaddingVertical: Math.min(windowWidth * 0.03, 16),
+	};
+}
+
 export default function InitialPage({ navigation }) {
 	const [typeUserPage, setTypeUserPage] = useState('passenger');
+	const { height: windowHeight, width: windowWidth } = useWindowDimensions();
+	const welcomeLayout = getWelcomeLayout(windowHeight, windowWidth);
 
 	useLayoutEffect(() => {
 		async function checkIfHasSession() {
@@ -35,30 +50,42 @@ export default function InitialPage({ navigation }) {
 	}, [navigation]);
 
 	return (
-		<Screen>
-			<View style={styles.header}>
+		<Screen style={{ gap: welcomeLayout.gap }}>
+			<View style={[styles.header, { paddingTop: welcomeLayout.headerPaddingTop }]}>
 				{typeUserPage === 'passenger' ? (
-					<Image style={styles.imageHeader} source={BusStopImage} />
+					<Image
+						style={[styles.imageHeader, { height: welcomeLayout.imageHeight }]}
+						source={BusStopImage}
+					/>
 				) : (
-					<Image style={[styles.imageHeader, styles.businessImage]} source={BusinessImage} />
+					<Image
+						style={[
+							styles.imageHeader,
+							styles.businessImage,
+							{ height: welcomeLayout.imageHeight },
+						]}
+						source={BusinessImage}
+					/>
 				)}
 			</View>
 
 			<View style={styles.titles}>
-				<Text style={styles.mainTitle}>MyBus</Text>
+				<Text style={[styles.mainTitle, { fontSize: welcomeLayout.titleFontSize }]}>MyBus</Text>
 				<Text
 					onPress={() => {
 						typeUserPage === 'passenger'
 							? setTypeUserPage('company')
 							: setTypeUserPage('passenger');
 					}}
-					style={styles.subTitle}
+					style={[styles.subTitle, { fontSize: welcomeLayout.subtitleFontSize }]}
 				>
 					{typeUserPage === 'passenger' ? 'Passageiro' : 'Empresas'}
 				</Text>
 			</View>
 
-			<View style={styles.containerDivider}>
+			<View
+				style={[styles.containerDivider, { paddingVertical: welcomeLayout.dividerPaddingVertical }]}
+			>
 				<View style={styles.divider}>
 					<View
 						style={
@@ -76,7 +103,9 @@ export default function InitialPage({ navigation }) {
 					onSwipeLeft={() => setTypeUserPage('company')}
 					onSwipeRight={() => setTypeUserPage('passenger')}
 				>
-					<Text style={styles.message}>Para continuar faça seu Login ou{'\n'}Cadastre-se</Text>
+					<Text style={[styles.message, { paddingVertical: welcomeLayout.messagePaddingVertical }]}>
+						Para continuar faça seu Login ou{'\n'}Cadastre-se
+					</Text>
 
 					<View style={styles.button}>
 						<WideButton

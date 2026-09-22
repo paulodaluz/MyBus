@@ -27,7 +27,7 @@ jest.mock('../src/backend/Users/Company', () => ({
 	createCompanyBackend: mockCreateCompanyBackend,
 }));
 
-const InitialPage = require('../src/pages/commonPages/InitialPage').default;
+const { default: InitialPage, getWelcomeLayout } = require('../src/pages/commonPages/InitialPage');
 const Login = require('../src/pages/commonPages/Login').default;
 const ForgotMyPassword = require('../src/pages/commonPages/ForgotMyPassword').default;
 const RegisterPassenger = require('../src/pages/passengerPages/RegisterPassenger').default;
@@ -45,6 +45,26 @@ describe('authentication and bootstrap regressions', () => {
 
 	afterEach(() => {
 		alert.mockRestore();
+	});
+
+	test('adapts the welcome layout for standard and compact screens', () => {
+		const compact = getWelcomeLayout(512, 288);
+		expect(compact.gap).toBe(4);
+		expect(compact.imageHeight).toBeCloseTo(97.28);
+		expect(compact.headerPaddingTop).toBeCloseTo(15.36);
+		expect(compact.titleFontSize).toBeCloseTo(44.64);
+		expect(compact.subtitleFontSize).toBeCloseTo(15.84);
+		expect(compact.dividerPaddingVertical).toBe(4);
+		expect(compact.messagePaddingVertical).toBeCloseTo(8.64);
+
+		const standard = getWelcomeLayout(864, 432);
+		expect(standard.gap).toBe(12);
+		expect(standard.imageHeight).toBe(216);
+		expect(standard.headerPaddingTop).toBeCloseTo(25.92);
+		expect(standard.titleFontSize).toBeCloseTo(66.96);
+		expect(standard.subtitleFontSize).toBeCloseTo(23.76);
+		expect(standard.dividerPaddingVertical).toBe(10);
+		expect(standard.messagePaddingVertical).toBeCloseTo(12.96);
 	});
 
 	test('keeps login available when bootstrap storage fails', async () => {
