@@ -184,6 +184,29 @@ describe('driver regressions', () => {
 		log.mockRestore();
 	});
 
+	test('handles permission API failure and offline publishing', async () => {
+		mockRequestPermissions.mockRejectedValueOnce(new Error('permission unavailable'));
+		const props = {
+			navigation: makeNavigation(),
+			route: route({
+				company: { uid: 'c' },
+				vehicle: { registration_plate: 'A' },
+				vehicleFunctions: {},
+			}),
+		};
+		const denied = render(<MapDriver {...props} />);
+		await waitFor(() => expect(alert).toHaveBeenCalledWith('Erro ao acessar o GPS!'));
+		denied.unmount();
+		mockRequestPermissions.mockResolvedValueOnce({ status: 'granted' });
+		mockGetCurrentPosition.mockResolvedValueOnce({ coords: { latitude: 1, longitude: 2 } });
+		mockSetLocation.mockRejectedValueOnce(new Error('offline'));
+		const view = render(<MapDriver {...props} />);
+		await waitFor(() => expect(view.getByLabelText('Meu local')).toBeTruthy());
+		await act(async () => fireEvent.press(view.getByText('COMPARTILHAR LOCALIZAÇÃO')));
+		expect(alert).toHaveBeenCalledWith('Não foi possível compartilhar. Verifique sua conexão.');
+		expect(view.queryByText('Compartilhando a localização...')).toBeNull();
+	});
+
 	test('logs a driver out and exposes all settings actions', async () => {
 		const nav = makeNavigation();
 		const view = render(

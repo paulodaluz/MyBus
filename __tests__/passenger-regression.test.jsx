@@ -18,7 +18,8 @@ const mockRequestPermissions = jest.fn();
 const mockGetCurrentPosition = jest.fn();
 const mockScheduleNotification = jest.fn();
 const mockDatabaseOn = jest.fn();
-const mockDatabaseRef = jest.fn(() => ({ on: mockDatabaseOn }));
+const mockDatabaseOff = jest.fn();
+const mockDatabaseRef = jest.fn(() => ({ on: mockDatabaseOn, off: mockDatabaseOff }));
 const mockAsyncStorage = {
 	getItem: jest.fn(),
 	setItem: jest.fn(),
@@ -103,6 +104,7 @@ describe('passenger regressions', () => {
 		alert = jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 		openURL = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);
 		mockGetSession.mockResolvedValue('passenger-1');
+		mockDatabaseOn.mockImplementation((event, callback) => callback({ val: () => null }));
 		mockUpdateUserAllInfos.mockResolvedValue(undefined);
 		mockAddNewPrivateVehicle.mockResolvedValue(undefined);
 		mockRemovePrivateVehicle.mockResolvedValue(undefined);
@@ -343,7 +345,7 @@ describe('passenger regressions', () => {
 		]);
 		mockRequestPermissions.mockResolvedValueOnce({ status: 'granted' });
 		mockGetCurrentPosition.mockResolvedValueOnce({ coords: { latitude: -23.5, longitude: -46.6 } });
-		mockDatabaseOn.mockImplementationOnce((event, callback) =>
+		mockDatabaseOn.mockImplementation((event, callback) =>
 			callback({
 				val: () => ({
 					company: { 'ABC-123': { latitude: -23.5, longitude: -46.6, status: 'moving' } },
@@ -381,6 +383,29 @@ describe('passenger regressions', () => {
 		);
 		await waitFor(() => expect(alert).toHaveBeenCalledWith('Erro ao acessar o GPS!'));
 		log.mockRestore();
+	});
+
+	test('recovers from offline loads and handles absent location and missing links', async () => {
+		mockGetMyVehicles.mockRejectedValueOnce(new Error('offline'));
+		mockRequestPermissions.mockRejectedValueOnce(new Error('permission unavailable'));
+		const view = render(
+			<MapPassenger navigation={makeNavigation()} route={route({ user: { uid: 'p' } })} />
+		);
+		await waitFor(() => expect(view.getByText('Tentar novamente')).toBeTruthy());
+		expect(alert).toHaveBeenCalledWith('Erro ao acessar o GPS!');
+		await act(async () => fireEvent.press(view.getByText('Tentar novamente')));
+		expect(view.getByText('Nenhum veículo vinculado.')).toBeTruthy();
+		mockGetBusStops.mockResolvedValueOnce([
+			{ latitude: 1, longitude: 2, vehicle_plate: 'missing' },
+		]);
+		const cancellation = mockDatabaseOn.mock.calls.at(-1)[2];
+		await act(async () => cancellation(new Error('offline')));
+		await act(async () => fireEvent.press(view.getByText('Tentar novamente')));
+		fireEvent.press(view.getByLabelText('Parada de Ônibus'));
+		expect(view.getByText('Localização indisponível')).toBeTruthy();
+		expect(view.getByText('Veículo indisponível')).toBeTruthy();
+		view.unmount();
+		expect(mockDatabaseOff).toHaveBeenCalledWith('value', expect.any(Function));
 	});
 
 	test('loads the passenger settings and logs out', async () => {

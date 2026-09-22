@@ -129,9 +129,13 @@ export async function getMyVehicles(uid) {
 
 	const allVehicles = await getAllVehicles();
 
+	if (!user) {
+		return [];
+	}
+
 	// passenger
 	if (user.isPassenger) {
-		userVehicles = user.codes_private_vehicles.filter((vehicleCode) => {
+		userVehicles = (user.codes_private_vehicles || []).filter((vehicleCode) => {
 			return allVehicles.filter((userVehicle) => userVehicle.id_to_passengers === vehicleCode);
 		});
 
@@ -149,7 +153,7 @@ export async function getMyVehicles(uid) {
 		return myVehicles;
 	}
 
-	userVehicles = user.linked_vehicles.filter((vehicleCode) => {
+	userVehicles = (user.linked_vehicles || []).filter((vehicleCode) => {
 		return allVehicles.filter((userVehicle) => userVehicle.registration_plate === vehicleCode);
 	});
 

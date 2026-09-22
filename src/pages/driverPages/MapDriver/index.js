@@ -28,7 +28,13 @@ export default function MapDriver({ navigation, route }) {
 	};
 
 	const getMyPosition = useCallback(async () => {
-		let { status } = await Location.requestForegroundPermissionsAsync();
+		let status;
+		try {
+			({ status } = await Location.requestForegroundPermissionsAsync());
+		} catch {
+			Alert.alert('Erro ao acessar o GPS!');
+			return;
+		}
 
 		if (status !== 'granted') {
 			Alert.alert('Permissão de acesso a localização negado!');
@@ -51,6 +57,10 @@ export default function MapDriver({ navigation, route }) {
 					latitude: myPosition.latitude,
 					longitude: myPosition.longitude,
 					status: 'Operando Normalmente',
+				})
+				.catch(() => {
+					setSharingLocalization(false);
+					Alert.alert('Não foi possível compartilhar. Verifique sua conexão.');
 				});
 		}
 	}, [company.uid, myPosition, sharingLocalization, vehicle.registration_plate]);

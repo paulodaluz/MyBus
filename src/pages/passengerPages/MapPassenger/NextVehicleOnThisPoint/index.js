@@ -22,7 +22,9 @@ const NextVehicleOnThisPoint = ({ openOnMap, vehiclesOnThisPoint, time }) => (
 					<View style={styles.containerVehicleTime}>
 						<Image style={styles.clockIcon} source={clock_icon} />
 
-						<Text style={styles.timeVehicle}>{time} min</Text>
+						<Text style={styles.timeVehicle}>
+							{time == null ? 'Localização indisponível' : `${time} min`}
+						</Text>
 					</View>
 				</View>
 				<Divisor />

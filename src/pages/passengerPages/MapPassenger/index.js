@@ -1,7 +1,10 @@
+import { hasCoordinates, selectVehicleLocations } from '../../../service/MapDataService';
+import { WideButton } from '../../../components/WideButton';
+import { Feedback } from '../../../components/commonComponents/Feedback';
 import { Screen } from '../../../components/commonComponents/Screen';
 import * as Location from 'expo-location';
 import { firebase } from '../../../database/FirebaseConfiguration';
-import { useCallback, useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Image, Modal } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
@@ -19,6 +22,7 @@ export default function MapPassenger({ navigation, route }) {
 
 	const [myPosition, setMyposition] = useState(null);
 	const [busStops, setBusStops] = useState([]);
+	const [loadError, setLoadError] = useState(false);
 
 	const [realTimeVehicles, setRealTimeVehicles] = useState([]);
 	const [vehiclesByFirestore, setVehiclesByFirestore] = useState([]);
@@ -36,7 +40,13 @@ export default function MapPassenger({ navigation, route }) {
 	};
 
 	const getMyPosition = useCallback(async () => {
-		let { status } = await Location.requestForegroundPermissionsAsync();
+		let status;
+		try {
+			({ status } = await Location.requestForegroundPermissionsAsync());
+		} catch {
+			Alert.alert('Erro ao acessar o GPS!');
+			return;
+		}
 
 		if (status !== 'granted') {
 			Alert.alert('Permissão de acesso a localização negado!');
@@ -51,41 +61,33 @@ export default function MapPassenger({ navigation, route }) {
 	}, []);
 
 	const getVehiclesInfos = useCallback(async () => {
-		const vehiclesFirestore = await getMyVehicles(user.uid);
-		setVehiclesByFirestore(vehiclesFirestore);
-
-		const busStopsLocalzations = await getBusStopsLocalzations(vehiclesFirestore);
-		setBusStops(busStopsLocalzations);
+		try {
+			const vehiclesFirestore = await getMyVehicles(user.uid);
+			const stops = await getBusStopsLocalzations(vehiclesFirestore);
+			setVehiclesByFirestore(vehiclesFirestore);
+			setBusStops(stops.filter(hasCoordinates));
+			setLoadError(false);
+		} catch {
+			setLoadError(true);
+		}
 	}, [user.uid]);
 
-	const buildDadosVehicles = useCallback(async (allLocalizations, vehiclesPlate) => {
-		const myVehicles = [];
-
-		vehiclesPlate.forEach((vehiclePlate) => {
-			for (let index in allLocalizations) {
-				if (allLocalizations[index][vehiclePlate]) {
-					let vehicle = {
-						registration_plate: vehiclePlate,
-						...allLocalizations[index][vehiclePlate],
-					};
-					myVehicles.push(vehicle);
-				}
-			}
+	useEffect(() => {
+		const ref = firebase.database().ref('/real_time_database');
+		const listener = (snapshot) => {
+			setRealTimeVehicles(
+				selectVehicleLocations(
+					snapshot.val(),
+					vehiclesByFirestore.map((vehicle) => vehicle.registration_plate)
+				)
+			);
+		};
+		ref.on('value', listener, () => {
+			setRealTimeVehicles([]);
+			setLoadError(true);
 		});
-		setRealTimeVehicles(myVehicles);
-	}, []);
-
-	const getAllLocalizationVehicles = useCallback(async () => {
-		firebase
-			.database()
-			.ref('/real_time_database')
-			.on('value', (snapchot) => {
-				let allLocalizations = snapchot.val();
-				if (allLocalizations) {
-					buildDadosVehicles(allLocalizations, user.codes_private_vehicles);
-				}
-			});
-	}, [buildDadosVehicles, user.codes_private_vehicles]);
+		return () => ref.off('value', listener);
+	}, [vehiclesByFirestore]);
 
 	const getNextVehiclesInThisPoint = (busStop) => {
 		setModalVisible(!modalVisible);
@@ -98,23 +100,25 @@ export default function MapPassenger({ navigation, route }) {
 			(realTimeVehicle) => realTimeVehicle.registration_plate === busStop.vehicle_plate
 		);
 
-		const time = calculateTime(
-			busStop.latitude,
-			busStop.longitude,
-			localizationVehicle.latitude,
-			localizationVehicle.longitude
-		);
+		let time = null;
+		if (hasCoordinates(localizationVehicle)) {
+			time = calculateTime(
+				busStop.latitude,
+				busStop.longitude,
+				localizationVehicle.latitude,
+				localizationVehicle.longitude
+			);
+		}
 
 		setTimeToArriveVehicle(time);
 
-		setVehiclesOnThisPoint(vehiclesInThisPoint);
+		setVehiclesOnThisPoint(vehiclesInThisPoint || { name: 'Veículo indisponível' });
 	};
 
 	useLayoutEffect(() => {
 		getVehiclesInfos();
-		getAllLocalizationVehicles();
 		getMyPosition();
-	}, [getAllLocalizationVehicles, getMyPosition, getVehiclesInfos]);
+	}, [getMyPosition, getVehiclesInfos]);
 
 	return (
 		<Screen scroll={false}>
@@ -161,6 +165,14 @@ export default function MapPassenger({ navigation, route }) {
 				) : null}
 			</MapView>
 
+			{loadError ? (
+				<>
+					<Feedback>Não foi possível carregar os veículos.</Feedback>
+					<WideButton textButton="Tentar novamente" onPress={getVehiclesInfos} />
+				</>
+			) : (
+				vehiclesByFirestore.length === 0 && <Feedback>Nenhum veículo vinculado.</Feedback>
+			)}
 			<Menu
 				onPressFirstButton={() => navigation.navigate('AddNewPrivateVehicle', { uid: user.uid })}
 				textFirstButton={'Adicionar veículo privado'}

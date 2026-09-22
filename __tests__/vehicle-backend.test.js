@@ -265,3 +265,16 @@ describe('Vehicle backend', () => {
 		expect(mockDeleteVehicle).toHaveBeenCalledWith('vehicle-doc');
 	});
 });
+
+test('returns an empty list for missing users and profiles without links', async () => {
+	mockGetAllUsers.mockResolvedValue([]);
+	mockGetAllCompanies.mockResolvedValue([]);
+	mockGetAllVehicles.mockResolvedValue([]);
+	await expect(getMyVehicles('missing')).resolves.toEqual([]);
+	mockGetAllUsers.mockResolvedValue([{ uid: 'p', isPassenger: true }]);
+	await expect(getMyVehicles('p')).resolves.toEqual([]);
+	mockGetAllCompanies.mockResolvedValue([{ uid: 'c' }]);
+	await expect(getMyVehicles('c')).resolves.toEqual([]);
+	mockGetAllUsers.mockRejectedValueOnce(new Error('offline'));
+	await expect(getMyVehicles('p')).rejects.toThrow('offline');
+});
