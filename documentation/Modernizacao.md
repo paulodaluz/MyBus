@@ -29,3 +29,9 @@ Manter Navigation 5 exigiria sustentar dependências antigas incompatíveis com 
 Cada bug tem commit próprio. Para reverter, criar commits `git revert` dos commits afetados, em ordem inversa de dependências, preservando o trabalho de terceiros. Reinstalar com `npm ci` e gerar novamente os diretórios nativos descartáveis. Não reutilizar APK anterior como evidência do código revertido. Antes de publicar, repetir os gates; não executar reset destrutivo ou force push.
 
 O TypeScript cobre o contrato de navegação; a conversão integral do código JavaScript é trabalho separado. Compilação e exportação não certificam autenticação real, renderização de mapas ou entrega de notificações.
+
+## Alvo posterior ao baseline
+
+A matriz atual da [documentação do SDK 57](https://docs.expo.dev/versions/v57.0.0/) lista Expo 57, React Native 0.86 e React 19.2.3. O npm confirma Expo 57.0.24 e React Native 0.86.3 em 22/09/2026. Esse é o alvo da próxima etapa; SDK 54 é apenas o baseline preservado para comparação. A auditoria de dependências impede tratar esse baseline como pronto para publicação.
+
+Migrar 54 → 55 → 56 → 57 em commits independentes, ajustando React Native/React e módulos nativos conforme cada SDK. Manter Firebase 12 inicialmente; somente depois comparar a adoção da API modular com os mesmos testes de autenticação e persistência. Em cada etapa, voltar por `git revert` ao último conjunto com build e smoke aprovados se houver regressão. O spike executado nesta tarefa cobre a base existente e Navigation 7; o spike de SDK 57 e o smoke autenticado ainda estão pendentes. Portanto, a aceitação integral de #29 não está concluída.
