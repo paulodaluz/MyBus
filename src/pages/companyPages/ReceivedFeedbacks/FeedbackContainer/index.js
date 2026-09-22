@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native';
+import { Card } from '../../../../components/commonComponents/Card';
+import { Text } from 'react-native';
 import { styles } from './style';
 
 const FeedbackContainer = ({ feedback }) => {
 	return (
-		<View style={styles.container}>
+		<Card style={styles.container}>
 			<Text style={styles.title}>{feedback.vehicle_name}</Text>
 
 			<Text style={styles.nameOfItem}>Remetente</Text>
@@ -14,7 +15,7 @@ const FeedbackContainer = ({ feedback }) => {
 
 			<Text style={styles.nameOfItem}>Feedback</Text>
 			<Text style={styles.valueOfItem}>{feedback.feedback}</Text>
-		</View>
+		</Card>
 	);
 };
 

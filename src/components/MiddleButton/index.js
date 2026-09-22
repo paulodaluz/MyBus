@@ -1,10 +1,1 @@
-import { Text, TouchableOpacity } from 'react-native';
-import { styles } from './style';
-
-const MiddleButton = ({ onPress, textButton, backgroundColor }) => (
-	<TouchableOpacity onPress={onPress} style={{ ...styles.button, backgroundColor }}>
-		<Text style={{ ...styles.text }}>{textButton}</Text>
-	</TouchableOpacity>
-);
-
-export { MiddleButton };
+export { Button as MiddleButton } from '../commonComponents/Button';

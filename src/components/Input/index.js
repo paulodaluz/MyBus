@@ -1,5 +1,6 @@
-import { TextInput } from 'react-native';
-import { styles } from './style';
+import { ActivityIndicator, TextInput, View } from 'react-native';
+import { tokens } from '../../styles/tokens';
+import { Feedback } from '../commonComponents/Feedback';
 
 const Input = ({
 	value,
@@ -8,10 +9,25 @@ const Input = ({
 	textContentType,
 	keyboardType = 'default',
 	secureTextEntry = false,
-}) => {
-	return (
+	disabled = false,
+	loading = false,
+	error,
+	...props
+}) => (
+	<View style={{ width: '100%' }}>
 		<TextInput
-			style={styles.input}
+			{...props}
+			accessibilityLabel={placeholder}
+			accessibilityState={{ disabled: disabled || loading, busy: loading }}
+			style={{
+				minHeight: tokens.controlHeight,
+				borderWidth: 1,
+				borderColor: error ? tokens.colors.error : tokens.colors.border,
+				paddingHorizontal: tokens.space.medium,
+				paddingVertical: tokens.space.small,
+				fontSize: tokens.type.body,
+			}}
+			editable={!disabled && !loading}
 			value={value}
 			onChangeText={onChangeText}
 			placeholder={placeholder}
@@ -19,7 +35,8 @@ const Input = ({
 			keyboardType={keyboardType}
 			secureTextEntry={secureTextEntry}
 		/>
-	);
-};
-
+		{loading && <ActivityIndicator />}
+		{error && <Feedback>{error}</Feedback>}
+	</View>
+);
 export { Input };

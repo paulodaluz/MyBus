@@ -1,3 +1,4 @@
+import { View } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 import { Divisor } from '../src/components/Divisor';
 import { Footer as RegisterFooter } from '../src/components/FooterRegister';
@@ -201,4 +202,22 @@ describe('shared and presentational components', () => {
 		expect(onPress).toHaveBeenCalled();
 		expect(getByText('Choose points')).toBeTruthy();
 	});
+});
+
+test('shared controls expose loading, disabled, error and custom color states', () => {
+	const press = jest.fn();
+	const view = render(
+		<View>
+			<WideButton textButton="Pending" loading onPress={press} />
+			<WideButton textButton="Disabled" disabled textColor="black" onPress={press} />
+			<Input placeholder="Pending input" loading />
+			<Input placeholder="Invalid input" error="E-mail inválido" disabled />
+		</View>
+	);
+	fireEvent.press(view.getByText('Pending'));
+	fireEvent.press(view.getByText('Disabled'));
+	expect(press).not.toHaveBeenCalled();
+	expect(view.getByRole('button', { name: 'Pending' }).props.accessibilityState.busy).toBe(true);
+	expect(view.getByPlaceholderText('Pending input').props.editable).toBe(false);
+	expect(view.getByRole('alert').props.children).toBe('E-mail inválido');
 });
