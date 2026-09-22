@@ -1,3 +1,7 @@
+jest.mock(
+	'react-native-safe-area-context',
+	() => require('react-native-safe-area-context/jest/mock').default
+);
 import { View } from 'react-native';
 import { render } from '@testing-library/react-native';
 

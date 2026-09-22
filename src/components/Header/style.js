@@ -3,20 +3,19 @@ import { purple, white } from '../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
-		height: '100%',
 		width: '100%',
 		backgroundColor: purple,
 		borderBottomLeftRadius: 30,
 		borderBottomRightRadius: 30,
-		marginBottom: '10%',
-		paddingTop: '14%',
+		marginBottom: 16,
+		paddingVertical: 24,
 		paddingHorizontal: '7.5%',
 	},
 	title: {
 		color: white,
-		fontSize: 50,
+		fontSize: 32,
 		fontWeight: 'bold',
-		paddingRight: '18%',
+		flexShrink: 1,
 	},
 	subtitle: {
 		color: white,
@@ -24,7 +23,7 @@ export const styles = StyleSheet.create({
 		paddingTop: '5%',
 	},
 	singleTitle: {
-		fontSize: 45,
+		fontSize: 32,
 		color: white,
 		fontWeight: 'bold',
 	},

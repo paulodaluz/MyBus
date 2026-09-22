@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { requestPasswordReset } from '../../../service/AuthService';
 import { isValidEmail } from '../../../backend/utils/Utils';
 import { useRef, useState } from 'react';
@@ -47,7 +48,7 @@ export default function ForgotMyPassword({ navigation }) {
 	};
 
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<View style={styles.header}>
 				<Header
 					title={'Esqueceu sua senha?'}
@@ -77,6 +78,6 @@ export default function ForgotMyPassword({ navigation }) {
 			</View>
 
 			<Footer onPress={() => navigation.navigate('Login')} />
-		</View>
+		</Screen>
 	);
 }
