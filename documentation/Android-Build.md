@@ -22,7 +22,7 @@ O APK debug precisa de Metro (`npm start` e `adb reverse tcp:8081 tcp:8081`). O 
 
 - Node 24.20.0, JDK 21, emulador Pixel_3a_XL_API_33 arm64, conectado como emulator-5554.
 - `assembleDebug`: sucesso, 413 tarefas, 6m59s; instalado no emulador e servindo Metro. Este APK precede a última alteração do parâmetro de mapa e deve ser regenerado pelo script para smoke final.
-- `assembleRelease`: sucesso, 528 tarefas, bundle JavaScript incluído. `dist/android/mybus-release.apk` é para instalação local; não foi testado abrindo na interface.
+- `assembleRelease`: sucesso, 528 tarefas, bundle JavaScript incluído. `dist/android/mybus-release.apk` foi regenerado após o commit 6d78c9e e corresponde ao código atual; é para instalação local e não foi testado abrindo na interface.
 - Instalação isolada com `npm ci`: sucesso. Exportação iOS e exportações SDK 57 Android também passaram; exportação não equivale a build nativo.
 - Reanimated 4.1 procura `libworklets.so` num caminho legado CMake que a variante Worklets não cria. O build falhava mesmo após compilar Worklets primeiro. Confirmei que a biblioteca válida é gerada em `prefab_package`; o script a copia desse diretório para o caminho esperado, preservando variante e ABI. Não há alteração de binário nem supressão de falha.
 
