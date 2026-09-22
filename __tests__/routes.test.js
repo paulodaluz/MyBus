@@ -23,6 +23,6 @@ const Routes = require('../src/routes').default;
 
 describe('navigation routes', () => {
 	test('builds the complete navigation tree', () => {
-		expect(Routes({ navigation: { navigate: jest.fn() } })).toBeTruthy();
+		expect(Routes()).toBeTruthy();
 	});
 });

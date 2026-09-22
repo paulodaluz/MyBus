@@ -11,7 +11,6 @@ import { styles } from './style';
 
 export default function Login({ navigation }) {
 	const [email, setEmail] = useState('');
-	// const [email, setEmail] = useState('bustur@email.com');
 	const [password, setPassword] = useState('');
 
 	const login = async () => {

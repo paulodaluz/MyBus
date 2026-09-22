@@ -1,5 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createRouteScreen } from './navigation/RouteScreen';
+import type { RootStackParamList } from './navigation/types';
 import { StatusBar } from 'expo-status-bar';
 import ForgotMyPassword from './pages/commonPages/ForgotMyPassword';
 import InitialPage from './pages/commonPages/InitialPage';
@@ -30,187 +32,195 @@ import MapPassenger from './pages/passengerPages/MapPassenger';
 import RegisterPassenger from './pages/passengerPages/RegisterPassenger';
 import SettingsPassenger from './pages/passengerPages/SettingsPassenger';
 
-const Stack = createStackNavigator();
+const screens = {
+	InitialPage: createRouteScreen(InitialPage, 'InitialPage'),
+	Login: createRouteScreen(Login, 'Login'),
+	ForgotMyPassword: createRouteScreen(ForgotMyPassword, 'ForgotMyPassword'),
+	MapPassenger: createRouteScreen(MapPassenger, 'MapPassenger'),
+	RegisterPassenger: createRouteScreen(RegisterPassenger, 'RegisterPassenger'),
+	ChooseTypeOfVehicle: createRouteScreen(ChooseTypeOfVehicle, 'ChooseTypeOfVehicle'),
+	SettingsPassenger: createRouteScreen(SettingsPassenger, 'SettingsPassenger'),
+	EditProfilePassenger: createRouteScreen(EditProfilePassenger, 'EditProfilePassenger'),
+	AddNewPrivateVehicle: createRouteScreen(AddNewPrivateVehicle, 'AddNewPrivateVehicle'),
+	LeaveYourOpinionPassenger: createRouteScreen(
+		LeaveYourOpinionPassenger,
+		'LeaveYourOpinionPassenger'
+	),
+	ListMyLinkedVehicles: createRouteScreen(ListMyLinkedVehicles, 'ListMyLinkedVehicles'),
+	ListVehicleInfosPassenger: createRouteScreen(
+		ListVehicleInfosPassenger,
+		'ListVehicleInfosPassenger'
+	),
+	MapCompany: createRouteScreen(MapCompany, 'MapCompany'),
+	RegisterCompany: createRouteScreen(RegisterCompany, 'RegisterCompany'),
+	SettingsCompany: createRouteScreen(SettingsCompany, 'SettingsCompany'),
+	EditProfileCompany: createRouteScreen(EditProfileCompany, 'EditProfileCompany'),
+	LeaveYourOpinionCompany: createRouteScreen(LeaveYourOpinionCompany, 'LeaveYourOpinionCompany'),
+	ReceivedFeedbacks: createRouteScreen(ReceivedFeedbacks, 'ReceivedFeedbacks'),
+	CreateNewVehicle: createRouteScreen(CreateNewVehicle, 'CreateNewVehicle'),
+	AskShowVehicleCode: createRouteScreen(AskShowVehicleCode, 'AskShowVehicleCode'),
+	ShowVehicleCode: createRouteScreen(ShowVehicleCode, 'ShowVehicleCode'),
+	AskPointsVehicleWillPass: createRouteScreen(AskPointsVehicleWillPass, 'AskPointsVehicleWillPass'),
+	ChoicePointsVehicleWillPass: createRouteScreen(
+		ChoicePointsVehicleWillPass,
+		'ChoicePointsVehicleWillPass'
+	),
+	ListVehicleInfosCompany: createRouteScreen(ListVehicleInfosCompany, 'ListVehicleInfosCompany'),
+	EditVehicle: createRouteScreen(EditVehicle, 'EditVehicle'),
+	MapDriver: createRouteScreen(MapDriver, 'MapDriver'),
+	LoginDriver: createRouteScreen(LoginDriver, 'LoginDriver'),
+	SettingsDriver: createRouteScreen(SettingsDriver, 'SettingsDriver'),
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const headerShown = false;
 
-export default function App({ navigation }) {
+export default function App() {
 	return (
-		<NavigationContainer initialRouteName="InitialPage">
+		<NavigationContainer>
 			<StatusBar style="auto" />
 
-			<Stack.Navigator>
+			<Stack.Navigator initialRouteName="InitialPage">
 				{/* Passenger Routes */}
 				<Stack.Screen
 					name="InitialPage"
-					component={InitialPage}
-					initialParams={{ navigation }}
+					component={screens.InitialPage}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
-				<Stack.Screen
-					name="Login"
-					component={Login}
-					initialParams={{ navigation }}
-					options={{ headerShown }}
-				/>
+				<Stack.Screen name="Login" component={screens.Login} options={{ headerShown }} />
 				<Stack.Screen
 					name="ForgotMyPassword"
-					component={ForgotMyPassword}
-					initialParams={{ navigation }}
+					component={screens.ForgotMyPassword}
 					options={{ headerShown }}
 				/>
 
 				<Stack.Screen
 					name="MapPassenger"
-					component={MapPassenger}
-					initialParams={{ navigation }}
+					component={screens.MapPassenger}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
 				<Stack.Screen
 					name="RegisterPassenger"
-					component={RegisterPassenger}
-					initialParams={{ navigation }}
+					component={screens.RegisterPassenger}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="ChooseTypeOfVehicle"
-					component={ChooseTypeOfVehicle}
-					initialParams={{ navigation }}
+					component={screens.ChooseTypeOfVehicle}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
 				<Stack.Screen
 					name="SettingsPassenger"
-					component={SettingsPassenger}
-					initialParams={{ navigation }}
+					component={screens.SettingsPassenger}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="EditProfilePassenger"
-					component={EditProfilePassenger}
-					initialParams={{ navigation }}
+					component={screens.EditProfilePassenger}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="AddNewPrivateVehicle"
-					component={AddNewPrivateVehicle}
-					initialParams={{ navigation }}
+					component={screens.AddNewPrivateVehicle}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="LeaveYourOpinionPassenger"
-					component={LeaveYourOpinionPassenger}
-					initialParams={{ navigation }}
+					component={screens.LeaveYourOpinionPassenger}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="ListMyLinkedVehicles"
-					component={ListMyLinkedVehicles}
-					initialParams={{ navigation }}
+					component={screens.ListMyLinkedVehicles}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="ListVehicleInfosPassenger"
-					component={ListVehicleInfosPassenger}
-					initialParams={{ navigation }}
+					component={screens.ListVehicleInfosPassenger}
 					options={{ headerShown }}
 				/>
 
 				{/* Company Routes */}
 				<Stack.Screen
 					name="MapCompany"
-					component={MapCompany}
-					initialParams={{ navigation }}
+					component={screens.MapCompany}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
 				<Stack.Screen
 					name="RegisterCompany"
-					component={RegisterCompany}
-					initialParams={{ navigation }}
+					component={screens.RegisterCompany}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="SettingsCompany"
-					component={SettingsCompany}
-					initialParams={{ navigation }}
+					component={screens.SettingsCompany}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="EditProfileCompany"
-					component={EditProfileCompany}
-					initialParams={{ navigation }}
+					component={screens.EditProfileCompany}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="LeaveYourOpinionCompany"
-					component={LeaveYourOpinionCompany}
-					initialParams={{ navigation }}
+					component={screens.LeaveYourOpinionCompany}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="ReceivedFeedbacks"
-					component={ReceivedFeedbacks}
-					initialParams={{ navigation }}
+					component={screens.ReceivedFeedbacks}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="CreateNewVehicle"
-					component={CreateNewVehicle}
-					initialParams={{ navigation }}
+					component={screens.CreateNewVehicle}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="AskShowVehicleCode"
-					component={AskShowVehicleCode}
-					initialParams={{ navigation }}
+					component={screens.AskShowVehicleCode}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
 				<Stack.Screen
 					name="ShowVehicleCode"
-					component={ShowVehicleCode}
-					initialParams={{ navigation }}
+					component={screens.ShowVehicleCode}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
 				<Stack.Screen
 					name="AskPointsVehicleWillPass"
-					component={AskPointsVehicleWillPass}
-					initialParams={{ navigation }}
+					component={screens.AskPointsVehicleWillPass}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
 				<Stack.Screen
 					name="ChoicePointsVehicleWillPass"
-					component={ChoicePointsVehicleWillPass}
-					initialParams={{ navigation }}
+					component={screens.ChoicePointsVehicleWillPass}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
 				<Stack.Screen
 					name="ListVehicleInfosCompany"
-					component={ListVehicleInfosCompany}
-					initialParams={{ navigation }}
+					component={screens.ListVehicleInfosCompany}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="EditVehicle"
-					component={EditVehicle}
-					initialParams={{ navigation }}
+					component={screens.EditVehicle}
 					options={{ headerShown }}
 				/>
 
 				{/* Driver Routes */}
 				<Stack.Screen
 					name="MapDriver"
-					component={MapDriver}
-					initialParams={{ navigation }}
+					component={screens.MapDriver}
 					options={{ headerShown, gestureEnabled: false }}
 				/>
 				<Stack.Screen
 					name="LoginDriver"
-					component={LoginDriver}
-					initialParams={{ navigation }}
+					component={screens.LoginDriver}
 					options={{ headerShown }}
 				/>
 				<Stack.Screen
 					name="SettingsDriver"
-					component={SettingsDriver}
-					initialParams={{ navigation }}
+					component={screens.SettingsDriver}
 					options={{ headerShown }}
 				/>
 			</Stack.Navigator>

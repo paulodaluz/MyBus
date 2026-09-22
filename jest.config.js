@@ -3,7 +3,7 @@ module.exports = {
 	clearMocks: true,
 	watchman: false,
 	collectCoverageFrom: [
-		'src/**/*.{js,jsx}',
+		'src/**/*.{js,jsx,ts,tsx}',
 		'!src/assets/**',
 		'!src/styles/**',
 		'!src/**/style.js',

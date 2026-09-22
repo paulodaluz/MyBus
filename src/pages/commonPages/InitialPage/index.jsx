@@ -1,6 +1,6 @@
 import { Screen } from '../../../components/commonComponents/Screen';
 import { useLayoutEffect, useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Alert, Image, Text, View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import BusinessImage from '../../../assets/images/png/business-deal-cuate.png';
 import BusStopImage from '../../../assets/images/png/bustop-cuate.png';
@@ -16,9 +16,9 @@ export default function InitialPage({ navigation }) {
 		async function checkIfHasSession() {
 			const uidUser = await getSession();
 
-			if (uidUser) {
+			if (typeof uidUser === 'string' && uidUser) {
 				const user = await getUserOnFirebase(uidUser);
-				if (!user) {
+				if (!user?.uid) {
 					return;
 				}
 
@@ -29,7 +29,9 @@ export default function InitialPage({ navigation }) {
 			}
 		}
 
-		checkIfHasSession();
+		checkIfHasSession().catch(() =>
+			Alert.alert('Não foi possível restaurar a sessão. Faça login novamente.')
+		);
 	}, [navigation]);
 
 	return (

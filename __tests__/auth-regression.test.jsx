@@ -46,6 +46,21 @@ describe('authentication and bootstrap regressions', () => {
 		alert.mockRestore();
 	});
 
+	test('keeps login available when bootstrap storage fails', async () => {
+		mockGetSession.mockRejectedValueOnce(new Error('offline'));
+		const nav = navigation();
+		const view = render(<InitialPage navigation={nav} />);
+		await waitFor(() =>
+			expect(alert).toHaveBeenCalledWith(
+				'Não foi possível restaurar a sessão. Faça login novamente.'
+			)
+		);
+		expect(view.getByText('Login')).toBeTruthy();
+		expect(nav.navigate).not.toHaveBeenCalled();
+		mockGetSession.mockResolvedValueOnce('');
+		render(<InitialPage navigation={nav} />);
+	});
+
 	test('keeps the initial page when there is no session or user record', async () => {
 		mockGetSession.mockResolvedValueOnce('missing-session-user');
 		mockGetUserOnFirebase.mockResolvedValueOnce(undefined);
