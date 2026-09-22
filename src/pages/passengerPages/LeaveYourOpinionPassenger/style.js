@@ -5,11 +5,8 @@ export const styles = StyleSheet.create({
 	container: {
 		backgroundColor: white,
 	},
-	header: {
-		height: '29%',
-	},
+	header: {},
 	body: {
-		height: '60%',
 		alignItems: 'center',
 	},
 	button: {

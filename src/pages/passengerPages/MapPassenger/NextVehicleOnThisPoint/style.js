@@ -3,19 +3,15 @@ import { purple, white } from '../../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
-		width: '92%',
-		height: '34%',
 		backgroundColor: purple,
 		borderRadius: 30,
 		paddingTop: '3%',
 		paddingLeft: '8%',
 		paddingRight: '8%',
-		marginTop: '40%',
-		marginLeft: '4%',
-		marginRight: '4%',
 	},
 	containerTitle: {
 		flexDirection: 'row',
+		flexWrap: 'wrap',
 		width: '90%',
 	},
 	iconTitle: {
@@ -32,6 +28,7 @@ export const styles = StyleSheet.create({
 	},
 	item: {
 		flexDirection: 'row',
+		flexWrap: 'wrap',
 		justifyContent: 'space-between',
 		width: '100%',
 	},
@@ -54,7 +51,7 @@ export const styles = StyleSheet.create({
 		color: white,
 	},
 	button: {
-		height: '20%',
+		minHeight: 48,
 		width: '85%',
 		alignSelf: 'center',
 		marginTop: '8%',

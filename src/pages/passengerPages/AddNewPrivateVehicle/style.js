@@ -5,9 +5,7 @@ export const styles = StyleSheet.create({
 	container: {
 		backgroundColor: lightGray,
 	},
-	body: {
-		height: '100%',
-	},
+	body: {},
 	message: {
 		padding: '12%',
 		textAlign: 'center',
@@ -18,10 +16,10 @@ export const styles = StyleSheet.create({
 		width: '100%',
 		alignItems: 'center',
 		paddingLeft: '10%',
-		height: '14%',
+		minHeight: 48,
 	},
 	inputText: {
-		height: '42%',
+		minHeight: 48,
 		width: '88%',
 		alignSelf: 'flex-start',
 		marginBottom: '2%',
@@ -31,7 +29,7 @@ export const styles = StyleSheet.create({
 	},
 	button: {
 		marginLeft: '9%',
-		height: '6%',
+		minHeight: 48,
 		width: '82%',
 	},
 });

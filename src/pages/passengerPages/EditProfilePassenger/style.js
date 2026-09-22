@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
 		display: 'flex',
 	},
 	header: {
-		height: '18%',
 		width: '100%',
 	},
 	body: {
@@ -21,11 +20,11 @@ export const styles = StyleSheet.create({
 		paddingBottom: '1%',
 	},
 	inputButton: {
-		height: '9%',
+		minHeight: 48,
 		width: '100%',
 	},
 	unmutableInput: {
-		height: '9%',
+		minHeight: 48,
 		width: '100%',
 		borderWidth: 1,
 		borderColor: grey,
@@ -38,7 +37,7 @@ export const styles = StyleSheet.create({
 		color: grey,
 	},
 	updateButton: {
-		height: '9%',
+		minHeight: 48,
 		marginTop: '10%',
 	},
 });

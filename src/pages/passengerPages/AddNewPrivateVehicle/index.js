@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { addNewPrivateVehicle } from '../../../backend/Users/Passenger';
@@ -29,7 +30,7 @@ export default function AddNewPrivateVehicle({ route }) {
 	};
 
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<Header />
 
 			<View style={styles.body}>
@@ -59,6 +60,6 @@ export default function AddNewPrivateVehicle({ route }) {
 					Para visualizar o novo veículo você deve listar os veículos privados!
 				</Text>
 			</View>
-		</View>
+		</Screen>
 	);
 }

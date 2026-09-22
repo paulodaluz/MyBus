@@ -14,14 +14,14 @@ const Input = ({
 	error,
 	...props
 }) => (
-	<View style={{ width: '100%' }}>
+	<View style={inputContainer}>
 		<TextInput
 			{...props}
 			accessibilityLabel={placeholder}
 			accessibilityState={{ disabled: disabled || loading, busy: loading }}
 			style={{
 				minHeight: tokens.controlHeight,
-				borderWidth: 1,
+				...inputBorder,
 				borderColor: error ? tokens.colors.error : tokens.colors.border,
 				paddingHorizontal: tokens.space.medium,
 				paddingVertical: tokens.space.small,
@@ -40,3 +40,6 @@ const Input = ({
 	</View>
 );
 export { Input };
+
+const inputContainer = { width: '100%' };
+const inputBorder = { borderWidth: 1 };

@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { createSession } from '../../../backend/Login';
@@ -46,7 +47,7 @@ export default function RegisterPassenger({ navigation }) {
 	};
 
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<View style={styles.header}>
 				<Header title={'Cadastre-se'} subtitle={'Para criar sua conta preencha os campos abaixo'} />
 			</View>
@@ -97,6 +98,6 @@ export default function RegisterPassenger({ navigation }) {
 			</View>
 
 			<Footer onPress={() => navigation.navigate('Login')} />
-		</View>
+		</Screen>
 	);
 }

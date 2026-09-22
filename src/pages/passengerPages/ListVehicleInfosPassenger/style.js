@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
 		backgroundColor: purple,
 		borderRadius: 30,
 		marginTop: '10%',
-		height: 620,
 		paddingTop: '8%',
 		width: '95%',
 		alignSelf: 'center',
@@ -15,7 +14,7 @@ export const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	button: {
-		height: '28%',
+		minHeight: 48,
 		width: '54%',
 		margin: '2%',
 	},

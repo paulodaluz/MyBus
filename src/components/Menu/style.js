@@ -4,16 +4,16 @@ import { purple, white } from '../../styles/colors';
 export const styles = StyleSheet.create({
 	container: {
 		width: '100%',
-		height: '10%',
+		minHeight: 64,
 		backgroundColor: purple,
 		shadowOpacity: 100,
 		flexDirection: 'row',
 		alignItems: 'center',
-		paddingBottom: '4%',
+		paddingVertical: 8,
 	},
 	firstButton: {
 		width: '50%',
-		height: '100%',
+		minHeight: 48,
 		alignItems: 'center',
 		flex: 1,
 		justifyContent: 'center',
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
 	},
 	secondButton: {
 		width: '50%',
-		height: '100%',
+		minHeight: 48,
 		alignItems: 'center',
 		flex: 1,
 		justifyContent: 'center',

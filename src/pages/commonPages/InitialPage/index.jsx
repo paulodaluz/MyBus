@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useLayoutEffect, useState } from 'react';
 import { Image, Text, View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
@@ -32,7 +33,7 @@ export default function InitialPage({ navigation }) {
 	}, [navigation]);
 
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<View style={styles.header}>
 				{typeUserPage === 'passenger' ? (
 					<Image style={styles.imageHeader} source={BusStopImage} />
@@ -109,6 +110,6 @@ export default function InitialPage({ navigation }) {
 					</View>
 				</GestureRecognizer>
 			</View>
-		</View>
+		</Screen>
 	);
 }

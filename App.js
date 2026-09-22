@@ -6,7 +6,7 @@ import { configurationError } from './src/database/FirebaseConfiguration';
 export default function App() {
 	if (configurationError) {
 		return (
-			<View style={{ flex: 1, justifyContent: 'center', padding: 24 }}>
+			<View style={configurationStyle}>
 				<Text accessibilityRole="alert">{configurationError}</Text>
 			</View>
 		);
@@ -17,3 +17,5 @@ export default function App() {
 		</SafeAreaProvider>
 	);
 }
+
+const configurationStyle = { flex: 1, justifyContent: 'center', padding: 24 };

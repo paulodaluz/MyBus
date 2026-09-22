@@ -4,7 +4,6 @@ import { purple, white } from '../../../../styles/colors';
 const styles = StyleSheet.create({
 	box: {
 		backgroundColor: purple,
-		height: 325,
 		borderRadius: 35,
 		padding: '5%',
 		marginBottom: '2%',
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
 		fontSize: 28,
 	},
 	button: {
-		height: '24%',
+		minHeight: 48,
 	},
 });
 

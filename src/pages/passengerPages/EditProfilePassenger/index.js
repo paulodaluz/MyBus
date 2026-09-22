@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { getPassenger, updateUserAllInfos } from '../../../backend/Users/Passenger';
@@ -52,7 +53,7 @@ export default function EditProfileCompany({ navigation, route }) {
 	};
 
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<View style={styles.header}>
 				<Header title={'Editar Perfil'} />
 			</View>
@@ -113,6 +114,6 @@ export default function EditProfileCompany({ navigation, route }) {
 					/>
 				</View>
 			</View>
-		</View>
+		</Screen>
 	);
 }

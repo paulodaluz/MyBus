@@ -10,6 +10,7 @@ export function Button({
 	loading = false,
 }) {
 	const blocked = disabled || loading;
+	const opacity = blocked ? 0.55 : 1;
 	return (
 		<TouchableOpacity
 			accessibilityRole="button"
@@ -20,19 +21,18 @@ export function Button({
 			style={{
 				minHeight: tokens.controlHeight,
 				padding: tokens.space.medium,
-				justifyContent: 'center',
+				...buttonLayout,
 				borderRadius: tokens.radius,
 				backgroundColor,
-				opacity: blocked ? 0.55 : 1,
+				opacity,
 			}}
 		>
 			{loading && <ActivityIndicator color={textColor} />}
 			<Text
 				style={{
-					textAlign: 'center',
+					...textLayout,
 					color: textColor,
 					fontSize: tokens.type.button,
-					flexShrink: 1,
 				}}
 			>
 				{textButton}
@@ -40,3 +40,6 @@ export function Button({
 		</TouchableOpacity>
 	);
 }
+
+const buttonLayout = { justifyContent: 'center' };
+const textLayout = { textAlign: 'center', flexShrink: 1 };

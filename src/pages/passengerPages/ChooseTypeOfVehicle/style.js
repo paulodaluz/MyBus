@@ -5,10 +5,8 @@ export const styles = StyleSheet.create({
 	container: {
 		backgroundColor: white,
 		alignItems: 'center',
-		height: '100%',
 	},
 	header: {
-		height: '38%',
 		width: '100%',
 		marginBottom: 40,
 	},
@@ -30,7 +28,7 @@ export const styles = StyleSheet.create({
 		borderWidth: 1,
 	},
 	inputVehicleCode: {
-		height: '100%',
+		minHeight: 48,
 		textAlign: 'center',
 	},
 	filledVehicleCode: {
@@ -64,7 +62,7 @@ export const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	button: {
-		height: '8%',
+		minHeight: 48,
 		width: '85%',
 		margin: '10%',
 	},

@@ -4,35 +4,31 @@ import { tokens } from '../../styles/tokens';
 
 export function Screen({ children, scroll = true, style }) {
 	return (
-		<SafeAreaView style={{ flex: 1, backgroundColor: tokens.colors.background }}>
+		<SafeAreaView style={safeAreaStyle}>
 			<KeyboardAvoidingView
-				style={{ flex: 1 }}
+				style={fillStyle}
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			>
 				{scroll ? (
-					<ScrollView
-						keyboardShouldPersistTaps="handled"
-						contentContainerStyle={{ flexGrow: 1, paddingBottom: tokens.space.large }}
-					>
-						<View
-							style={[
-								{
-									width: '100%',
-									maxWidth: tokens.contentWidth,
-									alignSelf: 'center',
-									alignItems: 'center',
-									gap: tokens.space.medium,
-								},
-								style,
-							]}
-						>
-							{children}
-						</View>
+					<ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={scrollContent}>
+						<View style={[contentStyle, style]}>{children}</View>
 					</ScrollView>
 				) : (
-					<View style={[{ flex: 1 }, style]}>{children}</View>
+					<View style={[fillStyle, style]}>{children}</View>
 				)}
 			</KeyboardAvoidingView>
 		</SafeAreaView>
 	);
 }
+
+const safeAreaStyle = { flex: 1, backgroundColor: tokens.colors.background };
+const contentStyle = {
+	width: '100%',
+	maxWidth: tokens.contentWidth,
+	alignSelf: 'center',
+	alignItems: 'center',
+	gap: tokens.space.medium,
+};
+const fillStyle = { flex: 1 };
+
+const scrollContent = { flexGrow: 1, paddingBottom: tokens.space.large };

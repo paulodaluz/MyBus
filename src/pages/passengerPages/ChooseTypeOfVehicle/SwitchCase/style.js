@@ -3,7 +3,6 @@ import { grey, white } from '../../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
-		height: '6%',
 		flexDirection: 'row',
 	},
 	button: {

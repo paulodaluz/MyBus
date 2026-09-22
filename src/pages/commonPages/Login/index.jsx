@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useState } from 'react';
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { createSession, getUserOnFirebase } from '../../../backend/Login';
@@ -38,7 +39,7 @@ export default function Login({ navigation }) {
 	};
 
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<View style={styles.header}>
 				<Header title={'Bem-vindo\nde volta!'} subtitle={'Faça seu login para começar'} />
 			</View>
@@ -69,6 +70,6 @@ export default function Login({ navigation }) {
 			<TouchableOpacity onPress={() => navigation.navigate('ForgotMyPassword')}>
 				<Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
 			</TouchableOpacity>
-		</View>
+		</Screen>
 	);
 }

@@ -1,7 +1,8 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import * as Location from 'expo-location';
 import { firebase } from '../../../database/FirebaseConfiguration';
 import { useCallback, useLayoutEffect, useState } from 'react';
-import { Alert, Image, Modal, View } from 'react-native';
+import { Alert, Image, Modal } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
 import bus_stop from '../../../assets/icons/png/map/bus_stop.png';
@@ -116,7 +117,7 @@ export default function MapPassenger({ navigation, route }) {
 	}, [getAllLocalizationVehicles, getMyPosition, getVehiclesInfos]);
 
 	return (
-		<View style={styles.container}>
+		<Screen scroll={false}>
 			<MapView
 				style={styles.mapStyle}
 				initialRegion={initialLocalization}
@@ -181,6 +182,6 @@ export default function MapPassenger({ navigation, route }) {
 					time={timeToArriveVehicle}
 				/>
 			</Modal>
-		</View>
+		</Screen>
 	);
 }

@@ -5,11 +5,10 @@ export const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		width: '100%',
-		height: 110,
 		marginTop: '4%',
 	},
 	dynamicButton: {
-		height: '80%',
+		minHeight: 48,
 		width: '50%',
 		alignItems: 'center',
 		padding: '3%',

@@ -7,13 +7,13 @@ export const styles = StyleSheet.create({
 	},
 	header: {
 		width: '100%',
-		height: '32%',
 		alignItems: 'center',
 		justifyContent: 'center',
 		paddingTop: '10%',
 	},
 	titles: {
 		flexDirection: 'row',
+		flexWrap: 'wrap',
 		paddingLeft: '4%',
 	},
 	mainTitle: {
@@ -35,12 +35,10 @@ export const styles = StyleSheet.create({
 	},
 	button: {
 		marginTop: '2%',
-		height: '10%',
+		minHeight: 48,
 		width: '85%',
 	},
-	body: {
-		height: '70%',
-	},
+	body: {},
 	containerDivider: {
 		paddingVertical: 10,
 		display: 'flex',
@@ -69,7 +67,6 @@ export const styles = StyleSheet.create({
 	},
 	gestureContainer: {
 		width: '100%',
-		height: '90%',
 		display: 'flex',
 		alignItems: 'center',
 	},

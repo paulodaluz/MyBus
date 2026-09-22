@@ -1,12 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-	header: {
-		height: '18%',
-	},
+	header: {},
 	body: {
 		width: '90%',
 		alignSelf: 'center',
-		height: 600,
+		flex: 1,
 	},
 });

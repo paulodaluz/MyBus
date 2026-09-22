@@ -1,3 +1,4 @@
+import { ModalPanel } from '../../../../components/commonComponents/ModalPanel';
 import { Image, Text, View } from 'react-native';
 import clock_icon from '../../../../assets/icons/png/clock_icon.png';
 import MapImage from '../../../../assets/icons/png/map.png';
@@ -7,7 +8,7 @@ import { darkGrey } from '../../../../styles/colors';
 import { styles } from './style';
 
 const NextVehicleOnThisPoint = ({ openOnMap, vehiclesOnThisPoint, time }) => (
-	<View style={styles.container}>
+	<ModalPanel style={styles.container}>
 		<View style={styles.containerTitle}>
 			<Image style={styles.iconTitle} source={MapImage} />
 			<Text style={styles.title}>Próximos veículos neste ponto</Text>
@@ -31,7 +32,7 @@ const NextVehicleOnThisPoint = ({ openOnMap, vehiclesOnThisPoint, time }) => (
 		<View style={styles.button}>
 			<WideButton onPress={openOnMap} backgroundColor={darkGrey} textButton={'Voltar ao mapa!'} />
 		</View>
-	</View>
+	</ModalPanel>
 );
 
 export { NextVehicleOnThisPoint };

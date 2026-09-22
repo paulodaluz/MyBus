@@ -9,17 +9,16 @@ export const styles = StyleSheet.create({
 	},
 	header: {
 		width: '100%',
-		height: '38%',
 		marginBottom: '10%',
 	},
 	input: {
-		height: '8%',
+		minHeight: 48,
 		width: '85%',
 		marginTop: '4%',
 	},
 	button: {
 		marginTop: '5%',
-		height: '10%',
+		minHeight: 48,
 		width: '85%',
 		paddingTop: '4%',
 		marginBottom: '3%',

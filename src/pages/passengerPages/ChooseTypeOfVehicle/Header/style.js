@@ -3,7 +3,6 @@ import { purple, white } from '../../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
-		height: '100%',
 		backgroundColor: purple,
 		borderBottomLeftRadius: 30,
 		borderBottomRightRadius: 30,

@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { saveCompanyFeedbackBackend } from '../../../backend/feedbacks/CompanyFeedbacks';
@@ -69,7 +70,7 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 	}, [feedbackRecipient]);
 
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<View style={styles.header}>
 				<Header title={'Deixe sua\nopinião'} subtitle={'Escolha para quem é o seu feedback!'} />
 			</View>
@@ -105,6 +106,6 @@ export default function LeaveYourOpinionPassenger({ navigation, route }) {
 					Agradecemos seu Feedback. Estamos em constantes melhorias!
 				</Text>
 			</View>
-		</View>
+		</Screen>
 	);
 }

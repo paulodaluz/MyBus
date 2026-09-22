@@ -4,11 +4,10 @@ import { grey } from '../../../../styles/colors';
 export const styles = StyleSheet.create({
 	container: {
 		width: '100%',
-		height: '46%',
 		alignItems: 'center',
 	},
 	hideBusNameInput: {
-		height: '30%',
+		minHeight: 48,
 		width: '100%',
 		alignItems: 'center',
 	},
@@ -20,14 +19,14 @@ export const styles = StyleSheet.create({
 		marginBottom: '1%',
 	},
 	inputTransportName: {
-		height: '65%',
+		minHeight: 48,
 		width: '90%',
 	},
 	inputSpacing: {
 		marginTop: '3%',
 	},
 	inputFeedback: {
-		height: '55%',
+		minHeight: 48,
 		width: '90%',
 	},
 });

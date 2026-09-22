@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useEffect, useState } from 'react';
 import { Alert, Image, Text, TextInput, View } from 'react-native';
 import QRCodeIcon from '../../../assets/icons/png/qr_code.png';
@@ -47,7 +48,7 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 	}, [typeOfVehicleToList]);
 
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<View style={styles.header}>
 				<Header title={'Escolha o tipo\nde veículo que\nvocê deseja\nvisualizar!'} />
 			</View>
@@ -94,6 +95,6 @@ export default function ChooseTypeOfVehicle({ navigation, route }) {
 				Esta opção pode ser alterada mais{'\n'} tarde nas{' '}
 				<Text style={styles.spotlightWord}>Configurações</Text>
 			</Text>
-		</View>
+		</Screen>
 	);
 }

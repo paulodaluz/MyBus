@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { removePrivateVehicle } from '../../../backend/Users/Passenger';
@@ -29,7 +30,7 @@ export default function ListMyLinkedVehicles({ route }) {
 	);
 
 	return (
-		<View>
+		<Screen scroll={false}>
 			<View style={styles.header}>
 				<Header title={'Meus Veículos'} />
 			</View>
@@ -42,6 +43,6 @@ export default function ListMyLinkedVehicles({ route }) {
 					keyExtractor={(item) => item.id}
 				/>
 			</View>
-		</View>
+		</Screen>
 	);
 }

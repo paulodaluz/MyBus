@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import * as Notifications from 'expo-notifications';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { View } from 'react-native';
@@ -74,7 +75,7 @@ export default function ListVehicleInfosPassenger({ navigation, route }) {
 	}, [activateReminder]);
 
 	return (
-		<View>
+		<Screen>
 			<Header name={name} />
 
 			<View style={styles.bodyContainer}>
@@ -119,6 +120,6 @@ export default function ListVehicleInfosPassenger({ navigation, route }) {
 					</View>
 				</View>
 			</View>
-		</View>
+		</Screen>
 	);
 }
