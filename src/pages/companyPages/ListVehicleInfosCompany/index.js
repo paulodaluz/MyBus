@@ -73,7 +73,7 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 			<View style={styles.body}>
 				<TouchableOpacity
 					style={styles.closeButtonContainer}
-					onPress={() => navigation.navigate('MapCompany')}
+					onPress={() => navigation.navigate('MapCompany', { uid })}
 				>
 					<Image style={styles.crossIcon} source={cross_button} />
 				</TouchableOpacity>

@@ -390,6 +390,7 @@ describe('company regressions', () => {
 		await act(async () => {
 			fireEvent.press(received.getByText('EDITAR'));
 		});
+		expect(receivedNav.navigate).toHaveBeenCalledWith('MapCompany', { uid: 'c' });
 		expect(receivedNav.navigate).toHaveBeenCalledWith('EditVehicle', expect.any(Object));
 
 		mockGetVehicle.mockResolvedValueOnce(vehicle);
