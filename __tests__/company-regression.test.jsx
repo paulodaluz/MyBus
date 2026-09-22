@@ -222,11 +222,17 @@ describe('company regressions', () => {
 		);
 		fireEvent.changeText(view.getByPlaceholderText('Nome completo'), 'New Company');
 		fireEvent.changeText(view.getByPlaceholderText('CNPJ'), '04252011000111');
+		fireEvent.changeText(view.getByPlaceholderText('Cidade/UF'), 'invalid');
+		expect(view.getByRole('button', { name: 'Atualizar' }).props.accessibilityState.disabled).toBe(
+			true
+		);
+		fireEvent.changeText(view.getByPlaceholderText('Cidade/UF'), 'Curitiba/PR');
 		await act(async () => fireEvent.press(view.getByText('Atualizar')));
 		expect(mockUpdateCompanyProfile).toHaveBeenCalledWith(
 			'company-doc',
 			'New Company',
-			'04252011000111'
+			'04252011000111',
+			'Curitiba/PR'
 		);
 		expect(nav.navigate).toHaveBeenCalledWith('SettingsCompany', { uid: 'company-1' });
 	});

@@ -1,11 +1,12 @@
+import { DEFAULT_CITY, normalizeCity } from '../../service/RegionService';
 import * as authService from '../../service/AuthService';
 import { getAllUsers, saveUser, updateUser } from '../../service/PassengerService';
 import { mountBodyToFirebase } from '../utils/Utils';
 import { deleteVehicleFromAllDatabases, deleteVehicleFromUser } from '../vehicles/Vehicle';
 import { getCompany } from './Company';
 
-export async function createPassengerBackend(email, password, name) {
-	let user = { email, name, codes_private_vehicles: [] };
+export async function createPassengerBackend(email, password, name, city = DEFAULT_CITY) {
+	let user = { email, name, codes_private_vehicles: [], city: normalizeCity(city) };
 
 	const registeredAuthenticationUser = await authService
 		.register(email, password)
@@ -24,6 +25,7 @@ export async function createPassengerBackend(email, password, name) {
 		name,
 		uid: registeredAuthenticationUser.user.uid,
 		isPassenger: true,
+		city: user.city,
 		codes_private_vehicles: [],
 	}).catch((error) => {
 		return { error };
@@ -57,9 +59,13 @@ export async function updateUserAllInfos(
 	name = '',
 	cpf = '',
 	bornDate = '',
-	typeOfVehicleListed = ''
+	typeOfVehicleListed = '',
+	city
 ) {
 	const infosToUpdate = mountBodyToFirebase({ name, cpf, bornDate, typeOfVehicleListed });
+	if (city !== undefined) {
+		infosToUpdate.city = normalizeCity(city);
+	}
 
 	const addAtrybuteOnFirestoreUser = await updateUser(id, infosToUpdate).catch((error) => {
 		console.log(`changeTypeOfVehicleToList - addAtrybuteOnFirestoreUser - ERROR = ${error}`);

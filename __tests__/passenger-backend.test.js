@@ -51,6 +51,7 @@ describe('Passenger backend', () => {
 			response: {
 				email: 'passenger@example.com',
 				name: 'Passenger',
+				city: 'Passo Fundo/RS',
 				codes_private_vehicles: [],
 				uid: 'passenger-1',
 				id: 'passenger-1',
@@ -59,6 +60,7 @@ describe('Passenger backend', () => {
 		expect(mockSaveUser).toHaveBeenCalledWith({
 			email: 'passenger@example.com',
 			name: 'Passenger',
+			city: 'Passo Fundo/RS',
 			uid: 'passenger-1',
 			isPassenger: true,
 			codes_private_vehicles: [],
@@ -152,4 +154,14 @@ describe('Passenger backend', () => {
 		});
 		expect(mockDeleteVehicleFromAllDatabases).toHaveBeenCalledWith(company, '#OLD', 'OLD');
 	});
+});
+
+test('persists an explicit city at registration and profile update', async () => {
+	mockUpdateUser.mockResolvedValueOnce(undefined);
+	mockRegister.mockResolvedValueOnce({ user: { uid: 'p' } });
+	mockSaveUser.mockResolvedValueOnce({ id: 'p-doc' });
+	await createPassengerBackend('p@example.com', 'Password1', 'P', 'Curitiba/PR');
+	expect(mockSaveUser).toHaveBeenCalledWith(expect.objectContaining({ city: 'Curitiba/PR' }));
+	await updateUserAllInfos('p-doc', '', '', '', '', 'São Paulo/SP');
+	expect(mockUpdateUser).toHaveBeenCalledWith('p-doc', { city: 'São Paulo/SP' });
 });

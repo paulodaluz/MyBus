@@ -200,7 +200,9 @@ describe('passenger regressions', () => {
 			'passenger-doc',
 			'Ana',
 			'52998224725',
-			'02/02/1991'
+			'02/02/1991',
+			undefined,
+			'Passo Fundo/RS'
 		);
 
 		mockGetPassenger.mockResolvedValueOnce({

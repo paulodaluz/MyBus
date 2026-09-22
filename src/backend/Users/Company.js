@@ -1,9 +1,10 @@
+import { DEFAULT_CITY, normalizeCity } from '../../service/RegionService';
 import * as authService from '../../service/AuthService';
 import { getAllCompanies, saveCompany, updateCompany } from '../../service/CompanyService';
 
-export async function createCompanyBackend(email, password, name, cnpj) {
+export async function createCompanyBackend(email, password, name, cnpj, city = DEFAULT_CITY) {
 	let linked_vehicles = [];
-	let company = { email, name, cnpj, linked_vehicles };
+	let company = { email, name, cnpj, linked_vehicles, city: normalizeCity(city) };
 
 	const registeredAuthenticationUser = await authService
 		.register(email, password)
@@ -44,8 +45,11 @@ export async function getCompany(uid) {
 	return company;
 }
 
-export async function updateAllInfosOfCompany(id, name = '', cnpj = '') {
+export async function updateAllInfosOfCompany(id, name = '', cnpj = '', city) {
 	const infosToUpdate = { name, cnpj };
+	if (city !== undefined) {
+		infosToUpdate.city = normalizeCity(city);
+	}
 
 	const addAtrybuteOnFirestoreCompany = await updateCompany(id, infosToUpdate).catch((error) => {
 		console.log(`updateAllInfosOfCompany - ERROR = ${error}`);

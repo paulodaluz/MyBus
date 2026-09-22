@@ -1,3 +1,5 @@
+import { CityField } from '../../../components/commonComponents/CityField';
+import { DEFAULT_CITY, isValidCity, profileCity } from '../../../service/RegionService';
 import { Screen } from '../../../components/commonComponents/Screen';
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { Text, View } from 'react-native';
@@ -12,6 +14,7 @@ export default function EditProfileCompany({ navigation, route }) {
 	const { uid } = route.params;
 
 	const [name, setName] = useState('');
+	const [city, setCity] = useState(DEFAULT_CITY);
 	const [cnpj, setCnpj] = useState('');
 	const [email, setEmail] = useState('');
 	const [password] = useState('******');
@@ -23,12 +26,13 @@ export default function EditProfileCompany({ navigation, route }) {
 
 		setId(user.id);
 		setName(user.name);
+		setCity(profileCity(user.city));
 		setEmail(user.email);
 		setCnpj(user.cnpj);
 	}, [uid]);
 
 	const updateUser = async () => {
-		await updateAllInfosOfCompany(id, name, cnpj);
+		await updateAllInfosOfCompany(id, name, cnpj, city);
 
 		return navigation.navigate('SettingsCompany', { uid });
 	};
@@ -74,8 +78,10 @@ export default function EditProfileCompany({ navigation, route }) {
 					<Input placeholder="Senha" secureTextEntry={true} value={password} />
 				</View>
 
+				<CityField value={city} onChangeText={setCity} />
 				<View style={styles.button}>
 					<WideButton
+						disabled={!isValidCity(city)}
 						onPress={() => updateUser()}
 						textButton={'Atualizar'}
 						backgroundColor={darkGrey}

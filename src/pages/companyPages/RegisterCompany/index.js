@@ -1,3 +1,5 @@
+import { CityField } from '../../../components/commonComponents/CityField';
+import { DEFAULT_CITY, isValidCity } from '../../../service/RegionService';
 import { Screen } from '../../../components/commonComponents/Screen';
 import { useState } from 'react';
 import { Alert, View } from 'react-native';
@@ -13,6 +15,7 @@ import { styles } from './style';
 
 export default function RegisterCompany({ navigation }) {
 	const [name, setName] = useState('');
+	const [city, setCity] = useState(DEFAULT_CITY);
 
 	const [cnpj, setCnpj] = useState('');
 	const [email, setEmail] = useState('');
@@ -43,7 +46,7 @@ export default function RegisterCompany({ navigation }) {
 			return Alert.alert('CNPJ inválido! O CNPJ deve conter apenas numeros!');
 		}
 
-		const companyCreated = await createCompanyBackend(email, password, name, cnpj);
+		const companyCreated = await createCompanyBackend(email, password, name, cnpj, city);
 
 		if (companyCreated && companyCreated.error) {
 			return Alert.alert('Erro ao criar o usuário');
@@ -109,7 +112,13 @@ export default function RegisterCompany({ navigation }) {
 			</View>
 
 			<View style={styles.button}>
-				<WideButton onPress={createUser} textButton={'Pronto'} backgroundColor={darkGrey} />
+				<CityField value={city} onChangeText={setCity} />
+				<WideButton
+					disabled={!isValidCity(city)}
+					onPress={createUser}
+					textButton={'Pronto'}
+					backgroundColor={darkGrey}
+				/>
 			</View>
 
 			<Footer onPress={() => navigation.navigate('Login')} />

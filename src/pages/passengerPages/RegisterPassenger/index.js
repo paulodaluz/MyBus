@@ -1,3 +1,5 @@
+import { CityField } from '../../../components/commonComponents/CityField';
+import { DEFAULT_CITY, isValidCity } from '../../../service/RegionService';
 import { Screen } from '../../../components/commonComponents/Screen';
 import { useState } from 'react';
 import { Alert, View } from 'react-native';
@@ -13,6 +15,7 @@ import { styles } from './style';
 
 export default function RegisterPassenger({ navigation }) {
 	const [name, setName] = useState('');
+	const [city, setCity] = useState(DEFAULT_CITY);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
@@ -36,7 +39,7 @@ export default function RegisterPassenger({ navigation }) {
 			);
 		}
 
-		const userCreated = await createPassengerBackend(email, password, name);
+		const userCreated = await createPassengerBackend(email, password, name, city);
 
 		if (userCreated.error) {
 			return Alert.alert('Erro ao criar o usuário');
@@ -88,8 +91,10 @@ export default function RegisterPassenger({ navigation }) {
 				/>
 			</View>
 
+			<CityField value={city} onChangeText={setCity} />
 			<View style={styles.registerButton}>
 				<WideButton
+					disabled={!isValidCity(city)}
 					onPress={createUser}
 					textColor={white}
 					textButton={'Pronto'}

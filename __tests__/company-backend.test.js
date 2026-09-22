@@ -35,6 +35,7 @@ describe('Company backend', () => {
 			response: {
 				email: 'company@example.com',
 				name: 'Company',
+				city: 'Passo Fundo/RS',
 				cnpj: '04252011000110',
 				linked_vehicles: [],
 				uid: 'company-1',
@@ -148,5 +149,19 @@ describe('Company backend', () => {
 		expect(mockUpdateCompany).toHaveBeenCalledWith('company-2', {
 			linked_vehicles: ['NEW'],
 		});
+	});
+});
+
+test('persists an explicit city at company registration and profile update', async () => {
+	mockUpdateCompany.mockResolvedValueOnce(undefined);
+	mockRegister.mockResolvedValueOnce({ user: { uid: 'c' } });
+	mockSaveCompany.mockResolvedValueOnce({ id: 'c-doc' });
+	await createCompanyBackend('c@example.com', 'Password1', 'C', '04252011000110', 'Curitiba/PR');
+	expect(mockSaveCompany).toHaveBeenCalledWith(expect.objectContaining({ city: 'Curitiba/PR' }));
+	await updateAllInfosOfCompany('c-doc', 'Company', '', 'São Paulo/SP');
+	expect(mockUpdateCompany).toHaveBeenCalledWith('c-doc', {
+		name: 'Company',
+		cnpj: '',
+		city: 'São Paulo/SP',
 	});
 });
