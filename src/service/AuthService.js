@@ -33,3 +33,14 @@ export const logout = async () => {
 		throw error;
 	}
 };
+
+export const requestPasswordReset = async (email) => {
+	try {
+		await firebase.auth().sendPasswordResetEmail(email.trim());
+	} catch (error) {
+		// Existing and unknown addresses must receive the same user-facing response.
+		if (error.code !== 'auth/user-not-found') {
+			throw error;
+		}
+	}
+};

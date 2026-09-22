@@ -6,6 +6,7 @@ const mockGetSession = jest.fn();
 const mockGetUserOnFirebase = jest.fn();
 const mockCreateSession = jest.fn();
 const mockAuthLogin = jest.fn();
+const mockRequestPasswordReset = jest.fn();
 const mockCreatePassengerBackend = jest.fn();
 const mockCreateCompanyBackend = jest.fn();
 
@@ -14,7 +15,10 @@ jest.mock('../src/backend/Login', () => ({
 	getUserOnFirebase: mockGetUserOnFirebase,
 	createSession: mockCreateSession,
 }));
-jest.mock('../src/service/AuthService', () => ({ login: mockAuthLogin }));
+jest.mock('../src/service/AuthService', () => ({
+	login: mockAuthLogin,
+	requestPasswordReset: mockRequestPasswordReset,
+}));
 jest.mock('../src/backend/Users/Passenger', () => ({
 	createPassengerBackend: mockCreatePassengerBackend,
 }));
@@ -154,12 +158,47 @@ describe('authentication and bootstrap regressions', () => {
 		expect(nav.navigate).toHaveBeenCalledWith('ForgotMyPassword');
 	});
 
-	test('shows the unavailable password recovery action and returns to login', () => {
+	test('recovers passwords with validation, cooldown, loading and safe errors', async () => {
 		const nav = navigation();
 		const view = render(<ForgotMyPassword navigation={nav} />);
-		fireEvent.changeText(view.getByPlaceholderText('Email'), 'person@example.com');
 		fireEvent.press(view.getByText('Continuar'));
-		expect(alert).toHaveBeenCalledWith('Função ainda indispovível');
+		expect(alert).toHaveBeenCalledWith('E-mail inválido!');
+		fireEvent.changeText(view.getByPlaceholderText('Email'), 'invalid');
+		fireEvent.press(view.getByText('Continuar'));
+		expect(mockRequestPasswordReset).not.toHaveBeenCalled();
+		fireEvent.changeText(view.getByPlaceholderText('Email'), 'person@example.com');
+		mockRequestPasswordReset.mockRejectedValueOnce({ code: 'auth/network-request-failed' });
+		await act(async () => fireEvent.press(view.getByText('Continuar')));
+		expect(alert).toHaveBeenCalledWith(
+			'Não foi possível enviar. Verifique sua conexão e tente novamente.'
+		);
+		let resolve;
+		mockRequestPasswordReset.mockReturnValueOnce(
+			new Promise((done) => {
+				resolve = done;
+			})
+		);
+		const button = view.getByRole('button', { name: 'Continuar' });
+		await act(async () => {
+			fireEvent.press(button);
+			fireEvent.press(button);
+		});
+		expect(view.getByRole('button', { name: 'Continuar' }).props.accessibilityState.busy).toBe(
+			true
+		);
+		expect(view.getByPlaceholderText('Email').props.editable).toBe(false);
+		await act(async () => resolve());
+		expect(alert).toHaveBeenCalledWith(
+			'Confira seu e-mail',
+			expect.stringContaining('Se houver uma conta')
+		);
+		await act(async () => fireEvent.press(view.getByText('Continuar')));
+		expect(alert).toHaveBeenCalledWith('Aguarde um minuto antes de tentar novamente.');
+		const now = jest.spyOn(Date, 'now').mockReturnValue(Date.now() + 61000);
+		mockRequestPasswordReset.mockRejectedValueOnce({ code: 'auth/too-many-requests' });
+		await act(async () => fireEvent.press(view.getByText('Continuar')));
+		expect(alert).toHaveBeenCalledWith('Muitas tentativas. Aguarde antes de tentar novamente.');
+		now.mockRestore();
 		fireEvent.press(view.getByText('Entrar'));
 		expect(nav.navigate).toHaveBeenCalledWith('Login');
 	});

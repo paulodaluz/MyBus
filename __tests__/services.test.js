@@ -12,6 +12,7 @@ const mockCreateUserWithEmailAndPassword = jest.fn();
 const mockSignInWithEmailAndPassword = jest.fn();
 const mockAuth = {
 	signOut: jest.fn(),
+	sendPasswordResetEmail: jest.fn(),
 	createUserWithEmailAndPassword: mockCreateUserWithEmailAndPassword,
 	signInWithEmailAndPassword: mockSignInWithEmailAndPassword,
 };
@@ -26,7 +27,7 @@ const mockFirebase = {
 
 jest.mock('../src/database/FirebaseConfiguration', () => ({ db: mockDb, firebase: mockFirebase }));
 
-const { login, register, logout } = require('../src/service/AuthService');
+const { login, register, logout, requestPasswordReset } = require('../src/service/AuthService');
 const { getAllBusStations, saveNewBusStation } = require('../src/service/BusStationsService');
 const {
 	getAllFeedbacks: getCompanyFeedbacks,
@@ -263,4 +264,14 @@ test('logout signs out before clearing the UID and propagates failures', async (
 	expect(mockRemoveStorage).not.toHaveBeenCalled();
 	mockRemoveStorage.mockResolvedValueOnce(error);
 	await expect(logout()).rejects.toBe(error);
+});
+
+test('password reset trims email and conceals unknown accounts but retains operational errors', async () => {
+	await requestPasswordReset(' user@example.com ');
+	expect(mockAuth.sendPasswordResetEmail).toHaveBeenCalledWith('user@example.com');
+	mockAuth.sendPasswordResetEmail.mockRejectedValueOnce({ code: 'auth/user-not-found' });
+	await expect(requestPasswordReset('unknown@example.com')).resolves.toBeUndefined();
+	const error = { code: 'auth/too-many-requests' };
+	mockAuth.sendPasswordResetEmail.mockRejectedValueOnce(error);
+	await expect(requestPasswordReset('user@example.com')).rejects.toBe(error);
 });
