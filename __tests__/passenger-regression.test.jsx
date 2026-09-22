@@ -1,3 +1,4 @@
+jest.mock('../src/service/AuthService', () => ({ logout: mockLogout }));
 import { Alert, Linking, Modal } from 'react-native';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 
@@ -12,7 +13,7 @@ const mockSaveCompanyFeedback = jest.fn();
 const mockSaveAppFeedback = jest.fn();
 const mockGetBusStops = jest.fn();
 const mockGetSession = jest.fn();
-const mockRemoveSession = jest.fn();
+const mockLogout = jest.fn();
 const mockRequestPermissions = jest.fn();
 const mockGetCurrentPosition = jest.fn();
 const mockScheduleNotification = jest.fn();
@@ -46,7 +47,6 @@ jest.mock('../src/backend/map/PassengerMap', () => ({
 }));
 jest.mock('../src/backend/Login', () => ({
 	getSession: mockGetSession,
-	removeSession: mockRemoveSession,
 }));
 jest.mock('expo-location', () => ({
 	requestPermissionsAsync: mockRequestPermissions,
@@ -85,7 +85,7 @@ const ListVehicleInfosPassenger =
 const MapPassenger = require('../src/pages/passengerPages/MapPassenger').default;
 const SettingsPassenger = require('../src/pages/passengerPages/SettingsPassenger').default;
 
-const makeNavigation = () => ({ navigate: jest.fn(), goBack: jest.fn() });
+const makeNavigation = () => ({ reset: jest.fn(), navigate: jest.fn(), goBack: jest.fn() });
 const route = (params) => ({ params });
 
 describe('passenger regressions', () => {
@@ -383,7 +383,9 @@ describe('passenger regressions', () => {
 		fireEvent.press(view.getByText('Deixe sua opinião'));
 		fireEvent.press(view.getByText('Entre em contato conosco'));
 		fireEvent.press(view.getByText('Sair da conta'));
-		await waitFor(() => expect(nav.navigate).toHaveBeenCalledWith('InitialPage'));
+		await waitFor(() =>
+			expect(nav.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: 'InitialPage' }] })
+		);
 		expect(openURL).toHaveBeenCalledWith('https://api.whatsapp.com/send?phone=55540808');
 	});
 });

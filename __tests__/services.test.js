@@ -1,3 +1,5 @@
+const mockRemoveStorage = jest.fn();
+jest.mock('../src/service/AsyncStorage', () => ({ removeStorage: mockRemoveStorage }));
 const mockAdd = jest.fn();
 const mockGet = jest.fn();
 const mockUpdate = jest.fn();
@@ -9,6 +11,7 @@ const mockDb = { collection: jest.fn(() => mockCollection) };
 const mockCreateUserWithEmailAndPassword = jest.fn();
 const mockSignInWithEmailAndPassword = jest.fn();
 const mockAuth = {
+	signOut: jest.fn(),
 	createUserWithEmailAndPassword: mockCreateUserWithEmailAndPassword,
 	signInWithEmailAndPassword: mockSignInWithEmailAndPassword,
 };
@@ -23,7 +26,7 @@ const mockFirebase = {
 
 jest.mock('../src/database/FirebaseConfiguration', () => ({ db: mockDb, firebase: mockFirebase }));
 
-const { login, register } = require('../src/service/AuthService');
+const { login, register, logout } = require('../src/service/AuthService');
 const { getAllBusStations, saveNewBusStation } = require('../src/service/BusStationsService');
 const {
 	getAllFeedbacks: getCompanyFeedbacks,
@@ -244,4 +247,20 @@ describe('Firebase-backed services', () => {
 		mockOn.mockImplementationOnce((event, callback) => callback({ val: () => undefined }));
 		await expect(getSpecificVehicle('company-1', 'MISSING')).resolves.toBeUndefined();
 	});
+});
+
+test('logout signs out before clearing the UID and propagates failures', async () => {
+	mockAuth.signOut.mockResolvedValueOnce(undefined);
+	await logout();
+	expect(mockRemoveStorage).toHaveBeenCalledWith('uid');
+	expect(mockAuth.signOut.mock.invocationCallOrder[0]).toBeLessThan(
+		mockRemoveStorage.mock.invocationCallOrder[0]
+	);
+	mockRemoveStorage.mockClear();
+	const error = new Error('offline');
+	mockAuth.signOut.mockRejectedValueOnce(error);
+	await expect(logout()).rejects.toBe(error);
+	expect(mockRemoveStorage).not.toHaveBeenCalled();
+	mockRemoveStorage.mockResolvedValueOnce(error);
+	await expect(logout()).rejects.toBe(error);
 });

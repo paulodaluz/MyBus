@@ -1,3 +1,4 @@
+import { removeStorage } from './AsyncStorage';
 import { firebase } from '../database/FirebaseConfiguration';
 
 export const register = (email, password) => {
@@ -22,4 +23,13 @@ export const login = (email, password) => {
 			console.log(`AuthService - login - ERROR = ${error}`);
 			return error;
 		});
+};
+
+// Only the account UID is persisted today. Do not clear unrelated device storage.
+export const logout = async () => {
+	await firebase.auth().signOut();
+	const error = await removeStorage('uid');
+	if (error) {
+		throw error;
+	}
 };

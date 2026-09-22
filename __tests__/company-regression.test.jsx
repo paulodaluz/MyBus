@@ -1,3 +1,4 @@
+jest.mock('../src/service/AuthService', () => ({ logout: mockLogout }));
 import { Alert, Linking, TouchableOpacity } from 'react-native';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 
@@ -15,7 +16,7 @@ const mockSaveNewBusStation = jest.fn();
 const mockGetCompanyFeedback = jest.fn();
 const mockSaveAppFeedback = jest.fn();
 const mockGetSession = jest.fn();
-const mockRemoveSession = jest.fn();
+const mockLogout = jest.fn();
 const mockClipboardSetString = jest.fn();
 const mockDatabaseOn = jest.fn();
 const mockDatabaseRef = jest.fn(() => ({ on: mockDatabaseOn }));
@@ -47,7 +48,6 @@ jest.mock('../src/backend/feedbacks/MyBusFeedbacks', () => ({
 }));
 jest.mock('../src/backend/Login', () => ({
 	getSession: mockGetSession,
-	removeSession: mockRemoveSession,
 }));
 jest.mock('expo-clipboard', () => ({ setString: mockClipboardSetString }));
 jest.mock('../src/database/FirebaseConfiguration', () => ({
@@ -86,7 +86,7 @@ const SettingsCompany = require('../src/pages/companyPages/SettingsCompany').def
 const ShowVehicleCode = require('../src/pages/companyPages/ShowVehicleCode').default;
 
 const route = (params) => ({ params });
-const makeNavigation = () => ({ navigate: jest.fn(), goBack: jest.fn() });
+const makeNavigation = () => ({ reset: jest.fn(), navigate: jest.fn(), goBack: jest.fn() });
 
 describe('company regressions', () => {
 	let alert;
@@ -103,7 +103,7 @@ describe('company regressions', () => {
 		mockSaveNewBusStation.mockResolvedValue(undefined);
 		mockSaveAppFeedback.mockResolvedValue(undefined);
 		mockGetSession.mockResolvedValue('company-1');
-		mockRemoveSession.mockResolvedValue(undefined);
+		mockLogout.mockResolvedValue(undefined);
 		mockUpdateCompanyProfile.mockResolvedValue(undefined);
 		mockEditVehicle.mockResolvedValue({ response: { registration_plate: 'NEW-123' } });
 		mockUpdatePlateVehicleCompany.mockResolvedValue({ response: 'updated' });
@@ -453,7 +453,9 @@ describe('company regressions', () => {
 		fireEvent.press(view.getByText('Deixe sua opinião'));
 		fireEvent.press(view.getByText('Entre em contato conosco'));
 		fireEvent.press(view.getByText('Sair da conta'));
-		await waitFor(() => expect(nav.navigate).toHaveBeenCalledWith('InitialPage'));
+		await waitFor(() =>
+			expect(nav.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: 'InitialPage' }] })
+		);
 		expect(openURL).toHaveBeenCalledWith('https://api.whatsapp.com/send?phone=55540808');
 	});
 

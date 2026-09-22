@@ -1,5 +1,5 @@
+import { useLogout } from '../../../hooks/useLogout';
 import { Linking, ScrollView, View } from 'react-native';
-import { removeSession } from '../../../backend/Login';
 import { Header } from '../../../components/Header';
 import { OptionConfig } from '../../../components/OptionConfig';
 import { styles } from './style';
@@ -7,11 +7,7 @@ import { styles } from './style';
 export default function SettingsDriver({ navigation, route }) {
 	const { uid, registration_Plate } = route.params;
 
-	const logout = async () => {
-		await removeSession();
-		navigation.navigate('InitialPage');
-	};
-
+	const logout = useLogout(navigation);
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>

@@ -1,3 +1,4 @@
+jest.mock('../src/service/AuthService', () => ({ logout: mockLogout }));
 import { Alert, Linking, Modal, TouchableOpacity } from 'react-native';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 
@@ -5,7 +6,7 @@ const mockDriverLoginIsValid = jest.fn();
 const mockGetAllVehicles = jest.fn();
 const mockGetCompanyByRegistrationPlate = jest.fn();
 const mockGetVehicleFunction = jest.fn();
-const mockRemoveSession = jest.fn();
+const mockLogout = jest.fn();
 const mockRequestPermissions = jest.fn();
 const mockGetCurrentPosition = jest.fn();
 const mockSetLocation = jest.fn();
@@ -13,7 +14,6 @@ const mockDatabaseRef = jest.fn(() => ({ set: mockSetLocation }));
 
 jest.mock('../src/backend/Login', () => ({
 	driverLoginIsValid: mockDriverLoginIsValid,
-	removeSession: mockRemoveSession,
 }));
 jest.mock('../src/service/VehicleService', () => ({ getAllVehicles: mockGetAllVehicles }));
 jest.mock('../src/backend/Users/Company', () => ({
@@ -46,7 +46,7 @@ const SettingsDriver = require('../src/pages/driverPages/SettingsDriver').defaul
 const DriverMenu = require('../src/pages/driverPages/MapDriver/Menu').Menu;
 
 const route = (params) => ({ params });
-const makeNavigation = () => ({ navigate: jest.fn() });
+const makeNavigation = () => ({ reset: jest.fn(), navigate: jest.fn() });
 
 describe('driver regressions', () => {
 	let alert;
@@ -58,7 +58,7 @@ describe('driver regressions', () => {
 		openURL = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);
 		mockGetAllVehicles.mockResolvedValue([]);
 		mockRequestPermissions.mockResolvedValue({ status: 'denied' });
-		mockRemoveSession.mockResolvedValue(undefined);
+		mockLogout.mockResolvedValue(undefined);
 		mockGetCompanyByRegistrationPlate.mockResolvedValue({ uid: 'company-1' });
 		mockGetVehicleFunction.mockResolvedValue({ registration_plate: 'ABC-123' });
 		mockSetLocation.mockResolvedValue(undefined);
@@ -194,7 +194,9 @@ describe('driver regressions', () => {
 		fireEvent.press(view.getByText('Deixe sua opinião'));
 		fireEvent.press(view.getByText('Entre em contato conosco'));
 		fireEvent.press(view.getByText('Sair da conta'));
-		await waitFor(() => expect(nav.navigate).toHaveBeenCalledWith('InitialPage'));
+		await waitFor(() =>
+			expect(nav.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: 'InitialPage' }] })
+		);
 		expect(nav.navigate).toHaveBeenCalledWith('ReceivedFeedbacks', { uid: 'company-1' });
 		expect(nav.navigate).toHaveBeenCalledWith('LeaveYourOpinionCompany', { uid: 'company-1' });
 		expect(openURL).toHaveBeenCalledWith('https://api.whatsapp.com/send?phone=55540808');

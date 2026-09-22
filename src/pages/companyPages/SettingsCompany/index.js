@@ -1,6 +1,7 @@
+import { useLogout } from '../../../hooks/useLogout';
 import { useLayoutEffect, useState } from 'react';
 import { Linking, ScrollView, View } from 'react-native';
-import { getSession, removeSession } from '../../../backend/Login';
+import { getSession } from '../../../backend/Login';
 import { Header } from '../../../components/Header';
 import { OptionConfig } from '../../../components/OptionConfig';
 import { styles } from './style';
@@ -8,18 +9,14 @@ import { styles } from './style';
 export default function SettingsCompany({ navigation }) {
 	const [uid, setUid] = useState('');
 
-	const logout = async () => {
-		await removeSession();
-		navigation.navigate('InitialPage');
-	};
-
+	const logout = useLogout(navigation);
 	const getSessionFromStorange = async () => {
 		setUid(await getSession());
 	};
 
 	useLayoutEffect(() => {
 		getSessionFromStorange();
-	});
+	}, []);
 
 	return (
 		<View style={styles.container}>
