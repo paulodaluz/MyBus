@@ -31,3 +31,7 @@ A configuração anterior estava sem commit em outro worktree; foi integrada aqu
 ## Validação remota pendente
 
 Não houve push nem criação de PR nesta tarefa. Após o envio pelo responsável, abrir PR de teste, verificar todos os checks e introduzir temporariamente uma falha de lint/teste para confirmar bloqueio. Configurar branch protection para exigir os checks desejados. Execução remota e SonarQube não são considerados validados apenas pelos testes locais.
+
+## Resultado local em 22/09/2026
+
+`npm ci` passou numa cópia separada, sem reutilizar `node_modules`. ESLint, TypeScript e as 26 suítes/118 testes passaram com 100% nos quatro indicadores de cobertura. A auditoria de produção reportou 17 ocorrências (9 high, 8 moderate), incluindo dependências transitivas de ferramentas Expo/Metro. Portanto, o gate de auditoria ainda falha. Não executar `npm audit fix --force`: a sugestão envolve mudar a família do SDK. Avaliar as correções transitivas e o upgrade em uma etapa explícita, mantendo o bloqueio visível.
