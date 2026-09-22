@@ -9,7 +9,6 @@ npm-debug.*
 *.orig.*
 web-build/
 coverage/
-package-lock.json
 yarn.lock
 .vscode
 
@@ -26,3 +25,8 @@ serviceAccount*.json
 *-firebase-adminsdk-*.json
 google-services-private.json
 .firebaserc
+
+# Generated native projects and export artifacts
+android/
+ios/
+dist/
