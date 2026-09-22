@@ -47,3 +47,10 @@ export function normalizeCity(city) {
 	return `${name.trim()}/${state.trim().toUpperCase()}`;
 }
 export const profileCity = (city) => (isValidCity(city) ? normalizeCity(city) : DEFAULT_CITY);
+
+export const FALLBACK_REGION = {
+	latitude: -28.2612,
+	longitude: -52.4083,
+	latitudeDelta: 0.15,
+	longitudeDelta: 0.15,
+};

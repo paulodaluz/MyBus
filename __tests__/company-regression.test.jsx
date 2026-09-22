@@ -1,3 +1,11 @@
+jest.mock('../src/hooks/useMapRegion', () => ({
+	useMapRegion: () => ({
+		mapRef: { current: null },
+		initialRegion: {},
+		onMapGesture: jest.fn(),
+		recenter: jest.fn(),
+	}),
+}));
 jest.mock('../src/service/AuthService', () => ({ logout: mockLogout }));
 import { Alert, Linking, TouchableOpacity } from 'react-native';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';

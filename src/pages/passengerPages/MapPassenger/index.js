@@ -1,3 +1,4 @@
+import { useMapRegion } from '../../../hooks/useMapRegion';
 import { hasCoordinates, selectVehicleLocations } from '../../../service/MapDataService';
 import { WideButton } from '../../../components/WideButton';
 import { Feedback } from '../../../components/commonComponents/Feedback';
@@ -32,13 +33,7 @@ export default function MapPassenger({ navigation, route }) {
 
 	const [timeToArriveVehicle, setTimeToArriveVehicle] = useState(0);
 
-	const initialLocalization = {
-		latitude: -28.266279824325082,
-		longitude: -52.416200595066597,
-		latitudeDelta: 0.02,
-		longitudeDelta: 0.02,
-	};
-
+	const mapRegion = useMapRegion(navigation, user);
 	const getMyPosition = useCallback(async () => {
 		let status;
 		try {
@@ -124,8 +119,10 @@ export default function MapPassenger({ navigation, route }) {
 		<Screen scroll={false}>
 			<MapView
 				style={styles.mapStyle}
-				initialRegion={initialLocalization}
-				region={initialLocalization}
+				ref={mapRegion.mapRef}
+				initialRegion={mapRegion.initialRegion}
+				onPanDrag={mapRegion.onMapGesture}
+				onTouchStart={mapRegion.onMapGesture}
 			>
 				{/* Lista paradas de onibus no mapa */}
 				{busStops.map((busStop, key) => (
@@ -173,6 +170,7 @@ export default function MapPassenger({ navigation, route }) {
 			) : (
 				vehiclesByFirestore.length === 0 && <Feedback>Nenhum veículo vinculado.</Feedback>
 			)}
+			<WideButton textButton="Centralizar mapa" onPress={mapRegion.recenter} />
 			<Menu
 				onPressFirstButton={() => navigation.navigate('AddNewPrivateVehicle', { uid: user.uid })}
 				textFirstButton={'Adicionar veículo privado'}

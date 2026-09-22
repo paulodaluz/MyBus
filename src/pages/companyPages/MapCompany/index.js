@@ -1,3 +1,5 @@
+import { WideButton } from '../../../components/WideButton';
+import { useMapRegion } from '../../../hooks/useMapRegion';
 import { Screen } from '../../../components/commonComponents/Screen';
 import { firebase } from '../../../database/FirebaseConfiguration';
 import { useCallback, useLayoutEffect, useState } from 'react';
@@ -12,13 +14,7 @@ export default function MapCompany({ navigation, route }) {
 
 	const [realTimeVehicles, setRealTimeVehicles] = useState([]);
 
-	const initialLocalization = {
-		latitude: -28.2612,
-		longitude: -52.4083,
-		latitudeDelta: 0.15,
-		longitudeDelta: 0.15,
-	};
-
+	const mapRegion = useMapRegion(navigation, user);
 	const buildDadosVehicles = useCallback(async (allLocalizations, vehiclesPlate) => {
 		const myVehicles = [];
 
@@ -56,8 +52,10 @@ export default function MapCompany({ navigation, route }) {
 		<Screen scroll={false}>
 			<MapView
 				style={styles.mapStyle}
-				initialRegion={initialLocalization}
-				region={initialLocalization}
+				ref={mapRegion.mapRef}
+				initialRegion={mapRegion.initialRegion}
+				onPanDrag={mapRegion.onMapGesture}
+				onTouchStart={mapRegion.onMapGesture}
 			>
 				{realTimeVehicles.map((vehicle, key) => (
 					<Marker
@@ -77,6 +75,7 @@ export default function MapCompany({ navigation, route }) {
 				))}
 			</MapView>
 
+			<WideButton textButton="Centralizar mapa" onPress={mapRegion.recenter} />
 			<Menu
 				onPressFirstButton={() => navigation.navigate('CreateNewVehicle', { uid: user.uid })}
 				textFirstButton={'CADASTRAR NOVO VEÍCULO'}

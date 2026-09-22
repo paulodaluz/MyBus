@@ -1,3 +1,11 @@
+jest.mock('../src/hooks/useMapRegion', () => ({
+	useMapRegion: () => ({
+		mapRef: { current: null },
+		initialRegion: {},
+		onMapGesture: jest.fn(),
+		recenter: jest.fn(),
+	}),
+}));
 jest.mock('../src/service/AuthService', () => ({ logout: mockLogout }));
 import { Alert, Linking, Modal, TouchableOpacity } from 'react-native';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
@@ -163,8 +171,8 @@ describe('driver regressions', () => {
 			backPage: 'MapDriver',
 			params: { company: { uid: 'company-1' }, vehicle, vehicleFunctions },
 		});
-		fireEvent.press(view.UNSAFE_getAllByType(TouchableOpacity)[1]);
-		fireEvent.press(view.UNSAFE_getAllByType(TouchableOpacity)[0]);
+		await act(async () => view.UNSAFE_getByType(DriverMenu).props.onPressShowVehicleInfos());
+		fireEvent.press(view.getByLabelText('Fechar detalhes'));
 		fireEvent.press(view.getByText('CONFIGURAÇÕES'));
 		expect(nav.navigate).toHaveBeenCalledWith('SettingsDriver', {
 			uid: 'company-1',

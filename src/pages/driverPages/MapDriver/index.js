@@ -1,3 +1,5 @@
+import { WideButton } from '../../../components/WideButton';
+import { useMapRegion } from '../../../hooks/useMapRegion';
 import { Screen } from '../../../components/commonComponents/Screen';
 import * as Location from 'expo-location';
 import { firebase } from '../../../database/FirebaseConfiguration';
@@ -20,13 +22,7 @@ export default function MapDriver({ navigation, route }) {
 
 	const [modalVisible, setModalVisible] = useState(false);
 
-	const initialLocalization = {
-		latitude: -28.2612,
-		longitude: -52.4083,
-		latitudeDelta: 0.15,
-		longitudeDelta: 0.15,
-	};
-
+	const mapRegion = useMapRegion(navigation, company);
 	const getMyPosition = useCallback(async () => {
 		let status;
 		try {
@@ -89,8 +85,10 @@ export default function MapDriver({ navigation, route }) {
 		<Screen scroll={false}>
 			<MapView
 				style={styles.mapStyle}
-				initialRegion={initialLocalization}
-				region={initialLocalization}
+				ref={mapRegion.mapRef}
+				initialRegion={mapRegion.initialRegion}
+				onPanDrag={mapRegion.onMapGesture}
+				onTouchStart={mapRegion.onMapGesture}
 			>
 				{myPosition ? (
 					<Marker coordinate={myPosition} title={'Meu local'}>
@@ -119,6 +117,7 @@ export default function MapDriver({ navigation, route }) {
 					/>
 				</Modal>
 			</View>
+			<WideButton textButton="Centralizar mapa" onPress={mapRegion.recenter} />
 			<Menu
 				onPressShareLocalizationButton={() => setSharingLocalization(!sharingLocalization)}
 				onPressShowVehicleInfos={() => setModalVisible(!modalVisible)}
