@@ -83,7 +83,9 @@ describe('driver regressions', () => {
 		const nav = makeNavigation();
 		const view = render(<LoginDriver navigation={nav} />);
 		await waitFor(() => expect(mockGetAllVehicles).toHaveBeenCalled());
-		fireEvent.press(view.getByText('Entrar'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Entrar'));
+		});
 		expect(alert).toHaveBeenCalledWith('Usuário ou senha inválida!');
 
 		fireEvent.changeText(view.getByPlaceholderText('Placa do veículo'), 'ABC-123');
@@ -142,7 +144,9 @@ describe('driver regressions', () => {
 				route={route({ company: { uid: 'company-1' }, vehicle, vehicleFunctions })}
 			/>
 		);
-		fireEvent.press(view.getByText('COMPARTILHAR LOCALIZAÇÃO'));
+		await act(async () => {
+			fireEvent.press(view.getByText('COMPARTILHAR LOCALIZAÇÃO'));
+		});
 		releasePosition({ coords: { latitude: -23.5, longitude: -46.6 } });
 		await waitFor(() => expect(view.getByText('Compartilhando a localização...')).toBeTruthy());
 		await waitFor(() =>
@@ -163,8 +167,12 @@ describe('driver regressions', () => {
 		await act(async () => fireEvent.press(view.getByText('EDITAR')));
 
 		const menuButtons = view.UNSAFE_getAllByType(TouchableOpacity);
-		fireEvent.press(menuButtons[menuButtons.length - 2]);
-		fireEvent.press(view.getByText('EDITAR'));
+		await act(async () => {
+			fireEvent.press(menuButtons[menuButtons.length - 2]);
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('EDITAR'));
+		});
 		expect(nav.navigate).toHaveBeenCalledWith('EditVehicle', {
 			uid: 'company-1',
 			registration_Plate: 'ABC-123',
@@ -172,8 +180,12 @@ describe('driver regressions', () => {
 			params: { company: { uid: 'company-1' }, vehicle, vehicleFunctions },
 		});
 		await act(async () => view.UNSAFE_getByType(DriverMenu).props.onPressShowVehicleInfos());
-		fireEvent.press(view.getByLabelText('Fechar detalhes'));
-		fireEvent.press(view.getByText('CONFIGURAÇÕES'));
+		await act(async () => {
+			fireEvent.press(view.getByLabelText('Fechar detalhes'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('CONFIGURAÇÕES'));
+		});
 		expect(nav.navigate).toHaveBeenCalledWith('SettingsDriver', {
 			uid: 'company-1',
 			registration_Plate: 'ABC-123',
@@ -223,11 +235,21 @@ describe('driver regressions', () => {
 				route={route({ uid: 'company-1', registration_Plate: 'ABC-123' })}
 			/>
 		);
-		fireEvent.press(view.getByText('Feedbacks recebidos'));
-		fireEvent.press(view.getByText('Editar informações do veículo'));
-		fireEvent.press(view.getByText('Deixe sua opinião'));
-		fireEvent.press(view.getByText('Entre em contato conosco'));
-		fireEvent.press(view.getByText('Sair da conta'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Feedbacks recebidos'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Editar informações do veículo'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Deixe sua opinião'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Entre em contato conosco'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Sair da conta'));
+		});
 		await waitFor(() =>
 			expect(nav.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: 'InitialPage' }] })
 		);

@@ -123,14 +123,18 @@ describe('company regressions', () => {
 		openURL.mockRestore();
 	});
 
-	test('navigates through the two vehicle setup questions', () => {
+	test('navigates through the two vehicle setup questions', async () => {
 		const vehicle = { registration_plate: 'ABC-123' };
 		const firstNavigation = makeNavigation();
 		const first = render(
 			<AskShowVehicleCode navigation={firstNavigation} route={route({ uid: 'c', vehicle })} />
 		);
-		fireEvent.press(first.getByText('Sim'));
-		fireEvent.press(first.getByText('Mais Tarde'));
+		await act(async () => {
+			fireEvent.press(first.getByText('Sim'));
+		});
+		await act(async () => {
+			fireEvent.press(first.getByText('Mais Tarde'));
+		});
 		expect(firstNavigation.navigate).toHaveBeenCalledWith('ShowVehicleCode', { uid: 'c', vehicle });
 		expect(firstNavigation.navigate).toHaveBeenCalledWith('AskPointsVehicleWillPass', {
 			uid: 'c',
@@ -144,8 +148,12 @@ describe('company regressions', () => {
 				route={route({ uid: 'c', vehicle })}
 			/>
 		);
-		fireEvent.press(second.getByText('Sim'));
-		fireEvent.press(second.getByText('Mais Tarde'));
+		await act(async () => {
+			fireEvent.press(second.getByText('Sim'));
+		});
+		await act(async () => {
+			fireEvent.press(second.getByText('Mais Tarde'));
+		});
 		expect(secondNavigation.navigate).toHaveBeenCalledWith('ChoicePointsVehicleWillPass', {
 			uid: 'c',
 			vehicle,
@@ -169,7 +177,9 @@ describe('company regressions', () => {
 			nativeEvent: { coordinate: { latitude: 3, longitude: 4 } },
 		});
 		await waitFor(() => expect(view.getAllByLabelText('Ponto de Embarque').length).toBe(2));
-		fireEvent.press(view.getAllByLabelText('Ponto de Embarque')[0]);
+		await act(async () => {
+			fireEvent.press(view.getAllByLabelText('Ponto de Embarque')[0]);
+		});
 		await act(async () => fireEvent.press(view.getByText('FINALIZAR')));
 		expect(mockSaveNewBusStation).toHaveBeenCalledWith({
 			busPoints: [{ latitude: 3, longitude: 4 }],
@@ -184,7 +194,9 @@ describe('company regressions', () => {
 	test('validates vehicle creation, detects duplicates, and handles service errors', async () => {
 		const nav = makeNavigation();
 		const view = render(<CreateNewVehicle navigation={nav} route={route({ uid: 'company-1' })} />);
-		fireEvent.press(view.getByText('Cadastrar'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Cadastrar'));
+		});
 		expect(alert).toHaveBeenCalledWith('Dados inválidos, verifique os campos e tente novamente!');
 
 		const fill = () => {
@@ -269,7 +281,9 @@ describe('company regressions', () => {
 		fireEvent.changeText(view.getByPlaceholderText('Digite a placa'), 'NEW-123');
 		view.getAllByRole('switch').forEach((control) => fireEvent(control, 'valueChange', true));
 		fireEvent.changeText(view.getByPlaceholderText('Digite o nome'), '');
-		fireEvent.press(view.getByText('Atualizar'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Atualizar'));
+		});
 		expect(alert).toHaveBeenCalledWith('Dados inválidos, verifique os campos e tente novamente!');
 
 		fireEvent.changeText(view.getByPlaceholderText('Digite o nome'), 'New Bus');
@@ -337,7 +351,9 @@ describe('company regressions', () => {
 
 	test('saves company feedback after requiring text', async () => {
 		const view = render(<LeaveYourOpinionCompany route={route({ uid: 'company-1' })} />);
-		fireEvent.press(view.getByText('Enviar'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Enviar'));
+		});
 		expect(alert).toHaveBeenCalledWith('Dados inválidos, verifique-os e tente novamente!');
 		fireEvent.changeText(view.getByPlaceholderText('Digite seu feedback'), 'Great app');
 		await act(async () => fireEvent.press(view.getByText('Enviar')));
@@ -368,8 +384,12 @@ describe('company regressions', () => {
 			/>
 		);
 		await waitFor(() => expect(received.getAllByText('Bus').length).toBeGreaterThan(0));
-		fireEvent.press(received.UNSAFE_getAllByType(TouchableOpacity)[0]);
-		fireEvent.press(received.getByText('EDITAR'));
+		await act(async () => {
+			fireEvent.press(received.UNSAFE_getAllByType(TouchableOpacity)[0]);
+		});
+		await act(async () => {
+			fireEvent.press(received.getByText('EDITAR'));
+		});
 		expect(receivedNav.navigate).toHaveBeenCalledWith('EditVehicle', expect.any(Object));
 
 		mockGetVehicle.mockResolvedValueOnce(vehicle);
@@ -388,7 +408,9 @@ describe('company regressions', () => {
 			/>
 		);
 		await waitFor(() => expect(direct.getAllByText('Bus').length).toBeGreaterThan(0));
-		fireEvent.press(direct.getByText('EDITAR'));
+		await act(async () => {
+			fireEvent.press(direct.getByText('EDITAR'));
+		});
 		expect(directNav.navigate).toHaveBeenCalledWith('EditVehicle', expect.any(Object));
 	});
 
@@ -406,14 +428,20 @@ describe('company regressions', () => {
 			/>
 		);
 		await waitFor(() => expect(view.getByLabelText('ABC-123')).toBeTruthy());
-		fireEvent.press(view.getByLabelText('ABC-123'));
+		await act(async () => {
+			fireEvent.press(view.getByLabelText('ABC-123'));
+		});
 		expect(nav.navigate).toHaveBeenCalledWith('ListVehicleInfosCompany', {
 			registrationPlate: 'ABC-123',
 			uid: 'c',
 			status: 'moving',
 		});
-		fireEvent.press(view.getByText('CADASTRAR NOVO VEÍCULO'));
-		fireEvent.press(view.getByText('CONFIGURAÇÕES'));
+		await act(async () => {
+			fireEvent.press(view.getByText('CADASTRAR NOVO VEÍCULO'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('CONFIGURAÇÕES'));
+		});
 		expect(nav.navigate).toHaveBeenCalledWith('CreateNewVehicle', { uid: 'c' });
 		expect(nav.navigate).toHaveBeenCalledWith('SettingsCompany');
 
@@ -460,26 +488,46 @@ describe('company regressions', () => {
 		const nav = makeNavigation();
 		const view = render(<SettingsCompany navigation={nav} />);
 		await waitFor(() => expect(mockGetSession).toHaveBeenCalled());
-		fireEvent.press(view.getByText('Cadastrar novo veículo'));
-		fireEvent.press(view.getByText('Listar veículos'));
-		fireEvent.press(view.getByText('Feedbacks recebidos'));
-		fireEvent.press(view.getByText('Editar perfil'));
-		fireEvent.press(view.getByText('Deixe sua opinião'));
-		fireEvent.press(view.getByText('Entre em contato conosco'));
-		fireEvent.press(view.getByText('Sair da conta'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Cadastrar novo veículo'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Listar veículos'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Feedbacks recebidos'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Editar perfil'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Deixe sua opinião'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Entre em contato conosco'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Sair da conta'));
+		});
 		await waitFor(() =>
 			expect(nav.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: 'InitialPage' }] })
 		);
 		expect(openURL).toHaveBeenCalledWith('https://api.whatsapp.com/send?phone=55540808');
 	});
 
-	test('copies vehicle credentials and continues', () => {
+	test('copies vehicle credentials and continues', async () => {
 		const vehicle = { registration_plate: 'ABC-123', password_to_share_localization: 'SECRET' };
 		const nav = makeNavigation();
 		const view = render(<ShowVehicleCode navigation={nav} route={route({ uid: 'c', vehicle })} />);
-		fireEvent.press(view.getByText('ABC-123'));
-		fireEvent.press(view.getByText('SECRET'));
-		fireEvent.press(view.getByText('Continuar'));
+		await act(async () => {
+			fireEvent.press(view.getByText('ABC-123'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('SECRET'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Continuar'));
+		});
 		expect(mockClipboardSetString).toHaveBeenNthCalledWith(1, 'ABC-123');
 		expect(mockClipboardSetString).toHaveBeenNthCalledWith(2, 'SECRET');
 		expect(nav.navigate).toHaveBeenCalledWith('AskPointsVehicleWillPass', { uid: 'c', vehicle });

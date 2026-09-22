@@ -1,3 +1,4 @@
+import { WideButton } from '../src/components/WideButton';
 import { Alert } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
@@ -68,7 +69,9 @@ describe('authentication and bootstrap regressions', () => {
 
 		const view = render(<InitialPage navigation={nav} />);
 		await waitFor(() => expect(mockGetUserOnFirebase).toHaveBeenCalledWith('missing-session-user'));
-		fireEvent.press(view.getByText('Passageiro'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Passageiro'));
+		});
 
 		expect(nav.navigate).not.toHaveBeenCalled();
 		expect(view.getByText('Login')).toBeTruthy();
@@ -101,18 +104,30 @@ describe('authentication and bootstrap regressions', () => {
 		const nav = navigation();
 		const view = render(<InitialPage navigation={nav} />);
 
-		fireEvent.press(view.getByText('Login'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Login'));
+		});
 		const gesture = view.UNSAFE_getByType(GestureRecognizer);
 		await act(async () => {
 			gesture.props.onSwipeLeft();
 			gesture.props.onSwipeRight();
 		});
-		fireEvent.press(view.getByText('Passageiro'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Passageiro'));
+		});
 		expect(view.getByText('Empresas')).toBeTruthy();
-		fireEvent.press(view.getByText('Login do Motorista'));
-		fireEvent.press(view.getByText('Cadastre-se'));
-		fireEvent.press(view.getByText('Empresas'));
-		fireEvent.press(view.getByText('Cadastre-se'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Login do Motorista'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Cadastre-se'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Empresas'));
+		});
+		await act(async () => {
+			fireEvent.press(view.getByText('Cadastre-se'));
+		});
 
 		expect(nav.navigate).toHaveBeenCalledWith('Login');
 		expect(nav.navigate).toHaveBeenCalledWith('LoginDriver');
@@ -123,7 +138,9 @@ describe('authentication and bootstrap regressions', () => {
 	test('handles invalid credentials and successful passenger/company login', async () => {
 		const nav = navigation();
 		const view = render(<Login navigation={nav} />);
-		fireEvent.press(view.getByText('Entrar'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Entrar'));
+		});
 		expect(alert).toHaveBeenCalledWith('Usuário ou senha inválida!');
 
 		fireEvent.changeText(view.getByPlaceholderText('Email'), 'person@example.com');
@@ -166,20 +183,26 @@ describe('authentication and bootstrap regressions', () => {
 		await waitFor(() => expect(alert).toHaveBeenCalledWith('Usuário ou senha inválida!'));
 	});
 
-	test('navigates to password recovery', () => {
+	test('navigates to password recovery', async () => {
 		const nav = navigation();
 		const view = render(<Login navigation={nav} />);
-		fireEvent.press(view.getByText('Esqueceu sua senha?'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Esqueceu sua senha?'));
+		});
 		expect(nav.navigate).toHaveBeenCalledWith('ForgotMyPassword');
 	});
 
 	test('recovers passwords with validation, cooldown, loading and safe errors', async () => {
 		const nav = navigation();
 		const view = render(<ForgotMyPassword navigation={nav} />);
-		fireEvent.press(view.getByText('Continuar'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Continuar'));
+		});
 		expect(alert).toHaveBeenCalledWith('E-mail inválido!');
 		fireEvent.changeText(view.getByPlaceholderText('Email'), 'invalid');
-		fireEvent.press(view.getByText('Continuar'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Continuar'));
+		});
 		expect(mockRequestPasswordReset).not.toHaveBeenCalled();
 		fireEvent.changeText(view.getByPlaceholderText('Email'), 'person@example.com');
 		mockRequestPasswordReset.mockRejectedValueOnce({ code: 'auth/network-request-failed' });
@@ -193,10 +216,14 @@ describe('authentication and bootstrap regressions', () => {
 				resolve = done;
 			})
 		);
-		const button = view.getByRole('button', { name: 'Continuar' });
+		const recover = view.UNSAFE_getByType(WideButton).props.onPress;
 		await act(async () => {
-			fireEvent.press(button);
-			fireEvent.press(button);
+			await act(async () => {
+				recover();
+			});
+			await act(async () => {
+				recover();
+			});
 		});
 		expect(view.getByRole('button', { name: 'Continuar' }).props.accessibilityState.busy).toBe(
 			true
@@ -214,7 +241,9 @@ describe('authentication and bootstrap regressions', () => {
 		await act(async () => fireEvent.press(view.getByText('Continuar')));
 		expect(alert).toHaveBeenCalledWith('Muitas tentativas. Aguarde antes de tentar novamente.');
 		now.mockRestore();
-		fireEvent.press(view.getByText('Entrar'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Entrar'));
+		});
 		expect(nav.navigate).toHaveBeenCalledWith('Login');
 	});
 
@@ -226,24 +255,32 @@ describe('authentication and bootstrap regressions', () => {
 		}
 		fireEvent.changeText(view.getByPlaceholderText('Nome completo'), 'Passenger');
 		fireEvent.changeText(view.getByPlaceholderText('Email'), '');
-		fireEvent.press(view.getByText('Pronto'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Pronto'));
+		});
 		expect(alert).toHaveBeenCalledWith('Dados inválidos, verifique-os e tente novamente!');
 
 		fireEvent.changeText(view.getByPlaceholderText('Email'), 'valid@example.com');
 		fireEvent.changeText(view.getByPlaceholderText('Senha'), 'Password1');
 		fireEvent.changeText(view.getByPlaceholderText('Confirme sua senha'), 'Different1');
-		fireEvent.press(view.getByText('Pronto'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Pronto'));
+		});
 		expect(alert).toHaveBeenCalledWith('As senhas não conferem!');
 
 		fireEvent.changeText(view.getByPlaceholderText('Confirme sua senha'), 'Password1');
 		fireEvent.changeText(view.getByPlaceholderText('Email'), 'invalid');
-		fireEvent.press(view.getByText('Pronto'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Pronto'));
+		});
 		expect(alert).toHaveBeenCalledWith('E-mail inválido!');
 
 		fireEvent.changeText(view.getByPlaceholderText('Email'), 'valid@example.com');
 		fireEvent.changeText(view.getByPlaceholderText('Senha'), 'weak');
 		fireEvent.changeText(view.getByPlaceholderText('Confirme sua senha'), 'weak');
-		fireEvent.press(view.getByText('Pronto'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Pronto'));
+		});
 		expect(alert).toHaveBeenCalledWith(
 			'A senha deve conter oito caracteres, pelo menos uma letra maiúscula, minúscula e um número!'
 		);
@@ -258,16 +295,22 @@ describe('authentication and bootstrap regressions', () => {
 		mockCreatePassengerBackend.mockResolvedValueOnce({ response: user });
 		await act(async () => fireEvent.press(view.getByText('Pronto')));
 		await waitFor(() => expect(nav.navigate).toHaveBeenCalledWith('ChooseTypeOfVehicle', { user }));
-		fireEvent.press(view.getAllByText('Entrar').at(-1));
+		await act(async () => {
+			fireEvent.press(view.getAllByText('Entrar').at(-1));
+		});
 		expect(nav.navigate).toHaveBeenCalledWith('Login');
 	});
 
 	test('validates and creates a company account', async () => {
 		const nav = navigation();
 		const view = render(<RegisterCompany navigation={nav} />);
-		fireEvent.press(view.getAllByText('Entrar').at(-1));
+		await act(async () => {
+			fireEvent.press(view.getAllByText('Entrar').at(-1));
+		});
 		expect(nav.navigate).toHaveBeenCalledWith('Login');
-		fireEvent.press(view.getByText('Pronto'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Pronto'));
+		});
 		expect(alert).toHaveBeenCalledWith('Dados inválidos, verifique-os e tente novamente!');
 
 		const fill = (values) => {
@@ -282,22 +325,30 @@ describe('authentication and bootstrap regressions', () => {
 			Senha: 'Password1',
 			'Confirme sua senha': 'Different1',
 		});
-		fireEvent.press(view.getByText('Pronto'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Pronto'));
+		});
 		expect(alert).toHaveBeenCalledWith('As senhas não conferem!');
 
 		fill({ Email: 'invalid' });
 		fireEvent.changeText(view.getByPlaceholderText('Confirme sua senha'), 'Password1');
-		fireEvent.press(view.getByText('Pronto'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Pronto'));
+		});
 		expect(alert).toHaveBeenCalledWith('E-mail inválido!');
 
 		fill({ Email: 'company@example.com', Senha: 'weak', 'Confirme sua senha': 'weak' });
-		fireEvent.press(view.getByText('Pronto'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Pronto'));
+		});
 		expect(alert).toHaveBeenCalledWith(
 			'A senha deve conter oito caracteres, pelo menos uma letra maiúscula, minúscula e um número!'
 		);
 
 		fill({ Senha: 'Password1', 'Confirme sua senha': 'Password1', CNPJ: '123' });
-		fireEvent.press(view.getByText('Pronto'));
+		await act(async () => {
+			fireEvent.press(view.getByText('Pronto'));
+		});
 		expect(alert).toHaveBeenCalledWith('CNPJ inválido! O CNPJ deve conter apenas numeros!');
 
 		fill({ CNPJ: '04252011000110' });
