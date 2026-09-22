@@ -4,7 +4,6 @@ import { purple, white } from '../../../styles/colors';
 export const styles = StyleSheet.create({
 	body: {
 		width: '92%',
-		height: 280,
 		backgroundColor: purple,
 		borderRadius: 30,
 		paddingVertical: '8%',
@@ -19,13 +18,13 @@ export const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	buttons: {
-		height: '50%',
+		minHeight: 48,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 	},
 	button: {
 		width: '40%',
-		height: '80%',
+		minHeight: 48,
 		alignSelf: 'center',
 		marginTop: '5%',
 	},

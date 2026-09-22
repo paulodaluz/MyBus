@@ -3,7 +3,6 @@ import { grey } from '../../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
-		height: '12%',
 		paddingTop: '6%',
 	},
 	buttonFeedbackApp: {

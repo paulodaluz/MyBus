@@ -4,23 +4,22 @@ import { purple, white } from '../../../../styles/colors';
 export const styles = StyleSheet.create({
 	container: {
 		width: '100%',
-		height: '10%',
 		backgroundColor: purple,
 		shadowOpacity: 100,
 		flexDirection: 'row',
 		alignItems: 'center',
+		paddingVertical: 8,
 	},
 	button: {
-		width: '33%',
-		marginLeft: '2%',
-		marginRight: '7%',
+		flex: 1,
+		padding: 8,
 	},
 	containerIcon: {
 		alignItems: 'center',
 	},
 	icon: {
-		height: 60,
-		width: 60,
+		height: 40,
+		width: 40,
 	},
 	buttonText: {
 		color: white,
@@ -31,8 +30,8 @@ export const styles = StyleSheet.create({
 	mainButton: {
 		backgroundColor: '#9800FF',
 		borderRadius: 100,
-		width: '18%',
-		height: '88%',
+		minWidth: 64,
+		minHeight: 48,
 		alignItems: 'center',
 	},
 	mainIcon: {
@@ -40,7 +39,7 @@ export const styles = StyleSheet.create({
 		paddingTop: '8%',
 	},
 	busIconMenu: {
-		height: 60,
-		width: 60,
+		height: 40,
+		width: 40,
 	},
 });

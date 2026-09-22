@@ -1,12 +1,12 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
 	mapStyle: {
-		width: Dimensions.get('window').width,
-		height: '76%',
+		width: '100%',
+		flex: 1,
 	},
 	button: {
-		height: '10%',
+		minHeight: 48,
 		width: '100%',
 		shadowOpacity: 100,
 	},

@@ -4,7 +4,6 @@ import { orange, purple, white } from '../../../styles/colors';
 export const styles = StyleSheet.create({
 	body: {
 		width: '92%',
-		height: '83%',
 		borderRadius: 30,
 		paddingTop: '5%',
 		paddingHorizontal: '10%',
@@ -21,7 +20,7 @@ export const styles = StyleSheet.create({
 	},
 	input: {
 		width: '98%',
-		height: '7%',
+		minHeight: 48,
 		fontSize: 25,
 		fontWeight: 'bold',
 		borderRadius: 30,
@@ -43,7 +42,7 @@ export const styles = StyleSheet.create({
 	},
 	updateButton: {
 		width: '60%',
-		height: '15%',
+		minHeight: 48,
 		alignSelf: 'center',
 		marginTop: '6%',
 	},

@@ -3,16 +3,11 @@ import { black, purple, white } from '../../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
-		width: '92%',
-		height: '64%',
 		backgroundColor: purple,
 		borderRadius: 30,
 		paddingTop: '3%',
 		paddingLeft: '8%',
 		paddingRight: '8%',
-		marginTop: '16%',
-		marginLeft: '4%',
-		marginRight: '4%',
 	},
 	closeButtonContainer: {
 		alignSelf: 'flex-end',
@@ -26,6 +21,7 @@ export const styles = StyleSheet.create({
 	title: {
 		display: 'flex',
 		flexDirection: 'row',
+		flexWrap: 'wrap',
 	},
 	typeOfInfo: {
 		color: black,
@@ -39,8 +35,8 @@ export const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	button: {
-		height: '18%',
-		width: '54%',
+		minHeight: 48,
+		width: '100%',
 		alignSelf: 'center',
 	},
 });

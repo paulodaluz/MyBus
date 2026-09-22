@@ -149,6 +149,9 @@ describe('driver regressions', () => {
 		);
 		await act(async () => view.UNSAFE_getByType(DriverMenu).props.onPressShowVehicleInfos());
 		await waitFor(() => expect(view.UNSAFE_getByType(Modal).props.visible).toBe(true));
+		await act(async () => view.UNSAFE_getByType(Modal).props.onRequestClose());
+		expect(view.UNSAFE_getByType(Modal).props.visible).toBe(false);
+		await act(async () => view.UNSAFE_getByType(DriverMenu).props.onPressShowVehicleInfos());
 		await act(async () => fireEvent.press(view.getByText('EDITAR')));
 
 		const menuButtons = view.UNSAFE_getAllByType(TouchableOpacity);

@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { saveAppFeedbackBackend } from '../../../backend/feedbacks/MyBusFeedbacks';
@@ -25,7 +26,7 @@ export default function LeaveYourOpinionCompany({ route }) {
 	};
 
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<View style={styles.header}>
 				<Header title={'Deixe sua\nopinião'} subtitle={'Deixe-nos seu feedback!'} />
 			</View>
@@ -56,6 +57,6 @@ export default function LeaveYourOpinionCompany({ route }) {
 					Agradecemos seu Feedback. Estamos em constantes melhorias!
 				</Text>
 			</View>
-		</View>
+		</Screen>
 	);
 }

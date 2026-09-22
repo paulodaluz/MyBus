@@ -3,7 +3,6 @@ import { grey } from '../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	header: {
-		height: '18%',
 		width: '100%',
 	},
 	body: {
@@ -16,17 +15,17 @@ export const styles = StyleSheet.create({
 		paddingTop: '6%',
 	},
 	inputButton: {
-		height: '10%',
+		minHeight: 48,
 		fontSize: 16,
 		borderWidth: 1,
 		borderColor: grey,
 		paddingLeft: '5%',
 	},
 	input: {
-		height: '10%',
+		minHeight: 48,
 	},
 	button: {
-		height: '11%',
+		minHeight: 48,
 		width: '100%',
 		marginTop: '18%',
 	},

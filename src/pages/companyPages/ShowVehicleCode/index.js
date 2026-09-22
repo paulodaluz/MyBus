@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import Clipboard from 'expo-clipboard';
 import { Text, View } from 'react-native';
 import { WideButton } from '../../../components/WideButton';
@@ -14,7 +15,7 @@ export default function ShowVehicleCode({ navigation, route }) {
 	};
 
 	return (
-		<View>
+		<Screen>
 			<Header title={'INFORMAÇÕES DO\nVEÍCULO'} />
 
 			<View style={styles.body}>
@@ -40,6 +41,6 @@ export default function ShowVehicleCode({ navigation, route }) {
 					/>
 				</View>
 			</View>
-		</View>
+		</Screen>
 	);
 }

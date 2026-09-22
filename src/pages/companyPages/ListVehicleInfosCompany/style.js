@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
 		backgroundColor: purple,
 		borderRadius: 30,
 		marginTop: '14%',
-		height: 560,
 		paddingTop: '2%',
 		width: '95%',
 		alignSelf: 'center',
@@ -22,7 +21,7 @@ export const styles = StyleSheet.create({
 		marginTop: '1%',
 	},
 	button: {
-		height: '16%',
+		minHeight: 48,
 		width: '50%',
 		alignSelf: 'center',
 	},

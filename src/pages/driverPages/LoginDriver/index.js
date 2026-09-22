@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useLayoutEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { driverLoginIsValid } from '../../../backend/Login';
@@ -55,7 +56,7 @@ export default function LoginDriver({ navigation }) {
 	}, []);
 
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<View style={styles.header}>
 				<Header title={'Bem-vindo\nde volta!'} subtitle={'Faça seu login para começar'} />
 			</View>
@@ -86,6 +87,6 @@ export default function LoginDriver({ navigation }) {
 					textButton={'Entrar'}
 				/>
 			</View>
-		</View>
+		</Screen>
 	);
 }

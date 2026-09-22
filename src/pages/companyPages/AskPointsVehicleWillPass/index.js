@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { Text, View } from 'react-native';
 import { MiddleButton } from '../../../components/MiddleButton';
 import { orange } from '../../../styles/colors';
@@ -8,7 +9,7 @@ export default function AskPointsVehicleWillPass({ navigation, route }) {
 	const { uid, vehicle } = route.params;
 
 	return (
-		<View>
+		<Screen>
 			<Header title={'INFORMAÇÕES DO\nVEÍCULO'} />
 
 			<View style={styles.body}>
@@ -34,6 +35,6 @@ export default function AskPointsVehicleWillPass({ navigation, route }) {
 					</View>
 				</View>
 			</View>
-		</View>
+		</Screen>
 	);
 }

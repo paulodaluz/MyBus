@@ -1,6 +1,7 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { firebase } from '../../../database/FirebaseConfiguration';
 import { useCallback, useLayoutEffect, useState } from 'react';
-import { Image, View } from 'react-native';
+import { Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import bus_icon from '../../../assets/icons/png/map/bus_icon.png';
 import { Menu } from '../../../components/Menu';
@@ -52,7 +53,7 @@ export default function MapCompany({ navigation, route }) {
 	}, [getAllLocalizationVehicles]);
 
 	return (
-		<View>
+		<Screen scroll={false}>
 			<MapView
 				style={styles.mapStyle}
 				initialRegion={initialLocalization}
@@ -82,6 +83,6 @@ export default function MapCompany({ navigation, route }) {
 				onPressSecondButton={() => navigation.navigate('SettingsCompany')}
 				textSecondButton={'CONFIGURAÇÕES'}
 			/>
-		</View>
+		</Screen>
 	);
 }

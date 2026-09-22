@@ -4,7 +4,6 @@ import { grey, white } from '../../../../styles/colors';
 export const styles = StyleSheet.create({
 	container: {
 		width: '100%',
-		height: '30%',
 		paddingHorizontal: '10%',
 	},
 	fieldName: {
@@ -13,7 +12,6 @@ export const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	fieldContainer: {
-		height: '60%',
 		backgroundColor: white,
 		justifyContent: 'center',
 		marginTop: '2%',

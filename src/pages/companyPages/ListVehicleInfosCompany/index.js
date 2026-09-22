@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import cross_button from '../../../assets/icons/png/cross_button.png';
@@ -66,7 +67,7 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 	}, [getVehicleData]);
 
 	return (
-		<View>
+		<Screen>
 			<Header vehicleName={name} />
 
 			<View style={styles.body}>
@@ -110,6 +111,6 @@ export default function ListVehicleInfosCompany({ navigation, route }) {
 					/>
 				</View>
 			</View>
-		</View>
+		</Screen>
 	);
 }

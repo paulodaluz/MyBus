@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { getCompanyFeedbackBackend } from '../../../backend/feedbacks/CompanyFeedbacks';
@@ -21,7 +22,7 @@ export default function ReceivedFeedbacks({ route }) {
 	const renderItem = ({ item }) => <FeedbackContainer feedback={item} />;
 
 	return (
-		<View style={styles.container}>
+		<Screen scroll={false}>
 			<View style={styles.header}>
 				<Header />
 			</View>
@@ -39,6 +40,6 @@ export default function ReceivedFeedbacks({ route }) {
 					keyExtractor={(item) => item.id}
 				/>
 			</View>
-		</View>
+		</Screen>
 	);
 }

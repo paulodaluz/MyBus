@@ -1,22 +1,20 @@
 import { StyleSheet } from 'react-native';
-import { white } from '../../../styles/colors';
+import { black, white } from '../../../styles/colors';
 
 export const styles = StyleSheet.create({
 	container: {
 		backgroundColor: white,
 	},
-	header: {
-		height: '20%',
-	},
+	header: {},
 	dontHaveFeedback: {
 		fontSize: 30,
-		color: white,
+		color: black,
 		fontWeight: 'bold',
 		textAlign: 'center',
 		paddingTop: '30%',
 	},
 	body: {
-		height: '80%',
+		flex: 1,
 		alignItems: 'center',
 	},
 	list: {

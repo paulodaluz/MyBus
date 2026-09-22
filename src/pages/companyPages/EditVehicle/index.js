@@ -1,5 +1,6 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useCallback, useLayoutEffect, useState } from 'react';
-import { Alert, ScrollView, Text, TextInput, View } from 'react-native';
+import { Alert, Text, TextInput, View } from 'react-native';
 import { updatePlateVehicleCompany } from '../../../backend/Users/Company';
 import { editVehicle, getVehicle, getVehicleFunction } from '../../../backend/vehicles/Vehicle';
 import { MiddleButton } from '../../../components/MiddleButton';
@@ -104,11 +105,11 @@ export default function EditVehicle({ navigation, route }) {
 	}, [getVehicleData]);
 
 	return (
-		<View>
+		<Screen>
 			<Header title={'DIGITE AS INFORMAÇÕES\nDO VEÍCULO'} />
 
 			<View style={styles.body}>
-				<ScrollView showsVerticalScrollIndicator={false}>
+				<View>
 					<Text style={styles.inputName}>Nome do veículo</Text>
 					<TextInput
 						style={styles.input}
@@ -187,8 +188,8 @@ export default function EditVehicle({ navigation, route }) {
 							backgroundColor={orange}
 						/>
 					</View>
-				</ScrollView>
+				</View>
 			</View>
-		</View>
+		</Screen>
 	);
 }

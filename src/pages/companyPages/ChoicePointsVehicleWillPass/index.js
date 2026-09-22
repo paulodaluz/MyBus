@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useState } from 'react';
 import { View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
@@ -45,7 +46,7 @@ export default function ChoicePointsVehicleWillPass({ navigation, route }) {
 	};
 
 	return (
-		<View>
+		<Screen scroll={false}>
 			<Header title={'SELECIONE OS PONTOS QUE O\nTRANSPORTE IRÁ PASSAR'} />
 
 			<MapView
@@ -69,6 +70,6 @@ export default function ChoicePointsVehicleWillPass({ navigation, route }) {
 			<View style={styles.button}>
 				<Button onPress={saveBustations} textButton={'FINALIZAR'} backgroundColor={purple} />
 			</View>
-		</View>
+		</Screen>
 	);
 }

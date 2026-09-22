@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import * as Location from 'expo-location';
 import { firebase } from '../../../database/FirebaseConfiguration';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
@@ -75,28 +76,12 @@ export default function MapDriver({ navigation, route }) {
 	}, [sendMyLocalizationToFirebase]);
 
 	return (
-		<View style={styles.container}>
+		<Screen scroll={false}>
 			<MapView
 				style={styles.mapStyle}
 				initialRegion={initialLocalization}
 				region={initialLocalization}
 			>
-				<View style={styles.warning}>
-					{sharingLocalization ? <WarningSharingLocalization /> : null}
-				</View>
-
-				<View style={styles.modal}>
-					<Modal animationType="slide" transparent={true} visible={modalVisible}>
-						<ShowVehicle
-							vehicleFunctions={vehicleFunctions}
-							vehicleInfos={vehicle}
-							statusVehicle={vehicleStatus}
-							onPressCloseButton={() => setModalVisible(!modalVisible)}
-							onPressUpdateVehiclesInfo={() => updateInfosVehicle()}
-						/>
-					</Modal>
-				</View>
-
 				{myPosition ? (
 					<Marker coordinate={myPosition} title={'Meu local'}>
 						<Image style={styles.placeholderIcon} source={placeholder_icon} />
@@ -104,6 +89,26 @@ export default function MapDriver({ navigation, route }) {
 				) : null}
 			</MapView>
 
+			<View style={styles.warning}>
+				{sharingLocalization ? <WarningSharingLocalization /> : null}
+			</View>
+
+			<View style={styles.modal}>
+				<Modal
+					animationType="slide"
+					transparent={true}
+					visible={modalVisible}
+					onRequestClose={() => setModalVisible(false)}
+				>
+					<ShowVehicle
+						vehicleFunctions={vehicleFunctions}
+						vehicleInfos={vehicle}
+						statusVehicle={vehicleStatus}
+						onPressCloseButton={() => setModalVisible(!modalVisible)}
+						onPressUpdateVehiclesInfo={() => updateInfosVehicle()}
+					/>
+				</Modal>
+			</View>
 			<Menu
 				onPressShareLocalizationButton={() => setSharingLocalization(!sharingLocalization)}
 				onPressShowVehicleInfos={() => setModalVisible(!modalVisible)}
@@ -114,6 +119,6 @@ export default function MapDriver({ navigation, route }) {
 					})
 				}
 			/>
-		</View>
+		</Screen>
 	);
 }

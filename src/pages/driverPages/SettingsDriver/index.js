@@ -1,5 +1,6 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useLogout } from '../../../hooks/useLogout';
-import { Linking, ScrollView, View } from 'react-native';
+import { Linking, View } from 'react-native';
 import { Header } from '../../../components/Header';
 import { OptionConfig } from '../../../components/OptionConfig';
 import { styles } from './style';
@@ -9,12 +10,12 @@ export default function SettingsDriver({ navigation, route }) {
 
 	const logout = useLogout(navigation);
 	return (
-		<View style={styles.container}>
+		<Screen>
 			<View style={styles.header}>
 				<Header title={'Configurações'} />
 			</View>
 
-			<ScrollView showsVerticalScrollIndicator={false}>
+			<View>
 				<View style={styles.listOfOptions}>
 					<View style={styles.groupedCategories}>
 						<OptionConfig
@@ -53,7 +54,7 @@ export default function SettingsDriver({ navigation, route }) {
 						<OptionConfig textButton={'Sair da conta'} onPress={() => logout()} />
 					</View>
 				</View>
-			</ScrollView>
-		</View>
+			</View>
+		</Screen>
 	);
 }

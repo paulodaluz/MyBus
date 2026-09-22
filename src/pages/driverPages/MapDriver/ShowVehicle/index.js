@@ -1,3 +1,4 @@
+import { ModalPanel } from '../../../../components/commonComponents/ModalPanel';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import cross_button from '../../../../assets/icons/png/cross_button.png';
 import bus_icon from '../../../../assets/icons/png/map/bus_icon.png';
@@ -14,8 +15,13 @@ const ShowVehicle = ({
 	vehicleInfos,
 	statusVehicle,
 }) => (
-	<View style={styles.container}>
-		<TouchableOpacity style={styles.closeButtonContainer} onPress={onPressCloseButton}>
+	<ModalPanel style={styles.container}>
+		<TouchableOpacity
+			accessibilityRole="button"
+			accessibilityLabel="Fechar detalhes"
+			style={styles.closeButtonContainer}
+			onPress={onPressCloseButton}
+		>
 			<Image style={styles.icon} source={cross_button} />
 		</TouchableOpacity>
 
@@ -53,7 +59,7 @@ const ShowVehicle = ({
 				backgroundColor={orange}
 			/>
 		</View>
-	</View>
+	</ModalPanel>
 );
 
 export { ShowVehicle };

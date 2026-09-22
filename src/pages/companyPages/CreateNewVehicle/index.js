@@ -1,3 +1,4 @@
+import { Screen } from '../../../components/commonComponents/Screen';
 import { useState } from 'react';
 import { Alert, Text, TextInput, View } from 'react-native';
 import { addNewVehicleInCompany } from '../../../backend/Users/Company';
@@ -94,7 +95,7 @@ export default function CreateNewVehicle({ navigation, route }) {
 	};
 
 	return (
-		<View>
+		<Screen>
 			<Header title={'DIGITE AS INFORMAÇÕES\nDO VEÍCULO'} />
 
 			<View style={styles.body}>
@@ -177,6 +178,6 @@ export default function CreateNewVehicle({ navigation, route }) {
 					/>
 				</View>
 			</View>
-		</View>
+		</Screen>
 	);
 }

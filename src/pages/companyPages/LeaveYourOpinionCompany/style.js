@@ -5,12 +5,9 @@ export const styles = StyleSheet.create({
 	container: {
 		backgroundColor: white,
 	},
-	header: {
-		height: '29%',
-	},
+	header: {},
 	body: {
 		paddingTop: '3%',
-		height: '60%',
 		alignItems: 'center',
 	},
 	fieldName: {
@@ -21,12 +18,12 @@ export const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	inputButtonFeedback: {
-		height: '30%',
+		minHeight: 48,
 		width: '90%',
 	},
 	sendButton: {
 		marginTop: '10%',
-		height: '12%',
+		minHeight: 48,
 		width: '85%',
 		marginBottom: '8%',
 	},
