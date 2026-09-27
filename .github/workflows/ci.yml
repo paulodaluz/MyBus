@@ -95,6 +95,7 @@ jobs:
 
   sonar:
     name: SonarQube
+    needs: unit-tests
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -114,6 +115,15 @@ jobs:
           test -n "$SONAR_HOST_URL" || { echo "SONAR_HOST_URL is not configured." >&2; exit 1; }
           test -n "$SONAR_PROJECT_KEY" || { echo "SONAR_PROJECT_KEY is not configured." >&2; exit 1; }
           test -n "$SONAR_ORGANIZATION" || { echo "SONAR_ORGANIZATION is not configured." >&2; exit 1; }
+
+      - name: Download test coverage
+        uses: actions/download-artifact@v8
+        with:
+          name: test-coverage
+          path: coverage
+
+      - name: Validate test coverage report
+        run: test -s coverage/lcov.info
 
       - name: Scan and wait for Quality Gate
         uses: SonarSource/sonarqube-scan-action@v8.2.1
@@ -216,3 +226,11 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run test:coverage -- --ci --runInBand
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-coverage
+          path: coverage/lcov.info
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 7
