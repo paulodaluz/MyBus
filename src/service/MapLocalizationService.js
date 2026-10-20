@@ -1,58 +1,27 @@
-import { firebase } from '../database/FirebaseConfiguration';
+import { get, onValue, ref, set } from 'firebase/database';
+import { realtimeDb } from '../database/FirebaseConfiguration';
 const databaseName = 'real_time_database';
 
-export const registerRealTimeLocalVehicle = (accessDatabase, infosVehicle) => {
-	firebase
-		.database()
-		.ref(`/${databaseName}/${accessDatabase.companyUid}/${accessDatabase.vehiclePlate}`)
-		.set({
+export const registerRealTimeLocalVehicle = (accessDatabase, infosVehicle) =>
+	set(
+		ref(realtimeDb, `/${databaseName}/${accessDatabase.companyUid}/${accessDatabase.vehiclePlate}`),
+		{
 			latitude: infosVehicle.latitude,
 			longitude: infosVehicle.longitude,
 			status: infosVehicle.status,
-		});
-};
+		}
+	);
 
-export const getLocalizationVehicles = (companyUid) => {
-	return new Promise((resolve, reject) => {
-		firebase
-			.database()
-			.ref(`/${databaseName}/${companyUid}`)
-			.on('value', (snapchot) => {
-				let dados = snapchot.val();
-				if (dados) {
-					return resolve(dados);
-				}
-				return resolve(undefined);
-			});
-	});
+const readLocation = async (path) => {
+	const snapshot = await get(ref(realtimeDb, path));
+	return snapshot.val() || undefined;
 };
+export const getLocalizationVehicles = (companyUid) =>
+	readLocation(`/${databaseName}/${companyUid}`);
+export const getAllLocalizationVehicles = () => readLocation(`/${databaseName}`);
+export const getSpecificVehicle = (companyUid, vehiclePlate) =>
+	readLocation(`/${databaseName}/${companyUid}/${vehiclePlate}`);
 
-export const getAllLocalizationVehicles = () => {
-	return new Promise((resolve, reject) => {
-		firebase
-			.database()
-			.ref(`/${databaseName}`)
-			.on('value', (snapchot) => {
-				let dados = snapchot.val();
-				if (dados) {
-					return resolve(dados);
-				}
-				return resolve(undefined);
-			});
-	});
-};
-
-export const getSpecificVehicle = (companyUid, vehiclePlate) => {
-	return new Promise((resolve, reject) => {
-		firebase
-			.database()
-			.ref(`/${databaseName}/${companyUid}/${vehiclePlate}`)
-			.on('value', (snapchot) => {
-				let dados = snapchot.val();
-				if (dados) {
-					return resolve(dados);
-				}
-				return resolve(undefined);
-			});
-	});
-};
+// The caller owns the subscription and must return this disposer from its effect.
+export const subscribeVehicleLocations = (onData, onError) =>
+	onValue(ref(realtimeDb, `/${databaseName}`), (snapshot) => onData(snapshot.val()), onError);

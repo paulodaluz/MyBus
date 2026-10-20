@@ -1,9 +1,8 @@
+import { collection, doc, addDoc, updateDoc, getDocs } from 'firebase/firestore';
 import { db } from '../database/FirebaseConfiguration';
 
 export const saveCompany = async (company) => {
-	return await db
-		.collection('companies')
-		.add(company)
+	return await addDoc(collection(db, 'companies'), company)
 		.then((result) => {
 			return result;
 		})
@@ -15,10 +14,10 @@ export const saveCompany = async (company) => {
 
 export const getAllCompanies = async () => {
 	let companies = [];
-	const snapshot = await db.collection('companies').get();
-	snapshot.forEach((doc) => {
-		let company = doc.data();
-		company.id = doc.id;
+	const snapshot = await getDocs(collection(db, 'companies'));
+	snapshot.forEach((document) => {
+		let company = document.data();
+		company.id = document.id;
 		companies.push(company);
 	});
 
@@ -27,9 +26,7 @@ export const getAllCompanies = async () => {
 
 export const updateCompany = async (id, infosToUpdate) => {
 	return new Promise((resolve, reject) => {
-		db.collection('companies')
-			.doc(id)
-			.update(infosToUpdate)
+		updateDoc(doc(db, 'companies', id), infosToUpdate)
 			.then(() => resolve())
 			.catch((error) => {
 				console.log(`CompanyService - updateCompany - ERROR = ${error}`);

@@ -4,7 +4,7 @@ import { WideButton } from '../../../components/WideButton';
 import { Feedback } from '../../../components/commonComponents/Feedback';
 import { Screen } from '../../../components/commonComponents/Screen';
 import * as Location from 'expo-location';
-import { firebase } from '../../../database/FirebaseConfiguration';
+import { subscribeVehicleLocations } from '../../../service/MapLocalizationService';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Image, Modal } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
@@ -68,20 +68,18 @@ export default function MapPassenger({ navigation, route }) {
 	}, [user.uid]);
 
 	useEffect(() => {
-		const ref = firebase.database().ref('/real_time_database');
-		const listener = (snapshot) => {
+		const listener = (locations) => {
 			setRealTimeVehicles(
 				selectVehicleLocations(
-					snapshot.val(),
+					locations,
 					vehiclesByFirestore.map((vehicle) => vehicle.registration_plate)
 				)
 			);
 		};
-		ref.on('value', listener, () => {
+		return subscribeVehicleLocations(listener, () => {
 			setRealTimeVehicles([]);
 			setLoadError(true);
 		});
-		return () => ref.off('value', listener);
 	}, [vehiclesByFirestore]);
 
 	const getNextVehiclesInThisPoint = (busStop) => {

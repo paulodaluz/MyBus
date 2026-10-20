@@ -1,9 +1,8 @@
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '../database/FirebaseConfiguration';
 
 export const saveFeedback = async (feedback) => {
-	return await db
-		.collection('opinions_vehicle')
-		.add(feedback)
+	return await addDoc(collection(db, 'opinions_vehicle'), feedback)
 		.then((result) => {
 			return result;
 		})
@@ -15,10 +14,10 @@ export const saveFeedback = async (feedback) => {
 
 export const getAllFeedbacks = async () => {
 	let feedbacks = [];
-	const snapshot = await db.collection('opinions_vehicle').get();
-	snapshot.forEach((doc) => {
-		let feedback = doc.data();
-		feedback.id = doc.id;
+	const snapshot = await getDocs(collection(db, 'opinions_vehicle'));
+	snapshot.forEach((document) => {
+		let feedback = document.data();
+		feedback.id = document.id;
 		feedbacks.push(feedback);
 	});
 

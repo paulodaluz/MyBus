@@ -1,9 +1,8 @@
+import { collection, doc, addDoc, updateDoc, getDocs } from 'firebase/firestore';
 import { db } from '../database/FirebaseConfiguration';
 
 export const saveUser = async (user) => {
-	return await db
-		.collection('passengers')
-		.add(user)
+	return await addDoc(collection(db, 'passengers'), user)
 		.then((result) => {
 			return result;
 		})
@@ -15,9 +14,7 @@ export const saveUser = async (user) => {
 
 export const updateUser = async (id, infosToUpdate) => {
 	return new Promise((resolve, reject) => {
-		db.collection('passengers')
-			.doc(id)
-			.update(infosToUpdate)
+		updateDoc(doc(db, 'passengers', id), infosToUpdate)
 			.then(() => resolve())
 			.catch((error) => {
 				console.log(`PassengerService - updateUser - ERROR = ${error}`);
@@ -28,10 +25,10 @@ export const updateUser = async (id, infosToUpdate) => {
 
 export const getAllUsers = async () => {
 	let users = [];
-	const snapshot = await db.collection('passengers').get();
-	snapshot.forEach((doc) => {
-		let user = doc.data();
-		user.id = doc.id;
+	const snapshot = await getDocs(collection(db, 'passengers'));
+	snapshot.forEach((document) => {
+		let user = document.data();
+		user.id = document.id;
 		users.push(user);
 	});
 

@@ -1,7 +1,7 @@
 import { WideButton } from '../../../components/WideButton';
 import { useMapRegion } from '../../../hooks/useMapRegion';
 import { Screen } from '../../../components/commonComponents/Screen';
-import { firebase } from '../../../database/FirebaseConfiguration';
+import { subscribeVehicleLocations } from '../../../service/MapLocalizationService';
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
@@ -32,21 +32,14 @@ export default function MapCompany({ navigation, route }) {
 		setRealTimeVehicles(myVehicles);
 	}, []);
 
-	const getAllLocalizationVehicles = useCallback(async () => {
-		firebase
-			.database()
-			.ref('/real_time_database')
-			.on('value', (snapchot) => {
-				let allLocalizations = snapchot.val();
-				if (allLocalizations) {
-					buildDadosVehicles(allLocalizations, user.linked_vehicles);
-				}
-			});
-	}, [buildDadosVehicles, user.linked_vehicles]);
-
 	useLayoutEffect(() => {
-		getAllLocalizationVehicles();
-	}, [getAllLocalizationVehicles]);
+		return subscribeVehicleLocations(
+			(locations) => {
+				buildDadosVehicles(locations || {}, user.linked_vehicles);
+			},
+			() => setRealTimeVehicles([])
+		);
+	}, [buildDadosVehicles, user.linked_vehicles]);
 
 	return (
 		<Screen scroll={false}>
