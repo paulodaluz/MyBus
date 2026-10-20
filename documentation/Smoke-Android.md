@@ -58,3 +58,7 @@ Mapas: permissão negada/concedida, sem veículos, sem posição, falha de rede 
 | CI-AUDIT            | Auditoria npm atual aponta 9 ocorrências high e 8 moderate em dependências de produção/ferramentas transitivas | Gate do CI permanece bloqueante; revisar upgrade compatível separadamente |
 
 Estes registros são locais; nenhuma issue foi aberta ou encerrada remotamente. Não considerar #28 concluído enquanto as colunas Android estiverem pendentes.
+
+## Automação e matriz visual
+
+Os checkpoints reproduzíveis de #43 e #49 estão em [E2E-Android.md](E2E-Android.md) e [mobile-visual-matrix.md](mobile-visual-matrix.md). Use dados sintéticos nos emuladores Firebase locais. Os cenários estendidos acima continuam obrigatórios antes de encerrar toda a fase.

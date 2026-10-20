@@ -71,3 +71,5 @@ Esse projeto está sob a licença GNU Affero General Public License v3.0. Veja o
 ## Validação e build local
 
 Veja [Build Android](documentation/Android-Build.md), [matriz de smoke](documentation/Smoke-Android.md), [CI](documentation/CI.md) e [estratégia de modernização](documentation/architecture-modernization.md). Use `npm ci` com Node 24.20.0 e o lockfile versionado.
+
+Os gates TypeScript e a dívida restante estão em [Baseline de qualidade](documentation/quality-baseline.md). Para testes isolados, consulte [E2E Android](documentation/E2E-Android.md) e [matriz visual](documentation/mobile-visual-matrix.md).
