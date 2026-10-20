@@ -1,6 +1,10 @@
+import type { TextInputProps, ViewStyle } from 'react-native';
+import type { ReactNode } from 'react';
 import { ActivityIndicator, TextInput, View } from 'react-native';
 import { tokens } from '../../styles/tokens';
 import { Feedback } from '../commonComponents/Feedback';
+
+type InputProps = TextInputProps & { disabled?: boolean; loading?: boolean; error?: ReactNode };
 
 const Input = ({
 	value,
@@ -13,7 +17,7 @@ const Input = ({
 	loading = false,
 	error,
 	...props
-}) => (
+}: InputProps) => (
 	<View style={inputContainer}>
 		<TextInput
 			{...props}
@@ -41,5 +45,5 @@ const Input = ({
 );
 export { Input };
 
-const inputContainer = { width: '100%' };
+const inputContainer: ViewStyle = { width: '100%' };
 const inputBorder = { borderWidth: 1 };
