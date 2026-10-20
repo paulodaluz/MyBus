@@ -1,0 +1,42 @@
+appId: com.paulodaluz.brazil.mybus
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- extendedWaitUntil:
+    visible: 'MyBus'
+    timeout: 90000
+- tapOn: 'Cadastre-se'
+- tapOn: 'Nome completo'
+- inputText: 'Passageiro E2E'
+- hideKeyboard
+- scrollUntilVisible:
+    element: 'Email'
+    direction: DOWN
+- tapOn: 'Email'
+- inputText: 'new-passenger@mybus.test'
+- hideKeyboard
+- scrollUntilVisible:
+    element: 'Senha'
+    direction: DOWN
+- tapOn: 'Senha'
+- inputText: 'Testpass123'
+- hideKeyboard
+- scrollUntilVisible:
+    element: 'Confirme sua senha'
+    direction: DOWN
+- tapOn: 'Confirme sua senha'
+- inputText: 'Testpass123'
+- hideKeyboard
+- scrollUntilVisible:
+    element: 'Pronto'
+    direction: DOWN
+- takeScreenshot: register-keyboard
+- tapOn: 'Pronto'
+- extendedWaitUntil:
+    visible: 'Continuar'
+    timeout: 30000
+- tapOn: 'Continuar'
+- runFlow: flows/map-ready.yaml
+- takeScreenshot: registered-map

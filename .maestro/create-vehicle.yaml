@@ -1,0 +1,31 @@
+appId: com.paulodaluz.brazil.mybus
+---
+- runFlow:
+    file: flows/login.yaml
+    env:
+      EMAIL: company@mybus.test
+- tapOn: 'CADASTRAR NOVO VEÍCULO'
+- tapOn: 'Digite o nome'
+- inputText: 'Veiculo teste E2E'
+- hideKeyboard
+- scrollUntilVisible:
+    element: 'Digite o valor'
+    direction: DOWN
+- tapOn: 'Digite o valor'
+- inputText: '5'
+- hideKeyboard
+- scrollUntilVisible:
+    element: 'Digite a placa'
+    direction: DOWN
+- tapOn: 'Digite a placa'
+- inputText: 'E2E1234'
+- hideKeyboard
+- scrollUntilVisible:
+    element: 'Cadastrar'
+    direction: DOWN
+- takeScreenshot: vehicle-form
+- tapOn: 'Cadastrar'
+- extendedWaitUntil:
+    visible: 'DESEJA VISUALIZAR O CÓDIGO DO VEÍCULO.*'
+    timeout: 30000
+- takeScreenshot: vehicle-created

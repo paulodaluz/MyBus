@@ -30,3 +30,8 @@ google-services-private.json
 android/
 ios/
 dist/
+
+# Local E2E artifacts
+e2e/artifacts/
+*-debug.log
+.maestro/tests/

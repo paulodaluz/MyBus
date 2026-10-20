@@ -18,7 +18,11 @@
     "lint:commit": "commitlint",
     "precommit": "lint-staged",
     "prepare": "husky",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "e2e:emulators": "npx firebase-tools@15.33.0 emulators:start --project demo-mybus --config e2e/firebase.json --only auth,firestore,database",
+    "e2e:firebase": "node scripts/e2e-firebase-smoke.mjs",
+    "e2e:seed": "node scripts/e2e-seed.mjs",
+    "e2e:android": "bash scripts/e2e-android.sh"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",

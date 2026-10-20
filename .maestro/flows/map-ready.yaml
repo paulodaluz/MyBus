@@ -1,0 +1,18 @@
+appId: com.paulodaluz.brazil.mybus
+---
+- extendedWaitUntil:
+    visible: 'Centralizar mapa|Don.t allow'
+    timeout: 30000
+- runFlow:
+    when:
+      visible: 'Don.t allow'
+    commands:
+      - tapOn: 'Don.t allow'
+- runFlow:
+    when:
+      visible: 'Permissão de acesso a localização negado!'
+    commands:
+      - tapOn: 'OK'
+- extendedWaitUntil:
+    visible: 'Centralizar mapa'
+    timeout: 30000

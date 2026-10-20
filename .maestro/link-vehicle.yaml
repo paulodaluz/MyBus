@@ -1,0 +1,23 @@
+appId: com.paulodaluz.brazil.mybus
+---
+- runFlow:
+    file: flows/login.yaml
+    env:
+      EMAIL: passenger@mybus.test
+- tapOn: 'Adicionar veículo privado'
+- tapOn: 'Código de seu Veículo'
+- inputText: '#E2ETEST'
+- hideKeyboard
+- tapOn: 'Continuar'
+- extendedWaitUntil:
+    visible: 'Veículo adicionado com sucesso! Para visualizar volte ao mapa!'
+    timeout: 30000
+- tapOn: 'OK'
+- pressKey: Back
+- tapOn: 'Configurações'
+- scrollUntilVisible:
+    element: 'Listar meus veículos privados'
+    direction: DOWN
+- tapOn: 'Listar meus veículos privados'
+- assertVisible: 'Onibus privado E2E'
+- takeScreenshot: linked-vehicle
