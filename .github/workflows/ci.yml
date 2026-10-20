@@ -38,6 +38,9 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      - name: Check formatting
+        run: npm run format:check
+
   expo-doctor:
     name: Expo Doctor
     runs-on: ubuntu-latest

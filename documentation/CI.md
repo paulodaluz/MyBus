@@ -4,7 +4,7 @@ O workflow `.github/workflows/ci.yml` roda em pull requests destinados a `main` 
 Usa Node 24.20.0 e `npm ci`, com `package-lock.json` versionado e cache do npm.
 A instalação falha se o manifesto divergir do lockfile.
 
-São obrigatórios: ESLint sem warnings, TypeScript, Jest com os limites de cobertura de 100% do repositório, Expo Doctor e exportação JavaScript Android/iOS. Nenhum job ignora falhas.
+São obrigatórios: ESLint sem warnings, formatação (incluindo TS/TSX), TypeScript, Jest com os limites de cobertura de 100% do repositório, Expo Doctor e exportação JavaScript Android/iOS. Nenhum job ignora falhas.
 Também foram integradas as verificações do trabalho local anterior: SonarQube, CodeQL, auditoria de dependências, revisão de dependências em PR e Gitleaks.
 A permissão padrão é `contents: read`; apenas CodeQL recebe `security-events: write`.
 
