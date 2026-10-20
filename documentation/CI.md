@@ -49,3 +49,18 @@ O `package-lock.json` registra essas versões para `npm ci`. Não executar `npm 
 Validação local: `npm ci` e auditoria sem vulnerabilidades; Expo Doctor 18/18; ESLint sem warnings; TypeScript; 26 suítes/119 testes com 100% de cobertura; exports Android/iOS; geração de UUID pelo pacote `xcode`; commitlint; sintaxe YAML e correspondência entre artefato LCOV, caminho do scanner e arquivos de origem.
 
 A reexecução remota do Sonar confirmou a resolução do conflito entre análise automática e CI, mas revelou reprovação por cobertura de 0% (mínimo de 80%). O envio do LCOV corrige essa configuração e ainda precisa ser validado numa execução remota com o workflow atualizado.
+
+## Verificação do PR de modernização em 20/10/2026
+
+A [primeira execução do PR #73](https://github.com/paulodaluz/MyBus/actions/runs/39443752031) aprovou ESLint/formatação, TypeScript/Jest, Expo Doctor, exports Android/iOS, CodeQL, revisão de dependências, secret scan e SonarQube. `Dependency Audit` falhou com 36 entradas (30 altas, 5 moderadas e 1 crítica) no lockfile preexistente.
+
+A atualização compatível do lockfile corrige `shell-quote` (1.12.0), `brace-expansion` (1.1.21/2.1.7/5.0.12), `compression` (1.8.2), `source-map-js` (1.2.2) e `undici` (6.29.1). Nenhuma dependência direta, Expo ou React Native foi alterada. A auditoria local passou a registrar zero entradas críticas e 31 entradas restantes: 26 altas e 5 moderadas, incluindo os dependentes transitivos.
+
+Bloqueios restantes:
+
+- `braces` 3.0.3: o [aviso GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm) não lista versão corrigida.
+- `node-forge` 1.4.0: o [aviso GHSA-86w9-cpqp-85rv](https://github.com/advisories/GHSA-86w9-cpqp-85rv) não lista versão corrigida.
+- `@grpc/grpc-js` 1.9.16: os avisos [GHSA-m9gg-hp2v-232j](https://github.com/advisories/GHSA-m9gg-hp2v-232j) e [GHSA-f596-whhp-79r4](https://github.com/advisories/GHSA-f596-whhp-79r4) exigem versão corrigida fora do intervalo `~1.9.0` declarado pelo Firestore instalado; requer uma atualização/override validada separadamente.
+- `sprintf-js` 1.1.3: entrada moderada transmitida por ferramentas de instrumentação; permanece contabilizada na auditoria, sem ser o motivo isolado da reprovação no limite `high`.
+
+O job de auditoria e seu limite `high` permanecem ativos. `npm audit fix --force` propõe mudanças incompatíveis na base (incluindo downgrade de Expo); isso não foi aplicado. Até resolver os bloqueios restantes, a pipeline não deve ser reportada como integralmente aprovada.
