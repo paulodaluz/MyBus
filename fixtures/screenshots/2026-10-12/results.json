@@ -1,0 +1,208 @@
+{
+  "date": "2026-10-12",
+  "timezone": "America/Sao_Paulo",
+  "baseline_commit": "b085a83",
+  "source_sha256": "3c14f91b7b25f948cc3a0209351a9bc180e9a2f957ece293b9c01f892b7fa93a",
+  "apk": "dist/android/mybus-debug.apk",
+  "apk_sha256": "65a1249856951d5f1a45fc9c75c49586e577b83c15cccf73e2f09b7ed6bce9e5",
+  "bundle": "current workspace via Metro; Expo 54; Firebase local demo-mybus",
+  "device": "Pixel_3a_XL_API_33",
+  "maestro": "2.11.0",
+  "firebase_tools": "15.33.0",
+  "jvm": "21",
+  "results": [
+    {
+      "profile": "compact",
+      "repetition": 1,
+      "flow": "public-smoke",
+      "tests": 1,
+      "failures": 0,
+      "seconds": 62.17
+    },
+    {
+      "profile": "compact",
+      "repetition": 2,
+      "flow": "public-smoke",
+      "tests": 1,
+      "failures": 0,
+      "seconds": 57.398
+    },
+    {
+      "profile": "regular",
+      "repetition": 1,
+      "flow": "public-smoke",
+      "tests": 1,
+      "failures": 0,
+      "seconds": 54.505
+    },
+    {
+      "profile": "regular",
+      "repetition": 2,
+      "flow": "public-smoke",
+      "tests": 1,
+      "failures": 0,
+      "seconds": 55.996
+    },
+    {
+      "profile": "large-font",
+      "repetition": 1,
+      "flow": "public-smoke",
+      "tests": 1,
+      "failures": 0,
+      "seconds": 56.538
+    },
+    {
+      "profile": "large-font",
+      "repetition": 2,
+      "flow": "public-smoke",
+      "tests": 1,
+      "failures": 0,
+      "seconds": 57.644
+    }
+  ],
+  "unit_tests": {
+    "suites": 26,
+    "tests": 124,
+    "coverage_percent": 100
+  },
+  "checks": [
+    "lint",
+    "format:check",
+    "typecheck",
+    "Android export",
+    "modular SDK Auth/Firestore CRUD/RTDB listener/write/read on emulators"
+  ],
+  "pending": [
+    "Native map workflows: APK lacks Google Maps API key; user explicitly deferred validation",
+    "Welcome illustration not rendered in this debug APK via Metro; asset served with HTTP 200",
+    "Extended visual checklist and release/physical-device smoke"
+  ],
+  "screenshots": [
+    {
+      "path": "compact/company-register-action.png",
+      "width": 640,
+      "height": 1136,
+      "sha256": "19dbc19236c529f0a99e9b14132e0e6f9f8f6f3f3256d1ada3eb08f673a54ea7"
+    },
+    {
+      "path": "compact/company-register.png",
+      "width": 640,
+      "height": 1136,
+      "sha256": "652878ecfc0a45d71cf9888c54d80f073e30e55613374b68417df03defd7aa66"
+    },
+    {
+      "path": "compact/passenger-register-action.png",
+      "width": 640,
+      "height": 1136,
+      "sha256": "9f27012a0ddd21379f2cdabfc82727103e13b6403461daa0ed45f2071e628fb6"
+    },
+    {
+      "path": "compact/passenger-register.png",
+      "width": 640,
+      "height": 1136,
+      "sha256": "3f88bb553bc008a9825e9c0eac04a3f8bec7054c3748412b2ceac6f45c96cd80"
+    },
+    {
+      "path": "compact/reset-password.png",
+      "width": 640,
+      "height": 1136,
+      "sha256": "c222e4eef200a8e63f436788e40c3cf050e49f7658f221782d128d74a92621f1"
+    },
+    {
+      "path": "compact/reset-sent.png",
+      "width": 640,
+      "height": 1136,
+      "sha256": "ec488b41e9d777d327c70226d86a2cc8a38b0d39a5d016b0d57d3bacbac27946"
+    },
+    {
+      "path": "compact/welcome.png",
+      "width": 640,
+      "height": 1136,
+      "sha256": "8dc613d1a8dce410ad0c7db7ea5f3c3f2bd62d935fdc16d4715dedfe65ed68dd"
+    },
+    {
+      "path": "large-font/company-register-action.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "d1eb320cabda4acf3917d4cf626425fc155f6cfba4f013b1c545398d4092ee7c"
+    },
+    {
+      "path": "large-font/company-register.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "d1eb320cabda4acf3917d4cf626425fc155f6cfba4f013b1c545398d4092ee7c"
+    },
+    {
+      "path": "large-font/passenger-register-action.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "ef1853e3a3ad4a0d01c38ffeb09f8d802ed0428847ca813d7528c4f62752e35f"
+    },
+    {
+      "path": "large-font/passenger-register.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "ef1853e3a3ad4a0d01c38ffeb09f8d802ed0428847ca813d7528c4f62752e35f"
+    },
+    {
+      "path": "large-font/reset-password.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "c8a966d6e6c9a57a185ef79577c518a4740c12439c7bf15a76af43802aa236a3"
+    },
+    {
+      "path": "large-font/reset-sent.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "25baedc006c553f17c4196a94e545ba6bbfc1ef909119c418c0399339aec629f"
+    },
+    {
+      "path": "large-font/welcome.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "cbf9c44b966a5237cd61fe296445b15649123428bda9ead829a568866916fe23"
+    },
+    {
+      "path": "regular/company-register-action.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "b78464fd3c11843d5429692d9697caeb766e38be0b8ef6296db775186b1b3494"
+    },
+    {
+      "path": "regular/company-register.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "9e7d24fac9e9376d375db501ec65d5632a00818327302977d589412f72a94a15"
+    },
+    {
+      "path": "regular/passenger-register-action.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "d0b553ef83c85db0eca3ca00a73dd1170c56fd81851535a8d0762a6d7428ade8"
+    },
+    {
+      "path": "regular/passenger-register.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "d0b553ef83c85db0eca3ca00a73dd1170c56fd81851535a8d0762a6d7428ade8"
+    },
+    {
+      "path": "regular/reset-password.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "9752a5b3c4be1291eb7db1975208d53bec1311dff6b1466c250e1f5a06db5112"
+    },
+    {
+      "path": "regular/reset-sent.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "c86f87b20f0af99e2cc1588b86d16bdf36b5acd451a5b6cccb18ef8304588ad9"
+    },
+    {
+      "path": "regular/welcome.png",
+      "width": 864,
+      "height": 1920,
+      "sha256": "2d9575095a006f191ebb9eb8b688ae8bc369bd8c5d2830b1b03faf61bb96d8e9"
+    }
+  ]
+}

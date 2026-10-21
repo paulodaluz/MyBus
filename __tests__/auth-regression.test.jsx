@@ -19,6 +19,7 @@ jest.mock('../src/backend/Login', () => ({
 jest.mock('../src/service/AuthService', () => ({
 	login: mockAuthLogin,
 	requestPasswordReset: mockRequestPasswordReset,
+	hasAuthCode: (error, code) => error?.code === code,
 }));
 jest.mock('../src/backend/Users/Passenger', () => ({
 	createPassengerBackend: mockCreatePassengerBackend,

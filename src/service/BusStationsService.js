@@ -1,13 +1,14 @@
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '../database/FirebaseConfiguration';
 
 export const getAllBusStations = async () => {
 	let busStations = [];
-	const snapshot = await db.collection('bus_stations').get();
+	const snapshot = await getDocs(collection(db, 'bus_stations'));
 
-	snapshot.forEach((doc) => {
-		let busStation = doc.data();
+	snapshot.forEach((document) => {
+		let busStation = document.data();
 
-		busStation.id = doc.id;
+		busStation.id = document.id;
 		busStations.push(busStation);
 	});
 
@@ -16,8 +17,7 @@ export const getAllBusStations = async () => {
 
 export const saveNewBusStation = async (busStations) => {
 	return new Promise((resolve, reject) => {
-		db.collection('bus_stations')
-			.add(busStations)
+		addDoc(collection(db, 'bus_stations'), busStations)
 			.then((result) => {
 				return resolve(result);
 			})

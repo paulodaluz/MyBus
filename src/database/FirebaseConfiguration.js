@@ -1,7 +1,14 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/database';
-import 'firebase/compat/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
+import { getApp, getApps, initializeApp } from 'firebase/app';
+import {
+	connectAuthEmulator,
+	getAuth,
+	initializeAuth,
+	getReactNativePersistence,
+} from 'firebase/auth';
+import { connectDatabaseEmulator, getDatabase } from 'firebase/database';
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
 	apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -20,9 +27,28 @@ const configurationError = missingFields.length
 	? `Configuração Firebase ausente: ${missingNames}. Preencha o arquivo .env conforme .env.example e reinicie o aplicativo.`
 	: null;
 let firebaseApp = null;
+let existingApp = false;
 if (!configurationError) {
-	firebaseApp = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
+	existingApp = getApps().length > 0;
+	firebaseApp = existingApp ? getApp() : initializeApp(firebaseConfig);
 }
-const db = firebaseApp ? firebaseApp.firestore() : null;
+const db = firebaseApp ? getFirestore(firebaseApp) : null;
+const auth = firebaseApp
+	? Platform.OS === 'web' || existingApp
+		? getAuth(firebaseApp)
+		: initializeAuth(firebaseApp, { persistence: getReactNativePersistence(AsyncStorage) })
+	: null;
+const realtimeDb = firebaseApp ? getDatabase(firebaseApp) : null;
 
-export { db, firebase, configurationError };
+// This opt-in is compiled only into the local demo build, never a real project.
+const emulatorHost = process.env.EXPO_PUBLIC_FIREBASE_EMULATOR_HOST;
+if (firebaseApp && emulatorHost) {
+	if (firebaseApp.options.projectId !== 'demo-mybus') {
+		throw new Error('Emuladores E2E exigem o projeto demo-mybus.');
+	}
+	connectAuthEmulator(auth, `http://${emulatorHost}:9099`, { disableWarnings: true });
+	connectFirestoreEmulator(db, emulatorHost, 8080);
+	connectDatabaseEmulator(realtimeDb, emulatorHost, 9000);
+}
+
+export { db, auth, realtimeDb, configurationError };

@@ -1,0 +1,17 @@
+appId: com.paulodaluz.brazil.mybus
+---
+- runFlow:
+    file: flows/login.yaml
+    env:
+      EMAIL: passenger@mybus.test
+- takeScreenshot: passenger-map
+- tapOn: 'Configurações'
+- takeScreenshot: passenger-settings
+- scrollUntilVisible:
+    element: 'Sair da conta'
+    direction: DOWN
+- tapOn: 'Sair da conta'
+- assertVisible: 'MyBus'
+- takeScreenshot: logged-out
+- pressKey: Back
+- assertNotVisible: 'Centralizar mapa'

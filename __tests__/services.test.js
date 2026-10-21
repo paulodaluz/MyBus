@@ -20,12 +20,37 @@ const mockSet = jest.fn();
 const mockOn = jest.fn();
 const mockRealtimeRef = { set: mockSet, on: mockOn };
 const mockRealtime = { ref: jest.fn(() => mockRealtimeRef) };
-const mockFirebase = {
-	auth: jest.fn(() => mockAuth),
-	database: jest.fn(() => mockRealtime),
-};
-
-jest.mock('../src/database/FirebaseConfiguration', () => ({ db: mockDb, firebase: mockFirebase }));
+jest.mock('../src/database/FirebaseConfiguration', () => ({
+	db: mockDb,
+	auth: mockAuth,
+	realtimeDb: mockRealtime,
+}));
+jest.mock('firebase/firestore', () => ({
+	collection: (db, name) => db.collection(name),
+	doc: (db, name, id) => db.collection(name).doc(id),
+	addDoc: (collection, value) => collection.add(value),
+	getDocs: (collection) => collection.get(),
+	updateDoc: (doc, value) => doc.update(value),
+	deleteDoc: (doc) => doc.delete(),
+}));
+jest.mock('firebase/auth', () => ({
+	createUserWithEmailAndPassword: (auth, email, password) =>
+		auth.createUserWithEmailAndPassword(email, password),
+	signInWithEmailAndPassword: (auth, email, password) =>
+		auth.signInWithEmailAndPassword(email, password),
+	signOut: (auth) => auth.signOut(),
+	sendPasswordResetEmail: (auth, email) => auth.sendPasswordResetEmail(email),
+}));
+jest.mock('firebase/database', () => ({
+	ref: (db, path) => db.ref(path),
+	set: (ref, value) => ref.set(value),
+	get: (ref) => new Promise((resolve) => ref.on('value', resolve)),
+	onValue: (ref, callback, onError) => {
+		ref.on('value', callback, onError);
+		return mockUnsubscribe;
+	},
+}));
+const mockUnsubscribe = jest.fn();
 
 const { login, register, logout, requestPasswordReset } = require('../src/service/AuthService');
 const { getAllBusStations, saveNewBusStation } = require('../src/service/BusStationsService');
@@ -39,6 +64,7 @@ const {
 	getLocalizationVehicles,
 	getSpecificVehicle,
 	registerRealTimeLocalVehicle,
+	subscribeVehicleLocations,
 } = require('../src/service/MapLocalizationService');
 const { saveFeedback: saveAppFeedback } = require('../src/service/MyBusFeedback');
 const { getAllUsers, saveUser, updateUser } = require('../src/service/PassengerService');
@@ -274,4 +300,32 @@ test('password reset trims email and conceals unknown accounts but retains opera
 	const error = { code: 'auth/too-many-requests' };
 	mockAuth.sendPasswordResetEmail.mockRejectedValueOnce(error);
 	await expect(requestPasswordReset('user@example.com')).rejects.toBe(error);
+});
+
+test('subscriptions return their disposer and preserve cancellation errors', () => {
+	const receive = jest.fn();
+	const failed = jest.fn();
+	mockOn.mockImplementationOnce((event, callback) => callback({ val: () => ({ company: {} }) }));
+	const dispose = subscribeVehicleLocations(receive, failed);
+	expect(receive).toHaveBeenCalledWith({ company: {} });
+	expect(mockOn).toHaveBeenCalledWith('value', expect.any(Function), failed);
+	dispose();
+	expect(mockUnsubscribe).toHaveBeenCalledTimes(1);
+});
+
+test('Auth error codes accept only error objects and unavailable configuration fails clearly', async () => {
+	const { hasAuthCode } = require('../src/service/AuthService');
+	for (const value of [null, undefined, 'offline', {}, { code: 'different' }]) {
+		expect(hasAuthCode(value, 'auth/user-not-found')).toBe(false);
+	}
+	expect(hasAuthCode({ code: 'auth/user-not-found' }, 'auth/user-not-found')).toBe(true);
+	const config = require('../src/database/FirebaseConfiguration');
+	config.auth = null;
+	config.configurationError = 'Missing config';
+	await expect(requestPasswordReset('test@mybus.test')).rejects.toThrow('Missing config');
+	config.configurationError = null;
+	await expect(requestPasswordReset('test@mybus.test')).rejects.toThrow(
+		'Firebase Auth indisponível'
+	);
+	config.auth = mockAuth;
 });

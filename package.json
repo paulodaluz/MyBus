@@ -11,14 +11,18 @@
     "eject": "expo eject",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "format:check": "prettier --check \"**/*.{js,jsx,json,md}\"",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,mjs,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,mjs,json,md}\"",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint:commit": "commitlint",
     "precommit": "lint-staged",
     "prepare": "husky",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "e2e:emulators": "npx firebase-tools@15.33.0 emulators:start --project demo-mybus --config e2e/firebase.json --only auth,firestore,database",
+    "e2e:firebase": "node scripts/e2e-firebase-smoke.mjs",
+    "e2e:seed": "node scripts/e2e-seed.mjs",
+    "e2e:android": "bash scripts/e2e-android.sh"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",

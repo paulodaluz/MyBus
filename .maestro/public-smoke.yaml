@@ -1,0 +1,59 @@
+appId: com.paulodaluz.brazil.mybus
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- extendedWaitUntil:
+    visible: 'MyBus'
+    timeout: 90000
+- takeScreenshot: welcome
+- tapOn: 'Login'
+- assertVisible: 'Email'
+- scrollUntilVisible:
+    element: 'Esqueceu sua senha?'
+    direction: DOWN
+- tapOn: 'Esqueceu sua senha?'
+- assertVisible: 'Continuar'
+- takeScreenshot: reset-password
+- tapOn: 'Email'
+- inputText: 'invalid'
+- hideKeyboard
+- scrollUntilVisible:
+    element: 'Continuar'
+    direction: DOWN
+- tapOn: 'Continuar'
+- assertVisible: 'E-mail inválido!'
+- tapOn: 'OK'
+- tapOn: 'Email'
+- eraseText
+- inputText: 'passenger@mybus.test'
+- hideKeyboard
+- scrollUntilVisible:
+    element: 'Continuar'
+    direction: DOWN
+- tapOn: 'Continuar'
+- extendedWaitUntil:
+    visible: 'Confira seu e-mail'
+    timeout: 30000
+- takeScreenshot: reset-sent
+- tapOn: 'OK'
+- pressKey: Back
+- assertVisible: 'Senha'
+
+- pressKey: Back
+- tapOn: 'Cadastre-se'
+- takeScreenshot: passenger-register
+- scrollUntilVisible:
+    element: 'Pronto'
+    direction: DOWN
+- takeScreenshot: passenger-register-action
+- pressKey: Back
+- tapOn: 'Passageiro'
+- tapOn: 'Cadastre-se'
+- takeScreenshot: company-register
+- scrollUntilVisible:
+    element: 'Pronto'
+    direction: DOWN
+- takeScreenshot: company-register-action
+- pressKey: Back

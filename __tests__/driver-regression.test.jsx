@@ -1,3 +1,11 @@
+jest.mock('firebase/database', () => ({
+	ref: (db, path) => db.ref(path),
+	set: (ref, value) => ref.set(value),
+	onValue: (ref, callback, onError) => {
+		ref.on('value', callback, onError);
+		return () => ref.off('value', callback);
+	},
+}));
 jest.mock('../src/hooks/useMapRegion', () => ({
 	useMapRegion: () => ({
 		mapRef: { current: null },
@@ -35,7 +43,7 @@ jest.mock('expo-location', () => ({
 	getCurrentPositionAsync: mockGetCurrentPosition,
 }));
 jest.mock('../src/database/FirebaseConfiguration', () => ({
-	firebase: { database: () => ({ ref: mockDatabaseRef }) },
+	realtimeDb: { ref: mockDatabaseRef },
 }));
 jest.mock('react-native-maps', () => {
 	const { View } = require('react-native');

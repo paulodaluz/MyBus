@@ -1,9 +1,8 @@
+import { collection, doc, addDoc, updateDoc, deleteDoc, getDocs } from 'firebase/firestore';
 import { db } from '../database/FirebaseConfiguration';
 
 export const saveFunctionsVehicle = async (functionsVehicle) => {
-	return await db
-		.collection('vehicle_functions')
-		.add(functionsVehicle)
+	return await addDoc(collection(db, 'vehicle_functions'), functionsVehicle)
 		.then((result) => {
 			return result;
 		})
@@ -15,9 +14,7 @@ export const saveFunctionsVehicle = async (functionsVehicle) => {
 
 export const updateFunctionsVehicle = async (id, functionsVehicle) => {
 	return new Promise((resolve, reject) => {
-		db.collection('vehicle_functions')
-			.doc(id)
-			.update(functionsVehicle)
+		updateDoc(doc(db, 'vehicle_functions', id), functionsVehicle)
 			.then(() => resolve())
 			.catch((error) => {
 				console.log(`VehicleFunctionsService - updateFunctionsVehicle - ERROR = ${error}`);
@@ -28,10 +25,10 @@ export const updateFunctionsVehicle = async (id, functionsVehicle) => {
 
 export const getAllFunctionsVehicles = async () => {
 	let functionsVehicles = [];
-	const snapshot = await db.collection('vehicle_functions').get();
-	snapshot.forEach((doc) => {
-		let functionsVehicle = doc.data();
-		functionsVehicle.id = doc.id;
+	const snapshot = await getDocs(collection(db, 'vehicle_functions'));
+	snapshot.forEach((document) => {
+		let functionsVehicle = document.data();
+		functionsVehicle.id = document.id;
 		functionsVehicles.push(functionsVehicle);
 	});
 
@@ -40,9 +37,7 @@ export const getAllFunctionsVehicles = async () => {
 
 export const deleteVehicleFunctions = (id) => {
 	return new Promise((resolve, reject) => {
-		db.collection('vehicle_functions')
-			.doc(id)
-			.delete()
+		deleteDoc(doc(db, 'vehicle_functions', id))
 			.then(() => resolve())
 			.catch((error) => {
 				console.log(`VehicleFunctionsService - deleteVehicleFunctions - ERROR = ${error}`);

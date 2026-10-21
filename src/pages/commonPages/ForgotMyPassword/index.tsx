@@ -1,5 +1,6 @@
+import type { ScreenProps } from '../../../navigation/types';
 import { Screen } from '../../../components/commonComponents/Screen';
-import { requestPasswordReset } from '../../../service/AuthService';
+import { requestPasswordReset, hasAuthCode } from '../../../service/AuthService';
 import { isValidEmail } from '../../../backend/utils/Utils';
 import { useRef, useState } from 'react';
 import { Alert, View } from 'react-native';
@@ -10,7 +11,7 @@ import { darkGrey } from '../../../styles/colors';
 import { Footer } from './Footer';
 import { styles } from './style';
 
-export default function ForgotMyPassword({ navigation }) {
+export default function ForgotMyPassword({ navigation }: ScreenProps<'ForgotMyPassword'>) {
 	const [email, setEmail] = useState('');
 	const [loading, setLoading] = useState(false);
 	const pending = useRef(false);
@@ -35,7 +36,7 @@ export default function ForgotMyPassword({ navigation }) {
 				'Se houver uma conta para este endereço, você receberá um link para redefinir a senha.'
 			);
 		} catch (error) {
-			if (error.code === 'auth/too-many-requests') {
+			if (hasAuthCode(error, 'auth/too-many-requests')) {
 				nextRequestAt.current = Date.now() + 60000;
 				Alert.alert('Muitas tentativas. Aguarde antes de tentar novamente.');
 			} else {
@@ -64,7 +65,7 @@ export default function ForgotMyPassword({ navigation }) {
 					keyboardType="email-address"
 					autoCapitalize="none"
 					disabled={loading}
-					onChangeText={(text) => setEmail(text)}
+					onChangeText={(text: string) => setEmail(text)}
 				/>
 			</View>
 

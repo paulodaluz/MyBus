@@ -1,3 +1,11 @@
+jest.mock('firebase/database', () => ({
+	ref: (db, path) => db.ref(path),
+	set: (ref, value) => ref.set(value),
+	onValue: (ref, callback, onError) => {
+		ref.on('value', callback, onError);
+		return () => ref.off('value', callback);
+	},
+}));
 jest.mock('../src/hooks/useMapRegion', () => ({
 	useMapRegion: () => ({
 		mapRef: { current: null },
@@ -27,7 +35,8 @@ const mockGetSession = jest.fn();
 const mockLogout = jest.fn();
 const mockClipboardSetString = jest.fn();
 const mockDatabaseOn = jest.fn();
-const mockDatabaseRef = jest.fn(() => ({ on: mockDatabaseOn }));
+const mockDatabaseOff = jest.fn();
+const mockDatabaseRef = jest.fn(() => ({ on: mockDatabaseOn, off: mockDatabaseOff }));
 
 jest.mock('../src/backend/Users/Company', () => ({
 	getCompany: mockGetCompany,
@@ -59,7 +68,7 @@ jest.mock('../src/backend/Login', () => ({
 }));
 jest.mock('expo-clipboard', () => ({ setString: mockClipboardSetString }));
 jest.mock('../src/database/FirebaseConfiguration', () => ({
-	firebase: { database: () => ({ ref: mockDatabaseRef }) },
+	realtimeDb: { ref: mockDatabaseRef },
 }));
 jest.mock('react-native-maps', () => {
 	const { View } = require('react-native');
@@ -462,6 +471,25 @@ describe('company regressions', () => {
 				route={route({ user: { uid: 'c', linked_vehicles: [] } })}
 			/>
 		);
+	});
+
+	test('company location errors clear old markers and disposal removes the listener', async () => {
+		mockDatabaseOn.mockImplementationOnce((event, callback) =>
+			callback({ val: () => ({ c: { ABC: { latitude: 1, longitude: 2 } } }) })
+		);
+		const view = render(
+			<MapCompany
+				navigation={makeNavigation()}
+				route={route({ user: { uid: 'c', linked_vehicles: ['ABC'] } })}
+			/>
+		);
+		await waitFor(() => expect(view.getByLabelText('ABC')).toBeTruthy());
+		await act(async () => {
+			mockDatabaseOn.mock.calls.at(-1)[2](new Error('permission-denied'));
+		});
+		expect(view.queryByLabelText('ABC')).toBeNull();
+		view.unmount();
+		expect(mockDatabaseOff).toHaveBeenCalledWith('value', expect.any(Function));
 	});
 
 	test('renders feedback empty and populated states', async () => {

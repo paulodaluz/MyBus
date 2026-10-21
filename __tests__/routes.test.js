@@ -1,3 +1,6 @@
+jest.mock('firebase/auth', () => ({}));
+jest.mock('firebase/firestore', () => ({}));
+jest.mock('firebase/database', () => ({}));
 const mockRealtime = { ref: jest.fn(() => ({ on: jest.fn() })) };
 
 jest.mock('../src/database/FirebaseConfiguration', () => ({

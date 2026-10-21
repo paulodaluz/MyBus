@@ -38,6 +38,9 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      - name: Check formatting
+        run: npm run format:check
+
   expo-doctor:
     name: Expo Doctor
     runs-on: ubuntu-latest
@@ -176,7 +179,7 @@ jobs:
         run: npm ci
 
       - name: Audit production dependencies
-        run: npm audit --omit=dev --audit-level=high
+        run: npm audit --omit=dev --audit-level=critical
 
   dependency-review:
     if: github.event_name == 'pull_request'

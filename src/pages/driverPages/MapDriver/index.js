@@ -2,7 +2,7 @@ import { WideButton } from '../../../components/WideButton';
 import { useMapRegion } from '../../../hooks/useMapRegion';
 import { Screen } from '../../../components/commonComponents/Screen';
 import * as Location from 'expo-location';
-import { firebase } from '../../../database/FirebaseConfiguration';
+import { registerRealTimeLocalVehicle } from '../../../service/MapLocalizationService';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Image, Modal, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
@@ -46,18 +46,17 @@ export default function MapDriver({ navigation, route }) {
 
 	const sendMyLocalizationToFirebase = useCallback(async () => {
 		if (sharingLocalization && myPosition != null) {
-			await firebase
-				.database()
-				.ref(`/real_time_database/${company.uid}/${vehicle.registration_plate}`)
-				.set({
+			await registerRealTimeLocalVehicle(
+				{ companyUid: company.uid, vehiclePlate: vehicle.registration_plate },
+				{
 					latitude: myPosition.latitude,
 					longitude: myPosition.longitude,
 					status: 'Operando Normalmente',
-				})
-				.catch(() => {
-					setSharingLocalization(false);
-					Alert.alert('Não foi possível compartilhar. Verifique sua conexão.');
-				});
+				}
+			).catch(() => {
+				setSharingLocalization(false);
+				Alert.alert('Não foi possível compartilhar. Verifique sua conexão.');
+			});
 		}
 	}, [company.uid, myPosition, sharingLocalization, vehicle.registration_plate]);
 

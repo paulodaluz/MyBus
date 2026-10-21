@@ -1,8 +1,12 @@
+import type { ReactNode } from 'react';
+import type { StyleProp, ViewStyle } from 'react-native';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { tokens } from '../../styles/tokens';
 
-export function Screen({ children, scroll = true, style }) {
+type ScreenProps = { children: ReactNode; scroll?: boolean; style?: StyleProp<ViewStyle> };
+
+export function Screen({ children, scroll = true, style }: ScreenProps) {
 	return (
 		<SafeAreaView style={safeAreaStyle}>
 			<KeyboardAvoidingView
@@ -22,7 +26,7 @@ export function Screen({ children, scroll = true, style }) {
 }
 
 const safeAreaStyle = { flex: 1, backgroundColor: tokens.colors.background };
-const contentStyle = {
+const contentStyle: ViewStyle = {
 	width: '100%',
 	maxWidth: tokens.contentWidth,
 	alignSelf: 'center',
